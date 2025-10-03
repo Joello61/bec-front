@@ -1,0 +1,125 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { Mail, Phone, Calendar, Star, Edit } from 'lucide-react';
+import { Avatar, Button, Badge } from '@/components/ui';
+import { formatDate, formatPhone } from '@/lib/utils/format';
+import type { User } from '@/types';
+
+interface UserProfileHeaderProps {
+  user: User;
+  averageRating?: number;
+  totalAvis?: number;
+  isOwnProfile?: boolean;
+  onEdit?: () => void;
+  onMessage?: () => void;
+}
+
+export default function UserProfileHeader({
+  user,
+  averageRating,
+  totalAvis,
+  isOwnProfile = false,
+  onEdit,
+  onMessage,
+}: UserProfileHeaderProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="card p-6"
+    >
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Avatar */}
+        <div className="flex-shrink-0">
+          <Avatar
+            src={user.photo || undefined}
+            fallback={`${user.nom} ${user.prenom}`}
+            size="xl"
+            verified={user.emailVerifie}
+          />
+        </div>
+
+        {/* Info */}
+        <div className="flex-1">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                {user.prenom} {user.nom}
+              </h1>
+
+              {/* Badges */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                {user.emailVerifie && (
+                  <Badge variant="success" size="sm">
+                    Email vérifié
+                  </Badge>
+                )}
+                {user.telephoneVerifie && (
+                  <Badge variant="success" size="sm">
+                    Téléphone vérifié
+                  </Badge>
+                )}
+              </div>
+
+              {/* Rating */}
+              {averageRating !== undefined && (
+                <div className="flex items-center gap-2 text-sm">
+                  <Star className="w-4 h-4 fill-warning text-warning" />
+                  <span className="font-medium">{averageRating.toFixed(1)}</span>
+                  {totalAvis !== undefined && (
+                    <span className="text-gray-500">({totalAvis} avis)</span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-2">
+              {isOwnProfile && onEdit ? (
+                <Button
+                  variant="outline"
+                  onClick={onEdit}
+                  leftIcon={<Edit className="w-4 h-4" />}
+                >
+                  Modifier
+                </Button>
+              ) : (
+                onMessage && (
+                  <Button variant="primary" onClick={onMessage}>
+                    Contacter
+                  </Button>
+                )
+              )}
+            </div>
+          </div>
+
+          {/* Bio */}
+          {user.bio && (
+            <p className="text-gray-700 mb-4">{user.bio}</p>
+          )}
+
+          {/* Contact Info */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Mail className="w-4 h-4" />
+              <span>{user.email}</span>
+            </div>
+
+            {user.telephone && (
+              <div className="flex items-center gap-2 text-gray-600">
+                <Phone className="w-4 h-4" />
+                <span>{formatPhone(user.telephone)}</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2 text-gray-600">
+              <Calendar className="w-4 h-4" />
+              <span>Membre depuis {formatDate(user.createdAt)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}

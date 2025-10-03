@@ -1,0 +1,586 @@
+'use client';
+
+import Link from 'next/link';
+import { ROUTES, CONTACT } from '@/lib/utils/constants';
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  const links = {
+    platform: [
+      { name: 'Voyages', href: ROUTES.VOYAGES },
+      { name: 'Demandes', href: ROUTES.DEMANDES },
+      { name: 'Comment ça marche', href: '/how-it-works' },
+    ],
+    legal: [
+      { name: 'Conditions d\'utilisation', href: '/terms' },
+      { name: 'Politique de confidentialité', href: '/privacy' },
+      { name: 'Mentions légales', href: '/legal' },
+    ],
+    support: [
+      { name: 'Centre d\'aide', href: '/help' },
+      { name: 'Contact', href: '/contact' },
+      { name: 'FAQ', href: '/faq' },
+    ],
+  };
+
+  return (
+    <footer className="bg-gray-900 text-gray-300">
+      <div className="container-custom py-12">
+        {/* Top Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xl">B</span>
+              </div>
+              <span className="font-bold text-lg text-white">
+                Bagage Express
+              </span>
+            </div>
+            <p className="text-sm text-gray-400 mb-4">
+              Connectez voyageurs et expéditeurs pour un transport sûr et économique de colis entre le Cameroun et le monde.
+            </p>
+            <div className="flex gap-3">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-primary flex items-center justify-center transition-colors"
+                aria-label="Facebook"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-primary flex items-center justify-center transition-colors"
+                aria-label="Twitter"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-primary flex items-center justify-center transition-colors"
+                aria-label="Instagram"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Platform Links */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Plateforme</h3>
+            <ul className="space-y-2">
+              {links.platform.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal Links */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Légal</h3>
+            <ul className="space-y-2">
+              {links.legal.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Support Links */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Support</h3>
+            <ul className="space-y-2">
+              {links.support.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 pt-4 border-t border-gray-800">
+              <p className="text-sm text-gray-400">{CONTACT.EMAIL}</p>
+              <p className="text-sm text-gray-400">{CONTACT.PHONE}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-gray-400">
+            © {currentYear} Bagage Express Cameroun. Tous droits réservés.
+          </p>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-400">Fait avec ❤️ au Cameroun</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAuth } from '@/lib/hooks';
+import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
+import { Avatar, Badge, Dropdown, DropdownItem, DropdownDivider } from '@/components/ui';
+import { ROUTES } from '@/lib/utils/constants';
+import { cn } from '@/lib/utils/cn';
+
+export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const { user, isAuthenticated, logout } = useAuth();
+  const { unreadCount: notifCount } = useUnreadNotificationCount();
+  const { unreadCount: messageCount } = useUnreadMessages();
+
+  const navigation = [
+    { name: 'Voyages', href: ROUTES.VOYAGES },
+    { name: 'Demandes', href: ROUTES.DEMANDES },
+  ];
+
+  const isActive = (href: string) => pathname === href;
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = ROUTES.HOME;
+  };
+
+  return (
+    <header className="sticky top-0 z-40 bg-white border-b border-gray-200">
+      <nav className="container-custom">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href={ROUTES.HOME} className="flex items-center gap-2 group">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
+              <span className="text-white font-bold text-xl">B</span>
+            </div>
+            <span className="font-bold text-lg text-gray-900 hidden sm:block">
+              Bagage Express
+            </span>
+          </Link>
+
+          {/* Navigation Desktop */}
+          <div className="hidden md:flex items-center gap-1">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                  isActive(item.href)
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-gray-700 hover:bg-gray-100'
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Actions Desktop */}
+          <div className="hidden md:flex items-center gap-3">
+            {isAuthenticated ? (
+              <>
+                {/* Notifications */}
+                <Link
+                  href={ROUTES.NOTIFICATIONS}
+                  className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  {notifCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center">
+                      {notifCount > 9 ? '9+' : notifCount}
+                    </span>
+                  )}
+                </Link>
+
+                {/* Messages */}
+                <Link
+                  href={ROUTES.MESSAGES}
+                  className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                  </svg>
+                  {messageCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center">
+                      {messageCount > 9 ? '9+' : messageCount}
+                    </span>
+                  )}
+                </Link>
+
+                {/* User Menu */}
+                <Dropdown
+                  trigger={
+                    <button className="flex items-center gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors">
+                      <Avatar
+                        src={user?.photo || undefined}
+                        fallback={user ? `${user.nom} ${user.prenom}` : 'U'}
+                        size="sm"
+                        verified={user?.emailVerifie}
+                      />
+                    </button>
+                  }
+                  align="right"
+                >
+                  <div className="px-4 py-3 border-b border-gray-200">
+                    <p className="text-sm font-medium text-gray-900">
+                      {user?.prenom} {user?.nom}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate">{user?.email}</p>
+                  </div>
+                  <DropdownItem
+                    onClick={() => (window.location.href = ROUTES.PROFILE)}
+                    icon={
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    }
+                  >
+                    Mon profil
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => (window.location.href = ROUTES.FAVORIS)}
+                    icon={
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    }
+                  >
+                    Mes favoris
+                  </DropdownItem>
+                  <DropdownDivider />
+                  <DropdownItem
+                    onClick={handleLogout}
+                    danger
+                    icon={
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                    }
+                  >
+                    Déconnexion
+                  </DropdownItem>
+                </Dropdown>
+              </>
+            ) : (
+              <>
+                <Link
+                  href={ROUTES.LOGIN}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+                >
+                  Connexion
+                </Link>
+                <Link
+                  href={ROUTES.REGISTER}
+                  className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                >
+                  Inscription
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-gray-200 animate-slide-up">
+            <div className="flex flex-col gap-1">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn(
+                    'px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                    isActive(item.href)
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  )}
+                >
+                  {item.name}
+                </Link>
+              ))}
+
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href={ROUTES.NOTIFICATIONS}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
+                  >
+                    <span>Notifications</span>
+                    {notifCount > 0 && (
+                      <Badge variant="error" size="sm">{notifCount}</Badge>
+                    )}
+                  </Link>
+                  <Link
+                    href={ROUTES.MESSAGES}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
+                  >
+                    <span>Messages</span>
+                    {messageCount > 0 && (
+                      <Badge variant="error" size="sm">{messageCount}</Badge>
+                    )}
+                  </Link>
+                  <Link
+                    href={ROUTES.PROFILE}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
+                  >
+                    Mon profil
+                  </Link>
+                  <Link
+                    href={ROUTES.FAVORIS}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
+                  >
+                    Mes favoris
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-3 rounded-lg text-sm font-medium text-error hover:bg-error/10 text-left"
+                  >
+                    Déconnexion
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href={ROUTES.LOGIN}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
+                  >
+                    Connexion
+                  </Link>
+                  <Link
+                    href={ROUTES.REGISTER}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg text-sm font-medium bg-primary text-white hover:bg-primary-dark"
+                  >
+                    Inscription
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
+  );
+}export { default as Header } from './header';
+export { default as Footer } from './footer';
+export { default as Sidebar } from './sidebar';'use client';
+
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { useAuth } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
+import { cn } from '@/lib/utils/cn';
+
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export default function Sidebar({ isOpen = true, onClose }: SidebarProps) {
+  const pathname = usePathname();
+  const { user } = useAuth();
+
+  const navigation = [
+    {
+      name: 'Mes Voyages',
+      href: ROUTES.VOYAGES,
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Mes Demandes',
+      href: ROUTES.DEMANDES,
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Messages',
+      href: ROUTES.MESSAGES,
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Notifications',
+      href: ROUTES.NOTIFICATIONS,
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Favoris',
+      href: ROUTES.FAVORIS,
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Mon Profil',
+      href: ROUTES.PROFILE,
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      ),
+    },
+  ];
+
+  const isActive = (href: string) => {
+    if (href === ROUTES.VOYAGES || href === ROUTES.DEMANDES) {
+      return pathname.startsWith(href);
+    }
+    return pathname === href;
+  };
+
+  return (
+    <>
+      {/* Overlay Mobile */}
+      {isOpen && onClose && (
+        <div
+          className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-30 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          'fixed top-16 left-0 bottom-0 z-40 w-64 bg-white border-r border-gray-200 transition-transform duration-300 lg:translate-x-0',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <div className="h-full flex flex-col">
+          {/* User Info */}
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <span className="text-primary font-semibold text-lg">
+                  {user?.prenom?.charAt(0)}{user?.nom?.charAt(0)}
+                </span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {user?.prenom} {user?.nom}
+                </p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 p-4 overflow-y-auto">
+            <ul className="space-y-1">
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    onClick={onClose}
+                    className={cn(
+                      'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                      isActive(item.href)
+                        ? 'bg-primary text-white'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    )}
+                  >
+                    {item.icon}
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Quick Actions */}
+          <div className="p-4 border-t border-gray-200 space-y-2">
+            <Link
+              href={`${ROUTES.VOYAGES}?action=create`}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Créer un voyage
+            </Link>
+            <Link
+              href={`${ROUTES.DEMANDES}?action=create`}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 border-2 border-primary text-primary rounded-lg text-sm font-medium hover:bg-primary/5 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Créer une demande
+            </Link>
+          </div>
+        </div>
+      </aside>
+    </>
+  );
+}

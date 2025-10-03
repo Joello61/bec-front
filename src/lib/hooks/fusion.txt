@@ -1,0 +1,698 @@
+/**
+ * Export centralisé de tous les hooks personnalisés
+ */
+
+// Auth hooks
+export { useAuth, useRequireAuth } from './useAuth';
+
+// Voyage hooks
+export { 
+  useVoyages, 
+  useVoyage, 
+  useVoyageActions, 
+  useUserVoyages 
+} from './useVoyages';
+
+// Demande hooks
+export { 
+  useDemandes, 
+  useDemande, 
+  useDemandeActions, 
+  useUserDemandes 
+} from './useDemandes';
+
+// Message hooks
+export { 
+  useConversations, 
+  useConversation, 
+  useUnreadMessages 
+} from './useMessages';
+
+// Notification hooks
+export { 
+  useNotifications, 
+  useUnreadNotifications, 
+  useUnreadNotificationCount 
+} from './useNotifications';
+
+// User hooks
+export { 
+  useUser, 
+  useSearchUsers, 
+  useUpdateProfile 
+} from './useUsers';
+
+// Favori hooks
+export { 
+  useFavoris, 
+  useFavorisVoyages, 
+  useFavorisDemandes, 
+  useFavoriActions 
+} from './useFavoris';
+
+// Avis hooks
+export { 
+  useUserAvis, 
+  useAvisActions 
+} from './useAvis';
+
+// Signalement hooks
+export { 
+  useSignalements, 
+  useSignalementActions, 
+  usePendingSignalements 
+} from './useSignalement';import { useAuthStore } from '@/lib/store';
+
+/**
+ * Hook simplifié pour accéder aux données d'authentification
+ */
+export function useAuth() {
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  const error = useAuthStore((state) => state.error);
+  const login = useAuthStore((state) => state.login);
+  const register = useAuthStore((state) => state.register);
+  const logout = useAuthStore((state) => state.logout);
+  const fetchMe = useAuthStore((state) => state.fetchMe);
+  const clearError = useAuthStore((state) => state.clearError);
+
+  return {
+    user,
+    isAuthenticated,
+    isLoading,
+    error,
+    login,
+    register,
+    logout,
+    fetchMe,
+    clearError,
+  };
+}
+
+/**
+ * Hook pour protéger les routes authentifiées
+ */
+export function useRequireAuth() {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  return {
+    isAuthenticated,
+    isLoading,
+    canAccess: isAuthenticated && !isLoading,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useAvisStore } from '@/lib/store';
+
+/**
+ * Hook pour charger les avis d'un utilisateur avec statistiques
+ */
+export function useUserAvis(userId: number) {
+  const avisWithStats = useAvisStore((state) => state.avisWithStats);
+  const isLoading = useAvisStore((state) => state.isLoading);
+  const error = useAvisStore((state) => state.error);
+  const fetchUserAvis = useAvisStore((state) => state.fetchUserAvis);
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserAvis(userId);
+    }
+  }, [userId]);
+
+  return {
+    avis: avisWithStats?.avis || [],
+    stats: avisWithStats?.stats || null,
+    isLoading,
+    error,
+    refetch: () => fetchUserAvis(userId),
+  };
+}
+
+/**
+ * Hook pour les actions CRUD sur les avis
+ */
+export function useAvisActions() {
+  const createAvis = useAvisStore((state) => state.createAvis);
+  const updateAvis = useAvisStore((state) => state.updateAvis);
+  const deleteAvis = useAvisStore((state) => state.deleteAvis);
+  const isLoading = useAvisStore((state) => state.isLoading);
+  const error = useAvisStore((state) => state.error);
+  const clearError = useAvisStore((state) => state.clearError);
+
+  return {
+    createAvis,
+    updateAvis,
+    deleteAvis,
+    isLoading,
+    error,
+    clearError,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useDemandeStore } from '@/lib/store';
+import type { DemandeFilters } from '@/types';
+
+/**
+ * Hook pour charger et gérer les demandes
+ */
+export function useDemandes(page = 1, limit = 10, filters?: DemandeFilters) {
+  const demandes = useDemandeStore((state) => state.demandes);
+  const pagination = useDemandeStore((state) => state.pagination);
+  const isLoading = useDemandeStore((state) => state.isLoading);
+  const error = useDemandeStore((state) => state.error);
+  const fetchDemandes = useDemandeStore((state) => state.fetchDemandes);
+
+  useEffect(() => {
+    fetchDemandes(page, limit, filters);
+  }, [page, limit, JSON.stringify(filters)]);
+
+  return {
+    demandes,
+    pagination,
+    isLoading,
+    error,
+    refetch: () => fetchDemandes(page, limit, filters),
+  };
+}
+
+/**
+ * Hook pour une demande spécifique
+ */
+export function useDemande(id: number) {
+  const currentDemande = useDemandeStore((state) => state.currentDemande);
+  const isLoading = useDemandeStore((state) => state.isLoading);
+  const error = useDemandeStore((state) => state.error);
+  const fetchDemande = useDemandeStore((state) => state.fetchDemande);
+
+  useEffect(() => {
+    if (id) {
+      fetchDemande(id);
+    }
+  }, [id]);
+
+  return {
+    demande: currentDemande,
+    isLoading,
+    error,
+    refetch: () => fetchDemande(id),
+  };
+}
+
+/**
+ * Hook pour les actions CRUD sur les demandes
+ */
+export function useDemandeActions() {
+  const createDemande = useDemandeStore((state) => state.createDemande);
+  const updateDemande = useDemandeStore((state) => state.updateDemande);
+  const updateStatus = useDemandeStore((state) => state.updateStatus);
+  const deleteDemande = useDemandeStore((state) => state.deleteDemande);
+  const isLoading = useDemandeStore((state) => state.isLoading);
+  const error = useDemandeStore((state) => state.error);
+  const clearError = useDemandeStore((state) => state.clearError);
+
+  return {
+    createDemande,
+    updateDemande,
+    updateStatus,
+    deleteDemande,
+    isLoading,
+    error,
+    clearError,
+  };
+}
+
+/**
+ * Hook pour les demandes d'un utilisateur
+ */
+export function useUserDemandes(userId: number) {
+  const demandes = useDemandeStore((state) => state.demandes);
+  const isLoading = useDemandeStore((state) => state.isLoading);
+  const error = useDemandeStore((state) => state.error);
+  const fetchUserDemandes = useDemandeStore((state) => state.fetchUserDemandes);
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserDemandes(userId);
+    }
+  }, [userId]);
+
+  return {
+    demandes,
+    isLoading,
+    error,
+    refetch: () => fetchUserDemandes(userId),
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useFavoriStore } from '@/lib/store';
+
+/**
+ * Hook pour gérer tous les favoris
+ */
+export function useFavoris() {
+  const favoris = useFavoriStore((state) => state.favoris);
+  const isLoading = useFavoriStore((state) => state.isLoading);
+  const error = useFavoriStore((state) => state.error);
+  const fetchFavoris = useFavoriStore((state) => state.fetchFavoris);
+
+  useEffect(() => {
+    fetchFavoris();
+  }, []);
+
+  return {
+    favoris,
+    isLoading,
+    error,
+    refetch: fetchFavoris,
+  };
+}
+
+/**
+ * Hook pour gérer les favoris voyages
+ */
+export function useFavorisVoyages() {
+  const favorisVoyages = useFavoriStore((state) => state.favorisVoyages);
+  const isLoading = useFavoriStore((state) => state.isLoading);
+  const fetchFavorisVoyages = useFavoriStore((state) => state.fetchFavorisVoyages);
+
+  useEffect(() => {
+    fetchFavorisVoyages();
+  }, []);
+
+  return {
+    favorisVoyages,
+    isLoading,
+    refetch: fetchFavorisVoyages,
+  };
+}
+
+/**
+ * Hook pour gérer les favoris demandes
+ */
+export function useFavorisDemandes() {
+  const favorisDemandes = useFavoriStore((state) => state.favorisDemandes);
+  const isLoading = useFavoriStore((state) => state.isLoading);
+  const fetchFavorisDemandes = useFavoriStore((state) => state.fetchFavorisDemandes);
+
+  useEffect(() => {
+    fetchFavorisDemandes();
+  }, []);
+
+  return {
+    favorisDemandes,
+    isLoading,
+    refetch: fetchFavorisDemandes,
+  };
+}
+
+/**
+ * Hook pour les actions sur les favoris
+ */
+export function useFavoriActions() {
+  const addVoyageToFavoris = useFavoriStore((state) => state.addVoyageToFavoris);
+  const addDemandeToFavoris = useFavoriStore((state) => state.addDemandeToFavoris);
+  const removeFavori = useFavoriStore((state) => state.removeFavori);
+  const isFavoriVoyage = useFavoriStore((state) => state.isFavoriVoyage);
+  const isFavoriDemande = useFavoriStore((state) => state.isFavoriDemande);
+  const isLoading = useFavoriStore((state) => state.isLoading);
+  const error = useFavoriStore((state) => state.error);
+
+  return {
+    addVoyageToFavoris,
+    addDemandeToFavoris,
+    removeFavori,
+    isFavoriVoyage,
+    isFavoriDemande,
+    isLoading,
+    error,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useMessageStore } from '@/lib/store';
+
+/**
+ * Hook pour gérer les conversations
+ */
+export function useConversations() {
+  const conversations = useMessageStore((state) => state.conversations);
+  const isLoading = useMessageStore((state) => state.isLoading);
+  const error = useMessageStore((state) => state.error);
+  const fetchConversations = useMessageStore((state) => state.fetchConversations);
+
+  useEffect(() => {
+    fetchConversations();
+  }, []);
+
+  return {
+    conversations,
+    isLoading,
+    error,
+    refetch: fetchConversations,
+  };
+}
+
+/**
+ * Hook pour une conversation spécifique
+ */
+export function useConversation(userId: number) {
+  const currentConversation = useMessageStore((state) => state.currentConversation);
+  const isLoading = useMessageStore((state) => state.isLoading);
+  const error = useMessageStore((state) => state.error);
+  const fetchConversation = useMessageStore((state) => state.fetchConversation);
+  const sendMessage = useMessageStore((state) => state.sendMessage);
+  const markAsRead = useMessageStore((state) => state.markAsRead);
+
+  useEffect(() => {
+    if (userId) {
+      fetchConversation(userId);
+      markAsRead(userId);
+    }
+  }, [userId]);
+
+  return {
+    messages: currentConversation,
+    isLoading,
+    error,
+    sendMessage,
+    refetch: () => fetchConversation(userId),
+  };
+}
+
+/**
+ * Hook pour le compteur de messages non lus
+ */
+export function useUnreadMessages() {
+  const unreadCount = useMessageStore((state) => state.unreadCount);
+  const fetchUnreadCount = useMessageStore((state) => state.fetchUnreadCount);
+
+  useEffect(() => {
+    fetchUnreadCount();
+    
+    // Rafraîchir toutes les 30 secondes
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return {
+    unreadCount,
+    refetch: fetchUnreadCount,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useNotificationStore } from '@/lib/store';
+
+/**
+ * Hook pour gérer les notifications
+ */
+export function useNotifications() {
+  const notifications = useNotificationStore((state) => state.notifications);
+  const isLoading = useNotificationStore((state) => state.isLoading);
+  const error = useNotificationStore((state) => state.error);
+  const fetchNotifications = useNotificationStore((state) => state.fetchNotifications);
+  const markAsRead = useNotificationStore((state) => state.markAsRead);
+  const markAllAsRead = useNotificationStore((state) => state.markAllAsRead);
+  const deleteNotification = useNotificationStore((state) => state.deleteNotification);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  return {
+    notifications,
+    isLoading,
+    error,
+    markAsRead,
+    markAllAsRead,
+    deleteNotification,
+    refetch: fetchNotifications,
+  };
+}
+
+/**
+ * Hook pour les notifications non lues
+ */
+export function useUnreadNotifications() {
+  const notifications = useNotificationStore((state) => state.notifications);
+  const fetchUnread = useNotificationStore((state) => state.fetchUnread);
+
+  useEffect(() => {
+    fetchUnread();
+  }, []);
+
+  const unreadNotifications = notifications.filter((n) => !n.lue);
+
+  return {
+    unreadNotifications,
+    refetch: fetchUnread,
+  };
+}
+
+/**
+ * Hook pour le compteur de notifications non lues
+ */
+export function useUnreadNotificationCount() {
+  const unreadCount = useNotificationStore((state) => state.unreadCount);
+  const fetchUnreadCount = useNotificationStore((state) => state.fetchUnreadCount);
+
+  useEffect(() => {
+    fetchUnreadCount();
+    
+    // Rafraîchir toutes les 30 secondes
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return {
+    unreadCount,
+    refetch: fetchUnreadCount,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useSignalementStore } from '@/lib/store';
+
+/**
+ * Hook pour charger les signalements avec pagination
+ */
+export function useSignalements(page = 1, limit = 10, statut?: string) {
+  const signalements = useSignalementStore((state) => state.signalements);
+  const pagination = useSignalementStore((state) => state.pagination);
+  const isLoading = useSignalementStore((state) => state.isLoading);
+  const error = useSignalementStore((state) => state.error);
+  const fetchSignalements = useSignalementStore((state) => state.fetchSignalements);
+
+  useEffect(() => {
+    fetchSignalements(page, limit, statut);
+  }, [page, limit, statut]);
+
+  return {
+    signalements,
+    pagination,
+    isLoading,
+    error,
+    refetch: () => fetchSignalements(page, limit, statut),
+  };
+}
+
+/**
+ * Hook pour les actions sur les signalements
+ */
+export function useSignalementActions() {
+  const createSignalement = useSignalementStore((state) => state.createSignalement);
+  const processSignalement = useSignalementStore((state) => state.processSignalement);
+  const isLoading = useSignalementStore((state) => state.isLoading);
+  const error = useSignalementStore((state) => state.error);
+  const clearError = useSignalementStore((state) => state.clearError);
+
+  return {
+    createSignalement,
+    processSignalement,
+    isLoading,
+    error,
+    clearError,
+  };
+}
+
+/**
+ * Hook pour le compteur de signalements en attente
+ */
+export function usePendingSignalements() {
+  const pendingCount = useSignalementStore((state) => state.pendingCount);
+  const fetchPendingCount = useSignalementStore((state) => state.fetchPendingCount);
+
+  useEffect(() => {
+    fetchPendingCount();
+    
+    // Rafraîchir toutes les 60 secondes
+    const interval = setInterval(fetchPendingCount, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return {
+    pendingCount,
+    refetch: fetchPendingCount,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useUserStore } from '@/lib/store';
+
+/**
+ * Hook pour charger un utilisateur spécifique
+ */
+export function useUser(id: number) {
+  const currentUser = useUserStore((state) => state.currentUser);
+  const isLoading = useUserStore((state) => state.isLoading);
+  const error = useUserStore((state) => state.error);
+  const fetchUser = useUserStore((state) => state.fetchUser);
+
+  useEffect(() => {
+    if (id) {
+      fetchUser(id);
+    }
+  }, [id]);
+
+  return {
+    user: currentUser,
+    isLoading,
+    error,
+    refetch: () => fetchUser(id),
+  };
+}
+
+/**
+ * Hook pour rechercher des utilisateurs
+ */
+export function useSearchUsers(query: string) {
+  const searchResults = useUserStore((state) => state.searchResults);
+  const isLoading = useUserStore((state) => state.isLoading);
+  const error = useUserStore((state) => state.error);
+  const searchUsers = useUserStore((state) => state.searchUsers);
+
+  useEffect(() => {
+    if (query && query.length >= 2) {
+      const timeoutId = setTimeout(() => {
+        searchUsers(query);
+      }, 300); // Debounce de 300ms
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [query]);
+
+  return {
+    users: searchResults,
+    isLoading,
+    error,
+  };
+}
+
+/**
+ * Hook pour mettre à jour le profil utilisateur
+ */
+export function useUpdateProfile() {
+  const updateMe = useUserStore((state) => state.updateMe);
+  const isLoading = useUserStore((state) => state.isLoading);
+  const error = useUserStore((state) => state.error);
+  const clearError = useUserStore((state) => state.clearError);
+
+  return {
+    updateMe,
+    isLoading,
+    error,
+    clearError,
+  };
+}/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import { useVoyageStore } from '@/lib/store';
+import type { VoyageFilters } from '@/types';
+
+/**
+ * Hook pour charger et gérer les voyages
+ */
+export function useVoyages(page = 1, limit = 10, filters?: VoyageFilters) {
+  const voyages = useVoyageStore((state) => state.voyages);
+  const pagination = useVoyageStore((state) => state.pagination);
+  const isLoading = useVoyageStore((state) => state.isLoading);
+  const error = useVoyageStore((state) => state.error);
+  const fetchVoyages = useVoyageStore((state) => state.fetchVoyages);
+
+  useEffect(() => {
+    fetchVoyages(page, limit, filters);
+  }, [page, limit, JSON.stringify(filters)]);
+
+  return {
+    voyages,
+    pagination,
+    isLoading,
+    error,
+    refetch: () => fetchVoyages(page, limit, filters),
+  };
+}
+
+/**
+ * Hook pour un voyage spécifique
+ */
+export function useVoyage(id: number) {
+  const currentVoyage = useVoyageStore((state) => state.currentVoyage);
+  const isLoading = useVoyageStore((state) => state.isLoading);
+  const error = useVoyageStore((state) => state.error);
+  const fetchVoyage = useVoyageStore((state) => state.fetchVoyage);
+
+  useEffect(() => {
+    if (id) {
+      fetchVoyage(id);
+    }
+  }, [id]);
+
+  return {
+    voyage: currentVoyage,
+    isLoading,
+    error,
+    refetch: () => fetchVoyage(id),
+  };
+}
+
+/**
+ * Hook pour les actions CRUD sur les voyages
+ */
+export function useVoyageActions() {
+  const createVoyage = useVoyageStore((state) => state.createVoyage);
+  const updateVoyage = useVoyageStore((state) => state.updateVoyage);
+  const updateStatus = useVoyageStore((state) => state.updateStatus);
+  const deleteVoyage = useVoyageStore((state) => state.deleteVoyage);
+  const isLoading = useVoyageStore((state) => state.isLoading);
+  const error = useVoyageStore((state) => state.error);
+  const clearError = useVoyageStore((state) => state.clearError);
+
+  return {
+    createVoyage,
+    updateVoyage,
+    updateStatus,
+    deleteVoyage,
+    isLoading,
+    error,
+    clearError,
+  };
+}
+
+/**
+ * Hook pour les voyages d'un utilisateur
+ */
+export function useUserVoyages(userId: number) {
+  const voyages = useVoyageStore((state) => state.voyages);
+  const isLoading = useVoyageStore((state) => state.isLoading);
+  const error = useVoyageStore((state) => state.error);
+  const fetchUserVoyages = useVoyageStore((state) => state.fetchUserVoyages);
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserVoyages(userId);
+    }
+  }, [userId]);
+
+  return {
+    voyages,
+    isLoading,
+    error,
+    refetch: () => fetchUserVoyages(userId),
+  };
+}

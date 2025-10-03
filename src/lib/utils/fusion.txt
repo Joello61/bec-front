@@ -1,0 +1,499 @@
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+/**
+ * Fonction utilitaire pour fusionner intelligemment les classes Tailwind
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}/**
+ * Constantes globales de l'application
+ */
+
+// API
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+
+// Routes
+export const ROUTES = {
+  HOME: '/',
+  ABOUT: '/about',
+  CONTACT: '/contact',
+  TERMS: '/terms',
+  PRIVACY: '/privacy',
+  FAQ: '/faq',
+  HOW_IT_WORKS: '/how-it-works',
+  TRUST_SAFETY: '/trust-safety',
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/register',
+  FORGOT_PASSWORD: '/auth/forgot-password',
+  RESET_PASSWORD: '/auth/reset-password',
+  VOYAGES: '/dashboard/voyages',
+  VOYAGE_DETAILS: (id: number) => `/dashboard/voyages/${id}`,
+  DEMANDES: '/dashboard/demandes',
+  DEMANDE_DETAILS: (id: number) => `/dashboard/demandes/${id}`,
+  MESSAGES: '/dashboard/messages',
+  CONVERSATION: (id: number) => `/dashboard/messages/${id}`,
+  NOTIFICATIONS: '/dashboard/notifications',
+  FAVORIS: '/dashboard/favoris',
+  PROFILE: '/dashboard/profile',
+  USER_PROFILE: (id: number) => `/dashboard/users/${id}`,
+} as const;
+
+// Villes du Cameroun (principales)
+export const VILLES_CAMEROUN = [
+  'Yaoundé',
+  'Douala',
+  'Bafoussam',
+  'Bamenda',
+  'Garoua',
+  'Maroua',
+  'Ngaoundéré',
+  'Bertoua',
+  'Buea',
+  'Limbé',
+  'Edéa',
+  'Kribi',
+  'Ebolowa',
+  'Kumba',
+  'Nkongsamba',
+] as const;
+
+// Villes internationales populaires
+export const VILLES_INTERNATIONALES = [
+  'Paris',
+  'Lyon',
+  'Marseille',
+  'Bruxelles',
+  'Londres',
+  'New York',
+  'Montréal',
+  'Genève',
+  'Dubaï',
+  'Pékin',
+] as const;
+
+export const TOUTES_VILLES = [...VILLES_CAMEROUN, ...VILLES_INTERNATIONALES];
+
+// Statuts
+export const VOYAGE_STATUTS = [
+  { value: 'actif', label: 'Actif', color: 'success' },
+  { value: 'complet', label: 'Complet', color: 'warning' },
+  { value: 'termine', label: 'Terminé', color: 'neutral' },
+  { value: 'annule', label: 'Annulé', color: 'error' },
+] as const;
+
+export const DEMANDE_STATUTS = [
+  { value: 'en_recherche', label: 'En recherche', color: 'info' },
+  { value: 'voyageur_trouve', label: 'Voyageur trouvé', color: 'success' },
+  { value: 'annulee', label: 'Annulée', color: 'error' },
+] as const;
+
+export const SIGNALEMENT_MOTIFS = [
+  { value: 'contenu_inapproprie', label: 'Contenu inapproprié' },
+  { value: 'spam', label: 'Spam' },
+  { value: 'arnaque', label: 'Arnaque' },
+  { value: 'objet_illegal', label: 'Objet illégal' },
+  { value: 'autre', label: 'Autre' },
+] as const;
+
+// Notes
+export const NOTES = [1, 2, 3, 4, 5] as const;
+
+// Pagination
+export const DEFAULT_PAGE_SIZE = 10;
+export const PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
+
+// Limites
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const MAX_MESSAGE_LENGTH = 2000;
+export const MAX_DESCRIPTION_LENGTH = 1000;
+export const MAX_BIO_LENGTH = 500;
+
+// Durées (en ms)
+export const TOAST_DURATION = 3000;
+export const DEBOUNCE_DELAY = 300;
+export const NOTIFICATION_REFRESH_INTERVAL = 30000; // 30s
+export const MESSAGE_REFRESH_INTERVAL = 30000; // 30s
+
+// Règles métier
+export const MIN_WEIGHT = 0.1;
+export const MAX_WEIGHT = 100;
+export const MIN_AVIS_NOTE = 1;
+export const MAX_AVIS_NOTE = 5;
+
+// Messages
+export const ERROR_MESSAGES = {
+  GENERIC: 'Une erreur est survenue',
+  NETWORK: 'Erreur de connexion. Vérifiez votre connexion internet.',
+  UNAUTHORIZED: 'Vous devez être connecté pour accéder à cette page',
+  FORBIDDEN: 'Vous n\'avez pas les droits pour effectuer cette action',
+  NOT_FOUND: 'La ressource demandée n\'existe pas',
+  VALIDATION: 'Veuillez vérifier les informations saisies',
+} as const;
+
+export const SUCCESS_MESSAGES = {
+  LOGIN: 'Connexion réussie',
+  REGISTER: 'Inscription réussie',
+  LOGOUT: 'Déconnexion réussie',
+  CREATE: 'Création réussie',
+  UPDATE: 'Modification réussie',
+  DELETE: 'Suppression réussie',
+  MESSAGE_SENT: 'Message envoyé',
+  AVIS_CREATED: 'Avis publié',
+  FAVORI_ADDED: 'Ajouté aux favoris',
+  FAVORI_REMOVED: 'Retiré des favoris',
+  SIGNALEMENT_SENT: 'Signalement envoyé',
+} as const;
+
+// Liens sociaux
+export const SOCIAL_LINKS = {
+  FACEBOOK: 'https://facebook.com',
+  TWITTER: 'https://twitter.com',
+  INSTAGRAM: 'https://instagram.com',
+  LINKEDIN: 'https://linkedin.com',
+} as const;
+
+// Contact
+export const CONTACT = {
+  EMAIL: 'contact@bagage-express.cm',
+  PHONE: '+237 6XX XX XX XX',
+  ADDRESS: 'Yaoundé, Cameroun',
+} as const;/**
+ * Utilitaires de formatage de données
+ */
+
+/**
+ * Formate une date en format français
+ */
+export function formatDate(date: string | Date, options?: Intl.DateTimeFormatOptions): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  
+  const defaultOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    ...options,
+  };
+
+  return new Intl.DateTimeFormat('fr-FR', defaultOptions).format(dateObj);
+}
+
+/**
+ * Formate une date en format court (JJ/MM/AAAA)
+ */
+export function formatDateShort(date: string | Date): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(dateObj);
+}
+
+/**
+ * Formate une date en format relatif (il y a X jours)
+ */
+export function formatDateRelative(date: string | Date): string {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const now = new Date();
+  const diffInMs = now.getTime() - dateObj.getTime();
+  const diffInSeconds = Math.floor(diffInMs / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInSeconds < 60) {
+    return 'à l\'instant';
+  } else if (diffInMinutes < 60) {
+    return `il y a ${diffInMinutes} min`;
+  } else if (diffInHours < 24) {
+    return `il y a ${diffInHours}h`;
+  } else if (diffInDays < 7) {
+    return `il y a ${diffInDays}j`;
+  } else {
+    return formatDateShort(dateObj);
+  }
+}
+
+/**
+ * Formate un numéro de téléphone camerounais
+ */
+export function formatPhone(phone: string): string {
+  if (!phone) return '';
+  
+  // Retirer tous les caractères non numériques
+  const cleaned = phone.replace(/\D/g, '');
+  
+  // Format: +237 6XX XX XX XX
+  if (cleaned.startsWith('237')) {
+    const number = cleaned.slice(3);
+    return `+237 ${number.slice(0, 3)} ${number.slice(3, 5)} ${number.slice(5, 7)} ${number.slice(7)}`;
+  }
+  
+  // Format: 6XX XX XX XX
+  if (cleaned.length === 9) {
+    return `${cleaned.slice(0, 3)} ${cleaned.slice(3, 5)} ${cleaned.slice(5, 7)} ${cleaned.slice(7)}`;
+  }
+  
+  return phone;
+}
+
+/**
+ * Formate un poids avec unité
+ */
+export function formatWeight(weight: number | string): string {
+  const weightNum = typeof weight === 'string' ? parseFloat(weight) : weight;
+  return `${weightNum.toFixed(1)} kg`;
+}
+
+/**
+ * Formate un prix en FCFA
+ */
+export function formatPrice(price: number): string {
+  return new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'XAF',
+    minimumFractionDigits: 0,
+  }).format(price);
+}
+
+/**
+ * Tronque un texte avec ellipsis
+ */
+export function truncate(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '...';
+}
+
+/**
+ * Obtient les initiales d'un nom complet
+ */
+export function getInitials(nom: string, prenom?: string): string {
+  if (prenom) {
+    return `${nom.charAt(0)}${prenom.charAt(0)}`.toUpperCase();
+  }
+  const parts = nom.split(' ');
+  if (parts.length >= 2) {
+    return `${parts[0].charAt(0)}${parts[1].charAt(0)}`.toUpperCase();
+  }
+  return nom.slice(0, 2).toUpperCase();
+}
+
+/**
+ * Formate un nom complet
+ */
+export function formatFullName(nom: string, prenom: string): string {
+  return `${prenom} ${nom}`;
+}
+
+/**
+ * Capitalise la première lettre
+ */
+export function capitalize(text: string): string {
+  if (!text) return '';
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+/**
+ * Formate un statut en français
+ */
+export function formatStatus(status: string): string {
+  const statusMap: Record<string, string> = {
+    actif: 'Actif',
+    complet: 'Complet',
+    termine: 'Terminé',
+    annule: 'Annulé',
+    en_recherche: 'En recherche',
+    voyageur_trouve: 'Voyageur trouvé',
+    annulee: 'Annulée',
+    en_attente: 'En attente',
+    traite: 'Traité',
+    rejete: 'Rejeté',
+  };
+  
+  return statusMap[status] || capitalize(status);
+}
+
+/**
+ * Calcule le nombre de jours restants
+ */
+export function getDaysRemaining(date: string | Date): number {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const now = new Date();
+  const diffInMs = dateObj.getTime() - now.getTime();
+  return Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+}
+
+/**
+ * Vérifie si une date est passée
+ */
+export function isPastDate(date: string | Date): boolean {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return dateObj < new Date();
+}
+
+/**
+ * Génère une couleur aléatoire pour les avatars
+ */
+export function getAvatarColor(seed: string): string {
+  const colors = [
+    '#00695c', // primary
+    '#004d40', // primary-dark
+    '#26a69a', // primary-light
+    '#0d47a1', // info
+    '#1976d2', // info-light
+    '#616161', // gray-600
+  ];
+  
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  return colors[Math.abs(hash) % colors.length];
+}/**
+ * Enregistrement et gestion du Service Worker
+ */
+
+export function registerServiceWorker(): void {
+  if (typeof window === 'undefined') return;
+  if (!('serviceWorker' in navigator)) {
+    console.log('Service Worker non supporté');
+    return;
+  }
+
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/'
+      });
+
+      console.log('Service Worker enregistré:', registration.scope);
+
+      // Vérifier les mises à jour toutes les heures
+      setInterval(() => {
+        registration.update();
+      }, 60 * 60 * 1000);
+
+      // Écouter les mises à jour du SW
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (!newWorker) return;
+
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // Nouvelle version disponible
+            showUpdateNotification();
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Erreur enregistrement Service Worker:', error);
+    }
+  });
+}
+
+/**
+ * Afficher une notification pour mettre à jour l'app
+ */
+function showUpdateNotification(): void {
+  const shouldUpdate = confirm(
+    'Une nouvelle version est disponible. Voulez-vous mettre à jour ?'
+  );
+
+  if (shouldUpdate) {
+    window.location.reload();
+  }
+}
+
+/**
+ * Désenregistrer le Service Worker
+ */
+export async function unregisterServiceWorker(): Promise<void> {
+  if (!('serviceWorker' in navigator)) return;
+
+  try {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map((reg) => reg.unregister()));
+    console.log('Service Worker désenregistré');
+  } catch (error) {
+    console.error('Erreur désenregistrement:', error);
+  }
+}
+
+/**
+ * Vérifier si l'app est installée
+ */
+export function isPWAInstalled(): boolean {
+  if (typeof window === 'undefined') return false;
+  
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window.navigator as any).standalone === true
+  );
+}
+
+/**
+ * Hook pour gérer l'installation PWA
+ */
+export function usePWAInstall() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let deferredPrompt: any = null;
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+  }
+
+  const installPWA = async (): Promise<boolean> => {
+    if (!deferredPrompt) {
+      console.log('Prompt d\'installation non disponible');
+      return false;
+    }
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    console.log(`Installation: ${outcome}`);
+    deferredPrompt = null;
+    
+    return outcome === 'accepted';
+  };
+
+  return {
+    canInstall: !!deferredPrompt,
+    installPWA,
+    isInstalled: isPWAInstalled()
+  };
+}
+
+/**
+ * Vérifier si l'utilisateur est en ligne
+ */
+export function useOnlineStatus(): boolean {
+  if (typeof window === 'undefined') return true;
+  
+  return navigator.onLine;
+}
+
+/**
+ * Écouter les changements de connexion
+ */
+export function watchOnlineStatus(callback: (isOnline: boolean) => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+
+  const handleOnline = () => callback(true);
+  const handleOffline = () => callback(false);
+
+  window.addEventListener('online', handleOnline);
+  window.addEventListener('offline', handleOffline);
+
+  return () => {
+    window.removeEventListener('online', handleOnline);
+    window.removeEventListener('offline', handleOffline);
+  };
+}
