@@ -134,7 +134,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
           variant="primary"
           isLoading={isSubmitting}
           leftIcon={<UserPlus className="w-4 h-4" />}
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           S&apos;inscrire
         </Button>
@@ -160,7 +160,7 @@ export default function RegisterForm({ onSubmit }: RegisterFormProps) {
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full cursor-pointer"
           >
             Se connecter
           </Button>

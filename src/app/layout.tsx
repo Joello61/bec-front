@@ -12,6 +12,7 @@ const inter = Inter({
 import ToastProvider from '@/components/providers/ToastProvider';
 import { usePathname } from 'next/navigation';
 import { Footer, Header } from '@/components/layout';
+import { AuthProvider } from '@/components/providers/AuthProvider';
 
 export default function RootLayout({
   children,
@@ -22,16 +23,18 @@ export default function RootLayout({
   const pathname = usePathname()
 
   const isAuthPage = pathname?.includes('/auth')
+  const isDashboardPage = pathname?.includes('/dashboard')
 
   return (
     <html lang="fr" suppressHydrationWarning className={inter.variable}>
       <body className="min-h-screen bg-gray-50">
+        <AuthProvider>
+          {isAuthPage ? null : <Header />}
 
-        {isAuthPage ? null : <Header />}
+          {children}
 
-        {children}
-
-        {isAuthPage ? null : <Footer />}
+          {(isAuthPage || isDashboardPage) ? null : <Footer />}
+        </AuthProvider>
         <ToastProvider />
       </body>
     </html>

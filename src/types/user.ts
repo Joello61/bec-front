@@ -10,7 +10,6 @@ export interface User {
   telephoneVerifie: boolean;
   roles: string[];
   createdAt: string;
-  updatedAt: string;
 }
 
 export interface RegisterInput {

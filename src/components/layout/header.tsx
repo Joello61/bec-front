@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bell, 
@@ -18,12 +18,14 @@ import {
   Info,
   Mail,
   Home,
+  LayoutDashboard,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
 import { Avatar, Dropdown, DropdownItem, DropdownDivider } from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
 import { cn } from '@/lib/utils/cn';
+import { useToast } from '../common';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,6 +34,9 @@ export default function Header() {
   const { user, isAuthenticated, logout } = useAuth();
   const { unreadCount: notifCount } = useUnreadNotificationCount();
   const { unreadCount: messageCount } = useUnreadMessages();
+
+  const toast = useToast();
+  const router = useRouter()
 
   // Détection du scroll pour effet glassmorphism
   useEffect(() => {
@@ -46,17 +51,23 @@ export default function Header() {
     { name: "Accueil", href: ROUTES.HOME, icon: Home },
     { name: "À propos", href: ROUTES.ABOUT, icon: Info },
     { name: "Comment ça marche", href: ROUTES.HOW_IT_WORKS, icon: BookOpen },
-    { name: "Voyages", href: ROUTES.VOYAGES, icon: Plane },
-    { name: "Demandes", href: ROUTES.DEMANDES, icon: Package },
+    { name: "Voyages", href: ROUTES.SEARCH_VOYAGES, icon: Plane },
+    { name: "Demandes", href: ROUTES.SEARCH_DEMANDES, icon: Package },
     { name: "Contact", href: ROUTES.CONTACT, icon: Mail },
   ];
 
   const isActive = (href: string) => pathname === href;
 
   const handleLogout = async () => {
+  try {
     await logout();
-    window.location.href = ROUTES.HOME;
-  };
+    toast.info('Vous êtes déconnecté');
+    router.push(ROUTES.HOME);
+  } catch (error) {
+    console.log(error)
+    toast.error('Erreur lors de la déconnexion');
+  }
+};
 
   return (
     <motion.header 
@@ -192,7 +203,7 @@ export default function Header() {
                     <motion.button 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
+                      className="cursor-pointer flex items-center gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
                     >
                       <Avatar
                         src={user?.photo || undefined}
@@ -211,13 +222,22 @@ export default function Header() {
                     <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
                   </div>
                   <DropdownItem
-                    onClick={() => (window.location.href = ROUTES.PROFILE)}
+                    onClick={() => (router.push(ROUTES.DASHBOARD))}
+                    className='cursor-pointer'
+                    icon={<LayoutDashboard className="w-4 h-4" />}
+                  >
+                    Mon dashboard
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => (router.push(ROUTES.PROFILE))}
+                    className='cursor-pointer'
                     icon={<User className="w-4 h-4" />}
                   >
                     Mon profil
                   </DropdownItem>
                   <DropdownItem
-                    onClick={() => (window.location.href = ROUTES.FAVORIS)}
+                    onClick={() => (router.push(ROUTES.FAVORIS))}
+                    className='cursor-pointer'
                     icon={<Heart className="w-4 h-4" />}
                   >
                     Mes favoris
@@ -225,6 +245,7 @@ export default function Header() {
                   <DropdownDivider />
                   <DropdownItem
                     onClick={handleLogout}
+                    className='cursor-pointer'
                     danger
                     icon={<LogOut className="w-4 h-4" />}
                   >
@@ -238,7 +259,7 @@ export default function Header() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-5 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors"
+                    className="cursor-pointer px-5 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors"
                   >
                     Connexion
                   </motion.button>
@@ -247,7 +268,7 @@ export default function Header() {
                   <motion.button
                     whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(0, 105, 92, 0.3)' }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-5 py-2 text-sm font-medium bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors"
+                    className="cursor-pointer px-5 py-2 text-sm font-medium bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors"
                   >
                     Inscription
                   </motion.button>

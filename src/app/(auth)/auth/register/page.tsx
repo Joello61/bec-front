@@ -9,6 +9,7 @@ import { RegisterForm } from '@/components/forms';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { RegisterFormData } from '@/lib/validations';
+import { useToast } from '@/components/common';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -24,10 +25,20 @@ const fadeIn: Variants = {
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
+  const toast = useToast()
 
   const handleRegister = async (data: RegisterFormData) => {
-    await register(data);
-    router.push(ROUTES.VOYAGES);
+    try {
+      await register(data);
+      toast.success('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+      // Rediriger vers login après inscription
+      setTimeout(() => {
+        router.push(ROUTES.LOGIN);
+      }, 1500);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur lors de l\'inscription');
+    }
   };
 
   const benefits = [

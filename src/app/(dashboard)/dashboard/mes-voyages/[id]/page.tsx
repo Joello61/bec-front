@@ -38,7 +38,7 @@ export default function VoyageDetailsPage() {
     setIsDeleting(true);
     try {
       await deleteVoyage(voyageId);
-      router.push(ROUTES.VOYAGES);
+      router.push(ROUTES.MES_VOYAGES);
     } finally {
       setIsDeleting(false);
     }
@@ -74,7 +74,7 @@ export default function VoyageDetailsPage() {
     <div className="container-custom py-8">
       {/* Back Button */}
       <Link
-        href={ROUTES.VOYAGES}
+        href={ROUTES.MES_VOYAGES}
         className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />

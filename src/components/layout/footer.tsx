@@ -11,7 +11,6 @@ import {
   MapPin,
   Plane,
   ArrowUpRight,
-  Send
 } from 'lucide-react';
 import { ROUTES, CONTACT } from '@/lib/utils/constants';
 
@@ -20,8 +19,8 @@ export default function Footer() {
 
   const links = {
     platform: [
-      { name: 'Voyages', href: ROUTES.VOYAGES },
-      { name: 'Demandes', href: ROUTES.DEMANDES },
+      { name: 'Voyages', href: ROUTES.MES_VOYAGES },
+      { name: 'Demandes', href: ROUTES.MES_DEMANDES },
       { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS },
     ],
     legal: [
@@ -253,39 +252,6 @@ export default function Footer() {
               </div>
             </div>
           </motion.div>
-        </motion.div>
-
-        {/* Newsletter Section */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mb-12 p-6 rounded-xl bg-gray-800/50 border border-gray-700"
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-xl font-semibold text-white mb-2">
-              Restez informé
-            </h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Inscrivez-vous à notre newsletter pour recevoir les dernières offres et actualités
-            </p>
-            <div className="flex gap-2 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Votre adresse email"
-                className="flex-1 px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-2.5 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors flex items-center gap-2 shadow-lg"
-              >
-                <Send className="w-4 h-4" />
-                <span className="hidden sm:inline">S&apos;inscrire</span>
-              </motion.button>
-            </div>
-          </div>
         </motion.div>
 
         {/* Bottom Section avec séparateur élégant */}

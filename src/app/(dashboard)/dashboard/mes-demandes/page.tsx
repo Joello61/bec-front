@@ -24,7 +24,7 @@ export default function DemandesPage() {
   const handleCreateDemande = async (data: CreateDemandeFormData) => {
     const demande = await createDemande(data);
     setIsCreateModalOpen(false);
-    router.push(ROUTES.DEMANDE_DETAILS(demande.id));
+    router.push(ROUTES.MES_DEMANDE_DETAILS(demande.id));
   };
 
   if (error && !demandes.length) {

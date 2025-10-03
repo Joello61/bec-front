@@ -1,7 +1,9 @@
+import { User } from "./user";
+
 export interface ApiError {
-  error: boolean;
+  success: false;
   message: string;
-  statusCode: number;
+  statusCode?: number;
   errors?: Record<string, string[]>;
   debug?: {
     exception: string;
@@ -23,26 +25,33 @@ export interface PaginatedResponse<T> {
   pagination: PaginationMeta;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ApiResponse<T = any> {
+// Réponse standard de l'API
+export interface ApiResponse<T = unknown> {
+  success: boolean;
   message?: string;
   data?: T;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user?: any;
-  count?: number;
+  user?: User;
 }
 
+// Réponse du login (correspond au backend)
 export interface LoginResponse {
+  success: true;
+  message: string;
   user: {
     id: number;
     email: string;
     nom: string;
     prenom: string;
     roles: string[];
+    emailVerifie: boolean;
+    telephoneVerifie: boolean;
+    photo: string | null;
   };
 }
 
+// Réponse du register
 export interface RegisterResponse {
+  success: true;
   message: string;
   user: {
     id: number;

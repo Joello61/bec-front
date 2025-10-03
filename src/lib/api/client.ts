@@ -1,31 +1,45 @@
-import axios, { type AxiosInstance, type AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import type { ApiError } from '@/types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
-
-export const apiClient: AxiosInstance = axios.create({
-  baseURL: API_URL,
+const apiClient = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Important pour les cookies
+  // CRITIQUE : Envoyer les cookies dans toutes les requêtes
+  withCredentials: true,
+  timeout: 10000,
 });
 
-// Intercepteur de réponse pour gérer les erreurs
+// Intercepteur pour gérer les erreurs
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ApiError>) => {
-    if (error.response?.data) {
-      // Erreur API structurée
-      return Promise.reject(error.response.data);
+    if (error.response) {
+      // Erreur avec réponse du serveur
+      const apiError: ApiError = {
+        success: false,
+        message: error.response.data?.message || 'Une erreur est survenue',
+        statusCode: error.response.status,
+        errors: error.response.data?.errors,
+        debug: error.response.data?.debug,
+      };
+      return Promise.reject(apiError);
+    } else if (error.request) {
+      // Requête envoyée mais pas de réponse
+      return Promise.reject({
+        success: false,
+        message: 'Impossible de contacter le serveur',
+        statusCode: 0,
+      });
+    } else {
+      // Erreur lors de la configuration de la requête
+      return Promise.reject({
+        success: false,
+        message: error.message || 'Erreur inconnue',
+        statusCode: 0,
+      });
     }
-    
-    // Erreur réseau ou autre
-    return Promise.reject({
-      error: true,
-      message: error.message || 'Une erreur est survenue',
-      statusCode: error.response?.status || 500,
-    } as ApiError);
   }
 );
 

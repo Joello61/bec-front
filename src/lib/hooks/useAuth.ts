@@ -7,6 +7,7 @@ export function useAuth() {
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const isLoading = useAuthStore((state) => state.isLoading);
+  const isInitialized = useAuthStore((state) => state.isInitialized); 
   const error = useAuthStore((state) => state.error);
   const login = useAuthStore((state) => state.login);
   const register = useAuthStore((state) => state.register);
@@ -18,6 +19,7 @@ export function useAuth() {
     user,
     isAuthenticated,
     isLoading,
+    isInitialized,
     error,
     login,
     register,
@@ -31,11 +33,12 @@ export function useAuth() {
  * Hook pour protéger les routes authentifiées
  */
 export function useRequireAuth() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, isInitialized } = useAuth();
 
   return {
     isAuthenticated,
     isLoading,
-    canAccess: isAuthenticated && !isLoading,
+    isInitialized,
+    canAccess: isAuthenticated && isInitialized,
   };
 }

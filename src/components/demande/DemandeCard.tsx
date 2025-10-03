@@ -8,6 +8,8 @@ import DemandeStatusBadge from './DemandeStatusBadge';
 import { formatWeight, getDaysRemaining } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
 import type { Demande } from '@/types';
+import { usePathname } from 'next/navigation';
+import { Route } from 'next';
 
 interface DemandeCardProps {
   demande: Demande;
@@ -15,6 +17,15 @@ interface DemandeCardProps {
 
 export default function DemandeCard({ demande }: DemandeCardProps) {
   const daysRemaining = demande.dateLimite ? getDaysRemaining(demande.dateLimite) : null;
+  const pathname = usePathname();
+
+  let link = '' as Route;
+
+  if (pathname?.includes('/dashboard')) {
+    link = ROUTES.MES_DEMANDE_DETAILS(demande.id)
+  } else {
+    link = ROUTES.SEARCH_DEMANDE_DETAILS(demande.id)
+  }
 
   return (
     <motion.div
@@ -22,7 +33,7 @@ export default function DemandeCard({ demande }: DemandeCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Link href={ROUTES.DEMANDE_DETAILS(demande.id)}>
+      <Link href={link}>
         <Card hoverable className="h-full">
           <CardContent className="p-5">
             {/* Header */}

@@ -92,7 +92,7 @@ export default function SignalementCard({ signalement, onProcess, isAdmin }: Sig
           {/* Lien vers contenu */}
           {signalement.voyage && (
             <Link
-              href={ROUTES.VOYAGE_DETAILS(signalement.voyage.id)}
+              href={ROUTES.SEARCH_VOYAGE_DETAILS(signalement.voyage.id)}
               className="text-sm text-primary hover:text-primary-dark transition-colors"
             >
               Voir le voyage signalé →
@@ -100,7 +100,7 @@ export default function SignalementCard({ signalement, onProcess, isAdmin }: Sig
           )}
           {signalement.demande && (
             <Link
-              href={ROUTES.DEMANDE_DETAILS(signalement.demande.id)}
+              href={ROUTES.SEARCH_DEMANDE_DETAILS(signalement.demande.id)}
               className="text-sm text-primary hover:text-primary-dark transition-colors"
             >
               Voir la demande signalée →

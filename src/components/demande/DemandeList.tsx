@@ -19,7 +19,7 @@ export default function DemandeList({
 }: DemandeListProps) {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {[...Array(6)].map((_, i) => (
           <div key={i} className="card p-5 animate-pulse">
             <div className="flex items-center gap-3 mb-4">
@@ -65,7 +65,7 @@ export default function DemandeList({
   return (
     <div className="space-y-6">
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {demandes.map((demande) => (
           <DemandeCard key={demande.id} demande={demande} />
         ))}

@@ -198,6 +198,7 @@ export function TrustSafetySection() {
           {/* Bonnes pratiques */}
           <div className="space-y-6">
             {bestPractices.map((practice, index) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               const Icon = practice.icon;
               return (
                 <motion.div

@@ -8,6 +8,7 @@ import { LoginForm } from '@/components/forms';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { LoginFormData } from '@/lib/validations';
+import { useToast } from '@/components/common';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -23,10 +24,17 @@ const fadeIn: Variants = {
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
+  const toast = useToast()
 
   const handleLogin = async (data: LoginFormData) => {
-    await login(data);
-    router.push(ROUTES.VOYAGES);
+    try {
+      await login(data);
+      toast.success('Connexion réussie !');
+      router.push(ROUTES.DASHBOARD);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur de connexion');
+    }
   };
 
   const features = [

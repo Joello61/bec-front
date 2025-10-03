@@ -8,19 +8,32 @@ import VoyageStatusBadge from './VoyageStatusBadge';
 import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
 import type { Voyage } from '@/types';
+import { usePathname } from 'next/navigation';
+import { Route } from 'next';
 
 interface VoyageCardProps {
   voyage: Voyage;
 }
 
 export default function VoyageCard({ voyage }: VoyageCardProps) {
+
+  const pathname = usePathname();
+
+  let link = '' as Route;
+
+  if(pathname?.includes('dashboard')) {
+    link = ROUTES.MES_VOYAGE_DETAILS(voyage.id)
+  } else {
+    link = ROUTES.SEARCH_VOYAGE_DETAILS(voyage.id)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Link href={ROUTES.VOYAGE_DETAILS(voyage.id)}>
+      <Link href={link}>
         <Card hoverable className="h-full">
           <CardContent className="p-5">
             {/* Header */}

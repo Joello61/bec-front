@@ -86,7 +86,7 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           variant="primary"
           isLoading={isSubmitting}
           leftIcon={<LogIn className="w-4 h-4" />}
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           Se connecter
         </Button>
@@ -112,7 +112,7 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full cursor-pointer"
           >
             Créer un compte
           </Button>
