@@ -42,13 +42,20 @@ export function Toast({ id, type, message, duration = 3000, onClose }: ToastProp
 
   return createPortal(
     <motion.div
-      initial={{ opacity: 0, y: -20, scale: 0.95 }}
+      initial={{ opacity: 0, y: -100, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -20, scale: 0.95 }}
-      className={`fixed top-4 right-4 z-50 min-w-[300px] max-w-md rounded-lg shadow-lg ${toastStyles[type]} p-4 flex items-start gap-3`}
+      exit={{ opacity: 0, y: -100, scale: 0.95 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+      className={`
+        fixed z-[100]
+        top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0
+        w-[calc(100%-8rem)] max-w-md
+        rounded-lg shadow-lg ${toastStyles[type]} 
+        p-4 flex items-start gap-3
+      `}
     >
       <div className="flex-shrink-0 mt-0.5">{toastIcons[type]}</div>
-      <p className="flex-1 text-sm font-medium">{message}</p>
+      <p className="flex-1 text-sm font-medium break-words">{message}</p>
       <button
         onClick={() => onClose(id)}
         className="flex-shrink-0 hover:bg-white/20 rounded p-1 transition-colors"
@@ -61,7 +68,6 @@ export function Toast({ id, type, message, duration = 3000, onClose }: ToastProp
   );
 }
 
-// Toast Container pour gérer plusieurs toasts
 interface ToastContainerProps {
   toasts: Array<{ id: string; type: ToastType; message: string; duration?: number }>;
   onClose: (id: string) => void;
@@ -69,12 +75,15 @@ interface ToastContainerProps {
 
 export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="sync">
       {toasts.map((toast, index) => (
         <motion.div
           key={toast.id}
-          style={{ top: `${4 + index * 80}px` }}
-          className="fixed right-4 z-50"
+          style={{ 
+            top: `${1 + index * 5}rem`,
+            zIndex: 100 - index
+          }}
+          className="fixed left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 w-[calc(100%-2rem)] max-w-md"
         >
           <Toast {...toast} onClose={onClose} />
         </motion.div>
@@ -83,13 +92,11 @@ export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
   );
 }
 
-// Hook pour utiliser les toasts facilement
 let toastId = 0;
 
 export function useToast() {
   const showToast = (type: ToastType, message: string, duration?: number) => {
     const id = `toast-${toastId++}`;
-    // Dispatcher un événement custom pour que le ToastContainer puisse l'écouter
     window.dispatchEvent(
       new CustomEvent('show-toast', {
         detail: { id, type, message, duration },

@@ -21,10 +21,10 @@ export default function VoyageCard({ voyage }: VoyageCardProps) {
 
   let link = '' as Route;
 
-  if(pathname?.includes('dashboard')) {
+  if(pathname?.includes('dashboard/mes-voyages')) {
     link = ROUTES.MES_VOYAGE_DETAILS(voyage.id)
   } else {
-    link = ROUTES.SEARCH_VOYAGE_DETAILS(voyage.id)
+    link = ROUTES.VOYAGE_DETAILS(voyage.id)
   }
 
   return (

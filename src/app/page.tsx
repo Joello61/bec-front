@@ -121,7 +121,7 @@ export default function HomePage() {
                   </motion.div>
                 </Link>
                 
-                <Link href="/dashboard/voyages">
+                <Link href="/dashboard/mes-voyages">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -237,7 +237,7 @@ export default function HomePage() {
             </h2>
             
             <p className="text-lg md:text-xl mb-10 text-white/80 leading-relaxed">
-              Rejoignez des centaines d&apos;utilisateurs qui font confiance à Bagage Express pour leurs envois de colis.
+              Rejoignez des centaines d&apos;utilisateurs qui font confiance à CoBage pour leurs envois de colis.
             </p>
             
             <Link href="/auth/register">

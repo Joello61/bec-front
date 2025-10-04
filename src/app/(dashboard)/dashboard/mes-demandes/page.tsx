@@ -6,7 +6,7 @@ import { Plus } from 'lucide-react';
 import { Button, Modal } from '@/components/ui';
 import { DemandeList, DemandeFilters } from '@/components/demande';
 import { DemandeForm } from '@/components/forms';
-import { useDemandes, useDemandeActions } from '@/lib/hooks';
+import { useDemandeActions, useAuth, useUserDemandes } from '@/lib/hooks';
 import { EmptyState, ErrorState, LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 import type { DemandeFilters as DemandeFiltersType } from '@/types';
@@ -14,12 +14,17 @@ import { CreateDemandeFormData } from '@/lib/validations';
 
 export default function DemandesPage() {
   const router = useRouter();
-  const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<DemandeFiltersType>({});
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
-  const { demandes, pagination, isLoading, error, refetch } = useDemandes(page, 10, filters);
+  const { user } = useAuth();
+
   const { createDemande } = useDemandeActions();
+  const { demandes, isLoading, error, refetch } = useUserDemandes(user?.id);
+
+  if (!user) {
+    return null
+  }
 
   const handleCreateDemande = async (data: CreateDemandeFormData) => {
     const demande = await createDemande(data);
@@ -43,7 +48,7 @@ export default function DemandesPage() {
     <div className="container-custom py-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-        <div>
+        <div className='text-center md:text-left'>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Mes Demandes</h1>
           <p className="text-gray-600">Gérez vos demandes de transport</p>
         </div>
@@ -78,8 +83,6 @@ export default function DemandesPage() {
         ) : (
           <DemandeList
             demandes={demandes}
-            pagination={pagination}
-            onPageChange={setPage}
             isLoading={isLoading}
           />
         )}

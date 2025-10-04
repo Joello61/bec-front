@@ -13,6 +13,7 @@ export const endpoints = {
     show: (id: number) => `/users/${id}`,
     updateMe: '/users/me',
     search: '/users/search',
+    dashboard: '/users/me/dashboard',
   },
 
   // Voyages

@@ -2,23 +2,23 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bell, 
   MessageSquare, 
-  Menu, 
-  X, 
   User, 
-  Heart, 
   LogOut,
   Plane,
-  Package,
+  Settings,
+  HelpCircle,
+  Search,
   BookOpen,
+  Home,
   Info,
   Mail,
-  Home,
-  LayoutDashboard,
+  Menu,
+  X,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
@@ -27,418 +27,297 @@ import { ROUTES } from '@/lib/utils/constants';
 import { cn } from '@/lib/utils/cn';
 import { useToast } from '../common';
 
+const navigation = [
+  { name: "Accueil", href: ROUTES.HOME, icon: Home },
+  { name: "À propos", href: ROUTES.ABOUT, icon: Info },
+  { name: "Comment ça marche", href: ROUTES.HOW_IT_WORKS, icon: BookOpen },
+  { name: "Contact", href: ROUTES.CONTACT, icon: Mail },
+];
+
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
   const { unreadCount: notifCount } = useUnreadNotificationCount();
   const { unreadCount: messageCount } = useUnreadMessages();
-
   const toast = useToast();
-  const router = useRouter()
+  const router = useRouter();
+  const pathname = usePathname();
 
-  // Détection du scroll pour effet glassmorphism
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigation = [
-    { name: "Accueil", href: ROUTES.HOME, icon: Home },
-    { name: "À propos", href: ROUTES.ABOUT, icon: Info },
-    { name: "Comment ça marche", href: ROUTES.HOW_IT_WORKS, icon: BookOpen },
-    { name: "Voyages", href: ROUTES.SEARCH_VOYAGES, icon: Plane },
-    { name: "Demandes", href: ROUTES.SEARCH_DEMANDES, icon: Package },
-    { name: "Contact", href: ROUTES.CONTACT, icon: Mail },
-  ];
-
-  const isActive = (href: string) => pathname === href;
+  // Fermer le menu mobile lors du changement de route
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const handleLogout = async () => {
-  try {
-    await logout();
-    toast.info('Vous êtes déconnecté');
-    router.push(ROUTES.HOME);
-  } catch (error) {
-    console.log(error)
-    toast.error('Erreur lors de la déconnexion');
-  }
-};
+    try {
+      await logout();
+      toast.info('Déconnexion réussie');
+      router.push(ROUTES.HOME);
+    } catch {
+      toast.error('Erreur lors de la déconnexion');
+    }
+  };
 
-  return (
-    <motion.header 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      className={cn(
-        'sticky top-0 z-40 transition-all duration-300',
-        scrolled 
-          ? 'glass shadow-md' 
-          : 'bg-white'
-      )}
-    >
-      <nav className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo avec animation */}
-          <Link href={ROUTES.HOME} className="flex items-center gap-3 group">
-            <motion.div 
-              whileHover={{ rotate: 360, scale: 1.1 }}
-              transition={{ duration: 0.6, ease: 'easeInOut' }}
-              className="relative"
-            >
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`${ROUTES.EXPLORE}?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  if (!isAuthenticated) {
+    // Header pour utilisateurs non connectés
+    return (
+      <>
+        <header className={cn(
+          'sticky top-0 z-50 transition-all duration-300 bg-white',
+          scrolled && 'shadow-md'
+        )}>
+          <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+            {/* Logo */}
+            <Link href={ROUTES.HOME} className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
                 <Plane className="w-5 h-5 text-white" />
               </div>
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.5, 0.8, 0.5]
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-                className="absolute -inset-1 bg-primary/20 rounded-xl blur-sm -z-10"
-              />
-            </motion.div>
-            <div className="hidden sm:block">
-              <span className="font-bold text-xl text-gray-900 block leading-tight">
-                Bagage Express
-              </span>
+              <span className="font-bold text-xl text-gray-900">CoBage</span>
+            </Link>
+
+            {/* Navigation Desktop */}
+            <div className="hidden md:flex items-center gap-1">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link key={item.name} href={item.href}>
+                    <button
+                      className={cn(
+                        'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                        isActive
+                          ? 'text-primary bg-primary/10'
+                          : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                      )}
+                    >
+                      <Icon className="w-4 h-4" />
+                      {item.name}
+                    </button>
+                  </Link>
+                );
+              })}
             </div>
-          </Link>
 
-          {/* Navigation Desktop */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navigation.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="relative group"
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={cn(
-                      'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all',
-                      isActive(item.href)
-                        ? 'bg-primary text-white shadow-md'
-                        : 'text-gray-700 hover:bg-gray-100'
-                    )}
-                  >
-                    {Icon && <Icon className="w-4 h-4" />}
-                    {item.name}
-                  </motion.div>
-                  {isActive(item.href) && (
-                    <motion.div
-                      layoutId="activeTab"
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
+            {/* Actions */}
+            <div className="flex items-center gap-3">
+              <Link href={ROUTES.LOGIN} className="hidden sm:block">
+                <button className="px-5 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">
+                  Connexion
+                </button>
+              </Link>
+              <Link href={ROUTES.REGISTER} className="hidden sm:block">
+                <button className="px-5 py-2.5 text-sm font-medium bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-all">
+                  Inscription
+                </button>
+              </Link>
 
-          {/* Actions Desktop */}
-          <div className="hidden md:flex items-center gap-2">
-            {isAuthenticated ? (
-              <>
-                {/* Notifications avec badge animé */}
-                <Link
-                  href={ROUTES.NOTIFICATIONS}
-                  className="relative"
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-2.5 rounded-lg hover:bg-gray-100 transition-colors"
-                  >
-                    <Bell className="w-5 h-5 text-gray-700" />
-                    {notifCount > 0 && (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center font-bold shadow-lg"
-                      >
-                        {notifCount > 9 ? '9+' : notifCount}
-                      </motion.span>
-                    )}
-                  </motion.div>
-                </Link>
+              {/* Menu Hamburger Mobile */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6 text-gray-700" />
+                ) : (
+                  <Menu className="w-6 h-6 text-gray-700" />
+                )}
+              </button>
+            </div>
+          </nav>
+        </header>
 
-                {/* Messages avec badge animé */}
-                <Link
-                  href={ROUTES.MESSAGES}
-                  className="relative"
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="p-2.5 rounded-lg hover:bg-gray-100 transition-colors"
-                  >
-                    <MessageSquare className="w-5 h-5 text-gray-700" />
-                    {messageCount > 0 && (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-xs rounded-full flex items-center justify-center font-bold shadow-lg"
-                      >
-                        {messageCount > 9 ? '9+' : messageCount}
-                      </motion.span>
-                    )}
-                  </motion.div>
-                </Link>
-
-                {/* User Menu avec animation */}
-                <Dropdown
-                  trigger={
-                    <motion.button 
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="cursor-pointer flex items-center gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
-                    >
-                      <Avatar
-                        src={user?.photo || undefined}
-                        fallback={user ? `${user.nom} ${user.prenom}` : 'U'}
-                        size="sm"
-                        verified={user?.emailVerifie}
-                      />
-                    </motion.button>
-                  }
-                  align="right"
-                >
-                  <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
-                    <p className="text-sm font-semibold text-gray-900">
-                      {user?.prenom} {user?.nom}
-                    </p>
-                    <p className="text-xs text-gray-500 truncate mt-0.5">{user?.email}</p>
-                  </div>
-                  <DropdownItem
-                    onClick={() => (router.push(ROUTES.DASHBOARD))}
-                    className='cursor-pointer'
-                    icon={<LayoutDashboard className="w-4 h-4" />}
-                  >
-                    Mon dashboard
-                  </DropdownItem>
-                  <DropdownItem
-                    onClick={() => (router.push(ROUTES.PROFILE))}
-                    className='cursor-pointer'
-                    icon={<User className="w-4 h-4" />}
-                  >
-                    Mon profil
-                  </DropdownItem>
-                  <DropdownItem
-                    onClick={() => (router.push(ROUTES.FAVORIS))}
-                    className='cursor-pointer'
-                    icon={<Heart className="w-4 h-4" />}
-                  >
-                    Mes favoris
-                  </DropdownItem>
-                  <DropdownDivider />
-                  <DropdownItem
-                    onClick={handleLogout}
-                    className='cursor-pointer'
-                    danger
-                    icon={<LogOut className="w-4 h-4" />}
-                  >
-                    Déconnexion
-                  </DropdownItem>
-                </Dropdown>
-              </>
-            ) : (
-              <>
-                <Link href={ROUTES.LOGIN}>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="cursor-pointer px-5 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors"
-                  >
-                    Connexion
-                  </motion.button>
-                </Link>
-                <Link href={ROUTES.REGISTER}>
-                  <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: '0 10px 25px -5px rgba(0, 105, 92, 0.3)' }}
-                    whileTap={{ scale: 0.95 }}
-                    className="cursor-pointer px-5 py-2 text-sm font-medium bg-primary text-white rounded-lg shadow-md hover:bg-primary-dark transition-colors"
-                  >
-                    Inscription
-                  </motion.button>
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button avec animation */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <AnimatePresence mode="wait">
-              {isMobileMenuOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X className="w-6 h-6" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className="w-6 h-6" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
-        </div>
-
-        {/* Mobile Menu avec animation */}
+        {/* Menu Mobile */}
         <AnimatePresence>
-          {isMobileMenuOpen && (
+          {mobileMenuOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden border-t border-gray-200"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed top-16 left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-40 overflow-hidden"
             >
-              <div className="py-4 space-y-1">
-                {navigation.map((item, index) => {
+              <nav className="container mx-auto px-4 py-4 space-y-1">
+                {navigation.map((item) => {
                   const Icon = item.icon;
+                  const isActive = pathname === item.href;
                   return (
-                    <motion.div
-                      key={item.name}
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
+                    <Link key={item.name} href={item.href}>
+                      <button
                         className={cn(
-                          'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
-                          isActive(item.href)
-                            ? 'bg-primary text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
+                          'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                          isActive
+                            ? 'text-primary bg-primary/10'
+                            : 'text-gray-700 hover:bg-gray-50'
                         )}
                       >
-                        {Icon && <Icon className="w-4 h-4" />}
+                        <Icon className="w-5 h-5" />
                         {item.name}
-                      </Link>
-                    </motion.div>
+                      </button>
+                    </Link>
                   );
                 })}
 
-                {isAuthenticated ? (
-                  <>
-                    <motion.div
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: navigation.length * 0.05 }}
-                    >
-                      <Link
-                        href={ROUTES.NOTIFICATIONS}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
-                      >
-                        <span className="flex items-center gap-3">
-                          <Bell className="w-4 h-4" />
-                          Notifications
-                        </span>
-                        {notifCount > 0 && (
-                          <span className="w-6 h-6 bg-error text-white text-xs rounded-full flex items-center justify-center font-bold">
-                            {notifCount > 9 ? '9+' : notifCount}
-                          </span>
-                        )}
-                      </Link>
-                    </motion.div>
-                    <motion.div
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: (navigation.length + 1) * 0.05 }}
-                    >
-                      <Link
-                        href={ROUTES.MESSAGES}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
-                      >
-                        <span className="flex items-center gap-3">
-                          <MessageSquare className="w-4 h-4" />
-                          Messages
-                        </span>
-                        {messageCount > 0 && (
-                          <span className="w-6 h-6 bg-error text-white text-xs rounded-full flex items-center justify-center font-bold">
-                            {messageCount > 9 ? '9+' : messageCount}
-                          </span>
-                        )}
-                      </Link>
-                    </motion.div>
-                    <div className="h-px bg-gray-200 my-2" />
-                    <Link
-                      href={ROUTES.PROFILE}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
-                    >
-                      <User className="w-4 h-4" />
-                      Mon profil
-                    </Link>
-                    <Link
-                      href={ROUTES.FAVORIS}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100"
-                    >
-                      <Heart className="w-4 h-4" />
-                      Mes favoris
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-error hover:bg-error/10"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      Déconnexion
-                    </button>
-                  </>
-                ) : (
-                  <div className="flex flex-col gap-2 pt-2 border-2 border-primary p-3 rounded-2xl mt-3">
-                    <Link
-                      href={ROUTES.LOGIN}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="px-4 py-3 rounded-lg text-sm font-medium text-center text-gray-700 hover:bg-gray-100"
-                    >
+                <div className="flex flex-col gap-2 pt-4 border-t border-gray-200 space-y-2">
+                  <Link href={ROUTES.LOGIN}>
+                    <button className="w-full px-4 py-2.5 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                       Connexion
-                    </Link>
-                    <Link
-                      href={ROUTES.REGISTER}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="px-4 py-3 rounded-lg text-sm font-medium text-center bg-primary text-white hover:bg-primary-dark"
-                    >
+                    </button>
+                  </Link>
+                  <Link href={ROUTES.REGISTER}>
+                    <button className="w-full px-4 py-2.5 text-sm font-medium bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
                       Inscription
-                    </Link>
-                  </div>
-                )}
-              </div>
+                    </button>
+                  </Link>
+                </div>
+              </nav>
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
-    </motion.header>
+      </>
+    );
+  }
+
+  // Header pour utilisateurs connectés (version actuelle)
+  return (
+    <header className={cn(
+      'sticky top-0 z-50 transition-all duration-300 bg-white border-b',
+      scrolled ? 'shadow-md border-gray-200' : 'border-transparent'
+    )}>
+      <div className="container mx-auto px-4">
+        <div className="h-16 flex items-center justify-between gap-4">
+          {/* Logo */}
+          <Link href={ROUTES.DASHBOARD} className="flex items-center gap-2 flex-shrink-0">
+            <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
+              <Plane className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-bold text-lg text-gray-900">CoBage</span>
+          </Link>
+
+          {/* Barre de recherche (Desktop) */}
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xl">
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Rechercher des voyages ou demandes..."
+                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+              />
+            </div>
+          </form>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            {/* Notifications */}
+            <Link href={ROUTES.NOTIFICATIONS}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative p-2.5 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <Bell className="w-5 h-5 text-gray-700" />
+                {notifCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-error text-white text-[10px] rounded-full flex items-center justify-center font-bold">
+                    {notifCount > 9 ? '9+' : notifCount}
+                  </span>
+                )}
+              </motion.button>
+            </Link>
+
+            {/* Messages */}
+            <Link href={ROUTES.MESSAGES}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative p-2.5 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <MessageSquare className="w-5 h-5 text-gray-700" />
+                {messageCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-error text-white text-[10px] rounded-full flex items-center justify-center font-bold">
+                    {messageCount > 9 ? '9+' : messageCount}
+                  </span>
+                )}
+              </motion.button>
+            </Link>
+
+            {/* User Menu */}
+            <Dropdown
+              trigger={
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <Avatar
+                    src={user?.photo || undefined}
+                    fallback={`${user?.prenom?.charAt(0)}${user?.nom?.charAt(0)}`}
+                    size="sm"
+                    verified={user?.emailVerifie}
+                  />
+                  <span className="hidden lg:block text-sm font-medium text-gray-700">
+                    {user?.prenom}
+                  </span>
+                </motion.button>
+              }
+              align="right"
+            >
+              <div className="px-4 py-3 border-b border-gray-200">
+                <p className="text-sm font-semibold text-gray-900">
+                  {user?.prenom} {user?.nom}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">{user?.email}</p>
+              </div>
+              
+              <DropdownItem
+                onClick={() => router.push(ROUTES.PROFILE)}
+                icon={<User className="w-4 h-4" />}
+              >
+                Mon profil
+              </DropdownItem>
+              
+              <DropdownItem
+                onClick={() => router.push(ROUTES.SETTINGS)}
+                icon={<Settings className="w-4 h-4" />}
+              >
+                Paramètres
+              </DropdownItem>
+              
+              <DropdownItem
+                onClick={() => router.push(ROUTES.HELP)}
+                icon={<HelpCircle className="w-4 h-4" />}
+              >
+                Aide & Support
+              </DropdownItem>
+              
+              <DropdownDivider />
+              
+              <DropdownItem
+                onClick={handleLogout}
+                danger
+                icon={<LogOut className="w-4 h-4" />}
+              >
+                Déconnexion
+              </DropdownItem>
+            </Dropdown>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }

@@ -40,36 +40,24 @@ export function HowItWorksSection() {
       title: 'Recherchez',
       description: 'Trouvez un voyageur allant vers votre destination ou une demande de transport correspondant à votre trajet.',
       forWho: 'Expéditeurs & Voyageurs',
-      color: 'text-primary',
-      bgColor: 'bg-primary/10',
-      borderColor: 'border-primary/20'
     },
     {
       icon: MessageCircle,
       title: 'Contactez',
       description: 'Échangez directement via notre messagerie sécurisée pour convenir des détails du transport.',
       forWho: 'Tous',
-      color: 'text-info',
-      bgColor: 'bg-info/10',
-      borderColor: 'border-info/20'
     },
     {
       icon: Package,
       title: 'Organisez',
       description: 'Convenez ensemble du lieu, de l\'heure et des modalités de remise du colis.',
       forWho: 'Tous',
-      color: 'text-secondary',
-      bgColor: 'bg-secondary/10',
-      borderColor: 'border-secondary/20'
     },
     {
       icon: Star,
       title: 'Évaluez',
       description: 'Après la livraison, laissez un avis pour renforcer la confiance dans la communauté.',
       forWho: 'Tous',
-      color: 'text-accent',
-      bgColor: 'bg-accent/10',
-      borderColor: 'border-accent/20'
     }
   ];
 
@@ -154,8 +142,8 @@ export function HowItWorksSection() {
                     </div>
                     
                     {/* Icône */}
-                    <div className={`inline-flex items-center justify-center w-16 h-16 ${step.bgColor} rounded-2xl mb-4 mt-2 mx-auto`}>
-                      <Icon className={`w-8 h-8 ${step.color}`} />
+                    <div className={`inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4 mt-2 mx-auto`}>
+                      <Icon className={`w-8 h-8 text-primary`} />
                     </div>
                     
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -167,7 +155,7 @@ export function HowItWorksSection() {
                     
                     {/* Footer avec badge */}
                     <div className="mt-auto">
-                      <span className={`inline-block text-xs font-medium ${step.color} ${step.bgColor} px-3 py-1.5 rounded-full border ${step.borderColor}`}>
+                      <span className={`inline-block text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20`}>
                         {step.forWho}
                       </span>
                     </div>
@@ -182,21 +170,6 @@ export function HowItWorksSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {userTypes.map((userType, index) => {
             const Icon = userType.icon;
-            const colorClasses = {
-              primary: {
-                bg: 'bg-primary',
-                text: 'text-primary',
-                bgLight: 'bg-primary/5',
-                border: 'border-primary/20'
-              },
-              secondary: {
-                bg: 'bg-secondary',
-                text: 'text-secondary',
-                bgLight: 'bg-secondary/5',
-                border: 'border-secondary/20'
-              }
-            }[userType.color];
-
             return (
               <motion.div
                 key={index}
@@ -207,13 +180,13 @@ export function HowItWorksSection() {
                 className="relative group"
               >
                 {/* Effet de glow */}
-                <div className={`absolute inset-0 ${colorClasses?.bgLight} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity`} />
+                <div className={`absolute inset-0 bg-primary/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity`} />
                 
                 {/* Carte */}
                 <div className="relative bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
                   {/* Header avec icône */}
                   <div className="flex items-center gap-4 mb-4">
-                    <div className={`w-12 h-12 ${colorClasses?.bg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                    <div className={`w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -243,7 +216,7 @@ export function HowItWorksSection() {
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`flex items-center justify-center gap-2 w-full px-6 py-3 ${colorClasses?.bg} text-white rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-md`}
+                      className={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:opacity-90 transition-opacity shadow-md`}
                     >
                       {userType.cta}
                       <ArrowRight className="w-5 h-5" />

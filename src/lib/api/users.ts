@@ -1,6 +1,6 @@
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { User, UpdateUserInput, PaginatedResponse } from '@/types';
+import type { User, UpdateUserInput, PaginatedResponse, DashboardData } from '@/types';
 
 export const usersApi = {
   async list(page = 1, limit = 10): Promise<PaginatedResponse<User>> {
@@ -24,6 +24,11 @@ export const usersApi = {
     const response = await apiClient.get<User[]>(endpoints.users.search, {
       params: { q: query },
     });
+    return response.data;
+  },
+
+  async dashboard(): Promise<DashboardData> {
+    const response = await apiClient.get<DashboardData>(endpoints.users.dashboard);
     return response.data;
   },
 };

@@ -2,8 +2,8 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Bagage Express Cameroun',
-    short_name: 'BEC',
+    name: 'CoBage',
+    short_name: 'CB',
     description: 'Plateforme de mise en relation entre voyageurs et personnes souhaitant faire transporter des objets',
     start_url: '/',
     scope: '/',

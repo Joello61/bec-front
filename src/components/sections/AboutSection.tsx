@@ -78,7 +78,7 @@ export function AboutSection() {
             Pourquoi nous choisir
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            À propos de Bagage Express
+            À propos de CoBage
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             La première plateforme camerounaise de mise en relation entre voyageurs et expéditeurs pour un transport de colis intelligent et économique.
@@ -107,13 +107,15 @@ export function AboutSection() {
                 
                 {/* Carte */}
                 <div className="relative bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
-                  <div className={`inline-flex items-center justify-center w-14 h-14 ${feature.bgColor} rounded-xl mb-4`}>
-                    <Icon className={`w-7 h-7 ${feature.color}`} />
+                  <div className='flex flex-col justify-center items-center'>
+                    <div className='inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl mb-4'>
+                      <Icon className='w-7 h-7 text-primary' />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      {feature.title}
+                    </h3>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed text-center">
                     {feature.description}
                   </p>
                 </div>
@@ -166,16 +168,16 @@ export function AboutSection() {
                     <div className="text-3xl font-bold text-primary mb-1">100%</div>
                     <div className="text-sm text-gray-600">Gratuit pour commencer</div>
                   </div>
-                  <div className="bg-info/5 rounded-xl p-6 border border-info/10">
-                    <div className="text-3xl font-bold text-info mb-1">24/7</div>
+                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                    <div className="text-3xl font-bold text-primary mb-1">24/7</div>
                     <div className="text-sm text-gray-600">Support disponible</div>
                   </div>
-                  <div className="bg-secondary/5 rounded-xl p-6 border border-secondary/10">
-                    <div className="text-3xl font-bold text-secondary mb-1">-50%</div>
+                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                    <div className="text-3xl font-bold text-primary mb-1">-50%</div>
                     <div className="text-sm text-gray-600">Économies moyennes</div>
                   </div>
-                  <div className="bg-accent/5 rounded-xl p-6 border border-accent/10">
-                    <div className="text-3xl font-bold text-accent mb-1">N°1</div>
+                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                    <div className="text-3xl font-bold text-primary mb-1">N°1</div>
                     <div className="text-sm text-gray-600">Plateforme de confiance</div>
                   </div>
                 </div>

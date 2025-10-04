@@ -9,8 +9,8 @@ interface VoyageStatusBadgeProps {
 export default function VoyageStatusBadge({ statut, size = 'md' }: VoyageStatusBadgeProps) {
   const statusConfig = {
     actif: { variant: 'success' as const, label: 'Actif', dot: true },
-    complet: { variant: 'warning' as const, label: 'Complet', dot: false },
-    termine: { variant: 'neutral' as const, label: 'Terminé', dot: false },
+    complete: { variant: 'warning' as const, label: 'Complet', dot: false },
+    en_cours: { variant: 'neutral' as const, label: 'Terminé', dot: false },
     annule: { variant: 'error' as const, label: 'Annulé', dot: false },
   };
 

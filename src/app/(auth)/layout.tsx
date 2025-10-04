@@ -45,9 +45,8 @@ export default function AuthLayout({
               </motion.div>
               <div>
                 <span className="font-bold text-xl text-gray-900 block leading-tight">
-                  Bagage Express
+                  CoBage
                 </span>
-                <span className="text-xs text-gray-500 font-medium">Voyagez léger, transportez malin</span>
               </div>
             </Link>
 
@@ -102,7 +101,7 @@ export default function AuthLayout({
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <p className="text-sm text-gray-600 text-center md:text-left">
-              © {new Date().getFullYear()} Bagage Express Cameroun. Tous droits réservés.
+              © {new Date().getFullYear()} CoBage. Tous droits réservés.
             </p>
 
             {/* Links */}

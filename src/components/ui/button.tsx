@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseStyles = 'btn';
+    const baseStyles = 'btn cursor-pointer';
     
     const variants = {
       primary: 'btn-primary',

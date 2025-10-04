@@ -110,11 +110,15 @@
   
   /* Links */
   a {
-    @apply text-info transition-colors duration-[var(--transition-fast)];
+    @apply cursor-pointer text-info transition-colors duration-[var(--transition-fast)];
   }
   
   a:hover {
     @apply text-info-dark;
+  }
+
+  button {
+    @apply cursor-pointer
   }
   
   /* Focus visible */

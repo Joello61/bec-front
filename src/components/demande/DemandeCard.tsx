@@ -21,10 +21,10 @@ export default function DemandeCard({ demande }: DemandeCardProps) {
 
   let link = '' as Route;
 
-  if (pathname?.includes('/dashboard')) {
+  if (pathname?.includes('/dashboard/mes-demandes')) {
     link = ROUTES.MES_DEMANDE_DETAILS(demande.id)
   } else {
-    link = ROUTES.SEARCH_DEMANDE_DETAILS(demande.id)
+    link = ROUTES.DEMANDE_DETAILS(demande.id)
   }
 
   return (

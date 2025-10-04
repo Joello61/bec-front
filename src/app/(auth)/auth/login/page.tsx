@@ -30,7 +30,7 @@ export default function LoginPage() {
     try {
       await login(data);
       toast.success('Connexion réussie !');
-      router.push(ROUTES.DASHBOARD);
+      router.push(ROUTES.EXPLORE);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || 'Erreur de connexion');
@@ -98,7 +98,7 @@ export default function LoginPage() {
         <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
             src="/images/auth/login.jpg"
-            alt="Connexion Bagage Express"
+            alt="Connexion CoBage"
             width={750}
             height={400}
             className="w-full h-[400px] object-cover"

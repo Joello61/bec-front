@@ -6,7 +6,7 @@ import { Plus } from 'lucide-react';
 import { Button, Modal } from '@/components/ui';
 import { VoyageList, VoyageFilters } from '@/components/voyage';
 import { VoyageForm } from '@/components/forms';
-import { useVoyages, useVoyageActions } from '@/lib/hooks';
+import { useVoyageActions, useAuth, useUserVoyages } from '@/lib/hooks';
 import { EmptyState, ErrorState, LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 import type { VoyageFilters as VoyageFiltersType } from '@/types';
@@ -14,12 +14,17 @@ import { CreateVoyageFormData } from '@/lib/validations/voyage.schema';
 
 export default function VoyagesPage() {
   const router = useRouter();
-  const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<VoyageFiltersType>({});
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const { user } = useAuth();
 
-  const { voyages, pagination, isLoading, error, refetch } = useVoyages(page, 10, filters);
+  const { voyages, isLoading, error, refetch } = useUserVoyages(user?.id);
   const { createVoyage } = useVoyageActions();
+
+  if (!user) {
+    return <p>Veuillez vous connecter</p>;
+  }
+
 
   const handleCreateVoyage = async (data: CreateVoyageFormData) => {
     const voyage = await createVoyage(data);
@@ -43,7 +48,7 @@ export default function VoyagesPage() {
     <div className="container-custom py-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-        <div>
+        <div className='text-center md:text-left'>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Mes Voyages</h1>
           <p className="text-gray-600">Gérez vos annonces de voyage</p>
         </div>
@@ -78,8 +83,6 @@ export default function VoyagesPage() {
         ) : (
           <VoyageList
             voyages={voyages}
-            pagination={pagination}
-            onPageChange={setPage}
             isLoading={isLoading}
           />
         )}

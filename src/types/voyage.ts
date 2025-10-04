@@ -1,6 +1,6 @@
 import type { User } from './user';
 
-export type VoyageStatut = 'actif' | 'complet' | 'termine' | 'annule';
+export type VoyageStatut = 'actif' | 'complete' | 'en_cours' | 'annule';
 
 export interface Voyage {
   id: number;

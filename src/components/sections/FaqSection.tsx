@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { HelpCircle, Mail, Plus, Minus } from 'lucide-react';
+import { Mail, Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
 
 const fadeIn: Variants = {
@@ -31,8 +31,8 @@ export function FaqSection() {
 
   const faqs = [
     {
-      question: 'Comment fonctionne Bagage Express ?',
-      answer: 'Bagage Express met en relation des voyageurs disposant d\'espace dans leurs bagages avec des personnes souhaitant envoyer des colis. Les voyageurs publient leurs trajets, les expéditeurs créent des demandes, et ils se contactent directement pour organiser le transport.'
+      question: 'Comment fonctionne CoBage ?',
+      answer: 'CoBage met en relation des voyageurs disposant d\'espace dans leurs bagages avec des personnes souhaitant envoyer des colis. Les voyageurs publient leurs trajets, les expéditeurs créent des demandes, et ils se contactent directement pour organiser le transport.'
     },
     {
       question: 'La plateforme est-elle sécurisée ?',
@@ -40,7 +40,7 @@ export function FaqSection() {
     },
     {
       question: 'Comment se fait le paiement ?',
-      answer: 'Le paiement se fait directement entre le voyageur et l\'expéditeur selon les modalités qu\'ils conviennent ensemble. Bagage Express facilite uniquement la mise en relation, sans gérer les transactions financières.'
+      answer: 'Le paiement se fait directement entre le voyageur et l\'expéditeur selon les modalités qu\'ils conviennent ensemble. CoBage facilite uniquement la mise en relation, sans gérer les transactions financières.'
     },
     {
       question: 'Quels types d\'objets peuvent être transportés ?',
@@ -75,14 +75,14 @@ export function FaqSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
-            <HelpCircle className="w-8 h-8 text-primary" />
-          </div>
+          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+            Des questions ?
+          </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Questions Fréquentes
           </h2>
           <p className="text-lg md:text-xl text-gray-600">
-            Tout ce que vous devez savoir sur Bagage Express
+            Tout ce que vous devez savoir sur CoBage
           </p>
         </motion.div>
 

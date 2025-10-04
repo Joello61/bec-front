@@ -42,8 +42,8 @@ export default function DemandeDetails({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Poids estimé */}
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                <Package className="w-5 h-5 text-secondary" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Package className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Poids estimé</p>
@@ -54,8 +54,8 @@ export default function DemandeDetails({
             {/* Date limite */}
             {demande.dateLimite && (
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-warning/10 flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-5 h-5 text-warning" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Date limite</p>
@@ -71,8 +71,8 @@ export default function DemandeDetails({
 
             {/* Créée le */}
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-info/10 flex items-center justify-center flex-shrink-0">
-                <Calendar className="w-5 h-5 text-info" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Calendar className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Créée le</p>

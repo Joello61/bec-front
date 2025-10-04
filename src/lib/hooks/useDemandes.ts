@@ -75,22 +75,22 @@ export function useDemandeActions() {
 /**
  * Hook pour les demandes d'un utilisateur
  */
-export function useUserDemandes(userId: number) {
+export function useUserDemandes(userId?: number) {
   const demandes = useDemandeStore((state) => state.demandes);
   const isLoading = useDemandeStore((state) => state.isLoading);
   const error = useDemandeStore((state) => state.error);
   const fetchUserDemandes = useDemandeStore((state) => state.fetchUserDemandes);
 
   useEffect(() => {
-    if (userId) {
+    if (userId != null) { // 👈 safe pour undefined/null
       fetchUserDemandes(userId);
     }
-  }, [userId]);
+  }, [userId, fetchUserDemandes]);
 
   return {
     demandes,
     isLoading,
     error,
-    refetch: () => fetchUserDemandes(userId),
+    refetch: userId != null ? () => fetchUserDemandes(userId) : async () => {},
   };
 }

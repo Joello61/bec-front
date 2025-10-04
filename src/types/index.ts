@@ -7,3 +7,4 @@ export * from './favori';
 export * from './avis';
 export * from './signalement';
 export * from './api';
+export * from './dashboard';

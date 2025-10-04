@@ -3,7 +3,7 @@ import { ContactSection } from '@/components/sections';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Contactez l\'équipe Bagage Express pour toute question ou assistance.',
+  description: 'Contactez l\'équipe CoBage pour toute question ou assistance.',
 };
 
 export default function ContactPage() {

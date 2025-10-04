@@ -51,8 +51,8 @@ export default function VoyageDetails({
 
             {/* Date d'arrivée */}
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Calendar className="w-5 h-5 text-accent" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Calendar className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Arrivée</p>
@@ -62,8 +62,8 @@ export default function VoyageDetails({
 
             {/* Poids disponible */}
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
-                <Package className="w-5 h-5 text-secondary" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Package className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Poids disponible</p>

@@ -3,7 +3,7 @@ import { HowItWorksSection } from '@/components/sections';
 
 export const metadata: Metadata = {
   title: 'Comment ça marche',
-  description: 'Découvrez en 4 étapes simples comment utiliser Bagage Express pour envoyer ou transporter des colis.',
+  description: 'Découvrez en 4 étapes simples comment utiliser CoBage pour envoyer ou transporter des colis.',
 };
 
 export default function HowItWorksPage() {

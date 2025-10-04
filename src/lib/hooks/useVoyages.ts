@@ -75,22 +75,22 @@ export function useVoyageActions() {
 /**
  * Hook pour les voyages d'un utilisateur
  */
-export function useUserVoyages(userId: number) {
+export function useUserVoyages(userId?: number) {
   const voyages = useVoyageStore((state) => state.voyages);
   const isLoading = useVoyageStore((state) => state.isLoading);
   const error = useVoyageStore((state) => state.error);
   const fetchUserVoyages = useVoyageStore((state) => state.fetchUserVoyages);
 
   useEffect(() => {
-    if (userId) {
+    if (userId != null) { // ✅ safe pour null/undefined
       fetchUserVoyages(userId);
     }
-  }, [userId]);
+  }, [userId, fetchUserVoyages]);
 
   return {
     voyages,
     isLoading,
     error,
-    refetch: () => fetchUserVoyages(userId),
+    refetch: userId != null ? () => fetchUserVoyages(userId) : async () => {},
   };
 }

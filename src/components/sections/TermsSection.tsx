@@ -22,11 +22,11 @@ export function TermsSection() {
   const sections = [
     {
       title: '1. Acceptation des conditions',
-      content: 'En utilisant Bagage Express, vous acceptez d\'être lié par ces conditions d\'utilisation. Si vous n\'acceptez pas ces conditions, veuillez ne pas utiliser notre plateforme.'
+      content: 'En utilisant CoBage, vous acceptez d\'être lié par ces conditions d\'utilisation. Si vous n\'acceptez pas ces conditions, veuillez ne pas utiliser notre plateforme.'
     },
     {
       title: '2. Description du service',
-      content: 'Bagage Express est une plateforme de mise en relation entre voyageurs et expéditeurs. Nous ne gérons pas directement les transactions, les paiements ni les livraisons.'
+      content: 'CoBage est une plateforme de mise en relation entre voyageurs et expéditeurs. Nous ne gérons pas directement les transactions, les paiements ni les livraisons.'
     },
     {
       title: '3. Responsabilités de l\'utilisateur',
@@ -38,7 +38,7 @@ export function TermsSection() {
     },
     {
       title: '5. Limitation de responsabilité',
-      content: 'Bagage Express n\'est pas responsable des pertes, dommages ou problèmes survenant lors du transport. Les transactions se font aux risques des utilisateurs.'
+      content: 'CoBage n\'est pas responsable des pertes, dommages ou problèmes survenant lors du transport. Les transactions se font aux risques des utilisateurs.'
     },
     {
       title: '6. Résiliation',

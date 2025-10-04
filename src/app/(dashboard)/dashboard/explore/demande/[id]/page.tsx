@@ -4,7 +4,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { DemandeDetails } from '@/components/demande';
-import { useDemande } from '@/lib/hooks';
+import { useDemande, useAuth } from '@/lib/hooks';
 import { ErrorState, LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 
@@ -13,7 +13,11 @@ export default function DemandeDetailsPage() {
   const params = useParams();
   const demandeId = parseInt(params.id as string);
 
+  const { user } = useAuth();
   const { demande, isLoading, error, refetch } = useDemande(demandeId);
+
+  const isOwner = user?.id === demande?.client.id;
+
 
   const handleContact = () => {
     if (demande) {
@@ -45,16 +49,17 @@ export default function DemandeDetailsPage() {
     <div className="container-custom py-8">
       {/* Back Button */}
       <Link
-        href={ROUTES.SEARCH_DEMANDES}
+        href={ROUTES.EXPLORE}
         className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
-        Retour aux demandes
+        Retour
       </Link>
 
       {/* Content */}
       <DemandeDetails
         demande={demande}
+        isOwner={isOwner}
         onContact={handleContact}
       />
     </div>

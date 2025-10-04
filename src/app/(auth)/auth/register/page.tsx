@@ -73,7 +73,7 @@ export default function RegisterPage() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="text-gray-600 text-center"
           >
-            Rejoignez la communauté Bagage Express
+            Rejoignez la communauté CoBage
           </motion.p>
         </div>
 
@@ -120,7 +120,7 @@ export default function RegisterPage() {
         <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
             src="/images/auth/register.jpg"
-            alt="Inscription Bagage Express"
+            alt="Inscription CoBage"
             width={750}
             height={400}
             className="w-full h-[400px] object-cover"

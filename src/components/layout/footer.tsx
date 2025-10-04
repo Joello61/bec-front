@@ -11,6 +11,7 @@ import {
   MapPin,
   Plane,
   ArrowUpRight,
+  Heart,
 } from 'lucide-react';
 import { ROUTES, CONTACT } from '@/lib/utils/constants';
 
@@ -105,7 +106,7 @@ export default function Footer() {
               </motion.div>
               <div>
                 <span className="font-bold text-xl text-white block">
-                  Bagage Express
+                  CoBage
                 </span>
                 <span className="text-xs text-gray-400">
                   Cameroun
@@ -267,26 +268,16 @@ export default function Footer() {
           
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500 text-center md:text-left">
-              © {currentYear} Bagage Express Cameroun. Tous droits réservés.
+              © {currentYear}  CoBage. Tous droits réservés.
             </p>
             <motion.div 
               whileHover={{ scale: 1.05 }}
               className="flex items-center gap-2 text-sm text-gray-500"
             >
               <span>Fait avec</span>
-              <motion.span
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{ 
-                  duration: 1,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-                className="text-error"
-              >
-                ♥
-              </motion.span>
+              <span className="text-error">
+                <Heart strokeWidth={3} className='w-4 h-4'/>
+              </span>
               <span>au Cameroun</span>
             </motion.div>
           </div>
