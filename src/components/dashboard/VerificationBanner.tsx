@@ -29,11 +29,11 @@ export default function VerificationBanner() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-warning/10 border-l-4 border-warning p-4 mb-6 rounded-lg"
+            className="bg-primary/10 border-l-4 border-primary p-4 mb-6 rounded-lg"
           >
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0">
-                <AlertCircle className="w-5 h-5 text-warning mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-primary mt-0.5" />
               </div>
               
               <div className="flex-1">
@@ -77,11 +77,11 @@ export default function VerificationBanner() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-info/10 border-l-4 border-info p-4 mb-6 rounded-lg"
+            className="bg-primary/10 border-l-4 border-primary p-4 mb-6 rounded-lg"
           >
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0">
-                <Smartphone className="w-5 h-5 text-info mt-0.5" />
+                <Smartphone className="w-5 h-5 text-primary mt-0.5" />
               </div>
               
               <div className="flex-1">

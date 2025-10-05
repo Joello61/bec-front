@@ -65,7 +65,7 @@ export default function RecentDemandes({ demandes, total, enCours }: RecentDeman
                   transition={{ delay: index * 0.1 }}
                 >
                   <Link href={ROUTES.MES_DEMANDE_DETAILS(demande.id)}>
-                    <div className="p-4 border border-gray-200 rounded-lg hover:border-secondary hover:bg-secondary/5 transition-all">
+                    <div className="p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">

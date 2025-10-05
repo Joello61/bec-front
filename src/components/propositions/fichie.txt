@@ -1,0 +1,420 @@
+// Barrel export pour tous les composants Proposition
+
+export { default as PropositionCard } from './PropositionCard';
+export { default as PropositionList } from './PropositionList';
+export { default as PropositionModal } from './PropositionModal';
+export { PropositionStatusBadge } from './PropositionStatusBadge';'use client';
+
+import { Clock, Package, User, MessageSquare } from 'lucide-react';
+import { PropositionStatusBadge } from './PropositionStatusBadge';
+import type { Proposition } from '@/types';
+import { formatDateRelative, formatPrice, formatFullName } from '@/lib/utils/format';
+
+interface PropositionCardProps {
+  proposition: Proposition;
+  viewMode: 'sent' | 'received';
+  onAccept?: (id: number) => void;
+  onRefuse?: (id: number) => void;
+  onViewDetails?: (id: number) => void;
+}
+
+export default function PropositionCard({ 
+  proposition, 
+  viewMode,
+  onAccept,
+  onRefuse,
+  onViewDetails 
+}: PropositionCardProps) {
+  const isReceived = viewMode === 'received';
+  const isPending = proposition.statut === 'en_attente';
+  const otherUser = isReceived ? proposition.client : proposition.voyageur;
+
+  return (
+    <div className="card hover:shadow-lg transition-shadow">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+            <User className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900">
+              {formatFullName(otherUser.nom, otherUser.prenom)}
+            </h3>
+            <p className="text-sm text-gray-600">
+              {isReceived ? 'Proposition reçue' : 'Proposition envoyée'}
+            </p>
+          </div>
+        </div>
+        <PropositionStatusBadge statut={proposition.statut} />
+      </div>
+
+      {/* Informations voyage */}
+      <div className="p-3 bg-gray-50 rounded-lg mb-4">
+        <div className="flex items-center gap-2 text-sm text-gray-700 mb-2">
+          <Package className="w-4 h-4" />
+          <span className="font-medium">
+            {proposition.voyage.villeDepart} → {proposition.voyage.villeArrivee}
+          </span>
+        </div>
+        <p className="text-xs text-gray-600">
+          Départ: {new Date(proposition.voyage.dateDepart).toLocaleDateString('fr-FR')}
+        </p>
+      </div>
+
+      {/* Prix proposé */}
+      <div className="space-y-2 mb-4">
+        <div className="flex items-center justify-between p-2 bg-primary/5 rounded">
+          <span className="text-sm text-gray-700">Prix/kg proposé:</span>
+          <span className="font-semibold text-primary">
+            {formatPrice(parseFloat(proposition.prixParKilo))}
+          </span>
+        </div>
+        <div className="flex items-center justify-between p-2 bg-secondary/5 rounded">
+          <span className="text-sm text-gray-700">Commission bagage:</span>
+          <span className="font-semibold text-secondary-dark">
+            {formatPrice(parseFloat(proposition.commissionProposeePourUnBagage))}
+          </span>
+        </div>
+      </div>
+
+      {/* Message */}
+      {proposition.message && (
+        <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-start gap-2">
+            <MessageSquare className="w-4 h-4 text-gray-400 mt-0.5" />
+            <p className="text-sm text-gray-700 flex-1">{proposition.message}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Message de refus */}
+      {proposition.statut === 'refusee' && proposition.messageRefus && (
+        <div className="mb-4 p-3 bg-error/5 border border-error/20 rounded-lg">
+          <p className="text-sm text-error-dark">
+            <strong>Raison du refus:</strong> {proposition.messageRefus}
+          </p>
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+        <div className="flex items-center gap-1 text-xs text-gray-500">
+          <Clock className="w-3 h-3" />
+          {formatDateRelative(proposition.createdAt)}
+        </div>
+
+        {/* Actions */}
+        {isPending && isReceived && (
+          <div className="flex gap-2">
+            <button
+              onClick={() => onRefuse?.(proposition.id)}
+              className="px-3 py-1 text-sm border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition-colors"
+            >
+              Refuser
+            </button>
+            <button
+              onClick={() => onAccept?.(proposition.id)}
+              className="px-3 py-1 text-sm bg-primary text-white rounded hover:bg-primary-dark transition-colors"
+            >
+              Accepter
+            </button>
+          </div>
+        )}
+
+        {!isPending && (
+          <button
+            onClick={() => onViewDetails?.(proposition.voyage.id)}
+            className="text-sm text-primary hover:text-primary-dark transition-colors"
+          >
+            Voir le voyage
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}'use client';
+
+import { useState } from 'react';
+import PropositionCard from './PropositionCard';
+import { EmptyState, ErrorState, LoadingSkeleton } from '@/components/common';
+import { Package } from 'lucide-react';
+import type { Proposition } from '@/types';
+
+interface PropositionListProps {
+  propositions: Proposition[];
+  viewMode: 'sent' | 'received';
+  isLoading?: boolean;
+  error?: string | null;
+  onAccept?: (id: number) => void;
+  onRefuse?: (id: number) => void;
+  onViewDetails?: (id: number) => void;
+  onRetry?: () => void;
+}
+
+export default function PropositionList({
+  propositions,
+  viewMode,
+  isLoading,
+  error,
+  onAccept,
+  onRefuse,
+  onViewDetails,
+  onRetry,
+}: PropositionListProps) {
+  const [filter, setFilter] = useState<'all' | 'en_attente' | 'acceptee' | 'refusee'>('all');
+
+  const filteredPropositions = filter === 'all' 
+    ? propositions 
+    : propositions.filter(p => p.statut === filter);
+
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        <LoadingSkeleton count={3} height="200px" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <ErrorState message={error} onRetry={onRetry} />;
+  }
+
+  if (propositions.length === 0) {
+    return (
+      <EmptyState
+        icon={<Package className="w-16 h-16 text-gray-400" />}
+        title={viewMode === 'sent' ? 'Aucune proposition envoyée' : 'Aucune proposition reçue'}
+        description={
+          viewMode === 'sent'
+            ? 'Vous n\'avez pas encore fait de proposition sur un voyage'
+            : 'Vous n\'avez pas encore reçu de proposition'
+        }
+      />
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Filtres */}
+      <div className="flex gap-2 flex-wrap">
+        <button
+          onClick={() => setFilter('all')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            filter === 'all'
+              ? 'bg-primary text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Toutes ({propositions.length})
+        </button>
+        <button
+          onClick={() => setFilter('en_attente')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            filter === 'en_attente'
+              ? 'bg-warning text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          En attente ({propositions.filter(p => p.statut === 'en_attente').length})
+        </button>
+        <button
+          onClick={() => setFilter('acceptee')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            filter === 'acceptee'
+              ? 'bg-success text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Acceptées ({propositions.filter(p => p.statut === 'acceptee').length})
+        </button>
+        <button
+          onClick={() => setFilter('refusee')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            filter === 'refusee'
+              ? 'bg-error text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Refusées ({propositions.filter(p => p.statut === 'refusee').length})
+        </button>
+      </div>
+
+      {/* Liste des propositions */}
+      {filteredPropositions.length === 0 ? (
+        <EmptyState
+          title="Aucune proposition dans cette catégorie"
+          description="Changez de filtre pour voir d'autres propositions"
+        />
+      ) : (
+        <div className="grid gap-4">
+          {filteredPropositions.map((proposition) => (
+            <PropositionCard
+              key={proposition.id}
+              proposition={proposition}
+              viewMode={viewMode}
+              onAccept={onAccept}
+              onRefuse={onRefuse}
+              onViewDetails={onViewDetails}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}'use client';
+
+import { useState } from 'react';
+import { X } from 'lucide-react';
+import { Modal } from '@/components/ui';
+import PropositionForm from '@/components/forms/PropositionForm';
+import type { Voyage, CreatePropositionInput } from '@/types';
+
+interface PropositionModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  voyage: Voyage;
+  userDemandes: Array<{ id: number; villeDepart: string; villeArrivee: string }>;
+  onSubmit: (data: CreatePropositionInput) => Promise<void>;
+}
+
+export default function PropositionModal({
+  isOpen,
+  onClose,
+  voyage,
+  userDemandes,
+  onSubmit,
+}: PropositionModalProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (data: CreatePropositionInput) => {
+    setIsSubmitting(true);
+    try {
+      await onSubmit(data);
+      onClose();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      // Error handling is done in the parent component
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Faire une proposition</h2>
+            <p className="text-sm text-gray-600 mt-1">
+              Voyage: {voyage.villeDepart} → {voyage.villeArrivee}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <X className="w-5 h-5 text-gray-500" />
+          </button>
+        </div>
+
+        {/* Info voyage */}
+        <div className="mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <span className="text-gray-600">Départ:</span>
+              <p className="font-medium text-gray-900">
+                {new Date(voyage.dateDepart).toLocaleDateString('fr-FR')}
+              </p>
+            </div>
+            <div>
+              <span className="text-gray-600">Poids disponible:</span>
+              <p className="font-medium text-gray-900">{voyage.poidsDisponible} kg</p>
+            </div>
+            {voyage.prixParKilo && (
+              <div>
+                <span className="text-gray-600">Prix suggéré/kg:</span>
+                <p className="font-medium text-primary">{voyage.prixParKilo} XAF</p>
+              </div>
+            )}
+            {voyage.commissionProposeePourUnBagage && (
+              <div>
+                <span className="text-gray-600">Commission suggérée:</span>
+                <p className="font-medium text-secondary-dark">
+                  {voyage.commissionProposeePourUnBagage} XAF
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Formulaire */}
+        {userDemandes.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-600 mb-4">
+              Vous devez avoir une demande pour faire une proposition
+            </p>
+            <button
+              onClick={onClose}
+              className="btn btn-primary"
+            >
+              Créer une demande
+            </button>
+          </div>
+        ) : (
+          <PropositionForm
+            voyage={voyage}
+            userDemandes={userDemandes}
+            onSubmit={handleSubmit}
+            onCancel={onClose}
+            isSubmitting={isSubmitting}
+          />
+        )}
+      </div>
+    </Modal>
+  );
+}'use client';
+
+import { Clock, CheckCircle, XCircle } from 'lucide-react';
+import { cn } from '@/lib/utils/cn';
+import type { PropositionStatut } from '@/types';
+
+interface PropositionStatusBadgeProps {
+  statut: PropositionStatut;
+  className?: string;
+}
+
+export function PropositionStatusBadge({ statut, className }: PropositionStatusBadgeProps) {
+  const config = {
+    en_attente: {
+      label: 'En attente',
+      icon: Clock,
+      className: 'bg-warning/10 text-warning border-warning/20',
+    },
+    acceptee: {
+      label: 'Acceptée',
+      icon: CheckCircle,
+      className: 'bg-success/10 text-success border-success/20',
+    },
+    refusee: {
+      label: 'Refusée',
+      icon: XCircle,
+      className: 'bg-error/10 text-error border-error/20',
+    },
+  };
+
+  const { label, icon: Icon, className: statusClass } = config[statut];
+
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border',
+        statusClass,
+        className
+      )}
+    >
+      <Icon className="w-3.5 h-3.5" />
+      {label}
+    </span>
+  );
+}

@@ -1,13 +1,15 @@
-/**
- * Export centralisé de tous les stores Zustand
- */
+// Barrel export pour tous les stores Zustand
 
-export { useAuthStore } from './authStore';
-export { useVoyageStore } from './voyageStore';
-export { useDemandeStore } from './demandeStore';
-export { useMessageStore } from './messageStore';
-export { useNotificationStore } from './notificationStore';
-export { useUserStore } from './userStore';
-export { useAvisStore } from './avisStore';
-export { useFavoriStore } from './favoriStore';
-export { useSignalementStore } from './signalementStore';
+export * from './authStore';
+export * from './avisStore';
+export * from './demandeStore';
+export * from './favoriStore';
+export * from './messageStore';
+export * from './notificationStore';
+export * from './signalementStore';
+export * from './userStore';
+export * from './voyageStore';
+
+// ==================== NOUVEAUX EXPORTS ====================
+export * from './settingsStore';
+export * from './propositionStore';

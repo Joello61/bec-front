@@ -10,7 +10,8 @@ export {
   useVoyages, 
   useVoyage, 
   useVoyageActions, 
-  useUserVoyages 
+  useUserVoyages,
+  useMatchingDemandes
 } from './useVoyages';
 
 // Demande hooks
@@ -18,7 +19,8 @@ export {
   useDemandes, 
   useDemande, 
   useDemandeActions, 
-  useUserDemandes 
+  useUserDemandes,
+  useMatchingVoyages
 } from './useDemandes';
 
 // Message hooks
@@ -62,3 +64,17 @@ export {
   useSignalementActions, 
   usePendingSignalements 
 } from './useSignalement';
+
+export {
+  useSettings,
+  useSettingsActions
+} from './useSettings'
+
+export {
+  useAcceptedPropositions,
+  useMyPropositionsReceived,
+  useMyPropositionsSent,
+  usePendingPropositionsCount,
+  usePropositionActions,
+  useVoyagePropositions
+} from './usePropositions'

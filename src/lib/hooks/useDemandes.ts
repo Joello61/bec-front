@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDemandeStore } from '@/lib/store';
-import type { DemandeFilters } from '@/types';
+import { demandesApi } from '@/lib/api/demandes';
+import type { DemandeFilters, VoyageWithScore } from '@/types';
 
 /**
  * Hook pour charger et gérer les demandes
@@ -82,7 +83,7 @@ export function useUserDemandes(userId?: number) {
   const fetchUserDemandes = useDemandeStore((state) => state.fetchUserDemandes);
 
   useEffect(() => {
-    if (userId != null) { // 👈 safe pour undefined/null
+    if (userId != null) {
       fetchUserDemandes(userId);
     }
   }, [userId, fetchUserDemandes]);
@@ -92,5 +93,41 @@ export function useUserDemandes(userId?: number) {
     isLoading,
     error,
     refetch: userId != null ? () => fetchUserDemandes(userId) : async () => {},
+  };
+}
+
+// ==================== NOUVEAU HOOK : MATCHING ====================
+/**
+ * Hook pour récupérer les voyages correspondants à une demande
+ */
+export function useMatchingVoyages(demandeId?: number) {
+  const [voyages, setVoyages] = useState<VoyageWithScore[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchMatchingVoyages = async () => {
+    if (demandeId == null) return;
+    
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await demandesApi.getMatchingVoyages(demandeId);
+      setVoyages(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erreur lors du chargement des voyages correspondants');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMatchingVoyages();
+  }, [demandeId]);
+
+  return {
+    voyages,
+    isLoading,
+    error,
+    refetch: fetchMatchingVoyages,
   };
 }

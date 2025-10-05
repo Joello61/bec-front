@@ -29,6 +29,24 @@ export const createVoyageSchema = z.object({
     })
     .min(1, 'Le poids doit être d\'au moins 1 kg')
     .max(100, 'Le poids ne peut pas dépasser 100 kg'),
+  
+  // ==================== NOUVEAUX CHAMPS ====================
+  prixParKilo: z
+    .number({
+      error: 'Le prix par kilo doit être un nombre',
+    })
+    .positive('Le prix par kilo doit être positif')
+    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000 XAF')
+    .optional(),
+  
+  commissionProposeePourUnBagage: z
+    .number({
+      error: 'La commission doit être un nombre',
+    })
+    .positive('La commission doit être positive')
+    .max(1000000, 'La commission ne peut pas dépasser 1 000 000 XAF')
+    .optional(),
+  
   description: z
     .string()
     .max(500, 'La description ne peut pas dépasser 500 caractères')
@@ -70,6 +88,20 @@ export const updateVoyageSchema = z.object({
     .min(1, 'Le poids doit être d\'au moins 1 kg')
     .max(100, 'Le poids ne peut pas dépasser 100 kg')
     .optional(),
+  
+  // ==================== NOUVEAUX CHAMPS ====================
+  prixParKilo: z
+    .number()
+    .positive('Le prix par kilo doit être positif')
+    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000 XAF')
+    .optional(),
+  
+  commissionProposeePourUnBagage: z
+    .number()
+    .positive('La commission doit être positive')
+    .max(1000000, 'La commission ne peut pas dépasser 1 000 000 XAF')
+    .optional(),
+  
   description: z
     .string()
     .max(500, 'La description ne peut pas dépasser 500 caractères')

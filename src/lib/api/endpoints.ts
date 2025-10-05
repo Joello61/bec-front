@@ -35,6 +35,8 @@ export const endpoints = {
     updateStatus: (id: number) => `/voyages/${id}/statut`,
     delete: (id: number) => `/voyages/${id}`,
     byUser: (userId: number) => `/voyages/user/${userId}`,
+    // ==================== NOUVEAU ENDPOINT ====================
+    matchingDemandes: (id: number) => `/voyages/${id}/matching-demandes`,
   },
 
   // Demandes
@@ -46,6 +48,8 @@ export const endpoints = {
     updateStatus: (id: number) => `/demandes/${id}/statut`,
     delete: (id: number) => `/demandes/${id}`,
     byUser: (userId: number) => `/demandes/user/${userId}`,
+    // ==================== NOUVEAU ENDPOINT ====================
+    matchingVoyages: (id: number) => `/demandes/${id}/matching-voyages`,
   },
 
   // Messages
@@ -92,5 +96,24 @@ export const endpoints = {
     create: '/signalements',
     process: (id: number) => `/signalements/${id}/traiter`,
     pendingCount: '/signalements/pending-count',
+  },
+
+  // ==================== NOUVEAUX ENDPOINTS SETTINGS ====================
+  settings: {
+    get: '/settings',
+    update: '/settings',
+    reset: '/settings/reset',
+    export: '/settings/export',
+  },
+
+  // ==================== NOUVEAUX ENDPOINTS PROPOSITIONS ====================
+  propositions: {
+    create: (voyageId: number) => `/propositions/voyage/${voyageId}`,
+    respond: (id: number) => `/propositions/${id}/respond`,
+    byVoyage: (voyageId: number) => `/propositions/voyage/${voyageId}`,
+    acceptedByVoyage: (voyageId: number) => `/propositions/voyage/${voyageId}/accepted`,
+    mySent: '/propositions/me/sent',
+    myReceived: '/propositions/me/received',
+    myPendingCount: '/propositions/me/pending-count',
   },
 } as const;

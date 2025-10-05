@@ -1,24 +1,13 @@
-/**
- * Export centralisé de tous les schémas de validation
- */
+// Export tous les schémas de validation
 
-// Auth
 export * from './auth.schema';
-
-// Voyage
+export * from './avis.schema';
+export * from './demande.schema';
+export * from './message.schema';
+export * from './signalement.schema';
+export * from './user.schema';
 export * from './voyage.schema';
 
-// Demande
-export * from './demande.schema';
-
-// User
-export * from './user.schema';
-
-// Message
-export * from './message.schema';
-
-// Avis
-export * from './avis.schema';
-
-// Signalement
-export * from './signalement.schema';
+// ==================== NOUVEAUX EXPORTS ====================
+export * from './settings.schema';
+export * from './proposition.schema';

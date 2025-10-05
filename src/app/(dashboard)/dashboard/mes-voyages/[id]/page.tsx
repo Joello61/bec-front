@@ -2,14 +2,20 @@
 
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Inbox } from 'lucide-react';
 import Link from 'next/link';
 import { Modal } from '@/components/ui';
 import { VoyageDetails } from '@/components/voyage';
 import { VoyageForm } from '@/components/forms';
-import { ConfirmDialog } from '@/components/common';
-import { useVoyage, useVoyageActions, useAuth } from '@/lib/hooks';
-import { ErrorState, LoadingSpinner } from '@/components/common';
+import { PropositionList } from '@/components/propositions';
+import { ConfirmDialog, ErrorState, LoadingSpinner } from '@/components/common';
+import { 
+  useVoyage, 
+  useVoyageActions, 
+  useAuth, 
+  useVoyagePropositions,
+  usePropositionActions 
+} from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import { UpdateVoyageFormData } from '@/lib/validations';
 
@@ -21,10 +27,24 @@ export default function VoyageDetailsPage() {
   const { user } = useAuth();
   const { voyage, isLoading, error, refetch } = useVoyage(voyageId);
   const { updateVoyage, deleteVoyage } = useVoyageActions();
+  
+  // ✅ Utilisation de vos hooks existants
+  const { 
+    propositions, 
+    isLoading: isLoadingPropositions,
+    refetch: refetchPropositions 
+  } = useVoyagePropositions(voyageId);
+  
+  const { respondToProposition } = usePropositionActions();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  
+  // Gestion refus
+  const [selectedProposition, setSelectedProposition] = useState<number | null>(null);
+  const [refusalReason, setRefusalReason] = useState('');
+  const [isRefuseDialogOpen, setIsRefuseDialogOpen] = useState(false);
 
   const isOwner = user?.id === voyage?.voyageur.id;
 
@@ -42,6 +62,30 @@ export default function VoyageDetailsPage() {
     } finally {
       setIsDeleting(false);
     }
+  };
+
+  const handleAcceptProposition = async (propositionId: number) => {
+    await respondToProposition(propositionId, { action: 'accepter' });
+    refetchPropositions();
+  };
+
+  const handleRefuseProposition = async () => {
+    if (!selectedProposition) return;
+    
+    await respondToProposition(selectedProposition, { 
+      action: 'refuser',
+      messageRefus: refusalReason || undefined
+    });
+    
+    refetchPropositions();
+    setIsRefuseDialogOpen(false);
+    setSelectedProposition(null);
+    setRefusalReason('');
+  };
+
+  const openRefuseDialog = (propositionId: number) => {
+    setSelectedProposition(propositionId);
+    setIsRefuseDialogOpen(true);
   };
 
   const handleContact = () => {
@@ -72,7 +116,6 @@ export default function VoyageDetailsPage() {
 
   return (
     <div className="container-custom py-8">
-      {/* Back Button */}
       <Link
         href={ROUTES.MES_VOYAGES}
         className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
@@ -81,7 +124,6 @@ export default function VoyageDetailsPage() {
         Retour aux voyages
       </Link>
 
-      {/* Content */}
       <VoyageDetails
         voyage={voyage}
         isOwner={isOwner}
@@ -89,6 +131,32 @@ export default function VoyageDetailsPage() {
         onDelete={() => setIsDeleteDialogOpen(true)}
         onContact={handleContact}
       />
+
+      {/* Propositions reçues */}
+      {isOwner && (
+        <div className="mt-12">
+          <div className="flex items-center gap-2 mb-6">
+            <Inbox className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold text-gray-900">
+              Propositions reçues
+            </h2>
+            {propositions.length > 0 && (
+              <span className="badge badge-primary ml-2">
+                {propositions.filter(p => p.statut === 'en_attente').length} en attente
+              </span>
+            )}
+          </div>
+
+          <PropositionList
+            propositions={propositions}
+            viewMode="received"
+            isLoading={isLoadingPropositions}
+            onAccept={handleAcceptProposition}
+            onRefuse={openRefuseDialog}
+            onViewDetails={(demandeId) => router.push(ROUTES.DEMANDE_DETAILS(demandeId))}
+          />
+        </div>
+      )}
 
       {/* Edit Modal */}
       <Modal
@@ -117,6 +185,43 @@ export default function VoyageDetailsPage() {
         variant="danger"
         isLoading={isDeleting}
       />
+
+      {/* Refuse Dialog */}
+      <Modal
+        isOpen={isRefuseDialogOpen}
+        onClose={() => setIsRefuseDialogOpen(false)}
+        title="Refuser la proposition"
+        size="md"
+      >
+        <div className="p-6 space-y-4">
+          <p className="text-gray-700">
+            Souhaitez-vous expliquer la raison du refus ? (optionnel)
+          </p>
+          
+          <textarea
+            className="input"
+            rows={4}
+            placeholder="Raison du refus..."
+            value={refusalReason}
+            onChange={(e) => setRefusalReason(e.target.value)}
+          />
+
+          <div className="flex gap-3">
+            <button
+              onClick={() => setIsRefuseDialogOpen(false)}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Annuler
+            </button>
+            <button
+              onClick={handleRefuseProposition}
+              className="flex-1 px-4 py-2 bg-error text-white rounded-lg hover:bg-error/90"
+            >
+              Refuser la proposition
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

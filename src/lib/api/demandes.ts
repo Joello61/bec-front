@@ -6,7 +6,8 @@ import type {
   UpdateDemandeInput, 
   DemandeFilters,
   DemandeStatut,
-  PaginatedResponse 
+  PaginatedResponse,
+  VoyageWithScore
 } from '@/types';
 
 export const demandesApi = {
@@ -43,6 +44,15 @@ export const demandesApi = {
 
   async byUser(userId: number): Promise<Demande[]> {
     const response = await apiClient.get<Demande[]>(endpoints.demandes.byUser(userId));
+    return response.data;
+  },
+
+  // ==================== NOUVEAU : MATCHING ====================
+  /**
+   * Récupérer les voyages correspondants à une demande (avec scoring)
+   */
+  async getMatchingVoyages(id: number): Promise<VoyageWithScore[]> {
+    const response = await apiClient.get<VoyageWithScore[]>(endpoints.demandes.matchingVoyages(id));
     return response.data;
   },
 };

@@ -1,3 +1,5 @@
+import type { UserSettings } from './settings'; // ⬅️ AJOUT
+
 export interface User {
   id: number;
   email: string;
@@ -8,11 +10,13 @@ export interface User {
   bio: string | null;
   emailVerifie: boolean;
   telephoneVerifie: boolean;
-  authProvider?: 'local' | 'google' | 'facebook'; // Nouveau
+  authProvider?: 'local' | 'google' | 'facebook';
   roles: string[];
   createdAt: string;
+  settings?: UserSettings; // ⬅️ AJOUT
 }
 
+// Le reste du fichier reste identique...
 export interface RegisterInput {
   nom: string;
   prenom: string;
@@ -39,7 +43,6 @@ export interface ChangePasswordInput {
   newPassword: string;
 }
 
-// Nouveaux types pour l'authentification
 export interface ForgotPasswordInput {
   email: string;
 }

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Package } from 'lucide-react';
+import { Package, DollarSign } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import { createDemandeSchema, type CreateDemandeFormData } from '@/lib/validations';
 import { TOUTES_VILLES } from '@/lib/utils/constants';
@@ -30,6 +30,10 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
           villeArrivee: demande.villeArrivee,
           dateLimite: demande.dateLimite?.split('T')[0] || '',
           poidsEstime: parseFloat(demande.poidsEstime),
+          prixParKilo: demande.prixParKilo ? parseFloat(demande.prixParKilo) : undefined,
+          commissionProposeePourUnBagage: demande.commissionProposeePourUnBagage 
+            ? parseFloat(demande.commissionProposeePourUnBagage) 
+            : undefined,
           description: demande.description,
         }
       : undefined,
@@ -102,6 +106,43 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
           {...register('poidsEstime', { valueAsNumber: true })}
           required
         />
+      </div>
+
+      {/* ==================== NOUVEAUX CHAMPS ==================== */}
+      <div className="pt-4 border-t border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Budget (optionnel)</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label="Prix max par kilo (XAF)"
+            type="number"
+            step="100"
+            min="0"
+            max="100000"
+            placeholder="5000"
+            leftIcon={<DollarSign className="w-4 h-4" />}
+            error={errors.prixParKilo?.message}
+            helperText="Budget maximum par kilogramme"
+            {...register('prixParKilo', { valueAsNumber: true })}
+          />
+
+          <Input
+            label="Commission max pour bagage (XAF)"
+            type="number"
+            step="1000"
+            min="0"
+            max="1000000"
+            placeholder="50000"
+            leftIcon={<Package className="w-4 h-4" />}
+            error={errors.commissionProposeePourUnBagage?.message}
+            helperText="Commission max pour un bagage entier"
+            {...register('commissionProposeePourUnBagage', { valueAsNumber: true })}
+          />
+        </div>
+
+        <p className="mt-2 text-xs text-gray-500">
+          Ces informations aident les voyageurs à évaluer si votre demande correspond à leurs attentes.
+        </p>
       </div>
 
       <div>

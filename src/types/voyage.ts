@@ -10,6 +10,8 @@ export interface Voyage {
   dateDepart: string;
   dateArrivee: string;
   poidsDisponible: string;
+  prixParKilo: string | null; // ⬅️ AJOUT
+  commissionProposeePourUnBagage: string | null; // ⬅️ AJOUT
   description: string | null;
   statut: VoyageStatut;
   createdAt: string;
@@ -22,6 +24,8 @@ export interface CreateVoyageInput {
   dateDepart: string;
   dateArrivee: string;
   poidsDisponible: number;
+  prixParKilo?: number; // ⬅️ AJOUT
+  commissionProposeePourUnBagage?: number; // ⬅️ AJOUT
   description?: string;
 }
 
@@ -31,6 +35,8 @@ export interface UpdateVoyageInput {
   dateDepart?: string;
   dateArrivee?: string;
   poidsDisponible?: number;
+  prixParKilo?: number; // ⬅️ AJOUT
+  commissionProposeePourUnBagage?: number; // ⬅️ AJOUT
   description?: string;
 }
 
@@ -39,4 +45,10 @@ export interface VoyageFilters {
   villeArrivee?: string;
   dateDepart?: string;
   statut?: VoyageStatut;
+}
+
+// ⬅️ AJOUT : Type pour les voyages matchés avec score
+export interface VoyageWithScore {
+  voyage: Voyage;
+  score: number;
 }

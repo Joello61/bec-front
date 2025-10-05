@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plane } from 'lucide-react';
+import { Plane, DollarSign, Package } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import { createVoyageSchema, type CreateVoyageFormData } from '@/lib/validations';
 import { TOUTES_VILLES } from '@/lib/utils/constants';
@@ -31,6 +31,10 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
           dateDepart: voyage.dateDepart.split('T')[0],
           dateArrivee: voyage.dateArrivee.split('T')[0],
           poidsDisponible: parseFloat(voyage.poidsDisponible),
+          prixParKilo: voyage.prixParKilo ? parseFloat(voyage.prixParKilo) : undefined,
+          commissionProposeePourUnBagage: voyage.commissionProposeePourUnBagage 
+            ? parseFloat(voyage.commissionProposeePourUnBagage) 
+            : undefined,
           description: voyage.description || '',
         }
       : undefined,
@@ -113,6 +117,43 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
         {...register('poidsDisponible', { valueAsNumber: true })}
         required
       />
+
+      {/* ==================== NOUVEAUX CHAMPS ==================== */}
+      <div className="pt-4 border-t border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Tarification (optionnel)</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label="Prix par kilo (XAF)"
+            type="number"
+            step="100"
+            min="0"
+            max="100000"
+            placeholder="5000"
+            leftIcon={<DollarSign className="w-4 h-4" />}
+            error={errors.prixParKilo?.message}
+            helperText="Prix suggéré par kilogramme"
+            {...register('prixParKilo', { valueAsNumber: true })}
+          />
+
+          <Input
+            label="Commission pour un bagage (XAF)"
+            type="number"
+            step="1000"
+            min="0"
+            max="1000000"
+            placeholder="50000"
+            leftIcon={<Package className="w-4 h-4" />}
+            error={errors.commissionProposeePourUnBagage?.message}
+            helperText="Commission suggérée pour un bagage entier"
+            {...register('commissionProposeePourUnBagage', { valueAsNumber: true })}
+          />
+        </div>
+
+        <p className="mt-2 text-xs text-gray-500">
+          Ces informations aident les clients à évaluer votre offre. Ils pourront faire des contre-propositions.
+        </p>
+      </div>
 
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
