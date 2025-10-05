@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { authApi } from '@/lib/api/auth';
@@ -7,20 +8,31 @@ interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  isInitialized: boolean; // Nouveau
+  isInitialized: boolean;
   error: string | null;
   
+  // Actions principales
   login: (credentials: LoginInput) => Promise<void>;
   register: (data: RegisterInput) => Promise<void>;
   logout: () => Promise<void>;
   fetchMe: () => Promise<void>;
+  
+  // Actions de vérification
+  verifyEmail: (code: string) => Promise<void>;
+  verifyPhone: (code: string) => Promise<void>;
+  resendVerification: (type: 'email' | 'phone') => Promise<void>;
+  
+  // Actions de mot de passe
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+  
+  // Utilitaires
   clearError: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   isAuthenticated: false,
-  isLoading: true, // Important: true au départ
+  isLoading: true,
   isInitialized: false,
   error: null,
 
@@ -97,14 +109,73 @@ export const useAuthStore = create<AuthState>((set) => ({
         isInitialized: true
       });
     } catch (error: any) {
-      console.log(error)
       set({ 
         user: null,
         isAuthenticated: false,
         isLoading: false,
-        isInitialized: true, // Important
+        isInitialized: true,
         error: null
       });
+    }
+  },
+
+  verifyEmail: async (code: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      await authApi.verifyEmail({ code });
+      // Recharger les données utilisateur pour mettre à jour emailVerifie
+      await get().fetchMe();
+      set({ isLoading: false });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Code invalide ou expiré', 
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
+
+  verifyPhone: async (code: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      await authApi.verifyPhone({ code });
+      // Recharger les données utilisateur pour mettre à jour telephoneVerifie
+      await get().fetchMe();
+      set({ isLoading: false });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Code invalide ou expiré', 
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
+
+  resendVerification: async (type: 'email' | 'phone') => {
+    set({ isLoading: true, error: null });
+    try {
+      await authApi.resendVerification({ type });
+      set({ isLoading: false });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors du renvoi du code', 
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
+
+  changePassword: async (currentPassword: string, newPassword: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      await authApi.changePassword({ currentPassword, newPassword });
+      set({ isLoading: false });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors du changement de mot de passe', 
+        isLoading: false 
+      });
+      throw error;
     }
   },
 

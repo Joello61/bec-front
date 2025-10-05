@@ -9,6 +9,7 @@ import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { LoginFormData } from '@/lib/validations';
 import { useToast } from '@/components/common';
+import OAuthButtons from '@/components/auth/OAuthButtons';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -84,6 +85,27 @@ export default function LoginPage() {
           <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <LoginForm onSubmit={handleLogin} />
           </div>
+
+          {/* OAuth Section - EN DEHORS de la card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mt-6"
+          >
+            <div className="relative mb-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-gray-50 text-gray-500">
+                  Ou continuez avec
+                </span>
+              </div>
+            </div>
+            
+            <OAuthButtons />
+          </motion.div>
         </motion.div>
       </motion.div>
 

@@ -116,7 +116,7 @@ export default function Header() {
             {/* Actions */}
             <div className="flex items-center gap-3">
               <Link href={ROUTES.LOGIN} className="hidden sm:block">
-                <button className="px-5 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">
+                <button className="border-2 border-gray-300 shadow-md rounded-lg px-5 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">
                   Connexion
                 </button>
               </Link>

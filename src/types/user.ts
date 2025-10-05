@@ -8,6 +8,7 @@ export interface User {
   bio: string | null;
   emailVerifie: boolean;
   telephoneVerifie: boolean;
+  authProvider?: 'local' | 'google' | 'facebook'; // Nouveau
   roles: string[];
   createdAt: string;
 }
@@ -36,4 +37,26 @@ export interface UpdateUserInput {
 export interface ChangePasswordInput {
   currentPassword: string;
   newPassword: string;
+}
+
+// Nouveaux types pour l'authentification
+export interface ForgotPasswordInput {
+  email: string;
+}
+
+export interface ResetPasswordInput {
+  token: string;
+  newPassword: string;
+}
+
+export interface VerifyEmailInput {
+  code: string;
+}
+
+export interface VerifyPhoneInput {
+  code: string;
+}
+
+export interface ResendVerificationInput {
+  type: 'email' | 'phone';
 }

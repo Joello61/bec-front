@@ -21,6 +21,7 @@ export const ROUTES = {
   REGISTER: '/auth/register' as Route,
   FORGOT_PASSWORD: '/auth/forgot-password' as Route,
   RESET_PASSWORD: '/auth/reset-password' as Route,
+  AUTH_CHANGE_PASSWORD: '/dashboard/profile/change-password' as Route,
   DASHBOARD: '/dashboard' as Route,
   EXPLORE: '/dashboard/explore' as Route,
   VOYAGE_DETAILS: (id: number) => `/dashboard/explore/voyage/${id}` as Route,

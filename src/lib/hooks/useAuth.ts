@@ -9,10 +9,22 @@ export function useAuth() {
   const isLoading = useAuthStore((state) => state.isLoading);
   const isInitialized = useAuthStore((state) => state.isInitialized); 
   const error = useAuthStore((state) => state.error);
+  
+  // Actions principales
   const login = useAuthStore((state) => state.login);
   const register = useAuthStore((state) => state.register);
   const logout = useAuthStore((state) => state.logout);
   const fetchMe = useAuthStore((state) => state.fetchMe);
+  
+  // Actions de vérification
+  const verifyEmail = useAuthStore((state) => state.verifyEmail);
+  const verifyPhone = useAuthStore((state) => state.verifyPhone);
+  const resendVerification = useAuthStore((state) => state.resendVerification);
+  
+  // Actions de mot de passe
+  const changePassword = useAuthStore((state) => state.changePassword);
+  
+  // Utilitaires
   const clearError = useAuthStore((state) => state.clearError);
 
   return {
@@ -25,6 +37,10 @@ export function useAuth() {
     register,
     logout,
     fetchMe,
+    verifyEmail,
+    verifyPhone,
+    resendVerification,
+    changePassword,
     clearError,
   };
 }

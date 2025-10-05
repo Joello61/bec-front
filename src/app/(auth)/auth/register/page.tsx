@@ -10,6 +10,7 @@ import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { RegisterFormData } from '@/lib/validations';
 import { useToast } from '@/components/common';
+import OAuthButtons from '@/components/auth/OAuthButtons';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -88,6 +89,22 @@ export default function RegisterPage() {
           
           <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <RegisterForm onSubmit={handleRegister} />
+
+            {/* Divider OAuth */}
+            <div className="mt-6">
+              <div className="relative mb-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-white text-gray-500">
+                    Ou inscrivez-vous avec
+                  </span>
+                </div>
+              </div>
+              
+              <OAuthButtons />
+            </div>
           </div>
         </motion.div>
 

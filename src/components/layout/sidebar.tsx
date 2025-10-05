@@ -14,6 +14,7 @@ import {
   HelpCircle,
   ChevronRight,
   LayoutDashboard,
+  User,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
@@ -59,6 +60,11 @@ export default function Sidebar() {
       href: ROUTES.FAVORIS,
       icon: Heart,
     },
+    {
+      name: 'Profil',
+      href: ROUTES.PROFILE,
+      icon: User
+    }
   ];
 
   const bottomNavigation = [

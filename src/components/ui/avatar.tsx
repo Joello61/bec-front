@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils/cn';
 import Image from 'next/image';
 
 export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
-  src?: string;
+  src?: string | null;
   alt?: string;
   fallback?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -29,6 +29,14 @@ export default function Avatar({
     xl: 'w-16 h-16 text-2xl'
   };
 
+  const sizePixels = {
+    xs: 24,
+    sm: 32,
+    md: 40,
+    lg: 48,
+    xl: 64
+  };
+
   const statusColors = {
     online: 'bg-success',
     offline: 'bg-gray-400',
@@ -44,7 +52,6 @@ export default function Avatar({
     xl: 'w-4 h-4'
   };
 
-  // Générer les initiales depuis le fallback
   const getInitials = (name: string) => {
     return name
       .split(' ')
@@ -55,6 +62,7 @@ export default function Avatar({
   };
 
   const initials = fallback ? getInitials(fallback) : '?';
+  const pixelSize = sizePixels[size];
 
   return (
     <div className={cn('relative inline-block', className)} {...props}>
@@ -66,13 +74,19 @@ export default function Avatar({
         )}
       >
         {src ? (
-          <Image src={src} alt={alt} className="w-full h-full object-cover" />
+          <Image 
+            src={src} 
+            alt={alt} 
+            width={pixelSize}
+            height={pixelSize}
+            className="w-full h-full object-cover"
+            unoptimized
+          />
         ) : (
           <span>{initials}</span>
         )}
       </div>
 
-      {/* Badge de statut */}
       {status && (
         <span
           className={cn(
@@ -84,7 +98,6 @@ export default function Avatar({
         />
       )}
 
-      {/* Badge vérifié */}
       {verified && (
         <span
           className="absolute -bottom-1 -right-1 bg-info text-white rounded-full p-0.5"

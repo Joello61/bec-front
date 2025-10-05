@@ -6,6 +6,12 @@ import type {
   User,
   LoginResponse,
   RegisterResponse,
+  ChangePasswordInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+  VerifyEmailInput,
+  VerifyPhoneInput,
+  ResendVerificationInput,
 } from '@/types';
 
 export const authApi = {
@@ -25,6 +31,40 @@ export const authApi = {
 
   async me(): Promise<User> {
     const response = await apiClient.get<User>(endpoints.auth.me);
+    return response.data;
+  },
+
+  async verifyEmail(data: VerifyEmailInput): Promise<void> {
+    await apiClient.post(endpoints.auth.verifyEmail, data);
+  },
+
+  async verifyPhone(data: VerifyPhoneInput): Promise<void> {
+    await apiClient.post(endpoints.auth.verifyPhone, data);
+  },
+
+  async resendVerification(data: ResendVerificationInput): Promise<void> {
+    await apiClient.post(endpoints.auth.resendVerification, data);
+  },
+
+  async forgotPassword(data: ForgotPasswordInput): Promise<void> {
+    await apiClient.post(endpoints.auth.forgotPassword, data);
+  },
+
+  async resetPassword(data: ResetPasswordInput): Promise<void> {
+    await apiClient.post(endpoints.auth.resetPassword, data);
+  },
+
+  async changePassword(data: ChangePasswordInput): Promise<void> {
+    await apiClient.post(endpoints.auth.changePassword, data);
+  },
+
+  async getGoogleAuthUrl(): Promise<{ authUrl: string; state: string }> {
+    const response = await apiClient.get(endpoints.auth.googleAuth);
+    return response.data;
+  },
+
+  async getFacebookAuthUrl(): Promise<{ authUrl: string; state: string }> {
+    const response = await apiClient.get(endpoints.auth.facebookAuth);
     return response.data;
   },
 };

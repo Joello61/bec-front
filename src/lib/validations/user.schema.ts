@@ -4,25 +4,35 @@ export const updateUserSchema = z.object({
   nom: z
     .string()
     .min(2, 'Le nom doit contenir au moins 2 caractères')
-    .max(50, 'Le nom ne peut pas dépasser 50 caractères')
+    .max(100, 'Le nom ne peut pas dépasser 100 caractères')
     .optional(),
+  
   prenom: z
     .string()
     .min(2, 'Le prénom doit contenir au moins 2 caractères')
-    .max(50, 'Le prénom ne peut pas dépasser 50 caractères')
+    .max(100, 'Le prénom ne peut pas dépasser 100 caractères')
     .optional(),
+  
   telephone: z
     .string()
-    .regex(/^(\+237)?[0-9]{9}$/, 'Numéro de téléphone invalide (format: +237XXXXXXXXX)')
-    .optional(),
+    .regex(
+      /^\+?[1-9]\d{1,14}$/,
+      'Numéro invalide. Format international: +33612345678 ou +237612345678'
+    )
+    .optional()
+    .or(z.literal('')),
+  
   bio: z
     .string()
     .max(500, 'La bio ne peut pas dépasser 500 caractères')
-    .optional(),
+    .optional()
+    .or(z.literal('')),
+  
   photo: z
     .string()
-    .url('URL de photo invalide')
-    .optional(),
+    .url('L\'URL de la photo n\'est pas valide')
+    .optional()
+    .or(z.literal('')),
 });
 
 export const searchUserSchema = z.object({

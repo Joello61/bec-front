@@ -5,6 +5,16 @@ export const endpoints = {
     register: '/register',
     logout: '/logout',
     me: '/me',
+    verifyEmail: '/verify-email',
+    verifyPhone: '/verify-phone',
+    resendVerification: '/resend-verification',
+    forgotPassword: '/forgot-password',
+    resetPassword: '/reset-password',
+    changePassword: '/change-password',
+    googleAuth: '/auth/google',
+    googleCallback: '/auth/google/callback',
+    facebookAuth: '/auth/facebook',
+    facebookCallback: '/auth/facebook/callback',
   },
 
   // Users
