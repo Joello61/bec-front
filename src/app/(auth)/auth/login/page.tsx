@@ -53,25 +53,6 @@ export default function LoginPage() {
         variants={fadeIn}
         className="w-full"
       >
-        {/* Header */}
-        <div className="mb-8">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 text-center"
-          >
-            Bon retour !
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-gray-600 text-center"
-          >
-            Connectez-vous pour accéder à votre compte
-          </motion.p>
-        </div>
 
         {/* Card du formulaire */}
         <motion.div
@@ -83,29 +64,28 @@ export default function LoginPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl blur-2xl opacity-50" />
           
           <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
-            <LoginForm onSubmit={handleLogin} />
+            <LoginForm onSubmit={handleLogin}>
+              <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="mb-6"
+            >
+              <OAuthButtons />
+              <div className="relative mt-7">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-white text-gray-500">
+                    Ou continuez avec
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+            </LoginForm>
           </div>
-
-          {/* OAuth Section - EN DEHORS de la card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-6"
-          >
-            <div className="relative mb-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-gray-50 text-gray-500">
-                  Ou continuez avec
-                </span>
-              </div>
-            </div>
-            
-            <OAuthButtons />
-          </motion.div>
+          
         </motion.div>
       </motion.div>
 

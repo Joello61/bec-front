@@ -12,9 +12,10 @@ import { ROUTES } from '@/lib/utils/constants';
 
 interface LoginFormProps {
   onSubmit: (data: LoginFormData) => Promise<void>;
+  children?: React.ReactNode;
 }
 
-export default function LoginForm({ onSubmit }: LoginFormProps) {
+export default function LoginForm({ onSubmit, children }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,88 +37,112 @@ export default function LoginForm({ onSubmit }: LoginFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-      <Input
-        label="Email"
-        type="email"
-        placeholder="exemple@email.com"
-        error={errors.email?.message}
-        leftIcon={<Mail className="w-5 h-5" />}
-        {...register('email')}
-        required
-      />
+    <div>
+      {/* Header */}
+      <div className="mb-8">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 text-center"
+        >
+          Bon retour !
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="text-gray-600 text-center"
+        >
+          Connectez-vous pour accéder à votre compte
+        </motion.p>
+      </div>
 
-      <div>
+      {children}
+
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
         <Input
-          label="Mot de passe"
-          type={showPassword ? 'text' : 'password'}
-          placeholder="••••••••"
-          error={errors.password?.message}
-          leftIcon={<Lock className="w-5 h-5" />}
-          {...register('password')}
+          label="Email"
+          type="email"
+          placeholder="exemple@email.com"
+          error={errors.email?.message}
+          leftIcon={<Mail className="w-5 h-5" />}
+          {...register('email')}
           required
-          rightIcon={
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="hover:text-gray-700 transition-colors"
-            >
-              {showPassword ? (
-                <EyeOff className="w-5 h-5" />
-              ) : (
-                <Eye className="w-5 h-5" />
-              )}
-            </button>
-          }
         />
-        <div className="mt-3 text-right">
-          <Link
-            href={ROUTES.FORGOT_PASSWORD}
-            className="text-sm text-primary hover:text-primary-dark transition-colors font-medium"
-          >
-            Mot de passe oublié ?
-          </Link>
-        </div>
-      </div>
 
-      <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-        <Button
-          type="submit"
-          variant="primary"
-          isLoading={isSubmitting}
-          leftIcon={<LogIn className="w-4 h-4" />}
-          className="w-full cursor-pointer"
-        >
-          Se connecter
-        </Button>
-      </motion.div>
-
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-200" />
+        <div>
+          <Input
+            label="Mot de passe"
+            type={showPassword ? 'text' : 'password'}
+            placeholder="••••••••"
+            error={errors.password?.message}
+            leftIcon={<Lock className="w-5 h-5" />}
+            {...register('password')}
+            required
+            rightIcon={
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="hover:text-gray-700 transition-colors"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </button>
+            }
+          />
+          <div className="mt-3 text-right">
+            <Link
+              href={ROUTES.FORGOT_PASSWORD}
+              className="text-sm text-primary hover:text-primary-dark transition-colors font-medium"
+            >
+              Mot de passe oublié ?
+            </Link>
+          </div>
         </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white text-gray-500">
-            Pas encore de compte ?
-          </span>
-        </div>
-      </div>
 
-      <Link href={ROUTES.REGISTER}>
-        <motion.div
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
-          className="w-full"
-        >
+        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
           <Button
-            type="button"
-            variant="outline"
+            type="submit"
+            variant="primary"
+            isLoading={isSubmitting}
+            leftIcon={<LogIn className="w-4 h-4" />}
             className="w-full cursor-pointer"
           >
-            Créer un compte
+            Se connecter
           </Button>
         </motion.div>
-      </Link>
-    </form>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-4 bg-white text-gray-500">
+              Pas encore de compte ?
+            </span>
+          </div>
+        </div>
+
+        <Link href={ROUTES.REGISTER}>
+          <motion.div
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+            className="w-full"
+          >
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full cursor-pointer"
+            >
+              Créer un compte
+            </Button>
+          </motion.div>
+        </Link>
+      </form>
+    </div>
   );
 }

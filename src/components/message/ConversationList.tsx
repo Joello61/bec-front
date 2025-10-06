@@ -6,14 +6,16 @@ import type { Conversation } from '@/types';
 
 interface ConversationListProps {
   conversations: Conversation[];
-  activeUserId?: number;
-  onConversationClick: (userId: number) => void;
+  currentUserId: number;
+  activeConversationId?: number;
+  onConversationClick: (conversationId: number) => void;
   isLoading?: boolean;
 }
 
 export default function ConversationList({
   conversations,
-  activeUserId,
+  currentUserId,
+  activeConversationId,
   onConversationClick,
   isLoading = false,
 }: ConversationListProps) {
@@ -61,10 +63,11 @@ export default function ConversationList({
     <div className="divide-y divide-gray-200">
       {conversations.map((conversation) => (
         <ConversationItem
-          key={conversation.user.id}
+          key={conversation.id}
           conversation={conversation}
-          isActive={activeUserId === conversation.user.id}
-          onClick={() => onConversationClick(conversation.user.id)}
+          currentUserId={currentUserId}
+          isActive={activeConversationId === conversation.id}
+          onClick={() => onConversationClick(conversation.id)}
         />
       ))}
     </div>

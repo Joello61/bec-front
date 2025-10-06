@@ -1,7 +1,7 @@
 'use client';
 
 import { ConversationList } from '@/components/message';
-import { useConversations } from '@/lib/hooks';
+import { useAuth, useConversations } from '@/lib/hooks';
 import { EmptyState, ErrorState, LoadingSpinner } from '@/components/common';
 import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/lib/utils/constants';
@@ -9,6 +9,20 @@ import { ROUTES } from '@/lib/utils/constants';
 export default function MessagesPage() {
   const router = useRouter();
   const { conversations, isLoading, error, refetch } = useConversations();
+
+  const { user: currentUser } = useAuth();
+
+  if (!currentUser) {
+    return (
+      <div className="container-custom py-8">
+        <ErrorState
+          title="Erreur de chargement"
+          message="Impossible de trouver l'utilisateur courant"
+          onRetry={refetch}
+        />
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -42,8 +56,9 @@ export default function MessagesPage() {
       ) : (
         <ConversationList
           conversations={conversations}
-          onConversationClick={(conversation) =>
-            router.push(ROUTES.CONVERSATION(conversation.user.id))
+          currentUserId={currentUser.id}
+          onConversationClick={(conversationId) =>
+            router.push(ROUTES.CONVERSATION(conversationId))
           }
         />
       )}

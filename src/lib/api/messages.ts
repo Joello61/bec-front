@@ -1,32 +1,27 @@
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Message, SendMessageInput, Conversation, ApiResponse } from '@/types';
+import type { Message, SendMessageInput } from '@/types';
 
 export const messagesApi = {
+  /**
+   * Envoie un message (crée automatiquement la conversation si nécessaire)
+   */
   async send(data: SendMessageInput): Promise<Message> {
     const response = await apiClient.post<Message>(endpoints.messages.send, data);
     return response.data;
   },
 
-  async getConversations(): Promise<Conversation[]> {
-    const response = await apiClient.get<Conversation[]>(endpoints.messages.conversations);
-    return response.data;
-  },
-
-  async getConversation(userId: number): Promise<Message[]> {
-    const response = await apiClient.get<Message[]>(endpoints.messages.conversation(userId));
-    return response.data;
-  },
-
-  async markAsRead(userId: number): Promise<void> {
-    await apiClient.post(endpoints.messages.markRead(userId));
-  },
-
+  /**
+   * Compte le nombre total de messages non lus
+   */
   async getUnreadCount(): Promise<number> {
-    const response = await apiClient.get<ApiResponse<{ count: number }>>(endpoints.messages.unreadCount);
+    const response = await apiClient.get<{ count: number }>(endpoints.messages.unreadCount);
     return response.data.count || 0;
   },
 
+  /**
+   * Supprime un message
+   */
   async delete(id: number): Promise<void> {
     await apiClient.delete(endpoints.messages.delete(id));
   },

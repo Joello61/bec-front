@@ -4,7 +4,6 @@ export * from './authStore';
 export * from './avisStore';
 export * from './demandeStore';
 export * from './favoriStore';
-export * from './messageStore';
 export * from './notificationStore';
 export * from './signalementStore';
 export * from './userStore';

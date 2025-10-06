@@ -10,10 +10,9 @@ import { ROUTES } from '@/lib/utils/constants';
 
 export default function ConversationPage() {
   const params = useParams();
-  const userId = parseInt(params.id as string);
+  const conversationId = parseInt(params.id as string);
 
-  const { messages, isLoading, error, sendMessage, refetch } = useConversation(userId);
-
+  const { conversation, messages, isLoading, error, sendMessage, refetch } = useConversation(conversationId);
   const { user: currentUser } = useAuth();
 
   if (isLoading) {
@@ -24,20 +23,37 @@ export default function ConversationPage() {
     );
   }
 
-  if (error) {
+  if (!currentUser) {
     return (
       <div className="container-custom py-8">
         <ErrorState
           title="Erreur de chargement"
-          message={error}
+          message="Utilisateur non connecté"
           onRetry={refetch}
         />
       </div>
     );
   }
 
+  if (error || !conversation) {
+    return (
+      <div className="container-custom py-8">
+        <ErrorState
+          title="Erreur de chargement"
+          message={error || "Aucune conversation trouvée"}
+          onRetry={refetch}
+        />
+      </div>
+    );
+  }
+
+  // Déterminer l'autre participant
+  const recipient = conversation.participant1.id === currentUser.id
+    ? conversation.participant2
+    : conversation.participant1;
+
   return (
-    <div className="h-[calc(100vh-4rem)]">
+    <div className="h-[calc(85vh-4rem)]">
       {/* Back Button */}
       <div className="border-b border-gray-200 px-4 py-3">
         <Link
@@ -52,9 +68,14 @@ export default function ConversationPage() {
       {/* Chat */}
       <ChatBox
         messages={messages}
-        recipient={userId}
-        currentUser={currentUser}
-        onSendMessage={(content) => sendMessage({ destinataireId: userId, contenu: content })}
+        recipient={recipient}
+        currentUserId={currentUser.id}
+        onSendMessage={(content) => 
+          sendMessage({ 
+            destinataireId: recipient.id, 
+            contenu: content 
+          })
+        }
         onBack={() => window.history.back()}
       />
     </div>

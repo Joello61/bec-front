@@ -5,7 +5,7 @@ import { ArrowLeft, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { DemandeDetails } from '@/components/demande';
 import { VoyageCard } from '@/components/voyage';
-import { useDemande, useAuth, useMatchingVoyages } from '@/lib/hooks';
+import { useDemande, useAuth, useMatchingVoyages, useConversationWithUser } from '@/lib/hooks';
 import { ErrorState, LoadingSpinner, EmptyState } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 
@@ -17,7 +17,9 @@ export default function DemandeDetailsPage() {
   const { user } = useAuth();
   const { demande, isLoading, error, refetch } = useDemande(demandeId);
   
-  // ✅ Utilisation de votre hook existant
+  // ✅ CORRECTION : Passer l'ID du CLIENT, pas le vôtre
+  const { conversation } = useConversationWithUser(demande?.client.id);
+  
   const { 
     voyages: matchingVoyages, 
     isLoading: isLoadingMatching 
@@ -26,8 +28,8 @@ export default function DemandeDetailsPage() {
   const isOwner = user?.id === demande?.client.id;
 
   const handleContact = () => {
-    if (demande) {
-      router.push(ROUTES.CONVERSATION(demande.client.id));
+    if (conversation) {
+      router.push(ROUTES.CONVERSATION(conversation.id));
     }
   };
 
@@ -88,7 +90,6 @@ export default function DemandeDetailsPage() {
             <div className="space-y-4">
               <p className="text-sm text-gray-600 mb-4">
                 {matchingVoyages.length} {matchingVoyages.length > 1 ? 'voyages trouvés' : 'voyage trouvé'}
-
               </p>
               
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { VoyageDetails } from '@/components/voyage';
 import { PropositionModal } from '@/components/propositions';
 import { Button } from '@/components/ui';
-import { useVoyage, useAuth, usePropositionActions, useUserDemandes } from '@/lib/hooks';
+import { useVoyage, useAuth, usePropositionActions, useUserDemandes, useConversationWithUser } from '@/lib/hooks';
 import { ErrorState, LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 import type { CreatePropositionInput } from '@/types';
@@ -22,14 +22,17 @@ export default function VoyageDetailsPage() {
   const { demandes: userDemandes } = useUserDemandes(user?.id);
   const { createProposition } = usePropositionActions();
 
+  // ✅ CORRECTION : Passer l'ID du VOYAGEUR, pas le vôtre
+  const { conversation } = useConversationWithUser(voyage?.voyageur.id);
+
   const [isPropositionModalOpen, setIsPropositionModalOpen] = useState(false);
 
   const isOwner = user?.id === voyage?.voyageur.id;
   const canPropose = !isOwner && voyage?.statut === 'actif';
 
   const handleContact = () => {
-    if (voyage) {
-      router.push(ROUTES.CONVERSATION(voyage.voyageur.id));
+    if (conversation) {
+      router.push(ROUTES.CONVERSATION(conversation.id));
     }
   };
 

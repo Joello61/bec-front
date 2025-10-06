@@ -6,6 +6,7 @@ export interface Message {
   destinataire: User;
   contenu: string;
   lu: boolean;
+  luAt?: string;
   createdAt: string;
 }
 
@@ -15,6 +16,20 @@ export interface SendMessageInput {
 }
 
 export interface Conversation {
-  user: User;
-  lastMessage: Message;
+  id: number;
+  participant1: User;
+  participant2: User;
+  dernierMessage?: Message;
+  messagesNonLus: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ConversationDetail {
+  id: number;
+  participant1: User;
+  participant2: User;
+  messages: Message[];
+  createdAt: string;
+  updatedAt: string;
 }

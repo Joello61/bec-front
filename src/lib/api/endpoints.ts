@@ -35,7 +35,6 @@ export const endpoints = {
     updateStatus: (id: number) => `/voyages/${id}/statut`,
     delete: (id: number) => `/voyages/${id}`,
     byUser: (userId: number) => `/voyages/user/${userId}`,
-    // ==================== NOUVEAU ENDPOINT ====================
     matchingDemandes: (id: number) => `/voyages/${id}/matching-demandes`,
   },
 
@@ -48,18 +47,24 @@ export const endpoints = {
     updateStatus: (id: number) => `/demandes/${id}/statut`,
     delete: (id: number) => `/demandes/${id}`,
     byUser: (userId: number) => `/demandes/user/${userId}`,
-    // ==================== NOUVEAU ENDPOINT ====================
     matchingVoyages: (id: number) => `/demandes/${id}/matching-voyages`,
   },
 
-  // Messages
+  // Messages (simplifié)
   messages: {
     send: '/messages',
-    conversations: '/messages/conversations',
-    conversation: (userId: number) => `/messages/conversation/${userId}`,
-    markRead: (userId: number) => `/messages/conversation/${userId}/mark-read`,
     unreadCount: '/messages/unread-count',
     delete: (id: number) => `/messages/${id}`,
+  },
+
+  // Conversations (nouveau)
+  conversations: {
+    list: '/conversations',
+    show: (id: number) => `/conversations/${id}`,
+    withUser: (userId: number) => `/conversations/with/${userId}`,
+    markRead: (id: number) => `/conversations/${id}/mark-read`,
+    unreadCount: '/conversations/unread-count',
+    delete: (id: number) => `/conversations/${id}`,
   },
 
   // Notifications
@@ -98,7 +103,7 @@ export const endpoints = {
     pendingCount: '/signalements/pending-count',
   },
 
-  // ==================== NOUVEAUX ENDPOINTS SETTINGS ====================
+  // Settings
   settings: {
     get: '/settings',
     update: '/settings',
@@ -106,7 +111,7 @@ export const endpoints = {
     export: '/settings/export',
   },
 
-  // ==================== NOUVEAUX ENDPOINTS PROPOSITIONS ====================
+  // Propositions
   propositions: {
     create: (voyageId: number) => `/propositions/voyage/${voyageId}`,
     respond: (id: number) => `/propositions/${id}/respond`,

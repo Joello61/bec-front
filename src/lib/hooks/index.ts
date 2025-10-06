@@ -23,12 +23,12 @@ export {
   useMatchingVoyages
 } from './useDemandes';
 
-// Message hooks
-export { 
-  useConversations, 
-  useConversation, 
-  useUnreadMessages 
-} from './useMessages';
+export {
+  useConversation,
+  useConversationWithUser,
+  useUnreadMessages,
+  useConversations
+} from './useConversations'
 
 // Notification hooks
 export { 

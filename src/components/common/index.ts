@@ -7,3 +7,4 @@ export { default as Pagination } from './Pagination';
 export { default as ConfirmDialog } from './ConfirmDialog';
 export { Toast, ToastContainer, useToast } from './Toast';
 export { ScrollToTop } from './ScrollToTop';
+export { MarkdownRenderer } from './MarkdownRenderer';
