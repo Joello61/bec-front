@@ -2,17 +2,19 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Package, MessageCircle, AlertCircle, Flag } from 'lucide-react';
+import { Calendar, Package, MessageCircle, AlertCircle, Flag, Star } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
 import VoyageStatusBadge from './VoyageStatusBadge';
+import AvisForm from '@/components/forms/AvisForm';
 import { formatDate, formatWeight } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
 import { useFavoriActions } from '@/lib/hooks/useFavoris';
 import { useSignalementActions } from '@/lib/hooks/useSignalement';
+import { useAvisStore } from '@/lib/store';
 import { useAuth } from '@/lib/hooks/useAuth';
 import type { Voyage } from '@/types';
-import type { CreateSignalementFormData } from '@/lib/validations';
+import type { CreateSignalementFormData, CreateAvisFormData } from '@/lib/validations';
 import { FavoriteButton } from '../favori';
 import SignalementForm from '../forms/SignalementForm';
 
@@ -32,11 +34,16 @@ export default function VoyageDetails({
   onContact 
 }: VoyageDetailsProps) {
   const [isSignalementOpen, setIsSignalementOpen] = useState(false);
+  const [isAvisOpen, setIsAvisOpen] = useState(false);
   const { user } = useAuth();
   const { addVoyageToFavoris, removeFavori, isFavoriVoyage } = useFavoriActions();
   const { createSignalement } = useSignalementActions();
+  const { createAvis } = useAvisStore();
   
   const isFavorite = isFavoriVoyage(voyage.id);
+  
+  // Le voyage doit être terminé pour laisser un avis
+  const canLeaveReview = !isOwner && voyage.statut === 'complete';
 
   const handleToggleFavorite = async () => {
     if (isFavorite) {
@@ -48,6 +55,10 @@ export default function VoyageDetails({
 
   const handleSignalement = async (data: CreateSignalementFormData) => {
     await createSignalement(data);
+  };
+
+  const handleAvis = async (data: CreateAvisFormData) => {
+    await createAvis(data);
   };
 
   return (
@@ -137,7 +148,7 @@ export default function VoyageDetails({
         <Card>
           <CardHeader title="Voyageur" />
           <CardContent>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <Link
                 href={ROUTES.USER_PROFILE(voyage.voyageur.id)}
                 className="flex items-center gap-4 group"
@@ -149,9 +160,19 @@ export default function VoyageDetails({
                   verified={voyage.voyageur.emailVerifie}
                 />
                 <div>
-                  <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                    {voyage.voyageur.prenom} {voyage.voyageur.nom}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                      {voyage.voyageur.prenom} {voyage.voyageur.nom}
+                    </p>
+                    {!isOwner && voyage.voyageur.noteAvisMoyen !== null && voyage.voyageur.noteAvisMoyen > 0 && (
+                      <div className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 rounded-full">
+                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <span className="text-sm font-medium text-amber-700">
+                          {voyage.voyageur.noteAvisMoyen.toFixed(1)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   {voyage.voyageur.bio && (
                     <p className="text-sm text-gray-600 line-clamp-2 mt-1">
                       {voyage.voyageur.bio}
@@ -160,15 +181,26 @@ export default function VoyageDetails({
                 </div>
               </Link>
 
-              {!isOwner && voyage.statut === 'actif' && (
-                <Button
-                  variant="primary"
-                  leftIcon={<MessageCircle className="w-4 h-4" />}
-                  onClick={onContact}
-                >
-                  Contacter
-                </Button>
-              )}
+              <div className="flex gap-2">
+                {canLeaveReview && (
+                  <Button
+                    variant="outline"
+                    leftIcon={<Star className="w-4 h-4" />}
+                    onClick={() => setIsAvisOpen(true)}
+                  >
+                    Laisser un avis
+                  </Button>
+                )}
+                {!isOwner && voyage.statut === 'actif' && (
+                  <Button
+                    variant="primary"
+                    leftIcon={<MessageCircle className="w-4 h-4" />}
+                    onClick={onContact}
+                  >
+                    Contacter
+                  </Button>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -206,6 +238,18 @@ export default function VoyageDetails({
           onClose={() => setIsSignalementOpen(false)}
           onSubmit={handleSignalement}
           voyageId={voyage.id}
+        />
+      )}
+
+      {/* Modal d'avis */}
+      {user && canLeaveReview && (
+        <AvisForm
+          isOpen={isAvisOpen}
+          onClose={() => setIsAvisOpen(false)}
+          cibleId={voyage.voyageur.id}
+          cibleNom={`${voyage.voyageur.prenom} ${voyage.voyageur.nom}`}
+          voyageId={voyage.id}
+          onSubmit={handleAvis}
         />
       )}
     </>

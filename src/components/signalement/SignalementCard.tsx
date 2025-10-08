@@ -3,6 +3,7 @@
 import { Flag, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { Card, CardContent, CardFooter, Badge } from '@/components/ui';
 import type { Signalement, SignalementStatut } from '@/types';
+import { formatDate } from '@/lib/utils/format';
 
 interface SignalementCardProps {
   signalement: Signalement;
@@ -144,15 +145,11 @@ export default function SignalementCard({ signalement }: SignalementCardProps) {
       <CardFooter className="px-4 sm:px-5 py-3">
         <div className="flex items-center justify-between w-full text-xs text-gray-500">
           <span>
-            Signalé le {new Date(signalement.createdAt).toLocaleDateString('fr-FR', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            })}
+            Signalé le {formatDate(signalement.createdAt)}
           </span>
           {signalement.updatedAt !== signalement.createdAt && (
             <span className="text-gray-400">
-              Mis à jour le {new Date(signalement.updatedAt).toLocaleDateString('fr-FR')}
+              Mis à jour le {formatDate(signalement.updatedAt)}
             </span>
           )}
         </div>

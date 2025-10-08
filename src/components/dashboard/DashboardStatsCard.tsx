@@ -28,7 +28,7 @@ export default function DashboardStatsCard({ stats }: DashboardStatsCardProps) {
 
         {/* Main Stats */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="text-center p-4 bg-gray-50 rounded-lg">
+          <div className="text-center p-4 bg-gray-50 rounded-lg h-f">
             <div className="text-2xl font-bold text-primary">{stats.voyagesEffectues}</div>
             <div className="text-sm text-gray-600 mt-1">Voyages effectués</div>
           </div>

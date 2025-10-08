@@ -42,7 +42,7 @@ export default function DashboardSummary({ data }: DashboardSummaryProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
-          <Card>
+          <Card className='h-full'>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>

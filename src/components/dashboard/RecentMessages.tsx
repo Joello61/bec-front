@@ -65,7 +65,7 @@ export default function RecentMessages({ messages, nonLus }: RecentMessagesProps
                 <Link href={ROUTES.CONVERSATION(message.expediteur.id)}>
                   <div
                     className={cn(
-                      'p-4 border border-gray-200 rounded-lg hover:border-accent hover:bg-accent/5 transition-all',
+                      'p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-all',
                       !message.lu && 'bg-accent/5 border-accent/30'
                     )}
                   >

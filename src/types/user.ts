@@ -14,6 +14,7 @@ export interface User {
   roles: string[];
   createdAt: string;
   settings?: UserSettings; // ⬅️ AJOUT
+  noteAvisMoyen: number | null;
 }
 
 // Le reste du fichier reste identique...
