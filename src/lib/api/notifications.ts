@@ -1,6 +1,5 @@
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Notification, ApiResponse } from '@/types';
 
 export const notificationsApi = {
   async list(): Promise<Notification[]> {
@@ -14,7 +13,7 @@ export const notificationsApi = {
   },
 
   async getUnreadCount(): Promise<number> {
-    const response = await apiClient.get<ApiResponse<{ count: number }>>(endpoints.notifications.unreadCount);
+    const response = await apiClient.get<{ count: number }>(endpoints.notifications.unreadCount);
     return response.data.count || 0;
   },
 
