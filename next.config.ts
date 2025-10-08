@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   allowedDevOrigins: [
     'http://192.168.1.162:3000', // ton frontend sur réseau local
