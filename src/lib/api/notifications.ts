@@ -1,14 +1,15 @@
+import { AppNotification } from '@/types';
 import apiClient from './client';
 import { endpoints } from './endpoints';
 
 export const notificationsApi = {
-  async list(): Promise<Notification[]> {
-    const response = await apiClient.get<Notification[]>(endpoints.notifications.list);
+  async list(): Promise<AppNotification[]> {
+    const response = await apiClient.get<AppNotification[]>(endpoints.notifications.list);
     return response.data;
   },
 
-  async getUnread(): Promise<Notification[]> {
-    const response = await apiClient.get<Notification[]>(endpoints.notifications.unread);
+  async getUnread(): Promise<AppNotification[]> {
+    const response = await apiClient.get<AppNotification[]>(endpoints.notifications.unread);
     return response.data;
   },
 

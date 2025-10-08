@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { notificationsApi } from '@/lib/api/notifications';
-import type { Notification } from '@/types';
+import type { AppNotification } from '@/types';
 
 interface NotificationState {
-  notifications: Notification[];
+  notifications: AppNotification[];
   unreadCount: number;
   isLoading: boolean;
   error: string | null;

@@ -1,4 +1,4 @@
-export type NotificationType = 
+export type AppNotificationType = 
   | 'matching_voyage' 
   | 'matching_demande' 
   | 'new_message' 
@@ -7,9 +7,9 @@ export type NotificationType =
   | 'demande_statut'
   | 'new_proposition';
 
-export interface Notification {
+export interface AppNotification {
   id: number;
-  type: NotificationType;
+  type: AppNotificationType;
   titre: string;
   message: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

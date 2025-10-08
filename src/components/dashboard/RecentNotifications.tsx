@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui';
 import { Button } from '@/components/ui';
 import { NotificationItem } from '@/components/notification';
 import { ROUTES } from '@/lib/utils/constants';
-import type { DashboardNotification, NotificationType } from '@/types';
+import type { DashboardNotification, AppNotificationType } from '@/types';
 import { EmptyState } from '@/components/common';
 
 interface RecentNotificationsProps {
@@ -64,7 +64,7 @@ export default function RecentNotifications({ notifications, nonLues }: RecentNo
                 <NotificationItem
                   notification={{
                     ...notification,
-                    type: notification.type as NotificationType,
+                    type: notification.type as AppNotificationType,
                   }}
                 />
               </motion.div>

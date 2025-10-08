@@ -4,15 +4,15 @@ import { motion } from 'framer-motion';
 import { MessageCircle, Star, Package, FileText, X, Lightbulb } from 'lucide-react';
 import { formatDateRelative } from '@/lib/utils/format';
 import { cn } from '@/lib/utils/cn';
-import type { Notification, NotificationType } from '@/types';
+import type { AppNotification, AppNotificationType } from '@/types';
 
 interface NotificationItemProps {
-  notification: Notification;
+  notification: AppNotification;
   onClick?: () => void;
   onDismiss?: () => void;
 }
 
-const notificationIcons: Record<NotificationType, React.ReactNode> = {
+const notificationIcons: Record<AppNotificationType, React.ReactNode> = {
   matching_voyage: <Package className="w-5 h-5" />,
   matching_demande: <FileText className="w-5 h-5" />,
   new_message: <MessageCircle className="w-5 h-5" />,

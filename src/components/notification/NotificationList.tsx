@@ -3,11 +3,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import NotificationItem from './NotificationItem';
 import { Button } from '@/components/ui';
-import type { Notification } from '@/types';
+import type { AppNotification } from '@/types';
 
 interface NotificationListProps {
-  notifications: Notification[];
-  onNotificationClick?: (notification: Notification) => void;
+  notifications: AppNotification[];
+  onNotificationClick?: (notification: AppNotification) => void;
   onDismiss?: (id: number) => void;
   onMarkAllAsRead?: () => void;
   isLoading?: boolean;
