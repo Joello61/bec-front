@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useFavoriStore } from '@/lib/store';
+import { usePathname } from 'next/navigation';
 
 /**
  * Hook pour gérer tous les favoris
@@ -27,13 +28,17 @@ export function useFavoris() {
  * Hook pour gérer les favoris voyages
  */
 export function useFavorisVoyages() {
+  const pathname = usePathname()
   const favorisVoyages = useFavoriStore((state) => state.favorisVoyages);
   const isLoading = useFavoriStore((state) => state.isLoading);
   const fetchFavorisVoyages = useFavoriStore((state) => state.fetchFavorisVoyages);
 
   useEffect(() => {
-    fetchFavorisVoyages();
-  }, []);
+    if (pathname.includes('/dashboard/favoris')) {
+      fetchFavorisVoyages();
+    }
+  }, [pathname, fetchFavorisVoyages]);
+
 
   return {
     favorisVoyages,
@@ -46,13 +51,16 @@ export function useFavorisVoyages() {
  * Hook pour gérer les favoris demandes
  */
 export function useFavorisDemandes() {
+   const pathname = usePathname();
   const favorisDemandes = useFavoriStore((state) => state.favorisDemandes);
   const isLoading = useFavoriStore((state) => state.isLoading);
   const fetchFavorisDemandes = useFavoriStore((state) => state.fetchFavorisDemandes);
 
-  useEffect(() => {
-    fetchFavorisDemandes();
-  }, []);
+    useEffect(() => {
+    if (pathname.includes('/dashboard/favoris') ) {
+      fetchFavorisDemandes();
+    }
+  }, [pathname, fetchFavorisDemandes]);
 
   return {
     favorisDemandes,

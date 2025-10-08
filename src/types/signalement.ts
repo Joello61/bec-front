@@ -1,6 +1,7 @@
 import type { User } from './user';
 import type { Voyage } from './voyage';
 import type { Demande } from './demande';
+import { Message } from './message';
 
 export type SignalementMotif = 
   | 'contenu_inapproprie' 
@@ -16,6 +17,8 @@ export interface Signalement {
   signaleur: User;
   voyage: Voyage | null;
   demande: Demande | null;
+  utilisateurSignale: User | null;
+  message: Message | null;
   motif: SignalementMotif;
   description: string;
   statut: SignalementStatut;
@@ -27,6 +30,8 @@ export interface Signalement {
 export interface CreateSignalementInput {
   voyageId?: number;
   demandeId?: number;
+  messageId?: number;
+  utilisateurSignaleId?: number;
   motif: SignalementMotif;
   description: string;
 }

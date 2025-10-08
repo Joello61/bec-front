@@ -5,13 +5,19 @@ import type {
   CreateSignalementInput, 
   TraiterSignalementInput,
   PaginatedResponse,
-  ApiResponse 
 } from '@/types';
 
 export const signalementsApi = {
   async list(page = 1, limit = 10, statut?: string): Promise<PaginatedResponse<Signalement>> {
     const response = await apiClient.get<PaginatedResponse<Signalement>>(endpoints.signalements.list, {
       params: { page, limit, statut },
+    });
+    return response.data;
+  },
+
+  async me(page = 1, limit = 10, statut?: string): Promise<PaginatedResponse<Signalement>> {
+    const response = await apiClient.get<PaginatedResponse<Signalement>>(endpoints.signalements.me, {
+      params: {page, limit, statut },
     });
     return response.data;
   },
@@ -27,7 +33,7 @@ export const signalementsApi = {
   },
 
   async getPendingCount(): Promise<number> {
-    const response = await apiClient.get<ApiResponse<{ count: number }>>(endpoints.signalements.pendingCount);
+    const response = await apiClient.get<{ count: number }>(endpoints.signalements.pendingCount);
     return response.data.count || 0;
   },
 };

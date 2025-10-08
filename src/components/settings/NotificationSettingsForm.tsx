@@ -48,7 +48,7 @@ export default function NotificationSettingsForm({
               <p className="font-medium text-gray-900">Email</p>
               <p className="text-sm text-gray-600">Recevoir des notifications par email</p>
             </div>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('emailNotificationsEnabled')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('emailNotificationsEnabled')} />
           </label>
 
           <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
@@ -57,7 +57,7 @@ export default function NotificationSettingsForm({
               <p className="font-medium text-gray-900">SMS</p>
               <p className="text-sm text-gray-600">Recevoir des notifications par SMS</p>
             </div>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('smsNotificationsEnabled')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('smsNotificationsEnabled')} />
           </label>
 
           <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
@@ -66,7 +66,7 @@ export default function NotificationSettingsForm({
               <p className="font-medium text-gray-900">Push</p>
               <p className="text-sm text-gray-600">Recevoir des notifications push</p>
             </div>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('pushNotificationsEnabled')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('pushNotificationsEnabled')} />
           </label>
         </div>
       </div>
@@ -78,27 +78,27 @@ export default function NotificationSettingsForm({
         <div className="space-y-2">
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Nouveaux messages</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('notifyOnNewMessage')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('notifyOnNewMessage')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Voyages correspondants</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('notifyOnMatchingVoyage')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('notifyOnMatchingVoyage')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Demandes correspondantes</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('notifyOnMatchingDemande')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('notifyOnMatchingDemande')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Nouveaux avis</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('notifyOnNewAvis')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('notifyOnNewAvis')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Mise à jour des favoris</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('notifyOnFavoriUpdate')} />
+            <input type="checkbox" className="cursor-pointer w-5 h-5 accent-primary" {...register('notifyOnFavoriUpdate')} />
           </label>
         </div>
       </div>

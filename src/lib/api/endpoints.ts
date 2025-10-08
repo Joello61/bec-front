@@ -84,7 +84,7 @@ export const endpoints = {
     demandes: '/favoris/demandes',
     addVoyage: (voyageId: number) => `/favoris/voyage/${voyageId}`,
     addDemande: (demandeId: number) => `/favoris/demande/${demandeId}`,
-    remove: (id: number) => `/favoris/${id}`,
+    remove: (id: number, type: 'voyage' | 'demande') => `/favoris/${type}/${id}`,
   },
 
   // Avis
@@ -98,6 +98,7 @@ export const endpoints = {
   // Signalements
   signalements: {
     list: '/signalements',
+    me: '/signalements/me',
     create: '/signalements',
     process: (id: number) => `/signalements/${id}/traiter`,
     pendingCount: '/signalements/pending-count',

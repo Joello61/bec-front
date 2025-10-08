@@ -28,7 +28,7 @@ export const favorisApi = {
     return response.data;
   },
 
-  async remove(id: number): Promise<void> {
-    await apiClient.delete(endpoints.favoris.remove(id));
+  async remove(id: number, type: 'voyage' | 'demande'): Promise<void> {
+    await apiClient.delete(endpoints.favoris.remove(id, type));
   },
 };

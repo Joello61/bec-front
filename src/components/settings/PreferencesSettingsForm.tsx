@@ -1,11 +1,12 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Globe, DollarSign, Clock, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { preferencesSettingsSchema, type PreferencesSettingsFormData } from '@/lib/validations';
 import type { UserSettings } from '@/types';
+import Select from '../ui/select';
 
 interface PreferencesSettingsFormProps {
   settings: UserSettings;
@@ -18,7 +19,7 @@ export default function PreferencesSettingsForm({
   onSubmit, 
   isLoading 
 }: PreferencesSettingsFormProps) {
-  const { register, handleSubmit, formState: { errors, isDirty } } = useForm<PreferencesSettingsFormData>({
+  const { control, handleSubmit, formState: { errors, isDirty } } = useForm<PreferencesSettingsFormData>({
     resolver: zodResolver(preferencesSettingsSchema),
     defaultValues: {
       langue: settings.langue,
@@ -31,72 +32,94 @@ export default function PreferencesSettingsForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Langue */}
-      <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <Globe className="w-4 h-4 text-primary" />
-          Langue de l&apos;interface
-        </label>
-        <select className="input" {...register('langue')}>
-          <option value="fr">Français</option>
-          <option value="en">English</option>
-        </select>
-        {errors.langue && (
-          <p className="text-sm text-error">{errors.langue.message}</p>
+      <Controller
+        name="langue"
+        control={control}
+        render={({ field }) => (
+          <Select
+            label="Langue de l'interface"
+            leftIcon={<Globe className="w-4 h-4 text-primary" />}
+            error={errors.langue?.message}
+            options={[
+              { value: 'fr', label: 'Français' },
+              { value: 'en', label: 'English' }
+            ]}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            name={field.name}
+          />
         )}
-      </div>
+      />
 
       {/* Devise */}
-      <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <DollarSign className="w-4 h-4 text-primary" />
-          Devise préférée
-        </label>
-        <select className="input" {...register('devise')}>
-          <option value="XAF">Franc CFA (XAF)</option>
-          <option value="EUR">Euro (EUR)</option>
-          <option value="USD">Dollar US (USD)</option>
-        </select>
-        {errors.devise && (
-          <p className="text-sm text-error">{errors.devise.message}</p>
+      <Controller
+        name="devise"
+        control={control}
+        render={({ field }) => (
+          <Select
+            label="Devise préférée"
+            leftIcon={<DollarSign className="w-4 h-4 text-primary" />}
+            error={errors.devise?.message}
+            helperText="Cette devise sera utilisée pour afficher les prix et commissions"
+            options={[
+              { value: 'XAF', label: 'Franc CFA (XAF)' },
+              { value: 'EUR', label: 'Euro (EUR)' },
+              { value: 'USD', label: 'Dollar US (USD)' }
+            ]}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            name={field.name}
+          />
         )}
-        <p className="text-xs text-gray-500">
-          Cette devise sera utilisée pour afficher les prix et commissions
-        </p>
-      </div>
+      />
 
       {/* Fuseau horaire */}
-      <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <Clock className="w-4 h-4 text-primary" />
-          Fuseau horaire
-        </label>
-        <select className="input" {...register('timezone')}>
-          <option value="Africa/Douala">Afrique/Douala (GMT+1)</option>
-          <option value="Europe/Paris">Europe/Paris (GMT+1)</option>
-          <option value="Europe/London">Europe/Londres (GMT+0)</option>
-          <option value="America/New_York">Amérique/New York (GMT-5)</option>
-          <option value="America/Los_Angeles">Amérique/Los Angeles (GMT-8)</option>
-        </select>
-        {errors.timezone && (
-          <p className="text-sm text-error">{errors.timezone.message}</p>
+      <Controller
+        name="timezone"
+        control={control}
+        render={({ field }) => (
+          <Select
+            label="Fuseau horaire"
+            leftIcon={<Clock className="w-4 h-4 text-primary" />}
+            error={errors.timezone?.message}
+            options={[
+              { value: 'Africa/Douala', label: 'Afrique/Douala (GMT+1)' },
+              { value: 'Europe/Paris', label: 'Europe/Paris (GMT+1)' },
+              { value: 'Europe/London', label: 'Europe/Londres (GMT+0)' },
+              { value: 'America/New_York', label: 'Amérique/New York (GMT-5)' },
+              { value: 'America/Los_Angeles', label: 'Amérique/Los Angeles (GMT-8)' }
+            ]}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            name={field.name}
+          />
         )}
-      </div>
+      />
 
       {/* Format de date */}
-      <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-          <Calendar className="w-4 h-4 text-primary" />
-          Format de date
-        </label>
-        <select className="input" {...register('dateFormat')}>
-          <option value="dd/MM/yyyy">JJ/MM/AAAA (31/12/2025)</option>
-          <option value="MM/dd/yyyy">MM/JJ/AAAA (12/31/2025)</option>
-          <option value="yyyy-MM-dd">AAAA-MM-JJ (2025-12-31)</option>
-        </select>
-        {errors.dateFormat && (
-          <p className="text-sm text-error">{errors.dateFormat.message}</p>
+      <Controller
+        name="dateFormat"
+        control={control}
+        render={({ field }) => (
+          <Select
+            label="Format de date"
+            leftIcon={<Calendar className="w-4 h-4 text-primary" />}
+            error={errors.dateFormat?.message}
+            options={[
+              { value: 'dd/MM/yyyy', label: 'JJ/MM/AAAA (31/12/2025)' },
+              { value: 'MM/dd/yyyy', label: 'MM/JJ/AAAA (12/31/2025)' },
+              { value: 'yyyy-MM-dd', label: 'AAAA-MM-JJ (2025-12-31)' }
+            ]}
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            name={field.name}
+          />
         )}
-      </div>
+      />
 
       <Button
         type="submit"

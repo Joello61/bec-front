@@ -9,10 +9,10 @@ import {
   Mail, 
   Phone, 
   MapPin,
-  Plane,
   ArrowUpRight,
   Heart,
 } from 'lucide-react';
+import Image from 'next/image';
 import { ROUTES, CONTACT } from '@/lib/utils/constants';
 
 export default function Footer() {
@@ -88,8 +88,14 @@ export default function Footer() {
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg">
-                  <Plane className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+                  <Image
+                    src="/images/logo/logo_icon_only.png"
+                    alt="Logo de Co-Baggage"
+                    width={45}
+                    height={45}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
                 <motion.div
                   animate={{ 

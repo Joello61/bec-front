@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,7 +10,6 @@ import {
   MessageSquare, 
   User, 
   LogOut,
-  Plane,
   Settings,
   HelpCircle,
   Search,
@@ -19,6 +19,7 @@ import {
   Mail,
   Menu,
   X,
+  Flag,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
@@ -84,11 +85,20 @@ export default function Header() {
           <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
             {/* Logo */}
             <Link href={ROUTES.HOME} className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
-                <Plane className="w-5 h-5 text-white" />
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+                <Image
+                  src="/images/logo/logo_icon_only.png"
+                  alt="Logo de Co-Baggage"
+                  width={45}
+                  height={45}
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <span className="font-bold text-xl text-gray-900">CoBage</span>
+              <span className="font-bold text-2xl text-primary select-none">
+                CoBage
+              </span>
             </Link>
+
 
             {/* Navigation Desktop */}
             <div className="hidden md:flex items-center gap-1">
@@ -202,9 +212,15 @@ export default function Header() {
         <div className="h-16 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href={ROUTES.DASHBOARD} className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
-              <Plane className="w-5 h-5 text-white" />
-            </div>
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+                <Image
+                  src="/images/logo/logo_icon_only.png"
+                  alt="Logo de Co-Baggage"
+                  width={45}
+                  height={45}
+                  className="object-cover w-full h-full"
+                />
+              </div>
             <span className="font-bold text-lg text-gray-900">CoBage</span>
           </Link>
 
@@ -296,6 +312,13 @@ export default function Header() {
                 icon={<Settings className="w-4 h-4" />}
               >
                 Paramètres
+              </DropdownItem>
+
+              <DropdownItem
+                onClick={() => router.push(ROUTES.SIGNALEMENTS)}
+                icon={<Flag className="w-4 h-4" />}
+              >
+                Mes signalements
               </DropdownItem>
               
               <DropdownItem

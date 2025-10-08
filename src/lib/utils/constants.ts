@@ -38,6 +38,7 @@ export const ROUTES = {
   USER_PROFILE: (id: number) => `/dashboard/users/${id}` as Route,
   SETTINGS: '/dashboard/settings' as Route,
   HELP: '/dashboard/help' as Route,
+  SIGNALEMENTS: '/dashboard/signalements' as Route,
 } as const;
 
 // Villes du Cameroun (principales)

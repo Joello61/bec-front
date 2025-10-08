@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plane, Package } from 'lucide-react';
 import { VoyageList, VoyageFilters } from '@/components/voyage';
 import { DemandeList, DemandeFilters } from '@/components/demande';
-import { useVoyages, useDemandes } from '@/lib/hooks';
+import { useVoyages, useDemandes, useAuth, useFavorisDemandes, useFavorisVoyages } from '@/lib/hooks';
 import { EmptyState, LoadingSpinner } from '@/components/common';
 import { cn } from '@/lib/utils/cn';
 import type { VoyageFilters as VoyageFiltersType, DemandeFilters as DemandeFiltersType } from '@/types';
@@ -17,27 +17,40 @@ export default function RechercherPage() {
   const [voyageFilters, setVoyageFilters] = useState<VoyageFiltersType>({});
   const [demandeFilters, setDemandeFilters] = useState<DemandeFiltersType>({});
   const [isMounted, setIsMounted] = useState(false);
+  const { user } = useAuth();
+
+  const {} = useFavorisDemandes()
+  const {} = useFavorisVoyages()
 
   // Éviter le bug d'animation au premier rendu
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const { voyages, isLoading: voyagesLoading, pagination: voyagesPagination } = useVoyages(1, 12, voyageFilters);
-  const { demandes, isLoading: demandesLoading, pagination: demandesPagination } = useDemandes(1, 12, demandeFilters);
+  const { voyages, isLoading: voyagesLoading } = useVoyages(1, 12, voyageFilters);
+  const { demandes, isLoading: demandesLoading } = useDemandes(1, 12, demandeFilters);
+
+  const filteredVoyages = user
+    ? voyages?.filter(voyage => voyage.voyageur.id !== user.id) ?? []
+    : voyages ?? [];
+
+  const filteredDemandes = user
+    ? demandes?.filter(demande => demande.client.id !== user.id) ?? []
+    : demandes ?? [];
+
 
   const tabs = [
     {
       id: 'voyages' as TabType,
       label: 'Voyages',
       icon: Plane,
-      count: voyagesPagination?.total || 0,
+      count: filteredVoyages.length || 0,
     },
     {
       id: 'demandes' as TabType,
       label: 'Demandes',
       icon: Package,
-      count: demandesPagination?.total || 0,
+      count: filteredDemandes.length || 0,
     },
   ];
 
@@ -172,7 +185,7 @@ export default function RechercherPage() {
                   />
                 ) : (
                   <VoyageList
-                    voyages={voyages}
+                    voyages={filteredVoyages}
                     isLoading={voyagesLoading}
                   />
                 )}
@@ -189,7 +202,7 @@ export default function RechercherPage() {
                   />
                 ) : (
                   <DemandeList
-                    demandes={demandes}
+                    demandes={filteredDemandes}
                     isLoading={demandesLoading}
                   />
                 )}

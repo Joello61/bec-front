@@ -74,7 +74,7 @@ export default function NotificationList({
 
       {/* List */}
       <AnimatePresence mode="popLayout">
-        <div className="space-y-2">
+        <div className="space-y-5">
           {notifications.map((notification) => (
             <NotificationItem
               key={notification.id}

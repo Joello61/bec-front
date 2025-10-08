@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Plane, Shield, Zap, Users } from 'lucide-react';
+import { ArrowLeft, Shield, Zap, Users } from 'lucide-react';
+import Image from 'next/image';
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function AuthLayout({
@@ -34,8 +35,14 @@ export default function AuthLayout({
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center shadow-lg">
-                  <Plane className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+                  <Image
+                    src="/images/logo/logo_icon_only.png"
+                    alt="Logo de Co-Baggage"
+                    width={45}
+                    height={45}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
                 <motion.div
                   animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}

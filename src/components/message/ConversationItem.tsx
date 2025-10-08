@@ -33,7 +33,7 @@ export default function ConversationItem({
       whileTap={{ scale: 0.99 }}
       onClick={onClick}
       className={cn(
-        'w-full p-4 flex items-start gap-3 rounded-lg text-left transition-colors',
+        'w-full p-5 flex items-start gap-3 text-left border-2 border-primary shadow-xl rounded-3xl transition-colors',
         isActive ? 'bg-primary/10' : 'hover:bg-gray-50',
         hasUnread && 'bg-primary/5'
       )}

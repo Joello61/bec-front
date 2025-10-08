@@ -25,6 +25,26 @@ export function useSignalements(page = 1, limit = 10, statut?: string) {
   };
 }
 
+export function useMesSignalements(page = 1, limit = 10, statut?: string) {
+  const mesSignalements = useSignalementStore((state) => state.mesSignalements);
+  const pagination = useSignalementStore((state) => state.pagination);
+  const isLoading = useSignalementStore((state) => state.isLoading);
+  const error = useSignalementStore((state) => state.error);
+  const fetchMesSignalements = useSignalementStore((state) => state.fetchMesSignalements);
+
+  useEffect(() => {
+    fetchMesSignalements(page, limit, statut);
+  }, [page, limit, statut]);
+
+  return {
+    mesSignalements,
+    pagination,
+    isLoading,
+    error,
+    refetch: () => fetchMesSignalements(page, limit, statut),
+  };
+}
+
 /**
  * Hook pour les actions sur les signalements
  */

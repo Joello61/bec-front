@@ -54,7 +54,7 @@ export default function FavoriteButton({
       className={cn(
         'rounded-full flex items-center justify-center transition-colors',
         isFavorite 
-          ? 'bg-error/10 hover:bg-error/20' 
+          ? 'bg-primary/10 hover:bg-primary/20' 
           : 'bg-white/90 hover:bg-white border border-gray-200',
         sizes[size],
         isLoading && 'opacity-50 cursor-wait',
@@ -71,7 +71,7 @@ export default function FavoriteButton({
           className={cn(
             iconSizes[size],
             'transition-colors',
-            isFavorite ? 'fill-error text-error' : 'text-gray-600'
+            isFavorite ? 'fill-primary text-primary' : 'text-gray-600'
           )}
         />
       </motion.div>

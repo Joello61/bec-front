@@ -5,11 +5,12 @@ import type {
   Signalement, 
   CreateSignalementInput, 
   TraiterSignalementInput,
-  PaginationMeta 
+  PaginationMeta, 
 } from '@/types';
 
 interface SignalementState {
   signalements: Signalement[];
+  mesSignalements: Signalement[];
   currentSignalement: Signalement | null;
   pagination: PaginationMeta | null;
   pendingCount: number;
@@ -18,6 +19,7 @@ interface SignalementState {
   
   // Actions
   fetchSignalements: (page?: number, limit?: number, statut?: string) => Promise<void>;
+  fetchMesSignalements: (page?: number, limit?: number, statut?: string) => Promise<void>;
   createSignalement: (data: CreateSignalementInput) => Promise<Signalement>;
   processSignalement: (id: number, data: TraiterSignalementInput) => Promise<void>;
   fetchPendingCount: () => Promise<void>;
@@ -27,6 +29,7 @@ interface SignalementState {
 
 export const useSignalementStore = create<SignalementState>((set) => ({
   signalements: [],
+  mesSignalements: [],
   currentSignalement: null,
   pagination: null,
   pendingCount: 0,
@@ -39,6 +42,23 @@ export const useSignalementStore = create<SignalementState>((set) => ({
       const response = await signalementsApi.list(page, limit, statut);
       set({ 
         signalements: response.data, 
+        pagination: response.pagination,
+        isLoading: false 
+      });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors du chargement des signalements', 
+        isLoading: false 
+      });
+    }
+  },
+
+  fetchMesSignalements: async (page = 1, limit = 10, statut) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await signalementsApi.me(page, limit, statut);
+      set({ 
+        mesSignalements: response.data, 
         pagination: response.pagination,
         isLoading: false 
       });

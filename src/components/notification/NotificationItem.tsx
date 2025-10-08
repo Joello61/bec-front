@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageCircle, Star, Package, FileText, X } from 'lucide-react';
+import { MessageCircle, Star, Package, FileText, X, Lightbulb } from 'lucide-react';
 import { formatDateRelative } from '@/lib/utils/format';
 import { cn } from '@/lib/utils/cn';
 import type { Notification, NotificationType } from '@/types';
@@ -19,15 +19,7 @@ const notificationIcons: Record<NotificationType, React.ReactNode> = {
   avis_recu: <Star className="w-5 h-5" />,
   voyage_statut: <Package className="w-5 h-5" />,
   demande_statut: <FileText className="w-5 h-5" />,
-};
-
-const notificationColors: Record<NotificationType, string> = {
-  matching_voyage: 'bg-primary/10 text-primary',
-  matching_demande: 'bg-secondary/10 text-secondary',
-  new_message: 'bg-info/10 text-info',
-  avis_recu: 'bg-warning/10 text-warning',
-  voyage_statut: 'bg-primary/10 text-primary',
-  demande_statut: 'bg-secondary/10 text-secondary',
+  new_proposition: <Lightbulb className="w-5 h-5" />
 };
 
 export default function NotificationItem({ notification, onClick, onDismiss }: NotificationItemProps) {
@@ -37,13 +29,13 @@ export default function NotificationItem({ notification, onClick, onDismiss }: N
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 20 }}
       className={cn(
-        'p-4 flex items-start gap-3 rounded-lg transition-colors cursor-pointer',
+        'p-4 flex items-start gap-2 border-2 rounded-lg transition-colors cursor-pointer',
         !notification.lue ? 'bg-primary/5 hover:bg-primary/10' : 'hover:bg-gray-50'
       )}
       onClick={onClick}
     >
       {/* Icon */}
-      <div className={cn('w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0', notificationColors[notification.type])}>
+      <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
         {notificationIcons[notification.type]}
       </div>
 

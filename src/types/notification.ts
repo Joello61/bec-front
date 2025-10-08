@@ -4,7 +4,8 @@ export type NotificationType =
   | 'new_message' 
   | 'avis_recu' 
   | 'voyage_statut' 
-  | 'demande_statut';
+  | 'demande_statut'
+  | 'new_proposition';
 
 export interface Notification {
   id: number;

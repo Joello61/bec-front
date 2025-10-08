@@ -47,12 +47,12 @@ export default function PrivacySettingsForm({
             <input 
               type="radio" 
               value="public" 
-              className="mt-1 w-4 h-4 text-primary" 
+              className="mt-1 w-4 h-4 accent-primary cursor-pointer" 
               {...register('profileVisibility')} 
             />
             <div>
               <p className="font-medium text-gray-900">Public</p>
-              <p className="text-sm text-gray-600">Visible par tous les utilisateurs</p>
+              <p className="text-sm text-gray-600">Vitextsible par tous les utilisateurs</p>
             </div>
           </label>
 
@@ -60,7 +60,7 @@ export default function PrivacySettingsForm({
             <input 
               type="radio" 
               value="verified_only" 
-              className="mt-1 w-4 h-4 text-primary" 
+              className="mt-1 w-4 h-4 accent-primary cursor-pointer" 
               {...register('profileVisibility')} 
             />
             <div>
@@ -73,7 +73,7 @@ export default function PrivacySettingsForm({
             <input 
               type="radio" 
               value="private" 
-              className="mt-1 w-4 h-4 text-primary" 
+              className="mt-1 w-4 h-4 accent-primary cursor-pointer" 
               {...register('profileVisibility')} 
             />
             <div>
@@ -97,7 +97,7 @@ export default function PrivacySettingsForm({
               <Phone className="w-4 h-4 text-gray-400" />
               <span className="text-gray-900">Afficher mon téléphone</span>
             </div>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('showPhone')} />
+            <input type="checkbox" className="w-5 h-5 accent-primary cursor-pointer" {...register('showPhone')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
@@ -113,17 +113,17 @@ export default function PrivacySettingsForm({
               <BarChart className="w-4 h-4 text-gray-400" />
               <span className="text-gray-900">Afficher mes statistiques</span>
             </div>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('showStats')} />
+            <input type="checkbox" className="w-5 h-5 accent-primary cursor-pointer" {...register('showStats')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Afficher ma dernière connexion</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('showLastSeen')} />
+            <input type="checkbox" className="w-5 h-5 accent-primary cursor-pointer" {...register('showLastSeen')} />
           </label>
 
           <label className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
             <span className="text-gray-900">Apparaître dans les recherches</span>
-            <input type="checkbox" className="w-5 h-5 text-primary" {...register('showInSearchResults')} />
+            <input type="checkbox" className="w-5 h-5 accent-primary cursor-pointer" {...register('showInSearchResults')} />
           </label>
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function PrivacySettingsForm({
             <input 
               type="radio" 
               value="everyone" 
-              className="mt-1 w-4 h-4 text-primary" 
+              className="mt-1 w-4 h-4 accent-primary cursor-pointer" 
               {...register('messagePermission')} 
             />
             <div>
@@ -149,7 +149,7 @@ export default function PrivacySettingsForm({
             <input 
               type="radio" 
               value="verified_only" 
-              className="mt-1 w-4 h-4 text-primary" 
+              className="mt-1 w-4 h-4 accent-primary cursor-pointer" 
               {...register('messagePermission')} 
             />
             <div>
@@ -161,7 +161,7 @@ export default function PrivacySettingsForm({
             <input 
               type="radio" 
               value="no_one" 
-              className="mt-1 w-4 h-4 text-primary" 
+              className="mt-1 w-4 h-4 accent-primary cursor-pointer" 
               {...register('messagePermission')} 
             />
             <div>

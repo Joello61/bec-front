@@ -41,7 +41,7 @@ export default function SecuritySettingsForm({
           <label className="flex items-start gap-3 cursor-pointer">
             <input 
               type="checkbox" 
-              className="mt-1 w-5 h-5 text-primary" 
+              className="mt-1 w-5 h-5 accent-primary cursor-pointer" 
               {...register('twoFactorEnabled')} 
             />
             <div className="flex-1">
@@ -69,7 +69,7 @@ export default function SecuritySettingsForm({
           <label className="flex items-start gap-3 cursor-pointer">
             <input 
               type="checkbox" 
-              className="mt-1 w-5 h-5 text-primary" 
+              className="mt-1 w-5 h-5 accent-primary cursor-pointer" 
               {...register('loginNotifications')} 
             />
             <div className="flex-1">

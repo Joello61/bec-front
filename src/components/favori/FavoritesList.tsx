@@ -10,7 +10,7 @@ import type { Favori } from '@/types';
 interface FavoritesListProps {
   favorisVoyages: Favori[];
   favorisDemandes: Favori[];
-  onRemove: (id: number) => Promise<void>;
+  onRemove: (id: number, type: 'voyage' | 'demande') => Promise<void>;
   isLoading?: boolean;
 }
 
@@ -19,9 +19,7 @@ type TabType = 'voyages' | 'demandes';
 export default function FavoritesList({ 
   favorisVoyages, 
   favorisDemandes, 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onRemove,
-  isLoading = false 
+  isLoading = false,
 }: FavoritesListProps) {
   const [activeTab, setActiveTab] = useState<TabType>('voyages');
 
@@ -90,14 +88,19 @@ export default function FavoritesList({
           </p>
         </motion.div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentItems.map((favori) =>
-            activeTab === 'voyages' && favori.voyage ? (
-              <VoyageCard key={favori.id} voyage={favori.voyage} />
-            ) : activeTab === 'demandes' && favori.demande ? (
-              <DemandeCard key={favori.id} demande={favori.demande} />
-            ) : null
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          {currentItems.map((favori) => {
+            // ✅ On s'assure que les relations existent avant de rendre
+            if (activeTab === 'voyages') {
+              if (!favori.voyage) return null;
+              return <VoyageCard key={favori.id} voyage={favori.voyage} />;
+            }
+            if (activeTab === 'demandes') {
+              if (!favori.demande) return null;
+              return <DemandeCard key={favori.id} demande={favori.demande} />;
+            }
+            return null;
+          })}
         </div>
       )}
     </div>

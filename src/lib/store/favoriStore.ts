@@ -16,7 +16,7 @@ interface FavoriState {
   fetchFavorisDemandes: () => Promise<void>;
   addVoyageToFavoris: (voyageId: number) => Promise<void>;
   addDemandeToFavoris: (demandeId: number) => Promise<void>;
-  removeFavori: (id: number) => Promise<void>;
+  removeFavori: (id: number, type: 'voyage' | 'demande') => Promise<void>;
   isFavoriVoyage: (voyageId: number) => boolean;
   isFavoriDemande: (demandeId: number) => boolean;
   clearError: () => void;
@@ -69,15 +69,19 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
     }
   },
 
+  // ✅ CORRECTION : Recharger après ajout au lieu de merger
   addVoyageToFavoris: async (voyageId) => {
     set({ isLoading: true, error: null });
     try {
-      const favori = await favorisApi.addVoyage(voyageId);
-      set((state) => ({
-        favoris: [...state.favoris, favori],
-        favorisVoyages: [...state.favorisVoyages, favori],
+      await favorisApi.addVoyage(voyageId);
+      
+      // ✅ Recharger la liste complète avec toutes les données
+      const favorisVoyages = await favorisApi.getVoyages();
+      
+      set({
+        favorisVoyages,
         isLoading: false
-      }));
+      });
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de l\'ajout aux favoris', 
@@ -87,15 +91,19 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
     }
   },
 
+  // ✅ CORRECTION : Recharger après ajout au lieu de merger
   addDemandeToFavoris: async (demandeId) => {
     set({ isLoading: true, error: null });
     try {
-      const favori = await favorisApi.addDemande(demandeId);
-      set((state) => ({
-        favoris: [...state.favoris, favori],
-        favorisDemandes: [...state.favorisDemandes, favori],
+      await favorisApi.addDemande(demandeId);
+      
+      // ✅ Recharger la liste complète avec toutes les données
+      const favorisDemandes = await favorisApi.getDemandes();
+      
+      set({
+        favorisDemandes,
         isLoading: false
-      }));
+      });
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de l\'ajout aux favoris', 
@@ -105,16 +113,20 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
     }
   },
 
-  removeFavori: async (id) => {
+  // ✅ CORRECTION : Recharger après suppression
+  removeFavori: async (id, type) => {
     set({ isLoading: true, error: null });
     try {
-      await favorisApi.remove(id);
-      set((state) => ({
-        favoris: state.favoris.filter((f) => f.id !== id),
-        favorisVoyages: state.favorisVoyages.filter((f) => f.id !== id),
-        favorisDemandes: state.favorisDemandes.filter((f) => f.id !== id),
-        isLoading: false
-      }));
+      await favorisApi.remove(id, type);
+      
+      // ✅ Recharger les listes pour avoir les données à jour
+      if (type === 'voyage') {
+        const favorisVoyages = await favorisApi.getVoyages();
+        set({ favorisVoyages, isLoading: false });
+      } else {
+        const favorisDemandes = await favorisApi.getDemandes();
+        set({ favorisDemandes, isLoading: false });
+      }
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de la suppression du favori', 

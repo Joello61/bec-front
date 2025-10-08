@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle } from 'lucide-react';
 import { Button, Modal } from '@/components/ui';
 import { createSignalementSchema, type CreateSignalementFormData } from '@/lib/validations';
-import { SIGNALEMENT_MOTIFS } from '@/lib/utils/constants';
 
 interface SignalementFormProps {
   isOpen: boolean;
@@ -14,7 +13,17 @@ interface SignalementFormProps {
   onSubmit: (data: CreateSignalementFormData) => Promise<void>;
   voyageId?: number;
   demandeId?: number;
+  messageId?: number;
+  utilisateurSignaleId?: number;
 }
+
+const SIGNALEMENT_MOTIFS = [
+  { value: 'contenu_inapproprie', label: 'Contenu inapproprié' },
+  { value: 'spam', label: 'Spam ou publicité' },
+  { value: 'arnaque', label: 'Arnaque ou fraude' },
+  { value: 'objet_illegal', label: 'Objet illégal' },
+  { value: 'autre', label: 'Autre' },
+] as const;
 
 export default function SignalementForm({
   isOpen,
@@ -22,6 +31,8 @@ export default function SignalementForm({
   onSubmit,
   voyageId,
   demandeId,
+  messageId,
+  utilisateurSignaleId,
 }: SignalementFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,6 +46,8 @@ export default function SignalementForm({
     defaultValues: {
       voyageId,
       demandeId,
+      messageId,
+      utilisateurSignaleId,
       motif: 'contenu_inapproprie',
       description: '',
     },
@@ -51,15 +64,35 @@ export default function SignalementForm({
     }
   };
 
+  // Déterminer le type d'entité pour le titre
+  const getEntityType = () => {
+    if (voyageId) return 'ce voyage';
+    if (demandeId) return 'cette demande';
+    if (messageId) return 'ce message';
+    if (utilisateurSignaleId) return 'cet utilisateur';
+    return 'cet élément';
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Signaler un problème" size="md">
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title={`Signaler ${getEntityType()}`}
+      size="md"
+    >
       <form onSubmit={handleSubmit(handleFormSubmit)} className="p-6 space-y-5">
-        <div className="flex items-start gap-3 p-4 bg-warning/10 rounded-lg">
-          <AlertCircle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-gray-700">
-            Signalez uniquement les contenus qui violent nos conditions d&apos;utilisation.
-            Les signalements abusifs peuvent entraîner des sanctions.
-          </p>
+        {/* Avertissement */}
+        <div className="flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+          <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-medium text-amber-900 mb-1">
+              Signalement sérieux uniquement
+            </p>
+            <p className="text-xs text-amber-700">
+              Signalez uniquement les contenus qui violent nos conditions d&apos;utilisation. 
+              Les signalements abusifs peuvent entraîner des sanctions sur votre compte.
+            </p>
+          </div>
         </div>
 
         {/* Motif */}
@@ -90,16 +123,16 @@ export default function SignalementForm({
           </label>
           <textarea
             id="description"
-            rows={5}
+            rows={6}
             className="input"
-            placeholder="Expliquez en détail le problème rencontré..."
+            placeholder="Décrivez en détail la raison de votre signalement (minimum 20 caractères)..."
             {...register('description')}
           />
           {errors.description && (
             <p className="mt-1 text-sm text-error">{errors.description.message}</p>
           )}
           <p className="mt-1 text-xs text-gray-500">
-            Minimum 20 caractères
+            Minimum 20 caractères, maximum 1000 caractères
           </p>
         </div>
 

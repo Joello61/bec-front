@@ -9,6 +9,14 @@ export const createSignalementSchema = z.object({
     .number()
     .positive('ID demande invalide')
     .optional(),
+  messageId: z
+    .number()
+    .positive('ID message invalide')
+    .optional(),
+  utilisateurSignaleId: z
+    .number()
+    .positive('ID utilisateur invalide')
+    .optional(),
   motif: z.enum(
     ['contenu_inapproprie', 'spam', 'arnaque', 'objet_illegal', 'autre'],
     {
@@ -21,8 +29,8 @@ export const createSignalementSchema = z.object({
     .min(20, 'La description doit contenir au moins 20 caractères')
     .max(1000, 'La description ne peut pas dépasser 1000 caractères'),
 }).refine(
-  (data) => data.voyageId || data.demandeId,
-  'Vous devez signaler soit un voyage, soit une demande'
+  (data) => data.voyageId || data.demandeId || data.messageId || data.utilisateurSignaleId,
+  'Vous devez signaler au moins un élément (voyage, demande, message ou utilisateur)'
 );
 
 export const traiterSignalementSchema = z.object({

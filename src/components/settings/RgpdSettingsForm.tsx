@@ -66,7 +66,7 @@ export default function RgpdSettingsForm({
             <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
               <input 
                 type="checkbox" 
-                className="mt-1 w-5 h-5 text-primary" 
+                className="mt-1 w-5 h-5 accent-primary cursor-pointer" 
                 {...register('cookiesConsent')} 
               />
               <div className="flex-1">
@@ -80,7 +80,7 @@ export default function RgpdSettingsForm({
             <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
               <input 
                 type="checkbox" 
-                className="mt-1 w-5 h-5 text-primary" 
+                className="mt-1 w-5 h-5 accent-primary cursor-pointer" 
                 {...register('analyticsConsent')} 
               />
               <div className="flex-1">
@@ -94,7 +94,7 @@ export default function RgpdSettingsForm({
             <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
               <input 
                 type="checkbox" 
-                className="mt-1 w-5 h-5 text-primary" 
+                className="mt-1 w-5 h-5 accent-primary cursor-pointer" 
                 {...register('marketingConsent')} 
               />
               <div className="flex-1">
@@ -108,7 +108,7 @@ export default function RgpdSettingsForm({
             <label className="flex items-start gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
               <input 
                 type="checkbox" 
-                className="mt-1 w-5 h-5 text-primary" 
+                className="mt-1 w-5 h-5 accent-primary cursor-pointer" 
                 {...register('dataShareConsent')} 
               />
               <div className="flex-1">
