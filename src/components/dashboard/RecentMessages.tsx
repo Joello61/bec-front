@@ -75,7 +75,7 @@ export default function RecentMessages({ messages, nonLus }: RecentMessagesProps
                         size="md"
                       />
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2 mb-1">
+                        <div className="flex items-start justify-between gap-2 mb-1 text-primary">
                           <p className={cn('text-sm font-medium', !message.lu && 'text-gray-900')}>
                             {message.expediteur.prenom} {message.expediteur.nom}
                           </p>

@@ -35,7 +35,7 @@ export default function AuthLayout({
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center">
                   <Image
                     src="/images/logo/logo_icon_only.png"
                     alt="Logo de Co-Baggage"

@@ -12,7 +12,6 @@ import {
   LogOut,
   Settings,
   HelpCircle,
-  Search,
   BookOpen,
   Home,
   Info,
@@ -37,7 +36,6 @@ const navigation = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
   const { unreadCount: notifCount } = useUnreadNotificationCount();
@@ -67,13 +65,6 @@ export default function Header() {
     }
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`${ROUTES.EXPLORE}?q=${encodeURIComponent(searchQuery)}`);
-    }
-  };
-
   if (!isAuthenticated) {
     // Header pour utilisateurs non connectés
     return (
@@ -85,7 +76,7 @@ export default function Header() {
           <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
             {/* Logo */}
             <Link href={ROUTES.HOME} className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center">
                 <Image
                   src="/images/logo/logo_icon_only.png"
                   alt="Logo de Co-Baggage"
@@ -212,7 +203,7 @@ export default function Header() {
         <div className="h-16 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href={ROUTES.DASHBOARD} className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center">
                 <Image
                   src="/images/logo/logo_icon_only.png"
                   alt="Logo de Co-Baggage"
@@ -223,20 +214,6 @@ export default function Header() {
               </div>
             <span className="font-bold text-lg text-gray-900">CoBage</span>
           </Link>
-
-          {/* Barre de recherche (Desktop) */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xl">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Rechercher des voyages ou demandes..."
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-              />
-            </div>
-          </form>
 
           {/* Actions */}
           <div className="flex items-center gap-2">
