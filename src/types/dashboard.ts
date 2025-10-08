@@ -1,4 +1,4 @@
-import type { NotificationType } from './notification';
+import type { AppNotificationType } from './notification';
 
 export interface DashboardSummary {
   voyagesActifs: number;
@@ -28,7 +28,7 @@ export interface DashboardDemande {
 
 export interface DashboardNotification {
   id: number;
-  type: NotificationType;
+  type: AppNotificationType;
   titre: string;
   message: string;
   lue: boolean;
