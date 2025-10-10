@@ -21,7 +21,7 @@ export default function OAuthButtons() {
     }
   };
 
-  const handleFacebookAuth = async () => {
+  /*const handleFacebookAuth = async () => {
     setIsFacebookLoading(true);
     try {
       const { authUrl } = await authApi.getFacebookAuthUrl();
@@ -30,7 +30,7 @@ export default function OAuthButtons() {
       toast.error(error.message || 'Erreur lors de la connexion avec Facebook');
       setIsFacebookLoading(false);
     }
-  };
+  };*/
 
   return (
     <div className="flex gap-3 items-stretch">
@@ -55,8 +55,8 @@ export default function OAuthButtons() {
         )}
         <span>Google</span>
       </button>
-
-      {/* Facebook */}
+      
+      {/* Facebook
       <button
         onClick={handleFacebookAuth}
         disabled={isGoogleLoading || isFacebookLoading}
@@ -73,7 +73,7 @@ export default function OAuthButtons() {
           </svg>
         )}
         <span>Facebook</span>
-      </button>
+      </button> */}
     </div>
   );
 }
