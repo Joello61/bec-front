@@ -41,7 +41,7 @@ export default function CurrencyDisplay({
   if (!hasConversion || !showOriginal) {
     // Pas de conversion ou tooltip désactivé
     return (
-      <span className={`font-semibold ${className}`}>
+      <span className={`font-bold ${className}`}>
         {displayAmount}
       </span>
     );
@@ -50,7 +50,7 @@ export default function CurrencyDisplay({
   // Avec conversion et tooltip
   return (
     <div className="flex items-center gap-2 group relative">
-      <span className={`font-semibold ${className}`}>
+      <span className={`font-bold ${className}`}>
         {displayAmount}
       </span>
       

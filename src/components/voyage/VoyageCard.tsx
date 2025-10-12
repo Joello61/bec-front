@@ -156,7 +156,7 @@ export default function VoyageCard({ voyage }: VoyageCardProps) {
                   currency={voyage.currency}
                   converted={voyage.converted}
                   viewerCurrency={voyage.viewerCurrency}
-                  showIcons={false}
+                  showIcons={true}
                 />
               </div>
             </div>

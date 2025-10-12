@@ -174,7 +174,7 @@ export default function DemandeCard({ demande }: DemandeCardProps) {
                   currency={demande.currency}
                   converted={demande.converted}
                   viewerCurrency={demande.viewerCurrency}
-                  showIcons={false}
+                  showIcons={true}
                 />
               </div>
             </div>

@@ -14,11 +14,9 @@ import {
   Phone,
   Mail,
 } from 'lucide-react';
-import Link from 'next/link';
 import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
 import DemandeStatusBadge from './DemandeStatusBadge';
 import { formatDate, formatWeight, getDaysRemaining } from '@/lib/utils/format';
-import { ROUTES } from '@/lib/utils/constants';
 import { useFavoriActions } from '@/lib/hooks/useFavoris';
 import { useSignalementActions } from '@/lib/hooks/useSignalement';
 import { useAuth } from '@/lib/hooks/useAuth';
@@ -170,8 +168,8 @@ export default function DemandeDetails({
               {/* Prix par kilo */}
               {demande.prixParKilo && (
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                    <DollarSign className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Prix par kilo</p>
@@ -181,7 +179,7 @@ export default function DemandeDetails({
                       converted={demande.converted}
                       viewerCurrency={demande.viewerCurrency}
                       field="prixParKilo"
-                      className="text-green-600"
+                      className="text-gray-900"
                     />
                   </div>
                 </div>
@@ -229,10 +227,7 @@ export default function DemandeDetails({
             <div className="space-y-6">
               {/* Profil du client */}
               <div className="flex items-center justify-between flex-wrap gap-4">
-                <Link
-                  href={ROUTES.USER_PROFILE(demande.client.id)}
-                  className="flex items-center gap-4 group"
-                >
+                <div className="flex items-center gap-4 group">
                   <Avatar
                     src={demande.client.photo || undefined}
                     fallback={`${demande.client.nom} ${demande.client.prenom}`}
@@ -240,7 +235,7 @@ export default function DemandeDetails({
                     verified={demande.client.emailVerifie}
                   />
                   <div>
-                    <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                    <p className="font-semibold text-gray-900">
                       {demande.client.prenom} {demande.client.nom}
                     </p>
                     {demande.client.bio && (
@@ -249,7 +244,7 @@ export default function DemandeDetails({
                       </p>
                     )}
                   </div>
-                </Link>
+                </div>
 
                 {!isOwner && demande.statut === 'en_recherche' && (
                   <Button

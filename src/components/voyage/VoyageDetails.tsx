@@ -15,12 +15,10 @@ import {
   Mail,
   Clock,
 } from 'lucide-react';
-import Link from 'next/link';
 import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
 import VoyageStatusBadge from './VoyageStatusBadge';
 import AvisForm from '@/components/forms/AvisForm';
 import { formatDate, formatWeight } from '@/lib/utils/format';
-import { ROUTES } from '@/lib/utils/constants';
 import { useFavoriActions } from '@/lib/hooks/useFavoris';
 import { useSignalementActions } from '@/lib/hooks/useSignalement';
 import { useAvisStore } from '@/lib/store';
@@ -99,7 +97,7 @@ export default function VoyageDetails({
         {/* Header Card */}
         <Card>
           <CardHeader
-            title={`${voyage.villeDepart} → ${voyage.villeArrivee}`}
+            title={`${voyage.villeDepart} vers ${voyage.villeArrivee}`}
             action={
               <div className="flex items-center gap-3">
                 {user && !isOwner && (
@@ -168,8 +166,8 @@ export default function VoyageDetails({
               {/* Prix par kilo */}
               {voyage.prixParKilo && (
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                    <DollarSign className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Prix par kilo</p>
@@ -179,7 +177,7 @@ export default function VoyageDetails({
                       converted={voyage.converted}
                       viewerCurrency={voyage.viewerCurrency}
                       field="prixParKilo"
-                      className="text-green-600"
+                      className="text-gray-900"
                     />
                   </div>
                 </div>
@@ -229,10 +227,7 @@ export default function VoyageDetails({
             <div className="space-y-6">
               {/* Profil du voyageur */}
               <div className="flex items-center justify-between flex-wrap gap-4">
-                <Link
-                  href={ROUTES.USER_PROFILE(voyage.voyageur.id)}
-                  className="flex items-center gap-4 group"
-                >
+                <div className="flex items-center gap-4 group">
                   <Avatar
                     src={voyage.voyageur.photo || undefined}
                     fallback={`${voyage.voyageur.nom} ${voyage.voyageur.prenom}`}
@@ -241,7 +236,7 @@ export default function VoyageDetails({
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                      <p className="font-semibold text-gray-900">
                         {voyage.voyageur.prenom} {voyage.voyageur.nom}
                       </p>
                       {!isOwner &&
@@ -261,7 +256,7 @@ export default function VoyageDetails({
                       </p>
                     )}
                   </div>
-                </Link>
+                </div>
 
                 <div className="flex gap-2">
                   {canLeaveReview && (
