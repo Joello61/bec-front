@@ -13,3 +13,4 @@ export * from './voyageStore';
 export * from './settingsStore';
 export * from './propositionStore';
 export * from './adminStore';
+export * from './addressStore';

@@ -12,3 +12,4 @@ export * from './voyage';
 export * from './settings'; // ⬅️ AJOUT
 export * from './proposition'; // ⬅️ AJOUT
 export * from './admin';
+export * from './address'; // ⬅️ AJOUT

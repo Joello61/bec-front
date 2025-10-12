@@ -79,4 +79,6 @@ export {
   useVoyagePropositions
 } from './usePropositions'
 
+export { useAddress, useAddressModificationInfo, useCanModifyAddress } from './useAddress';
+
 export * from './useAdmin';

@@ -27,6 +27,9 @@ export const endpoints = {
     // ==================== NOUVEAUX ENDPOINTS ====================
     profileStatus: '/users/me/profile-status', // ⬅️ Vérifier si profil complet
     completeProfile: '/users/me/complete-profile', // ⬅️ Compléter le profil
+
+    addressModificationInfo: '/users/me/address/modification-info',
+    updateAddress: '/users/me/address',
   },
 
   // Voyages

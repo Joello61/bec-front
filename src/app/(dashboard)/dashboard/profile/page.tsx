@@ -15,11 +15,13 @@ import {
   Star,
   Package,
   MapPin,
-  Calendar
+  Calendar,
+  ChevronRight
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { usersApi } from '@/lib/api/users';
 import { ProfileForm } from '@/components/forms';
+import AddressCard from '@/components/user/AddressCard';
 import { Button, Avatar, Badge, Card } from '@/components/ui';
 import { LoadingSpinner, ErrorState, useToast } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
@@ -196,6 +198,32 @@ export default function ProfilePage() {
               )}
             </Card>
           </motion.div>
+
+          {/* ==================== NOUVELLE SECTION : ADRESSE ==================== */}
+          {!isEditing && user.address && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-lg font-semibold text-gray-900">Mon adresse</h2>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  rightIcon={<ChevronRight className="w-4 h-4" />}
+                  onClick={() => router.push(ROUTES.PROFILE_ADDRESS)}
+                >
+                  Gérer
+                </Button>
+              </div>
+              <AddressCard
+                address={user.address}
+                canModify={true}
+                showEditButton={false}
+              />
+            </motion.div>
+          )}
         </div>
 
         {/* Colonne droite - Statistiques */}
@@ -204,7 +232,7 @@ export default function ProfilePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3 }}
           >
             <Card className="p-6">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -235,28 +263,28 @@ export default function ProfilePage() {
                   </span>
                 </div>
 
-                {/* Note moyenne - toujours afficher */}
+                {/* Note moyenne */}
                 {stats?.stats !== undefined && (
-                <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                    <Star className={`w-4 h-4 ${stats.stats.nombreAvis > 0 ? 'text-warning' : 'text-gray-400'}`} />
-                    <span className="text-sm text-gray-600">Note moyenne</span>
+                      <Star className={`w-4 h-4 ${stats.stats.nombreAvis > 0 ? 'text-warning' : 'text-gray-400'}`} />
+                      <span className="text-sm text-gray-600">Note moyenne</span>
                     </div>
                     {stats.stats.nombreAvis > 0 ? (
-                    <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1">
                         <span className="font-semibold text-gray-900">
-                        {stats.stats.noteMoyenne.toFixed(1)}
+                          {stats.stats.noteMoyenne.toFixed(1)}
                         </span>
                         <span className="text-xs text-gray-500">
-                        ({stats.stats.nombreAvis} avis)
+                          ({stats.stats.nombreAvis} avis)
                         </span>
-                    </div>
+                      </div>
                     ) : (
-                    <span className="text-sm text-gray-500">
+                      <span className="text-sm text-gray-500">
                         Aucun avis
-                    </span>
+                      </span>
                     )}
-                </div>
+                  </div>
                 )}
               </div>
             </Card>
@@ -266,7 +294,7 @@ export default function ProfilePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
           >
             <Card className="p-6">
               <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -302,6 +330,15 @@ export default function ProfilePage() {
                     )}
                   </div>
                 )}
+
+                {user.address && (
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Adresse</span>
+                    <Badge className="bg-success/10 text-success">
+                      Complétée
+                    </Badge>
+                  </div>
+                )}
               </div>
             </Card>
           </motion.div>
@@ -310,7 +347,7 @@ export default function ProfilePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.5 }}
           >
             <Card className="p-6">
               <div className="flex items-center gap-3 text-sm text-gray-600">

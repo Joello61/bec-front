@@ -82,21 +82,20 @@ export function useRequireAuth() {
 
 /**
  * Hook pour vérifier si le profil est complet
- * Utile pour rediriger vers /complete-profile si nécessaire
  */
 export function useProfileCompletion() {
   const { user, isAuthenticated, checkProfileStatus } = useAuth();
   
   const isProfileComplete = user?.emailVerifie && 
                            user?.telephoneVerifie && 
-                           user?.nom && 
-                           user?.prenom;
+                           user?.address !== null &&
+                           user?.address !== undefined;
 
   return {
     isProfileComplete,
     needsEmailVerification: isAuthenticated && !user?.emailVerifie,
     needsPhoneVerification: isAuthenticated && !user?.telephoneVerifie,
-    needsProfileCompletion: isAuthenticated && (!user?.nom || !user?.prenom),
+    needsAddressCompletion: isAuthenticated && !user?.address,
     checkProfileStatus,
   };
 }

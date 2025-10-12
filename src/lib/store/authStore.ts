@@ -15,9 +15,6 @@ interface AuthState {
   isLoading: boolean;
   isInitialized: boolean;
   error: string | null;
-  
-  // ==================== NOUVEAU : EMAIL TEMPORAIRE ====================
-  // Pour stocker l'email pendant le flux verify-email (avant auth)
   pendingEmail: string | null;
   
   // Actions principales
@@ -31,7 +28,7 @@ interface AuthState {
   verifyPhone: (code: string) => Promise<void>;
   resendVerification: (type: 'email' | 'phone', email?: string) => Promise<void>;
   
-  // ==================== NOUVEAU : COMPLETE PROFILE ====================
+  // Actions profil
   completeProfile: (data: CompleteProfileInput) => Promise<void>;
   checkProfileStatus: () => Promise<boolean>;
   
@@ -63,8 +60,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         isInitialized: true
       });
     } catch (error: any) {
-      // ==================== GESTION EMAIL NON VÉRIFIÉ ====================
-      // Si l'email n'est pas vérifié, le backend retourne une erreur
       if (error.message?.includes('vérifier') || error.message?.includes('verify')) {
         set({ 
           error: 'EMAIL_NOT_VERIFIED',
@@ -72,7 +67,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           isInitialized: true,
           user: null,
           isAuthenticated: false,
-          pendingEmail: credentials.email, // Stocker l'email
+          pendingEmail: credentials.email,
         });
         throw new Error('EMAIL_NOT_VERIFIED');
       }
@@ -88,8 +83,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  // ==================== REGISTER MODIFIÉ ====================
-  // Stocker l'email pour la page de vérification
   register: async (data) => {
     set({ isLoading: true, error: null });
     try {
@@ -97,7 +90,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ 
         isLoading: false,
         error: null,
-        pendingEmail: data.email, // ⬅️ Stocker l'email
+        pendingEmail: data.email,
       });
     } catch (error: any) {
       set({ 
@@ -152,22 +145,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  // ==================== VERIFY EMAIL MODIFIÉ ====================
-  // Authentifie automatiquement l'utilisateur après vérification
   verifyEmail: async (code: string, email: string) => {
     set({ isLoading: true, error: null });
     try {
-      // Vérifier l'email (backend retourne JWT dans cookie)
-      const response = await authApi.verifyEmail({ code, email });
-      
-      // Récupérer les données utilisateur complètes
+      await authApi.verifyEmail({ code, email });
       const user = await authApi.me();
       
       set({ 
         user,
         isAuthenticated: true,
         isLoading: false,
-        pendingEmail: null, // Nettoyer l'email temporaire
+        pendingEmail: null,
       });
     } catch (error: any) {
       set({ 
@@ -182,7 +170,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       await authApi.verifyPhone({ code });
-      // Recharger les données utilisateur pour mettre à jour telephoneVerifie
       await get().fetchMe();
       set({ isLoading: false });
     } catch (error: any) {
@@ -194,8 +181,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  // ==================== RESEND VERIFICATION MODIFIÉ ====================
-  // Accepte l'email pour les utilisateurs non authentifiés
   resendVerification: async (type: 'email' | 'phone', email?: string) => {
     set({ isLoading: true, error: null });
     try {
@@ -213,12 +198,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  // ==================== NOUVEAU : COMPLETE PROFILE ====================
   completeProfile: async (data: CompleteProfileInput) => {
     set({ isLoading: true, error: null });
     try {
       await authApi.completeProfile(data);
-      // Recharger les données utilisateur
       await get().fetchMe();
       set({ isLoading: false });
     } catch (error: any) {
@@ -230,7 +213,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  // ==================== NOUVEAU : CHECK PROFILE STATUS ====================
   checkProfileStatus: async () => {
     try {
       const status = await authApi.getProfileStatus();

@@ -3,19 +3,30 @@
 import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, MapPin, Home, Building2, Mail as MailIcon } from 'lucide-react';
+import { MapPin, Home, Building2, Mail as MailIcon, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button, Input, Select } from '@/components/ui';
-import { completeProfileSchema, type CompleteProfileFormData } from '@/lib/validations';
+import { updateAddressSchema, type UpdateAddressFormData } from '@/lib/validations/address.schema';
 import { PAYS, TOUTES_VILLES, QUARTIERS_PAR_VILLE } from '@/lib/utils/constants';
-import { useAuth } from '@/lib/hooks';
+import type { Address } from '@/types/address';
 
-interface CompleteProfileFormProps {
-  onSubmit: (data: CompleteProfileFormData) => Promise<void>;
+interface AddressFormProps {
+  address: Address;
+  canModify: boolean;
+  daysRemaining?: number;
+  nextModificationDate?: string;
+  onSubmit: (data: UpdateAddressFormData) => Promise<void>;
+  onCancel?: () => void;
 }
 
-export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormProps) {
-  const { user } = useAuth();
+export default function AddressForm({ 
+  address, 
+  canModify,
+  daysRemaining,
+  nextModificationDate,
+  onSubmit, 
+  onCancel 
+}: AddressFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addressType, setAddressType] = useState<'african' | 'postal'>('african');
 
@@ -26,23 +37,29 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
     watch,
     setValue,
     formState: { errors },
-  } = useForm<CompleteProfileFormData>({
-    resolver: zodResolver(completeProfileSchema),
+  } = useForm<UpdateAddressFormData>({
+    resolver: zodResolver(updateAddressSchema),
     defaultValues: {
-      telephone: user?.telephone || '',
-      pays: '',
-      ville: '',
-      quartier: '',
-      adresseLigne1: '',
-      adresseLigne2: '',
-      codePostal: '',
-      bio: user?.bio || '',
-      photo: user?.photo || '',
+      pays: address.pays,
+      ville: address.ville,
+      quartier: address.quartier || '',
+      adresseLigne1: address.adresseLigne1 || '',
+      adresseLigne2: address.adresseLigne2 || '',
+      codePostal: address.codePostal || '',
     },
   });
 
   const watchPays = watch('pays');
   const watchVille = watch('ville');
+
+  // Déterminer le type d'adresse initial
+  useEffect(() => {
+    if (address.quartier) {
+      setAddressType('african');
+    } else if (address.adresseLigne1) {
+      setAddressType('postal');
+    }
+  }, [address]);
 
   // Déterminer automatiquement le type d'adresse selon le pays
   useEffect(() => {
@@ -69,11 +86,11 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
     }
   }, [watchPays, addressType, setValue]);
 
-  const handleFormSubmit = async (data: CompleteProfileFormData) => {
+  const handleFormSubmit = async (data: UpdateAddressFormData) => {
     setIsSubmitting(true);
     try {
       // Nettoyer les données selon le type d'adresse
-      const cleanedData: CompleteProfileFormData = {
+      const cleanedData: UpdateAddressFormData = {
         ...data,
         ...(addressType === 'african' && {
           adresseLigne1: undefined,
@@ -106,25 +123,57 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
     label: quartier 
   }));
 
+  // Si modification non autorisée
+  if (!canModify) {
+    return (
+      <div className="space-y-4">
+        <div className="bg-warning/10 border border-warning rounded-lg p-4">
+          <div className="flex gap-3">
+            <AlertCircle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold text-warning mb-1">
+                Modification non autorisée
+              </h3>
+              <p className="text-sm text-gray-700">
+                Vous pourrez modifier votre adresse dans <strong>{daysRemaining} jours</strong>
+                {nextModificationDate && ` (le ${new Date(nextModificationDate).toLocaleDateString('fr-FR')})`}.
+              </p>
+              <p className="text-sm text-gray-600 mt-2">
+                Cette restriction existe pour des raisons de sécurité et de conformité.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {onCancel && (
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            className="w-full"
+          >
+            Retour
+          </Button>
+        )}
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-      {/* Téléphone */}
-      <Input
-        label="Numéro de téléphone"
-        type="tel"
-        placeholder="+237 6XX XX XX XX"
-        error={errors.telephone?.message}
-        helperText="Format international: +237XXXXXXXXX"
-        leftIcon={<Phone className="w-5 h-5" />}
-        {...register('telephone')}
-        required
-        disabled={!!user?.telephone && user?.telephoneVerifie}
-      />
-      {user?.telephone && user?.telephoneVerifie && (
-        <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
-          ✓ Téléphone déjà vérifié
-        </p>
-      )}
+      {/* Info contrainte */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex gap-3">
+          <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-blue-800">
+            <p className="font-semibold mb-1">Attention</p>
+            <p>
+              Vous ne pourrez modifier votre adresse qu&apos;une seule fois tous les 6 mois.
+              Assurez-vous que les informations sont correctes avant de valider.
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* Pays */}
       <Controller
@@ -243,8 +292,8 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
       )}
 
       {/* Info sur le type d'adresse */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-800">
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <p className="text-sm text-gray-700">
           {addressType === 'african' ? (
             <>
               <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
@@ -257,51 +306,28 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
         </p>
       </div>
 
-      {/* Champs optionnels */}
-      <div className="pt-4 border-t border-gray-200">
-        <h3 className="text-sm font-semibold text-gray-700 mb-4">
-          Informations complémentaires (optionnel)
-        </h3>
-
-        <div className="space-y-4">
-          <Input
-            label="Bio"
-            type="text"
-            placeholder="Parlez-nous de vous..."
-            error={errors.bio?.message}
-            helperText="500 caractères maximum"
-            {...register('bio')}
-          />
-
-          <Input
-            label="Photo de profil (URL)"
-            type="url"
-            placeholder="https://exemple.com/photo.jpg"
-            error={errors.photo?.message}
-            {...register('photo')}
-          />
-        </div>
-      </div>
-
-      {/* Submit */}
-      <div className="pt-6">
-        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+      {/* Actions */}
+      <div className="flex gap-3 pt-4 border-t border-gray-200">
+        {onCancel && (
           <Button
-            type="submit"
-            variant="primary"
-            isLoading={isSubmitting}
+            type="button"
+            variant="outline"
+            onClick={onCancel}
             disabled={isSubmitting}
-            className="w-full"
+            className="flex-1"
           >
-            {isSubmitting ? 'Envoi en cours...' : 'Compléter mon profil'}
+            Annuler
           </Button>
-        </motion.div>
-        
-        <p className="text-xs text-gray-500 text-center mt-4">
-          {user?.telephoneVerifie 
-            ? 'Vos informations seront mises à jour'
-            : 'Un code de vérification sera envoyé par SMS à votre numéro'}
-        </p>
+        )}
+        <Button
+          type="submit"
+          variant="primary"
+          isLoading={isSubmitting}
+          disabled={isSubmitting}
+          className="flex-1"
+        >
+          {isSubmitting ? 'Enregistrement...' : 'Enregistrer l\'adresse'}
+        </Button>
       </div>
     </form>
   );

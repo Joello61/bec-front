@@ -1,4 +1,5 @@
 import type { UserSettings } from './settings';
+import type { Address } from './address';
 
 export interface User {
   id: number;
@@ -20,33 +21,22 @@ export interface User {
   bannedBy?: User | null;
   noteAvisMoyen: number | null;
   
-  // ==================== NOUVEAUX CHAMPS ADRESSE ====================
-  pays: string | null;
-  ville: string | null;
-  
-  // Format Afrique (Cameroun, etc.)
-  quartier: string | null;
-  
-  // Format Diaspora (Europe, Amérique, etc.)
-  adresseLigne1: string | null;
-  adresseLigne2: string | null;
-  codePostal: string | null;
+  // ==================== RELATION ADRESSE ====================
+  address: Address | null;
   
   // Helper pour savoir si le profil est complet
   isProfileComplete?: boolean;
 }
 
-// ==================== REGISTER INPUT MODIFIÉ ====================
-// Le téléphone n'est plus demandé au register
+// ==================== REGISTER INPUT (inchangé) ====================
 export interface RegisterInput {
   nom: string;
   prenom: string;
   email: string;
   password: string;
-  // ❌ telephone retiré
 }
 
-// ==================== NOUVEAU : COMPLETE PROFILE INPUT ====================
+// ==================== COMPLETE PROFILE INPUT ====================
 export interface CompleteProfileInput {
   telephone: string;
   pays: string;
@@ -63,12 +53,13 @@ export interface CompleteProfileInput {
   photo?: string;
 }
 
-// ==================== NOUVEAU : PROFILE STATUS ====================
+// ==================== PROFILE STATUS ====================
 export interface ProfileStatus {
   isComplete: boolean;
-  missing: string[]; // ['telephone', 'address', 'email_verification', etc.]
+  missing: string[];
   emailVerifie: boolean;
   telephoneVerifie: boolean;
+  hasAddress: boolean;
 }
 
 export interface LoginInput {
@@ -100,7 +91,7 @@ export interface ResetPasswordInput {
 
 export interface VerifyEmailInput {
   code: string;
-  email: string; // ⬅️ AJOUTÉ : nécessaire pour verify-email
+  email: string;
 }
 
 export interface VerifyPhoneInput {
@@ -109,5 +100,5 @@ export interface VerifyPhoneInput {
 
 export interface ResendVerificationInput {
   type: 'email' | 'phone';
-  email?: string; // ⬅️ AJOUTÉ : pour resend email
+  email?: string;
 }
