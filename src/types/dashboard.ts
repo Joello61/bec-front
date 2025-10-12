@@ -1,4 +1,6 @@
+import { DemandeStatut } from './demande';
 import type { AppNotificationType } from './notification';
+import { VoyageStatut } from './voyage';
 
 export interface DashboardSummary {
   voyagesActifs: number;
@@ -13,7 +15,7 @@ export interface DashboardVoyage {
   villeArrivee: string;
   dateDepart: string;
   dateArrivee: string;
-  statut: string;
+  statut: VoyageStatut
   poidsDisponible: string;
 }
 
@@ -22,7 +24,7 @@ export interface DashboardDemande {
   villeDepart: string;
   villeArrivee: string;
   dateLimite: string | null;
-  statut: string;
+  statut: DemandeStatut;
   poidsEstime: string;
 }
 

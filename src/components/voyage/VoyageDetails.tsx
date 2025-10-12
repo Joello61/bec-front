@@ -2,7 +2,19 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Package, MessageCircle, AlertCircle, Flag, Star } from 'lucide-react';
+import {
+  Calendar,
+  Package,
+  MessageCircle,
+  AlertCircle,
+  Flag,
+  Star,
+  DollarSign,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+} from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
 import VoyageStatusBadge from './VoyageStatusBadge';
@@ -14,9 +26,13 @@ import { useSignalementActions } from '@/lib/hooks/useSignalement';
 import { useAvisStore } from '@/lib/store';
 import { useAuth } from '@/lib/hooks/useAuth';
 import type { Voyage } from '@/types';
-import type { CreateSignalementFormData, CreateAvisFormData } from '@/lib/validations';
+import type {
+  CreateSignalementFormData,
+  CreateAvisFormData,
+} from '@/lib/validations';
 import { FavoriteButton } from '../favori';
 import SignalementForm from '../forms/SignalementForm';
+import { useToast } from '../common';
 
 interface VoyageDetailsProps {
   voyage: Voyage;
@@ -26,39 +42,51 @@ interface VoyageDetailsProps {
   onContact?: () => void;
 }
 
-export default function VoyageDetails({ 
-  voyage, 
+export default function VoyageDetails({
+  voyage,
   isOwner = false,
   onEdit,
   onDelete,
-  onContact 
+  onContact,
 }: VoyageDetailsProps) {
   const [isSignalementOpen, setIsSignalementOpen] = useState(false);
   const [isAvisOpen, setIsAvisOpen] = useState(false);
   const { user } = useAuth();
-  const { addVoyageToFavoris, removeFavori, isFavoriVoyage } = useFavoriActions();
+  const toast = useToast();
+  const { addVoyageToFavoris, removeFavori, isFavoriVoyage } =
+    useFavoriActions();
   const { createSignalement } = useSignalementActions();
   const { createAvis } = useAvisStore();
-  
+
   const isFavorite = isFavoriVoyage(voyage.id);
-  
-  // Le voyage doit être terminé pour laisser un avis
   const canLeaveReview = !isOwner && voyage.statut === 'complete';
 
   const handleToggleFavorite = async () => {
-    if (isFavorite) {
-      await removeFavori(voyage.id, 'voyage');
+    if (user?.isProfileComplete) {
+      if (isFavorite) {
+        await removeFavori(voyage.id, 'voyage');
+      } else {
+        await addVoyageToFavoris(voyage.id);
+      }
     } else {
-      await addVoyageToFavoris(voyage.id);
+      toast.error("Veuillez compléter votre profil pour pouvoir ajouter aux favoris.");
     }
   };
 
   const handleSignalement = async (data: CreateSignalementFormData) => {
-    await createSignalement(data);
+    if (user?.isProfileComplete) {
+      await createSignalement(data);
+    } else {
+      toast.error("Veuillez compléter votre profil pour pouvoir signaler un voyage.");
+    }
   };
 
   const handleAvis = async (data: CreateAvisFormData) => {
-    await createAvis(data);
+    if (user?.isProfileComplete) {
+      await createAvis(data);
+    } else {
+      toast.error("Veuillez compléter votre profil pour pouvoir laisser un avis.");
+    }
   };
 
   return (
@@ -97,7 +125,7 @@ export default function VoyageDetails({
             }
           />
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Date de départ */}
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -105,7 +133,9 @@ export default function VoyageDetails({
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Départ</p>
-                  <p className="font-semibold text-gray-900">{formatDate(voyage.dateDepart)}</p>
+                  <p className="font-semibold text-gray-900">
+                    {formatDate(voyage.dateDepart)}
+                  </p>
                 </div>
               </div>
 
@@ -116,7 +146,9 @@ export default function VoyageDetails({
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Arrivée</p>
-                  <p className="font-semibold text-gray-900">{formatDate(voyage.dateArrivee)}</p>
+                  <p className="font-semibold text-gray-900">
+                    {formatDate(voyage.dateArrivee)}
+                  </p>
                 </div>
               </div>
 
@@ -127,79 +159,171 @@ export default function VoyageDetails({
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Poids disponible</p>
-                  <p className="font-semibold text-gray-900">{formatWeight(voyage.poidsDisponible)}</p>
+                  <p className="font-semibold text-gray-900">
+                    {formatWeight(voyage.poidsDisponible)}
+                  </p>
                 </div>
               </div>
+
+              {/* Prix par kilo */}
+              {voyage.prixParKilo && (
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Prix par kilo</p>
+                    <p className="font-semibold text-green-600">
+                      {voyage.prixParKilo} XAF
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
+
+            {/* Commission proposée */}
+            {voyage.commissionProposeePourUnBagage && (
+              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-6 h-6 text-amber-600" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-900">
+                      Commission proposée pour un bagage
+                    </p>
+                    <p className="text-2xl font-bold text-amber-600">
+                      {voyage.commissionProposeePourUnBagage} XAF
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
         {/* Description */}
         {voyage.description && (
           <Card>
-            <CardHeader title="Description" />
+            <CardHeader title="Description du voyage" />
             <CardContent>
-              <p className="text-gray-700 whitespace-pre-wrap">{voyage.description}</p>
+              <p className="text-gray-700 whitespace-pre-wrap">
+                {voyage.description}
+              </p>
             </CardContent>
           </Card>
         )}
 
         {/* Voyageur Info */}
         <Card>
-          <CardHeader title="Voyageur" />
+          <CardHeader title="Informations du voyageur" />
           <CardContent>
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <Link
-                href={ROUTES.USER_PROFILE(voyage.voyageur.id)}
-                className="flex items-center gap-4 group"
-              >
-                <Avatar
-                  src={voyage.voyageur.photo || undefined}
-                  fallback={`${voyage.voyageur.nom} ${voyage.voyageur.prenom}`}
-                  size="lg"
-                  verified={voyage.voyageur.emailVerifie}
-                />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                      {voyage.voyageur.prenom} {voyage.voyageur.nom}
-                    </p>
-                    {!isOwner && voyage.voyageur.noteAvisMoyen !== null && voyage.voyageur.noteAvisMoyen > 0 && (
-                      <div className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 rounded-full">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                        <span className="text-sm font-medium text-amber-700">
-                          {voyage.voyageur.noteAvisMoyen.toFixed(1)}
-                        </span>
-                      </div>
+            <div className="space-y-6">
+              {/* Profil du voyageur */}
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <Link
+                  href={ROUTES.USER_PROFILE(voyage.voyageur.id)}
+                  className="flex items-center gap-4 group"
+                >
+                  <Avatar
+                    src={voyage.voyageur.photo || undefined}
+                    fallback={`${voyage.voyageur.nom} ${voyage.voyageur.prenom}`}
+                    size="lg"
+                    verified={voyage.voyageur.emailVerifie}
+                  />
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                        {voyage.voyageur.prenom} {voyage.voyageur.nom}
+                      </p>
+                      {!isOwner &&
+                        voyage.voyageur.noteAvisMoyen !== null &&
+                        voyage.voyageur.noteAvisMoyen > 0 && (
+                          <div className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 rounded-full">
+                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            <span className="text-sm font-medium text-amber-700">
+                              {voyage.voyageur.noteAvisMoyen.toFixed(1)}
+                            </span>
+                          </div>
+                        )}
+                    </div>
+                    {voyage.voyageur.bio && (
+                      <p className="text-sm text-gray-600 mt-1">
+                        {voyage.voyageur.bio}
+                      </p>
                     )}
                   </div>
-                  {voyage.voyageur.bio && (
-                    <p className="text-sm text-gray-600 line-clamp-2 mt-1">
-                      {voyage.voyageur.bio}
-                    </p>
+                </Link>
+
+                <div className="flex gap-2">
+                  {canLeaveReview && (
+                    <Button
+                      variant="outline"
+                      leftIcon={<Star className="w-4 h-4" />}
+                      onClick={() => setIsAvisOpen(true)}
+                    >
+                      Laisser un avis
+                    </Button>
+                  )}
+                  {!isOwner && voyage.statut === 'actif' && (
+                    <Button
+                      variant="primary"
+                      leftIcon={<MessageCircle className="w-4 h-4" />}
+                      onClick={onContact}
+                    >
+                      Contacter
+                    </Button>
                   )}
                 </div>
-              </Link>
+              </div>
 
-              <div className="flex gap-2">
-                {canLeaveReview && (
-                  <Button
-                    variant="outline"
-                    leftIcon={<Star className="w-4 h-4" />}
-                    onClick={() => setIsAvisOpen(true)}
-                  >
-                    Laisser un avis
-                  </Button>
+              {/* Coordonnées */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
+                <div className="flex items-center gap-3 text-sm">
+                  <Mail className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-600">{voyage.voyageur.email}</span>
+                </div>
+                {voyage.voyageur.telephone && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <Phone className="w-4 h-4 text-gray-400" />
+                    <span className="text-gray-600">{voyage.voyageur.telephone}</span>
+                  </div>
                 )}
-                {!isOwner && voyage.statut === 'actif' && (
-                  <Button
-                    variant="primary"
-                    leftIcon={<MessageCircle className="w-4 h-4" />}
-                    onClick={onContact}
-                  >
-                    Contacter
-                  </Button>
+                {voyage.voyageur.ville && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <MapPin className="w-4 h-4 text-gray-400" />
+                    <span className="text-gray-600">
+                      {voyage.voyageur.ville}
+                      {voyage.voyageur.quartier && `, ${voyage.voyageur.quartier}`}
+                      {voyage.voyageur.pays && ` - ${voyage.voyageur.pays}`}
+                    </span>
+                  </div>
                 )}
+                <div className="flex items-center gap-3 text-sm">
+                  <Clock className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-600">
+                    Membre depuis {formatDate(voyage.voyageur.createdAt)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Dates de gestion */}
+        <Card>
+          <CardHeader title="Informations système" />
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="text-gray-500">Créé le :</span>
+                <span className="ml-2 font-medium text-gray-900">
+                  {formatDate(voyage.createdAt)}
+                </span>
+              </div>
+              <div>
+                <span className="text-gray-500">Dernière mise à jour :</span>
+                <span className="ml-2 font-medium text-gray-900">
+                  {formatDate(voyage.updatedAt)}
+                </span>
               </div>
             </div>
           </CardContent>
@@ -214,6 +338,7 @@ export default function VoyageDetails({
                   variant="outline"
                   onClick={onEdit}
                   className="flex-1 md:flex-none"
+                  disabled={voyage.statut === 'annule'}
                 >
                   Modifier
                 </Button>
@@ -222,8 +347,9 @@ export default function VoyageDetails({
                   onClick={onDelete}
                   className="flex-1 md:flex-none"
                   leftIcon={<AlertCircle className="w-4 h-4" />}
+                  disabled={voyage.statut === 'annule'}
                 >
-                  Supprimer
+                  {voyage.statut === 'annule' ? 'Voyage annulé' : 'Annuler le voyage'}
                 </Button>
               </div>
             </CardContent>

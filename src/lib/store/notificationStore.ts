@@ -57,7 +57,7 @@ export const useNotificationStore = create<NotificationState>((set) => ({
       const unreadCount = await notificationsApi.getUnreadCount();
       set({ unreadCount });
     } catch (error: any) {
-      console.error('Erreur compteur notifications:', error);
+      console.log('Erreur lors du chargement du compteur de notifications non lues', error);
     }
   },
 

@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion';
 import { Package, Plus, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { Card, CardContent, Badge } from '@/components/ui';
+import { Card, CardContent } from '@/components/ui';
 import { Button } from '@/components/ui';
 import { formatWeight, getDaysRemaining } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
 import type { DashboardDemande } from '@/types';
 import { EmptyState } from '@/components/common';
+import DemandeStatusBadge from '../demande/DemandeStatusBadge';
 
 interface RecentDemandesProps {
   demandes: DashboardDemande[];
@@ -85,9 +86,7 @@ export default function RecentDemandes({ demandes, total, enCours }: RecentDeman
                             )}
                           </div>
                         </div>
-                        <Badge variant={demande.statut === 'en_recherche' ? 'info' : demande.statut === 'voyageur_trouve' ? 'success' : 'error'}>
-                          {demande.statut === 'en_recherche' ? 'En recherche' : demande.statut === 'voyageur_trouve' ? 'Voyageur trouvé' : 'Annulée'}
-                        </Badge>
+                        <DemandeStatusBadge statut={demande.statut} />
                       </div>
                     </div>
                   </Link>

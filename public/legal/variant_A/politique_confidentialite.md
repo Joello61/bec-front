@@ -441,7 +441,7 @@ L'utilisateur a le droit de **ne pas être soumis à une décision fondée exclu
 
 **Chez CoBage :**
 
-- **Matching automatique** (suggestions d'annonces) : PAS de décision automatisée à effets juridiques → Droit art. 22 non applicable.
+- **Matching automatique** (suggestions d'annonces) : PAS de décision automatisée à effets juridiques - Droit art. 22 non applicable.
 - **Détection automatique de contenu illicite** : Si un message est automatiquement bloqué, l'utilisateur peut **contester** et obtenir une **révision humaine** (droit à intervention humaine, art. 22.3).
 
 **Garanties :**
@@ -468,7 +468,7 @@ L'utilisateur peut définir des **directives concernant le sort de ses données 
 
 #### a) Formulaire en ligne
 
-Accès depuis les paramètres du compte : "Mes droits RGPD" → Formulaire guidé (voir Annexe B).
+Accès depuis les paramètres du compte : "Mes droits RGPD" - Formulaire guidé (voir Annexe B).
 
 #### b) E-mail
 
@@ -536,8 +536,8 @@ CoBage met en œuvre des mesures techniques et organisationnelles pour garantir 
 
 #### d) Protection contre les injections
 
-- **Requêtes préparées** (prepared statements) pour toutes les requêtes SQL → prévention des injections SQL ;
-- **Validation et échappement** de toutes les entrées utilisateur → prévention XSS (Cross-Site Scripting) ;
+- **Requêtes préparées** (prepared statements) pour toutes les requêtes SQL - prévention des injections SQL ;
+- **Validation et échappement** de toutes les entrées utilisateur - prévention XSS (Cross-Site Scripting) ;
 - **CSP (Content Security Policy)** activée pour limiter l'exécution de scripts non autorisés.
 
 #### e) Authentification renforcée
@@ -627,7 +627,7 @@ Procédure détaillée de détection, notification, investigation et remédiatio
 
 - Mesures techniques de protection déjà en place rendant les données inintelligibles (ex. : chiffrement fort et clé non compromise) ;
 - Mesures ultérieures prises garantissant que le risque élevé ne se matérialisera probablement pas ;
-- Notification exigeant des efforts disproportionnés → communication publique ou mesure similaire.
+- Notification exigeant des efforts disproportionnés - communication publique ou mesure similaire.
 
 **Exemple de notification utilisateur :**
 
@@ -749,7 +749,7 @@ Lors de la première visite, un bandeau apparaît en bas ou en haut de page :
 
 #### b) Révocation du consentement
 
-Lien **"Gérer mes cookies"** présent dans le footer de chaque page → Réouverture du panneau de personnalisation.
+Lien **"Gérer mes cookies"** présent dans le footer de chaque page - Réouverture du panneau de personnalisation.
 
 **Effet immédiat :** suppression des cookies refusés et arrêt du dépôt de nouveaux cookies de cette catégorie.
 

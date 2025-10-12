@@ -137,7 +137,7 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
       const unreadCount = await conversationsApi.getUnreadCount();
       set({ unreadCount });
     } catch (error: any) {
-      console.error('Erreur compteur messages non lus:', error);
+      console.log('Erreur compteur messages non lus:', error);
     }
   },
 

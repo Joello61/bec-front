@@ -8,7 +8,7 @@ import { Modal } from '@/components/ui';
 import { VoyageDetails } from '@/components/voyage';
 import { VoyageForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
-import { ConfirmDialog, ErrorState, LoadingSpinner } from '@/components/common';
+import { ConfirmDialog, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { 
   useVoyage, 
   useVoyageActions, 
@@ -28,7 +28,6 @@ export default function VoyageDetailsPage() {
   const { voyage, isLoading, error, refetch } = useVoyage(voyageId);
   const { updateVoyage, deleteVoyage } = useVoyageActions();
   
-  // ✅ Utilisation de vos hooks existants
   const { 
     propositions, 
     isLoading: isLoadingPropositions,
@@ -40,6 +39,7 @@ export default function VoyageDetailsPage() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const toast = useToast();
   
   // Gestion refus
   const [selectedProposition, setSelectedProposition] = useState<number | null>(null);
@@ -58,7 +58,9 @@ export default function VoyageDetailsPage() {
     setIsDeleting(true);
     try {
       await deleteVoyage(voyageId);
-      router.push(ROUTES.MES_VOYAGES);
+      setIsDeleteDialogOpen(false);
+      toast.success("Voyage Annulé avec succès !");
+      refetch()
     } finally {
       setIsDeleting(false);
     }
@@ -179,9 +181,9 @@ export default function VoyageDetailsPage() {
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDeleteVoyage}
-        title="Supprimer ce voyage ?"
-        message="Cette action est irréversible. Le voyage sera définitivement supprimé."
-        confirmLabel="Supprimer"
+        title="Annuler ce voyage ?"
+        message="Cette action est irréversible. Le voyage sera définitivement annulé."
+        confirmLabel="Annuler"
         variant="danger"
         isLoading={isDeleting}
       />

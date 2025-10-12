@@ -85,20 +85,22 @@ export function useConversationWithUser(userId?: number) {
 /**
  * Hook pour le compteur de messages non lus
  */
-export function useUnreadMessages() {
+export function useUnreadMessages(isAuthenticated?: boolean) {
   const unreadCount = useConversationStore((state) => state.unreadCount);
   const fetchUnreadCount = useConversationStore((state) => state.fetchUnreadCount);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     fetchUnreadCount();
-    
-    // Rafraîchir toutes les 30 secondes
+
+    // Rafraîchir toutes les 30 secondes seulement si connecté
     const interval = setInterval(fetchUnreadCount, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated, fetchUnreadCount]);
 
   return {
-    unreadCount,
+    unreadCount: isAuthenticated ? unreadCount : 0,
     refetch: fetchUnreadCount,
   };
 }

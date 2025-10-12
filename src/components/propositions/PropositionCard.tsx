@@ -3,7 +3,11 @@
 import { Clock, Package, User, MessageSquare } from 'lucide-react';
 import { PropositionStatusBadge } from './PropositionStatusBadge';
 import type { Proposition } from '@/types';
-import { formatDateRelative, formatPrice, formatFullName } from '@/lib/utils/format';
+import {
+  formatDateRelative,
+  formatPrice,
+  formatFullName,
+} from '@/lib/utils/format';
 
 interface PropositionCardProps {
   proposition: Proposition;
@@ -13,12 +17,12 @@ interface PropositionCardProps {
   onViewDetails?: (id: number) => void;
 }
 
-export default function PropositionCard({ 
-  proposition, 
+export default function PropositionCard({
+  proposition,
   viewMode,
   onAccept,
   onRefuse,
-  onViewDetails 
+  onViewDetails,
 }: PropositionCardProps) {
   const isReceived = viewMode === 'received';
   const isPending = proposition.statut === 'en_attente';
@@ -48,11 +52,13 @@ export default function PropositionCard({
         <div className="flex items-center gap-2 text-sm text-gray-700 mb-2">
           <Package className="w-4 h-4" />
           <span className="font-medium">
-            {proposition.voyage.villeDepart} → {proposition.voyage.villeArrivee}
+            {proposition.voyage.villeDepart} vers{' '}
+            {proposition.voyage.villeArrivee}
           </span>
         </div>
         <p className="text-xs text-gray-600">
-          Départ: {new Date(proposition.voyage.dateDepart).toLocaleDateString('fr-FR')}
+          Départ:{' '}
+          {new Date(proposition.voyage.dateDepart).toLocaleDateString('fr-FR')}
         </p>
       </div>
 
@@ -67,7 +73,9 @@ export default function PropositionCard({
         <div className="flex items-center justify-between p-2 bg-secondary/5 rounded">
           <span className="text-sm text-gray-700">Commission bagage:</span>
           <span className="font-semibold text-secondary-dark">
-            {formatPrice(parseFloat(proposition.commissionProposeePourUnBagage))}
+            {formatPrice(
+              parseFloat(proposition.commissionProposeePourUnBagage)
+            )}
           </span>
         </div>
       </div>
@@ -77,7 +85,9 @@ export default function PropositionCard({
         <div className="mb-4 p-3 bg-gray-50 rounded-lg">
           <div className="flex items-start gap-2">
             <MessageSquare className="w-4 h-4 text-gray-400 mt-0.5" />
-            <p className="text-sm text-gray-700 flex-1">{proposition.message}</p>
+            <p className="text-sm text-gray-700 flex-1">
+              {proposition.message}
+            </p>
           </div>
         </div>
       )}

@@ -15,6 +15,7 @@ import {
   ChevronRight,
   LayoutDashboard,
   User,
+  Shield,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
@@ -24,12 +25,19 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { user } = useAuth();
 
+  const isAdmin = user?.roles?.includes('ROLE_ADMIN');
+
   const navigation = [
     {
       name: 'Dashboard',
       href: ROUTES.DASHBOARD,
       icon: LayoutDashboard,
     },
+    ...(isAdmin ? [{
+      name: 'Administration',
+      href: ROUTES.ADMIN,
+      icon: Shield,
+    }] : []),
     {
       name: 'Explorer',
       href: ROUTES.EXPLORE,

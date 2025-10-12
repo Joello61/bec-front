@@ -1,139 +1,53 @@
 'use client';
 
-import { useState } from 'react';
-import { AlertCircle, Mail, Smartphone, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/lib/hooks';
-import { Button } from '@/components/ui';
-import VerificationModal from '@/components/auth/VerificationModal';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/lib/utils/constants';
+import { TriangleAlert } from 'lucide-react';
 
 export default function VerificationBanner() {
   const { user } = useAuth();
-  const [showEmailModal, setShowEmailModal] = useState(false);
-  const [showPhoneModal, setShowPhoneModal] = useState(false);
-  const [dismissedEmail, setDismissedEmail] = useState(false);
-  const [dismissedPhone, setDismissedPhone] = useState(false);
+  const router = useRouter();
 
   if (!user) return null;
 
-  const needsEmailVerification = !user.emailVerifie && !dismissedEmail;
-  const needsPhoneVerification = user.telephone && !user.telephoneVerifie && !dismissedPhone;
-
-  if (!needsEmailVerification && !needsPhoneVerification) return null;
+  if (user.isProfileComplete) return null;
 
   return (
     <>
       <AnimatePresence>
-        {needsEmailVerification && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="bg-primary/10 border-l-4 border-primary p-4 mb-6 rounded-lg"
           >
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0">
-                <AlertCircle className="w-5 h-5 text-primary mt-0.5" />
-              </div>
-              
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900 mb-1">
-                  Email non vérifié
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  Veuillez vérifier votre adresse email <strong>{user.email}</strong> pour accéder à toutes les fonctionnalités.
-                </p>
-                <div className="flex items-center gap-2">
-                  <Button
-                    size="sm"
-                    variant="primary"
-                    leftIcon={<Mail className="w-4 h-4" />}
-                    onClick={() => setShowEmailModal(true)}
-                  >
-                    Vérifier maintenant
-                  </Button>
-                  <button
-                    onClick={() => setDismissedEmail(true)}
-                    className="text-sm text-gray-500 hover:text-gray-700"
-                  >
-                    Plus tard
-                  </button>
+            <div className="container mx-auto px-4 py-3">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary"><TriangleAlert className='w-6 h-6'/></span>
+                  </div>
+                  <div>
+                    <p className="text-xl font-semibold text-gray-900">
+                      Profil incomplet
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Complétez votre profil pour créer des voyages, demandes et envoyer des messages
+                    </p>
+                  </div>
                 </div>
+                <button
+                  onClick={() => router.push(ROUTES.COMPLETE_PROFILE)}
+                  className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors whitespace-nowrap"
+                >
+                  Compléter maintenant
+                </button>
               </div>
-
-              <button
-                onClick={() => setDismissedEmail(true)}
-                className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Fermer"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
           </motion.div>
-        )}
-
-        {needsPhoneVerification && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="bg-primary/10 border-l-4 border-primary p-4 mb-6 rounded-lg"
-          >
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0">
-                <Smartphone className="w-5 h-5 text-primary mt-0.5" />
-              </div>
-              
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900 mb-1">
-                  Téléphone non vérifié
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  Vérifiez votre numéro <strong>{user.telephone}</strong> pour améliorer la sécurité de votre compte.
-                </p>
-                <div className="flex items-center gap-2">
-                  <Button
-                    size="sm"
-                    variant="primary"
-                    leftIcon={<Smartphone className="w-4 h-4" />}
-                    onClick={() => setShowPhoneModal(true)}
-                  >
-                    Vérifier maintenant
-                  </Button>
-                  <button
-                    onClick={() => setDismissedPhone(true)}
-                    className="text-sm text-gray-500 hover:text-gray-700"
-                  >
-                    Plus tard
-                  </button>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setDismissedPhone(true)}
-                className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Fermer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-          </motion.div>
-        )}
       </AnimatePresence>
-
-      <VerificationModal
-        isOpen={showEmailModal}
-        onClose={() => setShowEmailModal(false)}
-        type="email"
-        contactInfo={user.email}
-      />
-
-      <VerificationModal
-        isOpen={showPhoneModal}
-        onClose={() => setShowPhoneModal(false)}
-        type="phone"
-        contactInfo={user.telephone || undefined}
-      />
     </>
   );
 }

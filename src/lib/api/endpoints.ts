@@ -5,7 +5,7 @@ export const endpoints = {
     register: '/register',
     logout: '/logout',
     me: '/me',
-    verifyEmail: '/verify-email',
+    verifyEmail: '/verify-email', // ⬅️ Modifié : retourne JWT maintenant
     verifyPhone: '/verify-phone',
     resendVerification: '/resend-verification',
     forgotPassword: '/forgot-password',
@@ -24,6 +24,9 @@ export const endpoints = {
     updateMe: '/users/me',
     search: '/users/search',
     dashboard: '/users/me/dashboard',
+    // ==================== NOUVEAUX ENDPOINTS ====================
+    profileStatus: '/users/me/profile-status', // ⬅️ Vérifier si profil complet
+    completeProfile: '/users/me/complete-profile', // ⬅️ Compléter le profil
   },
 
   // Voyages
@@ -121,5 +124,37 @@ export const endpoints = {
     mySent: '/propositions/me/sent',
     myReceived: '/propositions/me/received',
     myPendingCount: '/propositions/me/pending-count',
+  },
+
+  // Admin
+  admin: {
+    // Dashboard
+    dashboard: '/admin/dashboard',
+    stats: (type: string) => `/admin/stats/${type}`,
+    
+    // Users
+    users: '/admin/users',
+    userDetails: (id: number) => `/admin/users/${id}`,
+    userActivity: (id: number) => `/admin/users/${id}/activity`,
+    userAdminLogs: (id: number) => `/admin/users/${id}/admin-logs`,
+    searchUsers: '/admin/users/search',
+    banUser: (id: number) => `/admin/users/${id}/ban`,
+    unbanUser: (id: number) => `/admin/users/${id}/unban`,
+    updateRoles: (id: number) => `/admin/users/${id}/roles`,
+    deleteUser: (id: number) => `/admin/users/${id}`,
+    
+    // Modération
+    deleteVoyage: (id: number) => `/admin/moderation/voyages/${id}`,
+    deleteDemande: (id: number) => `/admin/moderation/demandes/${id}`,
+    deleteAvis: (id: number) => `/admin/moderation/avis/${id}`,
+    deleteMessage: (id: number) => `/admin/moderation/messages/${id}`,
+    deleteAllUserContent: (userId: number) => `/admin/moderation/users/${userId}/delete-all`,
+    moderationStats: '/admin/moderation/stats',
+    
+    // Logs
+    logs: '/admin/logs',
+    logsByAdmin: (adminId: number) => `/admin/logs/admin/${adminId}`,
+    logsStats: '/admin/logs/stats',
+    exportLogs: '/admin/logs/export',
   },
 } as const;

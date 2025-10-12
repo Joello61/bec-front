@@ -10,7 +10,11 @@ interface PropositionModalProps {
   isOpen: boolean;
   onClose: () => void;
   voyage: Voyage;
-  userDemandes: Array<{ id: number; villeDepart: string; villeArrivee: string }>;
+  userDemandes: Array<{
+    id: number;
+    villeDepart: string;
+    villeArrivee: string;
+  }>;
   onSubmit: (data: CreatePropositionInput) => Promise<void>;
 }
 
@@ -28,7 +32,7 @@ export default function PropositionModal({
     try {
       await onSubmit(data);
       onClose();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // Error handling is done in the parent component
     } finally {
@@ -42,9 +46,11 @@ export default function PropositionModal({
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Faire une proposition</h2>
+            <h2 className="text-2xl font-bold text-gray-900">
+              Faire une proposition
+            </h2>
             <p className="text-sm text-gray-600 mt-1">
-              Voyage: {voyage.villeDepart} → {voyage.villeArrivee}
+              Voyage: {voyage.villeDepart} vers {voyage.villeArrivee}
             </p>
           </div>
           <button
@@ -66,12 +72,16 @@ export default function PropositionModal({
             </div>
             <div>
               <span className="text-gray-600">Poids disponible:</span>
-              <p className="font-medium text-gray-900">{voyage.poidsDisponible} kg</p>
+              <p className="font-medium text-gray-900">
+                {voyage.poidsDisponible} kg
+              </p>
             </div>
             {voyage.prixParKilo && (
               <div>
                 <span className="text-gray-600">Prix suggéré/kg:</span>
-                <p className="font-medium text-primary">{voyage.prixParKilo} XAF</p>
+                <p className="font-medium text-primary">
+                  {voyage.prixParKilo} XAF
+                </p>
               </div>
             )}
             {voyage.commissionProposeePourUnBagage && (
@@ -91,10 +101,7 @@ export default function PropositionModal({
             <p className="text-gray-600 mb-4">
               Vous devez avoir une demande pour faire une proposition
             </p>
-            <button
-              onClick={onClose}
-              className="btn btn-primary"
-            >
+            <button onClick={onClose} className="btn btn-primary">
               Créer une demande
             </button>
           </div>

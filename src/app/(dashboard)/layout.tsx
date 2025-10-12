@@ -6,6 +6,7 @@ import { Sidebar, BottomNav } from '@/components/layout';
 import { useAuth } from '@/lib/hooks';
 import { LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
+import VerificationBanner from '@/components/dashboard/VerificationBanner';
 
 export default function DashboardLayout({
   children,
@@ -30,6 +31,7 @@ export default function DashboardLayout({
   }
 
   return (
+    
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
         {/* Sidebar - Desktop uniquement */}
@@ -39,6 +41,7 @@ export default function DashboardLayout({
         <main className="flex-1 lg:ml-64 bg-gray-50">
           {/* Padding adapté : plus sur mobile pour le BottomNav */}
           <div className="container mx-auto px-4 py-8 pb-24 lg:pb-8">
+            <VerificationBanner />
             {children}
           </div>
         </main>

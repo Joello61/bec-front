@@ -887,7 +887,7 @@ Téléphone : [À COMPLÉTER]
 
 ### Exemple 1 : Annonce AUTORISÉE (Voyageur)
 
-> **Trajet Paris → Douala (Cameroun)**  
+> **Trajet Paris vers Douala (Cameroun)**  
 > **Dates :** 15–20 décembre 2025  
 > **Capacité disponible :** 10 kg  
 > **Objets acceptés :** Vêtements, livres, petits cadeaux (pas de liquides, pas de produits alimentaires périssables)  
@@ -898,11 +898,11 @@ Téléphone : [À COMPLÉTER]
 
 ### Exemple 2 : Annonce INTERDITE (Expéditeur)
 
-> **Envoi urgent Paris → Yaoundé**  
+> **Envoi urgent Paris vers Yaoundé**  
 > **Objet :** Colis de 3 kg (contenu confidentiel, ne pas ouvrir)  
 > **Paiement :** 500 € en cash, aucune question posée. Discrétion totale requise.
 
-**Non conforme :** « Contenu confidentiel », « aucune question posée » → suspicion de contrebande. **Action :** Suppression immédiate + enquête.
+**Non conforme :** « Contenu confidentiel », « aucune question posée » - suspicion de contrebande. **Action :** Suppression immédiate + enquête.
 
 ---
 

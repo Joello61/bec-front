@@ -13,6 +13,8 @@ const protectedRoutes = [
   '/dashboard/settings',
 ];
 
+const adminRoutes = ['/admin'];
+
 const authRoutes = [
   '/auth/login',
   '/auth/register',
@@ -27,11 +29,16 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some(route => 
     pathname.startsWith(route)
   );
+
+  const isAdminRoute = adminRoutes.some(route => 
+    pathname.startsWith(route)
+  );
   
   const isAuthRoute = authRoutes.some(route => 
     pathname.startsWith(route)
   );
 
+  // ==================== REDIRECTION SI PAS AUTHENTIFIÉ ====================
   if (isProtectedRoute && !hasToken) {
     const url = request.nextUrl.clone();
     url.pathname = '/auth/login';
@@ -39,7 +46,25 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  if (isAdminRoute && !hasToken) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/auth/login';
+    url.searchParams.set('redirect', pathname);
+    return NextResponse.redirect(url);
+  }
+
+  if (isAdminRoute && hasToken) {
+    // TODO: Décoder le JWT pour vérifier ROLE_ADMIN
+    // Pour l'instant on laisse passer, le backend bloquera si pas admin
+  }
+
+  // ==================== REDIRECTION SI DÉJÀ CONNECTÉ ====================
   if (isAuthRoute && hasToken) {
+    // Ne pas rediriger depuis verify-email ou complete-profile
+    if (pathname === '/auth/verify-email' || pathname === '/auth/complete-profile') {
+      return NextResponse.next();
+    }
+    
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard/explore';
     return NextResponse.redirect(url);

@@ -38,8 +38,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
-  const { unreadCount: notifCount } = useUnreadNotificationCount();
-  const { unreadCount: messageCount } = useUnreadMessages();
+  const { unreadCount: notifCount } = useUnreadNotificationCount(isAuthenticated);
+  const { unreadCount: messageCount } = useUnreadMessages(isAuthenticated);
   const toast = useToast();
   const router = useRouter();
   const pathname = usePathname();

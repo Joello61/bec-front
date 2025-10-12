@@ -6,13 +6,14 @@ import Link from 'next/link';
 import { DemandeDetails } from '@/components/demande';
 import { VoyageCard } from '@/components/voyage';
 import { useDemande, useAuth, useMatchingVoyages, useConversationWithUser } from '@/lib/hooks';
-import { ErrorState, LoadingSpinner, EmptyState } from '@/components/common';
+import { ErrorState, LoadingSpinner, EmptyState, useToast } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function DemandeDetailsPage() {
   const router = useRouter();
   const params = useParams();
   const demandeId = parseInt(params.id as string);
+  const toast = useToast();
 
   const { user } = useAuth();
   const { demande, isLoading, error, refetch } = useDemande(demandeId);
@@ -29,6 +30,11 @@ export default function DemandeDetailsPage() {
 
   const handleContact = () => {
     if (conversation) {
+      if(user?.isProfileComplete) {
+        router.push(ROUTES.CONVERSATION(conversation.id));
+      } else {
+        toast.error("Veuillez compléter votre profil avant de contacter un demandeur.");
+      }
       router.push(ROUTES.CONVERSATION(conversation.id));
     }
   };

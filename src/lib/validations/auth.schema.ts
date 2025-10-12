@@ -8,7 +8,8 @@ export const loginSchema = z.object({
     .min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
 });
 
-// Validation téléphone internationale (format E.164)
+// ==================== REGISTER SCHEMA MODIFIÉ ====================
+// Téléphone retiré, sera demandé dans completeProfile
 export const registerSchema = z
   .object({
     nom: z
@@ -30,18 +31,63 @@ export const registerSchema = z
       .regex(/[A-Z]/, 'Le mot de passe doit contenir au moins une majuscule')
       .regex(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre'),
     confirmPassword: z.string().min(1, 'Veuillez confirmer le mot de passe'),
-    telephone: z
-      .string()
-      .min(1, 'Le téléphone est requis')
-      .regex(
-        /^\+?[1-9]\d{1,14}$/,
-        'Numéro invalide. Format international: +33612345678 ou +237612345678'
-      ),
+    // ❌ telephone retiré
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Les mots de passe ne correspondent pas',
     path: ['confirmPassword'],
   });
+
+// ==================== NOUVEAU : COMPLETE PROFILE SCHEMA ====================
+export const completeProfileSchema = z
+  .object({
+    telephone: z
+      .string()
+      .min(1, 'Le téléphone est requis')
+      .regex(
+        /^\+?[1-9]\d{1,14}$/,
+        'Numéro invalide. Format: +237612345678 ou +33612345678'
+      ),
+    pays: z
+      .string()
+      .min(1, 'Le pays est requis')
+      .min(2, 'Le pays doit contenir au moins 2 caractères'),
+    ville: z
+      .string()
+      .min(1, 'La ville est requise')
+      .min(2, 'La ville doit contenir au moins 2 caractères'),
+    
+    // Champs conditionnels - tous optionnels par défaut
+    quartier: z.string().optional().or(z.literal('')),
+    adresseLigne1: z.string().optional().or(z.literal('')),
+    adresseLigne2: z.string().optional().or(z.literal('')),
+    codePostal: z.string().optional().or(z.literal('')),
+    
+    // Optionnels
+    bio: z
+      .string()
+      .max(500, 'La bio ne peut pas dépasser 500 caractères')
+      .optional()
+      .or(z.literal('')),
+    photo: z.string().optional().or(z.literal('')),
+  })
+  .refine(
+    (data) => {
+      // Au moins un format d'adresse doit être rempli
+      const hasQuartier = data.quartier && data.quartier.trim().length > 0;
+      const hasDiasporaAddress = 
+        data.adresseLigne1 && 
+        data.adresseLigne1.trim().length > 0 && 
+        data.codePostal && 
+        data.codePostal.trim().length > 0;
+      
+      return hasQuartier || hasDiasporaAddress;
+    },
+    {
+      message: 'Vous devez fournir soit un quartier (format Afrique), soit une adresse complète avec code postal (format Diaspora)',
+      path: ['quartier'],
+    }
+  );
 
 export const changePasswordSchema = z
   .object({
@@ -99,8 +145,11 @@ export const verifyPhoneSchema = z.object({
     .regex(/^\d{6}$/, 'Le code doit contenir uniquement des chiffres'),
 });
 
+// ==================== TYPES EXPORTÉS ====================
+
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
+export type CompleteProfileFormData = z.infer<typeof completeProfileSchema>;
 export type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;

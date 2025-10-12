@@ -116,7 +116,6 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
           <Input
             label="Prix max par kilo (XAF)"
             type="number"
-            step="100"
             min="0"
             max="100000"
             placeholder="5000"
@@ -129,7 +128,6 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
           <Input
             label="Commission max pour bagage (XAF)"
             type="number"
-            step="1000"
             min="0"
             max="1000000"
             placeholder="50000"

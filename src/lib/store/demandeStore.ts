@@ -9,6 +9,7 @@ import type {
   DemandeStatut,
   PaginationMeta 
 } from '@/types';
+import { DEMANDE_STATUTS } from '../utils/constants';
 
 interface DemandeState {
   demandes: Demande[];
@@ -125,10 +126,15 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     try {
       await demandesApi.delete(id);
       set((state) => ({
-        demandes: state.demandes.filter((d) => d.id !== id),
-        currentDemande: state.currentDemande?.id === id ? null : state.currentDemande,
-        isLoading: false
-      }));
+               voyages: state.demandes.map((v) =>
+              v.id === id ? { ...v, status: DEMANDE_STATUTS[2]} : v
+            ),
+            currentVoyage:
+              state.currentDemande?.id === id
+                ? { ...state.currentDemande, status: DEMANDE_STATUTS[2] }
+                : state.currentDemande,
+              isLoading: false
+            }));
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de la suppression de la demande', 

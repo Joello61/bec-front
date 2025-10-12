@@ -22,6 +22,11 @@ export const ROUTES = {
   FORGOT_PASSWORD: '/auth/forgot-password' as Route,
   RESET_PASSWORD: '/auth/reset-password' as Route,
   AUTH_CHANGE_PASSWORD: '/dashboard/profile/change-password' as Route,
+  
+  // ==================== NOUVELLES ROUTES AUTH ====================
+  VERIFY_EMAIL: '/auth/verify-email' as Route,
+  COMPLETE_PROFILE: '/auth/complete-profile' as Route,
+  
   DASHBOARD: '/dashboard' as Route,
   EXPLORE: '/dashboard/explore' as Route,
   VOYAGE_DETAILS: (id: number) => `/dashboard/explore/voyage/${id}` as Route,
@@ -39,7 +44,51 @@ export const ROUTES = {
   SETTINGS: '/dashboard/settings' as Route,
   HELP: '/dashboard/help' as Route,
   SIGNALEMENTS: '/dashboard/signalements' as Route,
+  ADMIN: '/admin' as Route,
+  ADMIN_DASHBOARD: '/admin' as Route,
+  ADMIN_STATS: '/admin/stats' as Route,
+  ADMIN_USERS: '/admin/users' as Route,
+  ADMIN_USER_DETAILS: (id: number) => `/admin/users/${id}` as Route,
+  ADMIN_MODERATION: '/admin/moderation' as Route,
+  ADMIN_MODERATION_VOYAGES: '/admin/moderation/voyages' as Route,
+  ADMIN_MODERATION_DEMANDES: '/admin/moderation/demandes' as Route,
+  ADMIN_MODERATION_AVIS: '/admin/moderation/avis' as Route,
+  ADMIN_LOGS: '/admin/logs' as Route,
 } as const;
+
+// ==================== PAYS DISPONIBLES ====================
+export const PAYS = [
+  // Afrique
+  'Cameroun',
+  'Sénégal',
+  'Côte d\'Ivoire',
+  'Mali',
+  'Burkina Faso',
+  'Niger',
+  'Tchad',
+  'Congo',
+  'Gabon',
+  'Bénin',
+  'Togo',
+  
+  // Europe
+  'France',
+  'Belgique',
+  'Suisse',
+  'Allemagne',
+  'Royaume-Uni',
+  'Italie',
+  'Espagne',
+  'Portugal',
+  'Pays-Bas',
+  
+  // Amérique du Nord
+  'Canada',
+  'États-Unis',
+  
+  // Autre
+  'Autre',
+] as const;
 
 // Villes du Cameroun (principales)
 export const VILLES_CAMEROUN = [
@@ -65,16 +114,52 @@ export const VILLES_INTERNATIONALES = [
   'Paris',
   'Lyon',
   'Marseille',
+  'Toulouse',
+  'Nice',
+  'Bordeaux',
   'Bruxelles',
+  'Genève',
+  'Montréal',
   'Londres',
   'New York',
-  'Montréal',
-  'Genève',
   'Dubaï',
-  'Pékin',
 ] as const;
 
 export const TOUTES_VILLES = [...VILLES_CAMEROUN, ...VILLES_INTERNATIONALES];
+
+// ==================== QUARTIERS PAR VILLE (CAMEROUN) ====================
+export const QUARTIERS_PAR_VILLE: Record<string, string[]> = {
+  'Yaoundé': [
+    'Bastos',
+    'Nlongkak',
+    'Mvan',
+    'Elig-Essono',
+    'Mokolo',
+    'Nsam',
+    'Essos',
+    'Emana',
+    'Odza',
+    'Nkol-Eton',
+  ],
+  'Douala': [
+    'Akwa',
+    'Bonanjo',
+    'Bonapriso',
+    'Bali',
+    'Deido',
+    'Makepe',
+    'Logbaba',
+    'Bonaberi',
+    'New Bell',
+    'Bépanda',
+  ],
+  'Bafoussam': [
+    'Tamdja',
+    'Famla',
+    'Tchoungang',
+    'Djeleng',
+  ],
+};
 
 // Statuts
 export const VOYAGE_STATUTS = [
@@ -132,6 +217,9 @@ export const ERROR_MESSAGES = {
   FORBIDDEN: 'Vous n\'avez pas les droits pour effectuer cette action',
   NOT_FOUND: 'La ressource demandée n\'existe pas',
   VALIDATION: 'Veuillez vérifier les informations saisies',
+  // ==================== NOUVEAU ====================
+  PROFILE_INCOMPLETE: 'Vous devez compléter votre profil pour effectuer cette action',
+  EMAIL_NOT_VERIFIED: 'Veuillez vérifier votre adresse email',
 } as const;
 
 export const SUCCESS_MESSAGES = {
@@ -146,6 +234,10 @@ export const SUCCESS_MESSAGES = {
   FAVORI_ADDED: 'Ajouté aux favoris',
   FAVORI_REMOVED: 'Retiré des favoris',
   SIGNALEMENT_SENT: 'Signalement envoyé',
+  // ==================== NOUVEAU ====================
+  EMAIL_VERIFIED: 'Email vérifié avec succès',
+  PHONE_VERIFIED: 'Téléphone vérifié avec succès',
+  PROFILE_COMPLETED: 'Profil complété avec succès',
 } as const;
 
 // Liens sociaux

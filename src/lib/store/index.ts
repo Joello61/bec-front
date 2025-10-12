@@ -12,3 +12,4 @@ export * from './voyageStore';
 // ==================== NOUVEAUX EXPORTS ====================
 export * from './settingsStore';
 export * from './propositionStore';
+export * from './adminStore';

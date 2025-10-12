@@ -9,7 +9,7 @@ import { DemandeDetails } from '@/components/demande';
 import { DemandeForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
 import { VoyageCard } from '@/components/voyage';
-import { ConfirmDialog, EmptyState, LoadingSpinner, ErrorState } from '@/components/common';
+import { ConfirmDialog, EmptyState, LoadingSpinner, ErrorState, useToast } from '@/components/common';
 import { 
   useDemande, 
   useDemandeActions, 
@@ -24,6 +24,7 @@ export default function DemandeDetailsPage() {
   const router = useRouter();
   const params = useParams();
   const demandeId = parseInt(params.id as string);
+  const toast = useToast();
 
   const { user } = useAuth();
   const { demande, isLoading, error, refetch } = useDemande(demandeId);
@@ -52,7 +53,8 @@ export default function DemandeDetailsPage() {
     setIsDeleting(true);
     try {
       await deleteDemande(demandeId);
-      router.push(ROUTES.MES_DEMANDES);
+      setIsDeleteDialogOpen(false);
+      toast.success("Demande annulée avec succès !");
     } finally {
       setIsDeleting(false);
     }
@@ -183,9 +185,9 @@ export default function DemandeDetailsPage() {
         isOpen={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
         onConfirm={handleDeleteDemande}
-        title="Supprimer cette demande ?"
-        message="Cette action est irréversible. La demande sera définitivement supprimée."
-        confirmLabel="Supprimer"
+        title="Annuler cette demande ?"
+        message="Cette action est irréversible. La demande sera définitivement annulée."
+        confirmLabel="Annuler"
         variant="danger"
         isLoading={isDeleting}
       />

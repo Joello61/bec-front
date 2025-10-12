@@ -126,7 +126,6 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
           <Input
             label="Prix par kilo (XAF)"
             type="number"
-            step="100"
             min="0"
             max="100000"
             placeholder="5000"
@@ -139,7 +138,6 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
           <Input
             label="Commission pour un bagage (XAF)"
             type="number"
-            step="1000"
             min="0"
             max="1000000"
             placeholder="50000"

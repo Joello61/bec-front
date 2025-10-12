@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useVoyageStore } from '@/lib/store';
 import { voyagesApi } from '@/lib/api/voyages';
 import type { VoyageFilters, Demande } from '@/types';
@@ -14,16 +14,24 @@ export function useVoyages(page = 1, limit = 10, filters?: VoyageFilters) {
   const error = useVoyageStore((state) => state.error);
   const fetchVoyages = useVoyageStore((state) => state.fetchVoyages);
 
+  // ✅ Stabiliser filters avec useMemo pour éviter les re-renders inutiles
+  const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
+
   useEffect(() => {
-    fetchVoyages(page, limit, filters);
-  }, [page, limit, JSON.stringify(filters)]);
+    fetchVoyages(page, limit, stableFilters);
+  }, [page, limit, stableFilters, fetchVoyages]);
+
+  // ✅ refetch ne dépend que de variables stables
+  const refetch = useCallback(() => {
+    fetchVoyages(page, limit, stableFilters);
+  }, [page, limit, stableFilters, fetchVoyages]);
 
   return {
     voyages,
     pagination,
     isLoading,
     error,
-    refetch: () => fetchVoyages(page, limit, filters),
+    refetch
   };
 }
 
@@ -40,13 +48,18 @@ export function useVoyage(id: number) {
     if (id) {
       fetchVoyage(id);
     }
-  }, [id]);
+  }, [id, fetchVoyage]);
+
+  // ✅ Stabiliser refetch avec useCallback
+  const refetch = useCallback(() => {
+    fetchVoyage(id);
+  }, [id, fetchVoyage]);
 
   return {
     voyage: currentVoyage,
     isLoading,
     error,
-    refetch: () => fetchVoyage(id),
+    refetch,
   };
 }
 
@@ -88,15 +101,21 @@ export function useUserVoyages(userId?: number) {
     }
   }, [userId, fetchUserVoyages]);
 
+  // ✅ Stabiliser refetch avec useCallback
+  const refetch = useCallback(() => {
+    if (userId != null) {
+      fetchUserVoyages(userId);
+    }
+  }, [userId, fetchUserVoyages]);
+
   return {
     voyages,
     isLoading,
     error,
-    refetch: userId != null ? () => fetchUserVoyages(userId) : async () => {},
+    refetch,
   };
 }
 
-// ==================== NOUVEAU HOOK : MATCHING ====================
 /**
  * Hook pour récupérer les demandes correspondantes à un voyage
  */
@@ -105,7 +124,8 @@ export function useMatchingDemandes(voyageId?: number) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchMatchingDemandes = async () => {
+  // ✅ Stabiliser fetchMatchingDemandes avec useCallback
+  const fetchMatchingDemandes = useCallback(async () => {
     if (voyageId == null) return;
     
     setIsLoading(true);
@@ -118,11 +138,11 @@ export function useMatchingDemandes(voyageId?: number) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [voyageId]); // ✅ Ne dépend que de voyageId
 
   useEffect(() => {
     fetchMatchingDemandes();
-  }, [voyageId]);
+  }, [fetchMatchingDemandes]); // ✅ Maintenant stable grâce à useCallback
 
   return {
     demandes,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plane, Package } from 'lucide-react';
 import { VoyageList, VoyageFilters } from '@/components/voyage';
@@ -19,8 +19,9 @@ export default function RechercherPage() {
   const [isMounted, setIsMounted] = useState(false);
   const { user } = useAuth();
 
-  const {} = useFavorisDemandes()
-  const {} = useFavorisVoyages()
+  // Charger les favoris pour afficher les icônes cœur
+  const {} = useFavorisDemandes();
+  const {} = useFavorisVoyages();
 
   // Éviter le bug d'animation au premier rendu
   useEffect(() => {
@@ -30,29 +31,48 @@ export default function RechercherPage() {
   const { voyages, isLoading: voyagesLoading } = useVoyages(1, 12, voyageFilters);
   const { demandes, isLoading: demandesLoading } = useDemandes(1, 12, demandeFilters);
 
-  const filteredVoyages = user
-    ? voyages?.filter(voyage => voyage.voyageur.id !== user.id) ?? []
-    : voyages ?? [];
+  // ==================== FILTRAGE OPTIMISÉ AVEC USEMEMO ====================
+  // Exclure les voyages/demandes de l'utilisateur connecté
+  const filteredVoyages = useMemo(() => {
+    if (!voyages) return [];
+    if (!user) return voyages;
+    return voyages.filter(voyage => voyage.voyageur.id !== user.id);
+  }, [voyages, user]);
 
-  const filteredDemandes = user
-    ? demandes?.filter(demande => demande.client.id !== user.id) ?? []
-    : demandes ?? [];
+  const filteredDemandes = useMemo(() => {
+    if (!demandes) return [];
+    if (!user) return demandes;
+    return demandes.filter(demande => demande.client.id !== user.id);
+  }, [demandes, user]);
 
-
-  const tabs = [
+  // ==================== TABS CONFIG ====================
+  const tabs = useMemo(() => [
     {
       id: 'voyages' as TabType,
       label: 'Voyages',
       icon: Plane,
-      count: filteredVoyages.length || 0,
+      count: filteredVoyages.length,
     },
     {
       id: 'demandes' as TabType,
       label: 'Demandes',
       icon: Package,
-      count: filteredDemandes.length || 0,
+      count: filteredDemandes.length,
     },
-  ];
+  ], [filteredVoyages.length, filteredDemandes.length]);
+
+  // ==================== HANDLERS ====================
+  const handleVoyageFilterChange = (newFilters: VoyageFiltersType) => {
+    setVoyageFilters(newFilters);
+  };
+
+  const handleDemandeFilterChange = (newFilters: DemandeFiltersType) => {
+    setDemandeFilters(newFilters);
+  };
+
+  // ==================== RENDER CONDITIONS ====================
+  const hasVoyageFilters = Object.keys(voyageFilters).some(key => voyageFilters[key as keyof VoyageFiltersType]);
+  const hasDemandeFilters = Object.keys(demandeFilters).some(key => demandeFilters[key as keyof DemandeFiltersType]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -151,12 +171,12 @@ export default function RechercherPage() {
           >
             {activeTab === 'voyages' ? (
               <VoyageFilters
-                onFilterChange={setVoyageFilters}
+                onFilterChange={handleVoyageFilterChange}
                 initialFilters={voyageFilters}
               />
             ) : (
               <DemandeFilters
-                onFilterChange={setDemandeFilters}
+                onFilterChange={handleDemandeFilterChange}
                 initialFilters={demandeFilters}
               />
             )}
@@ -175,13 +195,23 @@ export default function RechercherPage() {
           >
             {activeTab === 'voyages' ? (
               <>
-                {voyagesLoading && voyages.length === 0 ? (
+                {voyagesLoading && filteredVoyages.length === 0 ? (
                   <LoadingSpinner text="Chargement des voyages..." />
-                ) : voyages.length === 0 ? (
+                ) : filteredVoyages.length === 0 && !hasVoyageFilters ? (
                   <EmptyState
                     title="Aucun voyage disponible"
-                    description="Il n'y a pas de voyages correspondant à vos critères pour le moment"
+                    description="Il n'y a pas de voyages disponibles pour le moment"
                     icon={<Plane className="w-12 h-12 text-gray-400" />}
+                  />
+                ) : filteredVoyages.length === 0 && hasVoyageFilters ? (
+                  <EmptyState
+                    title="Aucun voyage ne correspond"
+                    description="Essayez de modifier vos critères de recherche"
+                    icon={<Plane className="w-12 h-12 text-gray-400" />}
+                    action={{
+                      label: 'Effacer les filtres',
+                      onClick: () => setVoyageFilters({}),
+                    }}
                   />
                 ) : (
                   <VoyageList
@@ -192,13 +222,23 @@ export default function RechercherPage() {
               </>
             ) : (
               <>
-                {demandesLoading && demandes.length === 0 ? (
+                {demandesLoading && filteredDemandes.length === 0 ? (
                   <LoadingSpinner text="Chargement des demandes..." />
-                ) : demandes.length === 0 ? (
+                ) : filteredDemandes.length === 0 && !hasDemandeFilters ? (
                   <EmptyState
                     title="Aucune demande active"
-                    description="Il n'y a pas de demandes correspondant à vos critères pour le moment"
+                    description="Il n'y a pas de demandes disponibles pour le moment"
                     icon={<Package className="w-12 h-12 text-gray-400" />}
+                  />
+                ) : filteredDemandes.length === 0 && hasDemandeFilters ? (
+                  <EmptyState
+                    title="Aucune demande ne correspond"
+                    description="Essayez de modifier vos critères de recherche"
+                    icon={<Package className="w-12 h-12 text-gray-400" />}
+                    action={{
+                      label: 'Effacer les filtres',
+                      onClick: () => setDemandeFilters({}),
+                    }}
                   />
                 ) : (
                   <DemandeList

@@ -11,25 +11,28 @@ interface SignalementCardProps {
 
 export default function SignalementCard({ signalement }: SignalementCardProps) {
   const getStatutConfig = () => {
-    const configs: Record<SignalementStatut, { 
-      variant: 'success' | 'warning' | 'error'; 
-      label: string; 
-      icon: typeof Clock;
-    }> = {
-      en_attente: { 
-        variant: 'warning', 
-        label: 'En attente', 
-        icon: Clock 
+    const configs: Record<
+      SignalementStatut,
+      {
+        variant: 'success' | 'warning' | 'error';
+        label: string;
+        icon: typeof Clock;
+      }
+    > = {
+      en_attente: {
+        variant: 'warning',
+        label: 'En attente',
+        icon: Clock,
       },
-      traite: { 
-        variant: 'success', 
-        label: 'Traité', 
-        icon: CheckCircle 
+      traite: {
+        variant: 'success',
+        label: 'Traité',
+        icon: CheckCircle,
       },
-      rejete: { 
-        variant: 'error', 
-        label: 'Rejeté', 
-        icon: XCircle 
+      rejete: {
+        variant: 'error',
+        label: 'Rejeté',
+        icon: XCircle,
       },
     };
     return configs[signalement.statut];
@@ -48,31 +51,31 @@ export default function SignalementCard({ signalement }: SignalementCardProps) {
 
   const getEntityInfo = () => {
     if (signalement.voyage) {
-      return { 
-        type: 'Voyage', 
-        info: `${signalement.voyage.villeDepart} → ${signalement.voyage.villeArrivee}`,
-        color: 'text-primary'
+      return {
+        type: 'Voyage',
+        info: `${signalement.voyage.villeDepart} vers ${signalement.voyage.villeArrivee}`,
+        color: 'text-primary',
       };
     }
     if (signalement.demande) {
-      return { 
-        type: 'Demande', 
-        info: `${signalement.demande.villeDepart} → ${signalement.demande.villeArrivee}`,
-        color: 'text-accent'
+      return {
+        type: 'Demande',
+        info: `${signalement.demande.villeDepart} vers ${signalement.demande.villeArrivee}`,
+        color: 'text-accent',
       };
     }
     if (signalement.message) {
-      return { 
-        type: 'Message', 
+      return {
+        type: 'Message',
         info: 'Message de conversation',
-        color: 'text-blue-600'
+        color: 'text-blue-600',
       };
     }
     if (signalement.utilisateurSignale) {
-      return { 
-        type: 'Utilisateur', 
+      return {
+        type: 'Utilisateur',
         info: `${signalement.utilisateurSignale.prenom} ${signalement.utilisateurSignale.nom}`,
-        color: 'text-purple-600'
+        color: 'text-purple-600',
       };
     }
     return { type: 'Inconnu', info: '', color: 'text-gray-600' };
@@ -108,8 +111,8 @@ export default function SignalementCard({ signalement }: SignalementCardProps) {
           </div>
 
           {/* Badge de statut */}
-          <Badge 
-            variant={statutConfig.variant} 
+          <Badge
+            variant={statutConfig.variant}
             size="md"
             className="flex items-center gap-1.5 flex-shrink-0"
           >
@@ -144,9 +147,7 @@ export default function SignalementCard({ signalement }: SignalementCardProps) {
       {/* Footer avec date */}
       <CardFooter className="px-4 sm:px-5 py-3">
         <div className="flex items-center justify-between w-full text-xs text-gray-500">
-          <span>
-            Signalé le {formatDate(signalement.createdAt)}
-          </span>
+          <span>Signalé le {formatDate(signalement.createdAt)}</span>
           {signalement.updatedAt !== signalement.createdAt && (
             <span className="text-gray-400">
               Mis à jour le {formatDate(signalement.updatedAt)}

@@ -9,6 +9,7 @@ import type {
   VoyageStatut,
   PaginationMeta 
 } from '@/types';
+import { VOYAGE_STATUTS } from '../utils/constants';
 
 interface VoyageState {
   voyages: Voyage[];
@@ -126,8 +127,13 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     try {
       await voyagesApi.delete(id);
       set((state) => ({
-        voyages: state.voyages.filter((v) => v.id !== id),
-        currentVoyage: state.currentVoyage?.id === id ? null : state.currentVoyage,
+         voyages: state.voyages.map((v) =>
+        v.id === id ? { ...v, status: VOYAGE_STATUTS[3]} : v
+      ),
+      currentVoyage:
+        state.currentVoyage?.id === id
+          ? { ...state.currentVoyage, status: VOYAGE_STATUTS[3] }
+          : state.currentVoyage,
         isLoading: false
       }));
     } catch (error: any) {

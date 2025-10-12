@@ -23,6 +23,7 @@ export default function RootLayout({
   const pathname = usePathname()
 
   const isAuthPage = pathname?.includes('/auth')
+  const isAdminPage = pathname?.includes('/admin')
   const isDashboardPage = pathname?.includes('/dashboard')
 
   return (
@@ -33,7 +34,7 @@ export default function RootLayout({
 
           {children}
 
-          {(isAuthPage || isDashboardPage) ? null : <Footer />}
+          {(isAuthPage || isDashboardPage || isAdminPage) ? null : <Footer />}
         </AuthProvider>
         <ToastProvider />
       </body>

@@ -12,13 +12,15 @@ interface VerificationModalProps {
   onClose: () => void;
   type: 'email' | 'phone';
   contactInfo?: string;
+  onSuccess?: () => void; // ⬅️ NOUVEAU : callback après vérification réussie
 }
 
 export default function VerificationModal({
   isOpen,
   onClose,
   type,
-  contactInfo
+  contactInfo,
+  onSuccess,
 }: VerificationModalProps) {
   const [code, setCode] = useState(['', '', '', '', '', '']);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +30,7 @@ export default function VerificationModal({
   
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const toast = useToast();
-  const { verifyEmail, verifyPhone, resendVerification } = useAuth();
+  const { verifyEmail, verifyPhone, resendVerification, pendingEmail } = useAuth();
 
   const Icon = type === 'email' ? Mail : Smartphone;
   const title = type === 'email' ? 'Vérification de l\'email' : 'Vérification du téléphone';
@@ -99,11 +101,17 @@ export default function VerificationModal({
     
     try {
       if (type === 'email') {
-        await verifyEmail(fullCode);
+        const email = contactInfo || pendingEmail || '';
+        await verifyEmail(fullCode, email);
         toast.success('Email vérifié avec succès !');
       } else {
         await verifyPhone(fullCode);
         toast.success('Téléphone vérifié avec succès !');
+      }
+      
+      // ⬅️ NOUVEAU : Appeler le callback de succès
+      if (onSuccess) {
+        onSuccess();
       }
       
       onClose();
@@ -123,7 +131,13 @@ export default function VerificationModal({
     setCountdown(60);
     
     try {
-      await resendVerification(type);
+      if (type === 'email') {
+        const email = contactInfo || pendingEmail || '';
+        await resendVerification('email', email);
+      } else {
+        await resendVerification('phone');
+      }
+      
       toast.success('Code renvoyé avec succès !');
       setCode(['', '', '', '', '', '']);
       inputRefs.current[0]?.focus();
@@ -160,20 +174,20 @@ export default function VerificationModal({
         </div>
 
         <div className="flex gap-2 justify-center mb-6" onPaste={handlePaste}>
-        {code.map((digit, index) => (
+          {code.map((digit, index) => (
             <input
-            key={index}
-            ref={(el) => { inputRefs.current[index] = el; }}
-            type="text"
-            inputMode="numeric"
-            maxLength={1}
-            value={digit}
-            onChange={(e) => handleChange(index, e.target.value)}
-            onKeyDown={(e) => handleKeyDown(index, e)}
-            className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-            disabled={isSubmitting}
+              key={index}
+              ref={(el) => { inputRefs.current[index] = el; }}
+              type="text"
+              inputMode="numeric"
+              maxLength={1}
+              value={digit}
+              onChange={(e) => handleChange(index, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(index, e)}
+              className="w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              disabled={isSubmitting}
             />
-        ))}
+          ))}
         </div>
 
         <div className="text-center mb-6">

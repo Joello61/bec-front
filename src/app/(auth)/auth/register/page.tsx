@@ -26,16 +26,21 @@ const fadeIn: Variants = {
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
-  const toast = useToast()
+  const toast = useToast();
 
+  // ==================== REGISTER MODIFIÉ ====================
+  // Redirection vers verify-email au lieu de login
   const handleRegister = async (data: RegisterFormData) => {
     try {
       await register(data);
-      toast.success('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-      // Rediriger vers login après inscription
+      
+      toast.success('Inscription réussie ! Vérifiez votre email.');
+      
+      // ⬅️ REDIRECTION VERS VERIFY-EMAIL (pas login)
       setTimeout(() => {
-        router.push(ROUTES.LOGIN);
-      }, 1500);
+        router.push(ROUTES.VERIFY_EMAIL);
+      }, 1000);
+      
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error.message || 'Erreur lors de l\'inscription');
@@ -58,7 +63,6 @@ export default function RegisterPage() {
         variants={fadeIn}
         className="w-full"
       >
-
         {/* Card du formulaire */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,27 +74,26 @@ export default function RegisterPage() {
           
           <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <RegisterForm onSubmit={handleRegister}>
-
               <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="mb-6"
-            >
-              <OAuthButtons />
-              <div className="mt-6">
-                <div className="relative mb-4">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-200" />
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-gray-500">
-                      Ou inscrivez-vous avec
-                    </span>
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="mb-6"
+              >
+                <OAuthButtons />
+                <div className="mt-6">
+                  <div className="relative mb-4">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-200" />
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-4 bg-white text-gray-500">
+                        Ou inscrivez-vous avec
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
             </RegisterForm>
           </div>
         </motion.div>
@@ -113,7 +116,7 @@ export default function RegisterPage() {
         </motion.div>
       </motion.div>
 
-      {/* Colonne droite - Image et benefits (cachée sur mobile) */}
+      {/* Colonne droite - Image et benefits */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -127,7 +130,7 @@ export default function RegisterPage() {
             alt="Inscription CoBage"
             width={750}
             height={400}
-            className="w-full h-[400px] object-cover"
+            className="w-full h-auto object-cover"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />

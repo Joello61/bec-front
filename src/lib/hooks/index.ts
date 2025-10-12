@@ -78,3 +78,5 @@ export {
   usePropositionActions,
   useVoyagePropositions
 } from './usePropositions'
+
+export * from './useAdmin';

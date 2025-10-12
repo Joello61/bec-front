@@ -51,20 +51,22 @@ export function useUnreadNotifications() {
 /**
  * Hook pour le compteur de notifications non lues
  */
-export function useUnreadNotificationCount() {
+export function useUnreadNotificationCount(isAuthenticated?: boolean) {
   const unreadCount = useNotificationStore((state) => state.unreadCount);
   const fetchUnreadCount = useNotificationStore((state) => state.fetchUnreadCount);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     fetchUnreadCount();
-    
+
     // Rafraîchir toutes les 30 secondes
     const interval = setInterval(fetchUnreadCount, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated, fetchUnreadCount]);
 
   return {
-    unreadCount,
+    unreadCount: isAuthenticated ? unreadCount : 0,
     refetch: fetchUnreadCount,
   };
 }

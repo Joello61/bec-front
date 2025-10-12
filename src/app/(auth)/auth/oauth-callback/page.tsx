@@ -11,12 +11,11 @@ import { useToast } from '@/components/common';
 function OAuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { fetchMe } = useAuth();
+  const { fetchMe, user } = useAuth();
   const toast = useToast();
-  const hasRun = useRef(false); // ← IMPORTANT : empêche les appels multiples
+  const hasRun = useRef(false);
 
   useEffect(() => {
-    // Empêcher les appels multiples
     if (hasRun.current) return;
     hasRun.current = true;
 
@@ -30,19 +29,39 @@ function OAuthCallbackContent() {
       }
 
       try {
+        // Récupérer les données utilisateur (JWT déjà dans cookie)
         await fetchMe();
+        
+        if (!user) {
+          throw new Error('Utilisateur non trouvé');
+        }
+        
         toast.success('Connexion réussie !');
-        router.push(ROUTES.EXPLORE);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        toast.error('Erreur lors de la récupération des données');
+        
+        // ==================== VÉRIFIER PROFIL COMPLET ====================
+        if (!user.isProfileComplete) {
+          // Profil incomplet → Complete profile
+          setTimeout(() => {
+            router.push(ROUTES.COMPLETE_PROFILE);
+          }, 1000);
+          return;
+        }
+        
+        // Profil complet → Dashboard
+        setTimeout(() => {
+          router.push(ROUTES.EXPLORE);
+        }, 1000);
+        
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        toast.error(err.message || 'Erreur lors de la récupération des données');
         router.push(ROUTES.LOGIN);
       }
     };
 
     handleCallback();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // ← Dépendances vides car hasRun.current gère tout
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">

@@ -364,7 +364,7 @@ Chaque **annonce** et chaque **message** de la messagerie dispose d'un **bouton 
 **Emplacement :**
 
 - Annonces : bouton en haut à droite de l'annonce ("Signaler cette annonce")
-- Messages : clic droit sur le message → "Signaler ce message" (ou icône dans l'interface)
+- Messages : clic droit sur le message "Signaler ce message" (ou icône dans l'interface)
 - Profils : bouton "Signaler cet utilisateur" sur la page de profil
 
 ### 4.2 Formulaire de signalement

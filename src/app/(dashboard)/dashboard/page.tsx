@@ -15,7 +15,6 @@ import {
   QuickActions,
 } from '@/components/dashboard';
 import { useDashboard } from '@/lib/hooks/useDashboard';
-import VerificationBanner from '@/components/dashboard/VerificationBanner';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -41,8 +40,6 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-
-      <VerificationBanner />
       
       {/* Welcome Section */}
       <motion.div

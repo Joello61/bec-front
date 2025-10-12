@@ -4,12 +4,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DollarSign, Package, MessageSquare } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
-import { createPropositionSchema, type CreatePropositionFormData } from '@/lib/validations';
+import {
+  createPropositionSchema,
+  type CreatePropositionFormData,
+} from '@/lib/validations';
 import type { Voyage } from '@/types';
 
 interface PropositionFormProps {
   voyage: Voyage;
-  userDemandes: Array<{ id: number; villeDepart: string; villeArrivee: string }>;
+  userDemandes: Array<{
+    id: number;
+    villeDepart: string;
+    villeArrivee: string;
+  }>;
   onSubmit: (data: CreatePropositionFormData) => Promise<void>;
   onCancel?: () => void;
   isSubmitting?: boolean;
@@ -29,9 +36,11 @@ export default function PropositionForm({
   } = useForm<CreatePropositionFormData>({
     resolver: zodResolver(createPropositionSchema),
     defaultValues: {
-      prixParKilo: voyage.prixParKilo ? parseFloat(voyage.prixParKilo) : undefined,
-      commissionProposeePourUnBagage: voyage.commissionProposeePourUnBagage 
-        ? parseFloat(voyage.commissionProposeePourUnBagage) 
+      prixParKilo: voyage.prixParKilo
+        ? parseFloat(voyage.prixParKilo)
+        : undefined,
+      commissionProposeePourUnBagage: voyage.commissionProposeePourUnBagage
+        ? parseFloat(voyage.commissionProposeePourUnBagage)
         : undefined,
     },
   });
@@ -40,7 +49,10 @@ export default function PropositionForm({
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       {/* Sélection de la demande */}
       <div>
-        <label htmlFor="demandeId" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="demandeId"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Sélectionnez votre demande <span className="text-error">*</span>
         </label>
         <select
@@ -51,7 +63,7 @@ export default function PropositionForm({
           <option value="">Choisissez une demande</option>
           {userDemandes.map((demande) => (
             <option key={demande.id} value={demande.id}>
-              {demande.villeDepart} → {demande.villeArrivee}
+              {demande.villeDepart} vers {demande.villeArrivee}
             </option>
           ))}
         </select>
@@ -92,7 +104,10 @@ export default function PropositionForm({
 
       {/* Message optionnel */}
       <div>
-        <label htmlFor="message" className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+        <label
+          htmlFor="message"
+          className="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2"
+        >
           <MessageSquare className="w-4 h-4" />
           Message (optionnel)
         </label>
@@ -106,9 +121,7 @@ export default function PropositionForm({
         {errors.message && (
           <p className="mt-1 text-sm text-error">{errors.message.message}</p>
         )}
-        <p className="mt-1 text-xs text-gray-500">
-          Maximum 1000 caractères
-        </p>
+        <p className="mt-1 text-xs text-gray-500">Maximum 1000 caractères</p>
       </div>
 
       {/* Actions */}

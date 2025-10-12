@@ -8,7 +8,7 @@ import { VoyageDetails } from '@/components/voyage';
 import { PropositionModal } from '@/components/propositions';
 import { Button } from '@/components/ui';
 import { useVoyage, useAuth, usePropositionActions, useUserDemandes, useConversationWithUser } from '@/lib/hooks';
-import { ErrorState, LoadingSpinner } from '@/components/common';
+import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 import type { CreatePropositionInput } from '@/types';
 
@@ -21,6 +21,7 @@ export default function VoyageDetailsPage() {
   const { voyage, isLoading, error, refetch } = useVoyage(voyageId);
   const { demandes: userDemandes } = useUserDemandes(user?.id);
   const { createProposition } = usePropositionActions();
+  const toast = useToast();
 
   // ✅ CORRECTION : Passer l'ID du VOYAGEUR, pas le vôtre
   const { conversation } = useConversationWithUser(voyage?.voyageur.id);
@@ -32,7 +33,11 @@ export default function VoyageDetailsPage() {
 
   const handleContact = () => {
     if (conversation) {
-      router.push(ROUTES.CONVERSATION(conversation.id));
+      if(user?.isProfileComplete) {
+        router.push(ROUTES.CONVERSATION(conversation.id));
+      } else {
+        toast.error("Veuillez compléter votre profil avant de contacter un voyageur.");
+      }
     }
   };
 

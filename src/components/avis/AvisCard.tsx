@@ -7,6 +7,7 @@ import StarRating from './StarRating';
 import { formatDateRelative } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
 import type { Avis } from '@/types';
+import { ArrowRight } from 'lucide-react';
 
 interface AvisCardProps {
   avis: Avis;
@@ -57,7 +58,7 @@ export default function AvisCard({ avis }: AvisCardProps) {
               href={ROUTES.VOYAGE_DETAILS(avis.voyage.id)}
               className="mt-3 inline-flex items-center text-sm text-primary hover:text-primary-dark transition-colors"
             >
-              Voir le voyage →
+              Voir le voyage <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           )}
         </CardContent>

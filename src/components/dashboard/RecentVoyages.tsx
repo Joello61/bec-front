@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion';
 import { Plane, Plus, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { Card, CardContent, Badge } from '@/components/ui';
+import { Card, CardContent } from '@/components/ui';
 import { Button } from '@/components/ui';
 import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
 import type { DashboardVoyage } from '@/types';
 import { EmptyState } from '@/components/common';
+import VoyageStatusBadge from '../voyage/VoyageStatusBadge';
 
 interface RecentVoyagesProps {
   voyages: DashboardVoyage[];
@@ -76,9 +77,7 @@ export default function RecentVoyages({ voyages, total, actifs }: RecentVoyagesP
                           <span>{formatWeight(voyage.poidsDisponible)} disponible</span>
                         </div>
                       </div>
-                      <Badge variant={voyage.statut === 'actif' ? 'success' : 'neutral'}>
-                        {voyage.statut}
-                      </Badge>
+                      <VoyageStatusBadge statut={voyage.statut} />
                     </div>
                   </div>
                 </Link>

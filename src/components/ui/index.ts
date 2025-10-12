@@ -22,3 +22,6 @@ export type { AvatarProps } from './avatar';
 
 export { default as Dropdown, DropdownItem, DropdownDivider, DropdownLabel } from './dropdown';
 export type { DropdownProps, DropdownItemProps } from './dropdown';
+
+export { default as Select } from './select';
+export type { SelectProps } from './select';
