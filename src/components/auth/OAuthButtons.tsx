@@ -7,6 +7,7 @@ import { useToast } from '@/components/common';
 
 export default function OAuthButtons() {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isFacebookLoading, setIsFacebookLoading] = useState(false);
   const toast = useToast();
 

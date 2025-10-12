@@ -127,8 +127,13 @@ export interface AdminLog {
   action: AdminActionType;
   targetType: AdminTargetType;
   targetId: number;
-  details: Record<string, unknown>;
+  details: {
+    email?: string;
+    reason?: string;
+    [key: string]: unknown;
+  } | null;
   ipAddress: string;
+  userAgent?: string;
   createdAt: string;
 }
 
