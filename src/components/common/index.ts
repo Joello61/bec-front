@@ -8,3 +8,5 @@ export { default as ConfirmDialog } from './ConfirmDialog';
 export { Toast, ToastContainer, useToast } from './Toast';
 export { ScrollToTop } from './ScrollToTop';
 export { MarkdownRenderer } from './MarkdownRenderer';
+export { default as PriceDisplay } from './PriceDisplay';
+export { default as CurrencyDisplay } from './CurrencyDisplay';

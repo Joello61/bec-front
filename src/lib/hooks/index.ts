@@ -82,3 +82,5 @@ export {
 export { useAddress, useAddressModificationInfo, useCanModifyAddress } from './useAddress';
 
 export * from './useAdmin';
+export * from './useCurrency'; // ⬅️ AJOUT
+export * from './useCurrencyFormat'; // ⬅️ AJOUT

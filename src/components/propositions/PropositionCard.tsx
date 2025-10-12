@@ -5,9 +5,9 @@ import { PropositionStatusBadge } from './PropositionStatusBadge';
 import type { Proposition } from '@/types';
 import {
   formatDateRelative,
-  formatPrice,
   formatFullName,
 } from '@/lib/utils/format';
+import { CurrencyDisplay } from '../common';
 
 interface PropositionCardProps {
   proposition: Proposition;
@@ -66,17 +66,25 @@ export default function PropositionCard({
       <div className="space-y-2 mb-4">
         <div className="flex items-center justify-between p-2 bg-primary/5 rounded">
           <span className="text-sm text-gray-700">Prix/kg proposé:</span>
-          <span className="font-semibold text-primary">
-            {formatPrice(parseFloat(proposition.prixParKilo))}
-          </span>
+          <CurrencyDisplay
+            amount={proposition.prixParKilo}
+            currency={proposition.currency}
+            converted={proposition.converted}
+            viewerCurrency={proposition.viewerCurrency}
+            field="prixParKilo"
+            className="text-primary"
+          />
         </div>
         <div className="flex items-center justify-between p-2 bg-secondary/5 rounded">
           <span className="text-sm text-gray-700">Commission bagage:</span>
-          <span className="font-semibold text-secondary-dark">
-            {formatPrice(
-              parseFloat(proposition.commissionProposeePourUnBagage)
-            )}
-          </span>
+          <CurrencyDisplay
+            amount={proposition.commissionProposeePourUnBagage}
+            currency={proposition.currency}
+            converted={proposition.converted}
+            viewerCurrency={proposition.viewerCurrency}
+            field="commission"
+            className="text-secondary-dark"
+          />
         </div>
       </div>
 

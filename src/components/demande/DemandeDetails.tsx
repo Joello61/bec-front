@@ -26,7 +26,7 @@ import type { Demande } from '@/types';
 import type { CreateSignalementFormData } from '@/lib/validations';
 import { FavoriteButton } from '../favori';
 import SignalementForm from '../forms/SignalementForm';
-import { useToast } from '../common';
+import { CurrencyDisplay, useToast } from '../common';
 
 interface DemandeDetailsProps {
   demande: Demande;
@@ -175,9 +175,14 @@ export default function DemandeDetails({
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Prix par kilo</p>
-                    <p className="font-semibold text-green-600">
-                      {demande.prixParKilo} XAF
-                    </p>
+                    <CurrencyDisplay
+                      amount={demande.prixParKilo}
+                      currency={demande.currency}
+                      converted={demande.converted}
+                      viewerCurrency={demande.viewerCurrency}
+                      field="prixParKilo"
+                      className="text-green-600"
+                    />
                   </div>
                 </div>
               )}
@@ -192,9 +197,14 @@ export default function DemandeDetails({
                     <p className="text-sm font-medium text-amber-900">
                       Commission proposée pour un bagage
                     </p>
-                    <p className="text-2xl font-bold text-amber-600">
-                      {demande.commissionProposeePourUnBagage} XAF
-                    </p>
+                    <CurrencyDisplay
+                      amount={demande.commissionProposeePourUnBagage}
+                      currency={demande.currency}
+                      converted={demande.converted}
+                      viewerCurrency={demande.viewerCurrency}
+                      field="commission"
+                      className="text-2xl text-amber-600"
+                    />
                   </div>
                 </div>
               </div>
@@ -264,13 +274,13 @@ export default function DemandeDetails({
                     <span className="text-gray-600">{demande.client.telephone}</span>
                   </div>
                 )}
-                {demande.client.ville && (
+                {demande.client.address && (
                   <div className="flex items-center gap-3 text-sm">
                     <MapPin className="w-4 h-4 text-gray-400" />
                     <span className="text-gray-600">
-                      {demande.client.ville}
-                      {demande.client.quartier && `, ${demande.client.quartier}`}
-                      {demande.client.pays && ` - ${demande.client.pays}`}
+                      {demande.client.address.ville}
+                      {demande.client.address.quartier && `, ${demande.client.address.quartier}`}
+                      {demande.client.address.pays && ` - ${demande.client.address.pays}`}
                     </span>
                   </div>
                 )}

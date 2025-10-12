@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, Package, ArrowRight, DollarSign, Verified, Plane, MapPin } from 'lucide-react';
+import { Calendar, Package, ArrowRight, Verified, Plane, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, Avatar } from '@/components/ui';
 import VoyageStatusBadge from './VoyageStatusBadge';
@@ -13,6 +13,7 @@ import type { Voyage } from '@/types';
 import { usePathname } from 'next/navigation';
 import { Route } from 'next';
 import { FavoriteButton } from '../favori';
+import { PriceDisplay } from '../common';
 
 interface VoyageCardProps {
   voyage: Voyage;
@@ -149,36 +150,14 @@ export default function VoyageCard({ voyage }: VoyageCardProps) {
                     </span>
                   </div>
                 </div>
-
-                {/* Prix par Kilo */}
-                <div className="bg-primary/10 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 border border-primary/20">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-primary flex-shrink-0" />
-                      <span className="text-xs sm:text-sm font-medium text-gray-700">
-                        Prix par kilo
-                      </span>
-                    </div>
-                    <span className="text-base sm:text-lg lg:text-xl font-bold text-primary">
-                      {voyage.prixParKilo ? `${voyage.prixParKilo}€` : '—'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Bagage Complet */}
-                <div className="bg-primary/10 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 border border-primary/20">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <Package className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-primary flex-shrink-0" />
-                      <span className="text-xs sm:text-sm font-medium text-gray-700">
-                        Bagage complet
-                      </span>
-                    </div>
-                    <span className="text-base sm:text-lg lg:text-xl font-bold text-primary">
-                      {voyage.commissionProposeePourUnBagage ? `${voyage.commissionProposeePourUnBagage}€` : '—'}
-                    </span>
-                  </div>
-                </div>
+                <PriceDisplay
+                  prixParKilo={voyage.prixParKilo}
+                  commission={voyage.commissionProposeePourUnBagage}
+                  currency={voyage.currency}
+                  converted={voyage.converted}
+                  viewerCurrency={voyage.viewerCurrency}
+                  showIcons={false}
+                />
               </div>
             </div>
 

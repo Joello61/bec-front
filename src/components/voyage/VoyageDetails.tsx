@@ -32,7 +32,7 @@ import type {
 } from '@/lib/validations';
 import { FavoriteButton } from '../favori';
 import SignalementForm from '../forms/SignalementForm';
-import { useToast } from '../common';
+import { CurrencyDisplay, useToast } from '../common';
 
 interface VoyageDetailsProps {
   voyage: Voyage;
@@ -173,9 +173,14 @@ export default function VoyageDetails({
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Prix par kilo</p>
-                    <p className="font-semibold text-green-600">
-                      {voyage.prixParKilo} XAF
-                    </p>
+                    <CurrencyDisplay
+                      amount={voyage.prixParKilo}
+                      currency={voyage.currency}
+                      converted={voyage.converted}
+                      viewerCurrency={voyage.viewerCurrency}
+                      field="prixParKilo"
+                      className="text-green-600"
+                    />
                   </div>
                 </div>
               )}
@@ -190,9 +195,14 @@ export default function VoyageDetails({
                     <p className="text-sm font-medium text-amber-900">
                       Commission proposée pour un bagage
                     </p>
-                    <p className="text-2xl font-bold text-amber-600">
-                      {voyage.commissionProposeePourUnBagage} XAF
-                    </p>
+                    <CurrencyDisplay
+                      amount={voyage.commissionProposeePourUnBagage}
+                      currency={voyage.currency}
+                      converted={voyage.converted}
+                      viewerCurrency={voyage.viewerCurrency}
+                      field="commission"
+                      className="text-2xl text-amber-600"
+                    />
                   </div>
                 </div>
               </div>
@@ -287,13 +297,13 @@ export default function VoyageDetails({
                     <span className="text-gray-600">{voyage.voyageur.telephone}</span>
                   </div>
                 )}
-                {voyage.voyageur.ville && (
+                {voyage.voyageur.address && (
                   <div className="flex items-center gap-3 text-sm">
                     <MapPin className="w-4 h-4 text-gray-400" />
                     <span className="text-gray-600">
-                      {voyage.voyageur.ville}
-                      {voyage.voyageur.quartier && `, ${voyage.voyageur.quartier}`}
-                      {voyage.voyageur.pays && ` - ${voyage.voyageur.pays}`}
+                      {voyage.voyageur.address.ville}
+                      {voyage.voyageur.address.quartier && `, ${voyage.voyageur.address.quartier}`}
+                      {voyage.voyageur.address.pays && ` - ${voyage.voyageur.address.pays}`}
                     </span>
                   </div>
                 )}

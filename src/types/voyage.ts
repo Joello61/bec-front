@@ -1,4 +1,5 @@
 import type { User } from './user';
+import type { ConvertedAmount } from './currency'; // ⬅️ AJOUT
 
 export type VoyageStatut = 'actif' | 'complete' | 'en_cours' | 'annule';
 
@@ -10,8 +11,14 @@ export interface Voyage {
   dateDepart: string;
   dateArrivee: string;
   poidsDisponible: string;
-  prixParKilo: string | null; // ⬅️ AJOUT
-  commissionProposeePourUnBagage: string | null; // ⬅️ AJOUT
+  prixParKilo: string | null;
+  commissionProposeePourUnBagage: string | null;
+  
+  // ==================== DEVISE ====================
+  currency: string; // ⬅️ AJOUT - Code devise (EUR, XAF, USD)
+  viewerCurrency?: string; // ⬅️ AJOUT - Devise de l'utilisateur qui consulte
+  converted?: ConvertedAmount; // ⬅️ AJOUT - Montants convertis
+  
   description: string | null;
   statut: VoyageStatut;
   createdAt: string;
@@ -24,9 +31,10 @@ export interface CreateVoyageInput {
   dateDepart: string;
   dateArrivee: string;
   poidsDisponible: number;
-  prixParKilo?: number; // ⬅️ AJOUT
-  commissionProposeePourUnBagage?: number; // ⬅️ AJOUT
+  prixParKilo?: number;
+  commissionProposeePourUnBagage?: number;
   description?: string;
+  // ⚠️ PAS de champ currency - géré automatiquement par le backend
 }
 
 export interface UpdateVoyageInput {
@@ -35,9 +43,10 @@ export interface UpdateVoyageInput {
   dateDepart?: string;
   dateArrivee?: string;
   poidsDisponible?: number;
-  prixParKilo?: number; // ⬅️ AJOUT
-  commissionProposeePourUnBagage?: number; // ⬅️ AJOUT
+  prixParKilo?: number;
+  commissionProposeePourUnBagage?: number;
   description?: string;
+  // ⚠️ PAS de champ currency - non modifiable
 }
 
 export interface VoyageFilters {
@@ -47,7 +56,6 @@ export interface VoyageFilters {
   statut?: VoyageStatut;
 }
 
-// ⬅️ AJOUT : Type pour les voyages matchés avec score
 export interface VoyageWithScore {
   voyage: Voyage;
   score: number;

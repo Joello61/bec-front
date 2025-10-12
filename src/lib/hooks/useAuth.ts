@@ -33,6 +33,13 @@ export function useAuth() {
   const clearError = useAuthStore((state) => state.clearError);
   const setPendingEmail = useAuthStore((state) => state.setPendingEmail);
 
+  /**
+   * Récupérer la devise de l'utilisateur connecté
+   */
+  const getUserCurrency = (): string => {
+    return user?.settings?.devise || 'EUR';
+  };
+
   return {
     // État
     user,
@@ -63,6 +70,7 @@ export function useAuth() {
     // Utilitaires
     clearError,
     setPendingEmail,
+    getUserCurrency,
   };
 }
 

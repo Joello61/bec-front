@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plane, DollarSign, Package } from 'lucide-react';
+import { Plane, Info } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import { createVoyageSchema, type CreateVoyageFormData } from '@/lib/validations';
 import { TOUTES_VILLES } from '@/lib/utils/constants';
+import { useUserCurrency } from '@/lib/hooks/useCurrency'; // ⬅️ AJOUT
+import { getCurrencySymbol } from '@/lib/utils/format'; // ⬅️ AJOUT
 import type { Voyage } from '@/types';
 
 interface VoyageFormProps {
@@ -17,6 +19,10 @@ interface VoyageFormProps {
 
 export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // ⬅️ AJOUT : Récupérer la devise de l'utilisateur
+  const userCurrency = useUserCurrency();
+  const currencySymbol = getCurrencySymbol(userCurrency);
 
   const {
     register,
@@ -118,30 +124,45 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
         required
       />
 
-      {/* ==================== NOUVEAUX CHAMPS ==================== */}
+      {/* ==================== SECTION TARIFICATION AVEC DEVISE DYNAMIQUE ==================== */}
       <div className="pt-4 border-t border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Tarification (optionnel)</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">Tarification (optionnel)</h3>
+          {/* Badge devise de l'utilisateur */}
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
+            <span className="text-sm font-medium text-primary">
+              Devise : {currencySymbol}
+            </span>
+          </div>
+        </div>
+
+        {/* Message informatif */}
+        <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex gap-2">
+          <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-blue-900">
+            Les montants sont dans votre devise ({userCurrency}). Ils seront automatiquement 
+            convertis pour les clients utilisant d&apos;autres devises.
+          </p>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
-            label="Prix par kilo (XAF)"
+            label={`Prix par kilo (${currencySymbol})`}
             type="number"
             min="0"
             max="100000"
             placeholder="5000"
-            leftIcon={<DollarSign className="w-4 h-4" />}
             error={errors.prixParKilo?.message}
             helperText="Prix suggéré par kilogramme"
             {...register('prixParKilo', { valueAsNumber: true })}
           />
 
           <Input
-            label="Commission pour un bagage (XAF)"
+            label={`Commission pour un bagage (${currencySymbol})`}
             type="number"
             min="0"
             max="1000000"
             placeholder="50000"
-            leftIcon={<Package className="w-4 h-4" />}
             error={errors.commissionProposeePourUnBagage?.message}
             helperText="Commission suggérée pour un bagage entier"
             {...register('commissionProposeePourUnBagage', { valueAsNumber: true })}

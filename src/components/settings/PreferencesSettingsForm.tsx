@@ -23,7 +23,6 @@ export default function PreferencesSettingsForm({
     resolver: zodResolver(preferencesSettingsSchema),
     defaultValues: {
       langue: settings.langue,
-      devise: settings.devise,
       timezone: settings.timezone,
       dateFormat: settings.dateFormat,
     },

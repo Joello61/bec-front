@@ -7,7 +7,7 @@ import type {
   VoyageFilters,
   VoyageStatut,
   PaginatedResponse,
-  Demande // ⬅️ AJOUT pour le matching
+  DemandeWithScore
 } from '@/types';
 
 export const voyagesApi = {
@@ -47,12 +47,12 @@ export const voyagesApi = {
     return response.data;
   },
 
-  // ==================== NOUVEAU : MATCHING ====================
   /**
    * Récupérer les demandes correspondantes à un voyage (avec scoring)
+   * ⚠️ Les montants sont automatiquement convertis dans la devise de l'utilisateur
    */
-  async getMatchingDemandes(id: number): Promise<Demande[]> {
-    const response = await apiClient.get<Demande[]>(endpoints.voyages.matchingDemandes(id));
+  async getMatchingDemandes(id: number): Promise<DemandeWithScore[]> {
+    const response = await apiClient.get<DemandeWithScore[]>(endpoints.voyages.matchingDemandes(id));
     return response.data;
   },
 };

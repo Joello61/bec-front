@@ -8,6 +8,7 @@ export * from './notificationStore';
 export * from './signalementStore';
 export * from './userStore';
 export * from './voyageStore';
+export * from './currencyStore';
 
 // ==================== NOUVEAUX EXPORTS ====================
 export * from './settingsStore';

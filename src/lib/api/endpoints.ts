@@ -5,7 +5,7 @@ export const endpoints = {
     register: '/register',
     logout: '/logout',
     me: '/me',
-    verifyEmail: '/verify-email', // ⬅️ Modifié : retourne JWT maintenant
+    verifyEmail: '/verify-email',
     verifyPhone: '/verify-phone',
     resendVerification: '/resend-verification',
     forgotPassword: '/forgot-password',
@@ -24,12 +24,23 @@ export const endpoints = {
     updateMe: '/users/me',
     search: '/users/search',
     dashboard: '/users/me/dashboard',
-    // ==================== NOUVEAUX ENDPOINTS ====================
-    profileStatus: '/users/me/profile-status', // ⬅️ Vérifier si profil complet
-    completeProfile: '/users/me/complete-profile', // ⬅️ Compléter le profil
-
+    profileStatus: '/users/me/profile-status',
+    completeProfile: '/users/me/complete-profile',
     addressModificationInfo: '/users/me/address/modification-info',
     updateAddress: '/users/me/address',
+  },
+
+  // ==================== CURRENCIES (NOUVEAU) ====================
+  currencies: {
+    list: '/currencies',
+    popular: '/currencies/popular',
+    show: (code: string) => `/currencies/${code}`,
+    convert: '/currencies/convert',
+    detectByCountry: '/currencies/detect-by-country',
+    format: '/currencies/format',
+    updateRates: '/currencies/update-rates',
+    default: '/currencies/default',
+    convertBatch: '/currencies/convert-batch',
   },
 
   // Voyages

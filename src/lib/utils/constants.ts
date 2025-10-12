@@ -255,3 +255,205 @@ export const CONTACT = {
   PHONE: '+237 6XX XX XX XX',
   ADDRESS: 'Yaoundé, Cameroun',
 } as const;
+
+
+/**
+ * Liste des devises supportées avec leurs informations
+ */
+export const CURRENCIES = {
+  EUR: {
+    code: 'EUR',
+    name: 'Euro',
+    symbol: '€',
+    decimals: 2,
+    countries: ['FR', 'DE', 'IT', 'ES', 'PT', 'BE', 'NL', 'AT', 'IE', 'FI'],
+  },
+  USD: {
+    code: 'USD',
+    name: 'Dollar américain',
+    symbol: '$',
+    decimals: 2,
+    countries: ['US'],
+  },
+  CAD: {
+    code: 'CAD',
+    name: 'Dollar canadien',
+    symbol: 'CAD $',
+    decimals: 2,
+    countries: ['CA'],
+  },
+  GBP: {
+    code: 'GBP',
+    name: 'Livre sterling',
+    symbol: '£',
+    decimals: 2,
+    countries: ['GB'],
+  },
+  XAF: {
+    code: 'XAF',
+    name: 'Franc CFA (CEMAC)',
+    symbol: 'FCFA',
+    decimals: 0,
+    countries: ['CM', 'GA', 'CG', 'CF', 'TD', 'GQ'],
+  },
+  XOF: {
+    code: 'XOF',
+    name: 'Franc CFA (UEMOA)',
+    symbol: 'FCFA',
+    decimals: 0,
+    countries: ['SN', 'CI', 'BJ', 'TG', 'BF', 'ML', 'NE', 'GW'],
+  },
+  CHF: {
+    code: 'CHF',
+    name: 'Franc suisse',
+    symbol: 'CHF',
+    decimals: 2,
+    countries: ['CH'],
+  },
+  MAD: {
+    code: 'MAD',
+    name: 'Dirham marocain',
+    symbol: 'MAD',
+    decimals: 2,
+    countries: ['MA'],
+  },
+  TND: {
+    code: 'TND',
+    name: 'Dinar tunisien',
+    symbol: 'TND',
+    decimals: 3,
+    countries: ['TN'],
+  },
+  DZD: {
+    code: 'DZD',
+    name: 'Dinar algérien',
+    symbol: 'DZD',
+    decimals: 2,
+    countries: ['DZ'],
+  },
+} as const;
+
+/**
+ * Codes de devises disponibles
+ */
+export const CURRENCY_CODES = Object.keys(CURRENCIES) as Array<keyof typeof CURRENCIES>;
+
+/**
+ * Symboles des devises (map rapide)
+ */
+export const CURRENCY_SYMBOLS: Record<string, string> = {
+  EUR: '€',
+  USD: '$',
+  CAD: 'CAD $',
+  GBP: '£',
+  XAF: 'FCFA',
+  XOF: 'FCFA',
+  CHF: 'CHF',
+  MAD: 'MAD',
+  TND: 'TND',
+  DZD: 'DZD',
+  JPY: '¥',
+  CNY: '¥',
+  AUD: 'AUD $',
+  NZD: 'NZD $',
+  BRL: 'R$',
+  INR: '₹',
+  RUB: '₽',
+  ZAR: 'R',
+};
+
+/**
+ * Devises sans décimales
+ */
+export const NO_DECIMAL_CURRENCIES = ['XAF', 'XOF', 'JPY', 'KRW'];
+
+/**
+ * Devise par défaut de l'application
+ */
+export const DEFAULT_CURRENCY = 'EUR';
+
+/**
+ * Devises les plus utilisées (ordre de popularité)
+ */
+export const POPULAR_CURRENCIES = ['EUR', 'USD', 'XAF', 'CAD', 'GBP'];
+
+/**
+ * Mapping pays → devise (pour détection automatique)
+ */
+export const COUNTRY_TO_CURRENCY: Record<string, string> = {
+  // Europe
+  FR: 'EUR',
+  DE: 'EUR',
+  IT: 'EUR',
+  ES: 'EUR',
+  PT: 'EUR',
+  BE: 'EUR',
+  NL: 'EUR',
+  AT: 'EUR',
+  IE: 'EUR',
+  FI: 'EUR',
+  GR: 'EUR',
+  LU: 'EUR',
+  
+  // Amérique
+  US: 'USD',
+  CA: 'CAD',
+  
+  // Royaume-Uni
+  GB: 'GBP',
+  
+  // Afrique francophone (CEMAC)
+  CM: 'XAF',
+  GA: 'XAF',
+  CG: 'XAF',
+  CF: 'XAF',
+  TD: 'XAF',
+  GQ: 'XAF',
+  
+  // Afrique francophone (UEMOA)
+  SN: 'XOF',
+  CI: 'XOF',
+  BJ: 'XOF',
+  TG: 'XOF',
+  BF: 'XOF',
+  ML: 'XOF',
+  NE: 'XOF',
+  GW: 'XOF',
+  
+  // Maghreb
+  MA: 'MAD',
+  TN: 'TND',
+  DZ: 'DZD',
+  
+  // Suisse
+  CH: 'CHF',
+};
+
+/**
+ * Options de formatage par devise
+ */
+export const CURRENCY_FORMAT_OPTIONS: Record<string, Intl.NumberFormatOptions> = {
+  EUR: { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 },
+  USD: { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 },
+  CAD: { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 },
+  GBP: { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 },
+  XAF: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0 },
+  XOF: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0 },
+  CHF: { style: 'currency', currency: 'CHF', minimumFractionDigits: 2, maximumFractionDigits: 2 },
+};
+
+/**
+ * Labels pour les devises (utilisation dans les formulaires)
+ */
+export const CURRENCY_LABELS: Record<string, string> = {
+  EUR: 'Euro (€)',
+  USD: 'Dollar américain ($)',
+  CAD: 'Dollar canadien (CAD $)',
+  GBP: 'Livre sterling (£)',
+  XAF: 'Franc CFA CEMAC (FCFA)',
+  XOF: 'Franc CFA UEMOA (FCFA)',
+  CHF: 'Franc suisse (CHF)',
+  MAD: 'Dirham marocain (MAD)',
+  TND: 'Dinar tunisien (TND)',
+  DZD: 'Dinar algérien (DZD)',
+};

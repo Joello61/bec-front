@@ -35,11 +35,6 @@ export const updateSettingsSchema = z.object({
       message: 'La langue doit être : fr ou en',
     })
     .optional(),
-  devise: z
-    .enum(['XAF', 'EUR', 'USD'], {
-      message: 'La devise doit être : XAF, EUR ou USD',
-    })
-    .optional(),
   timezone: z
     .string()
     .min(1, 'Le fuseau horaire est requis')

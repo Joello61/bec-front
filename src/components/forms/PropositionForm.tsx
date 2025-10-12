@@ -2,12 +2,14 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DollarSign, Package, MessageSquare } from 'lucide-react';
+import { MessageSquare, Info } from 'lucide-react';
 import { Button, Input } from '@/components/ui';
 import {
   createPropositionSchema,
   type CreatePropositionFormData,
 } from '@/lib/validations';
+import { useUserCurrency } from '@/lib/hooks/useCurrency'; // ⬅️ AJOUT
+import { getCurrencySymbol } from '@/lib/utils/format'; // ⬅️ AJOUT
 import type { Voyage } from '@/types';
 
 interface PropositionFormProps {
@@ -29,6 +31,10 @@ export default function PropositionForm({
   onCancel,
   isSubmitting,
 }: PropositionFormProps) {
+  // ⬅️ AJOUT : Récupérer la devise de l'utilisateur
+  const userCurrency = useUserCurrency();
+  const currencySymbol = getCurrencySymbol(userCurrency);
+
   const {
     register,
     handleSubmit,
@@ -72,35 +78,57 @@ export default function PropositionForm({
         )}
       </div>
 
-      {/* Prix par kilo */}
-      <Input
-        label="Prix par kilo (XAF)"
-        type="number"
-        step="100"
-        min="0"
-        max="100000"
-        placeholder={voyage.prixParKilo || '5000'}
-        leftIcon={<DollarSign className="w-4 h-4" />}
-        error={errors.prixParKilo?.message}
-        helperText="Prix que vous proposez par kilogramme"
-        {...register('prixParKilo', { valueAsNumber: true })}
-        required
-      />
+      {/* ==================== SECTION PRIX AVEC DEVISE DYNAMIQUE ==================== */}
+      <div className="pt-4 border-t border-gray-200">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">Votre proposition</h3>
+          {/* Badge devise de l'utilisateur */}
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
+            <span className="text-sm font-medium text-primary">
+              Devise : {currencySymbol}
+            </span>
+          </div>
+        </div>
 
-      {/* Commission pour un bagage */}
-      <Input
-        label="Commission pour un bagage complet (XAF)"
-        type="number"
-        step="1000"
-        min="0"
-        max="1000000"
-        placeholder={voyage.commissionProposeePourUnBagage || '50000'}
-        leftIcon={<Package className="w-4 h-4" />}
-        error={errors.commissionProposeePourUnBagage?.message}
-        helperText="Commission que vous proposez pour un bagage entier"
-        {...register('commissionProposeePourUnBagage', { valueAsNumber: true })}
-        required
-      />
+        {/* Message informatif */}
+        <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex gap-2">
+          <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-blue-900">
+            Les montants sont dans votre devise ({userCurrency}). Le voyageur les verra 
+            automatiquement convertis dans sa devise.
+          </p>
+        </div>
+
+        {/* Prix par kilo */}
+        <Input
+          label={`Prix par kilo (${currencySymbol})`}
+          type="number"
+          step="100"
+          min="0"
+          max="100000"
+          placeholder={voyage.prixParKilo || '5000'}
+          error={errors.prixParKilo?.message}
+          helperText="Prix que vous proposez par kilogramme"
+          {...register('prixParKilo', { valueAsNumber: true })}
+          required
+        />
+
+        {/* Commission pour un bagage */}
+        <div className="mt-4">
+          <Input
+            label={`Commission pour un bagage complet (${currencySymbol})`}
+            type="number"
+            step="1000"
+            min="0"
+            max="1000000"
+            placeholder={voyage.commissionProposeePourUnBagage || '50000'}
+            error={errors.commissionProposeePourUnBagage?.message}
+            helperText="Commission que vous proposez pour un bagage entier"
+            {...register('commissionProposeePourUnBagage', { valueAsNumber: true })}
+            required
+          />
+        </div>
+      </div>
 
       {/* Message optionnel */}
       <div>

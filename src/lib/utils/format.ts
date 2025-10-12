@@ -87,17 +87,6 @@ export function formatWeight(weight: number | string): string {
 }
 
 /**
- * Formate un prix en FCFA
- */
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'XAF',
-    minimumFractionDigits: 0,
-  }).format(price);
-}
-
-/**
  * Tronque un texte avec ellipsis
  */
 export function truncate(text: string, maxLength: number): string {
@@ -191,4 +180,144 @@ export function getAvatarColor(seed: string): string {
   }
   
   return colors[Math.abs(hash) % colors.length];
+}
+
+/**
+ * Formate un montant selon une devise avec Intl.NumberFormat
+ */
+export function formatCurrency(
+  amount: number | string,
+  currencyCode: string,
+  decimals?: number
+): string {
+  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  
+  if (isNaN(numAmount)) return '—';
+
+  // Cas spécial pour le FCFA (XAF, XOF) - pas de décimales
+  if (currencyCode === 'XAF' || currencyCode === 'XOF') {
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(numAmount) + ' FCFA';
+  }
+
+  // Pour les autres devises, utiliser Intl.NumberFormat
+  try {
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: currencyCode,
+      minimumFractionDigits: decimals ?? 2,
+      maximumFractionDigits: decimals ?? 2,
+    }).format(numAmount);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    // Si la devise n'est pas reconnue par Intl
+    const symbol = getCurrencySymbol(currencyCode);
+    return `${numAmount.toFixed(decimals ?? 2)} ${symbol}`;
+  }
+}
+
+/**
+ * Récupère le symbole d'une devise
+ */
+export function getCurrencySymbol(currencyCode: string): string {
+  const symbols: Record<string, string> = {
+    EUR: '€',
+    USD: '$',
+    CAD: 'CAD $',
+    GBP: '£',
+    XAF: 'FCFA',
+    XOF: 'FCFA',
+    CHF: 'CHF',
+    JPY: '¥',
+    CNY: '¥',
+    AUD: 'AUD $',
+    NZD: 'NZD $',
+    BRL: 'R$',
+    INR: '₹',
+    RUB: '₽',
+    ZAR: 'R',
+    MAD: 'MAD',
+    TND: 'TND',
+    DZD: 'DZD',
+  };
+  return symbols[currencyCode.toUpperCase()] || currencyCode;
+}
+
+/**
+ * Récupère le nombre de décimales pour une devise
+ */
+export function getCurrencyDecimals(currencyCode: string): number {
+  const noDecimalCurrencies = ['XAF', 'XOF', 'JPY', 'KRW'];
+  return noDecimalCurrencies.includes(currencyCode.toUpperCase()) ? 0 : 2;
+}
+
+/**
+ * Formate un montant avec son symbole (version courte)
+ */
+export function formatPrice(
+  amount: number | string,
+  currencyCode: string
+): string {
+  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  
+  if (isNaN(numAmount)) return '—';
+
+  const decimals = getCurrencyDecimals(currencyCode);
+  const symbol = getCurrencySymbol(currencyCode);
+  
+  if (currencyCode === 'XAF' || currencyCode === 'XOF') {
+    return `${numAmount.toLocaleString('fr-FR', { maximumFractionDigits: 0 })} ${symbol}`;
+  }
+
+  return `${numAmount.toFixed(decimals)} ${symbol}`;
+}
+
+/**
+ * Vérifie si deux devises sont identiques (insensible à la casse)
+ */
+export function isSameCurrency(currency1: string, currency2: string): boolean {
+  return currency1.toUpperCase() === currency2.toUpperCase();
+}
+
+/**
+ * Parse un montant depuis une string (gère les séparateurs français et anglais)
+ */
+export function parseAmount(value: string): number | null {
+  if (!value) return null;
+  
+  // Remplacer les espaces et virgules par des points
+  const normalized = value
+    .replace(/\s/g, '')
+    .replace(',', '.');
+  
+  const parsed = parseFloat(normalized);
+  return isNaN(parsed) ? null : parsed;
+}
+
+/**
+ * Formate un taux de change
+ */
+export function formatExchangeRate(rate: string | number): string {
+  const numRate = typeof rate === 'string' ? parseFloat(rate) : rate;
+  
+  if (isNaN(numRate)) return '—';
+  
+  // Afficher 4 décimales pour les taux
+  return numRate.toFixed(4);
+}
+
+/**
+ * Calcule le montant converti (utilitaire local si besoin)
+ */
+export function calculateConversion(
+  amount: number,
+  fromRate: number,
+  toRate: number
+): number {
+  // Conversion via EUR comme base
+  // Ex: XAF vers USD = (montant / rateXAF) * rateUSD
+  return (amount / fromRate) * toRate;
 }
