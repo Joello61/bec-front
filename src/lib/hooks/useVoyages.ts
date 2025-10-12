@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useVoyageStore } from '@/lib/store';
 import { voyagesApi } from '@/lib/api/voyages';
-import type { VoyageFilters, Demande } from '@/types';
+import type { VoyageFilters, DemandeWithScore } from '@/types';
 
 /**
  * Hook pour charger et gérer les voyages
@@ -120,7 +120,7 @@ export function useUserVoyages(userId?: number) {
  * Hook pour récupérer les demandes correspondantes à un voyage
  */
 export function useMatchingDemandes(voyageId?: number) {
-  const [demandes, setDemandes] = useState<Demande[]>([]);
+  const [demandes, setDemandes] = useState<DemandeWithScore[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
