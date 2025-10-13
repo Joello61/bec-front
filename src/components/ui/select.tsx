@@ -123,7 +123,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               </div>
             )}
 
-            <span className={cn('block truncate', leftIcon && 'ml-7')}>
+            <span className={cn('block truncate', leftIcon && 'ml-2')}>
               {displayText}
             </span>
 

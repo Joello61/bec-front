@@ -76,11 +76,13 @@ export interface VerifyEmailResponse {
 
 // ==================== COMPLETE PROFILE RESPONSE MODIFIÉ ====================
 export interface CompleteProfileResponse {
-  success: true;
+  success: boolean;
   message: string;
+  smsVerificationRequired: boolean; // ⬅️ NOUVEAU CHAMP CRUCIAL
   user: {
     id: number;
     telephone: string;
+    telephoneVerifie: boolean;
     address: {
       pays: string;
       ville: string;

@@ -6,7 +6,8 @@ import type {
   User, 
   LoginInput, 
   RegisterInput,
-  CompleteProfileInput 
+  CompleteProfileInput, 
+  CompleteProfileResponse
 } from '@/types';
 
 interface AuthState {
@@ -21,7 +22,7 @@ interface AuthState {
   login: (credentials: LoginInput) => Promise<void>;
   register: (data: RegisterInput) => Promise<void>;
   logout: () => Promise<void>;
-  fetchMe: () => Promise<void>;
+  fetchMe: () => Promise<User | null>;
   
   // Actions de vérification
   verifyEmail: (code: string, email: string) => Promise<void>;
@@ -29,7 +30,7 @@ interface AuthState {
   resendVerification: (type: 'email' | 'phone', email?: string) => Promise<void>;
   
   // Actions profil
-  completeProfile: (data: CompleteProfileInput) => Promise<void>;
+  completeProfile: (data: CompleteProfileInput) => Promise<CompleteProfileResponse>;
   checkProfileStatus: () => Promise<boolean>;
   
   // Actions de mot de passe
@@ -134,6 +135,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         isLoading: false,
         isInitialized: true
       });
+      return user;
     } catch (error: any) {
       set({ 
         user: null,
@@ -142,6 +144,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         isInitialized: true,
         error: null
       });
+      return null;
     }
   },
 
@@ -198,12 +201,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  completeProfile: async (data: CompleteProfileInput) => {
+  completeProfile: async (data: CompleteProfileInput): Promise<CompleteProfileResponse> => {
     set({ isLoading: true, error: null });
     try {
-      await authApi.completeProfile(data);
-      await get().fetchMe();
+      const response = await authApi.completeProfile(data); // ⬅️ Récupère la réponse complète
+      await get().fetchMe(); // Rafraîchir le user
       set({ isLoading: false });
+      return response; // ⬅️ Retourne la réponse pour accéder à smsVerificationRequired
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de la complétion du profil', 

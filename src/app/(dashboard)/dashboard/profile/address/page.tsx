@@ -101,8 +101,8 @@ export default function AddressPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
+       {isEditing ? (
         <Card className="p-6">
-          {isEditing ? (
             <AddressForm
               address={user.address}
               canModify={modificationInfo?.canModify ?? true}
@@ -111,6 +111,7 @@ export default function AddressPage() {
               onSubmit={handleUpdateAddress}
               onCancel={() => setIsEditing(false)}
             />
+        </Card>
           ) : (
             <AddressCard
               address={user.address}
@@ -120,7 +121,6 @@ export default function AddressPage() {
               showEditButton={true}
             />
           )}
-        </Card>
       </motion.div>
 
       {/* Info contrainte 6 mois */}

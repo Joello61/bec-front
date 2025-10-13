@@ -25,7 +25,7 @@ export const ROUTES = {
   
   // ==================== NOUVELLES ROUTES AUTH ====================
   VERIFY_EMAIL: '/auth/verify-email' as Route,
-  COMPLETE_PROFILE: '/auth/complete-profile' as Route,
+  COMPLETE_PROFILE: '/dashboard/complete-profile' as Route,
   
   DASHBOARD: '/dashboard' as Route,
   EXPLORE: '/dashboard/explore' as Route,

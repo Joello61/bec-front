@@ -34,15 +34,22 @@ export default function CompleteProfilePage() {
 
   const handleSubmit = async (data: CompleteProfileFormData) => {
     try {
-      await completeProfile(data);
+      const response = await completeProfile(data);
       
       // Stocker le numéro pour la modale
       setPhoneNumber(data.telephone);
       
-      toast.success('Profil complété ! Vérifiez votre téléphone.');
-      
-      // Ouvrir la modale de vérification SMS
-      setShowPhoneVerification(true);
+      if (response.smsVerificationRequired) {
+        // Mode PRODUCTION : Afficher la modale de vérification SMS
+        toast.success('Profil complété ! Vérifiez votre téléphone.');
+        setShowPhoneVerification(true);
+      } else {
+        // Mode DEV : Téléphone auto-vérifié, rediriger directement vers EXPLORE
+        toast.success('Profil complété avec succès !');
+        setTimeout(() => {
+          router.push(ROUTES.EXPLORE);
+        }, 1000);
+      }
       
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -130,7 +137,7 @@ export default function CompleteProfilePage() {
         </div>
       </motion.div>
 
-      {/* Modale de vérification téléphone */}
+      {/* Modale de vérification téléphone (uniquement si SMS activé) */}
       {showPhoneVerification && (
         <VerificationModal
           isOpen={showPhoneVerification}

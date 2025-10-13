@@ -11,14 +11,14 @@ import { useToast } from '@/components/common';
 function OAuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { fetchMe, user } = useAuth();
+  const { fetchMeAndGet } = useAuth();
   const toast = useToast();
   const hasRun = useRef(false);
 
   useEffect(() => {
     if (hasRun.current) return;
     hasRun.current = true;
-
+ 
     const handleCallback = async () => {
       const error = searchParams.get('error');
       
@@ -30,7 +30,7 @@ function OAuthCallbackContent() {
 
       try {
         // Récupérer les données utilisateur (JWT déjà dans cookie)
-        await fetchMe();
+        const user = await fetchMeAndGet();
         
         if (!user) {
           throw new Error('Utilisateur non trouvé');

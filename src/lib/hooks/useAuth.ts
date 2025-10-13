@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/lib/store';
+import { User } from '@/types';
 
 /**
  * Hook simplifié pour accéder aux données d'authentification
@@ -15,7 +16,7 @@ export function useAuth() {
   const login = useAuthStore((state) => state.login);
   const register = useAuthStore((state) => state.register);
   const logout = useAuthStore((state) => state.logout);
-  const fetchMe = useAuthStore((state) => state.fetchMe);
+  const fetchMeFromStore = useAuthStore((state) => state.fetchMe);
   
   // Actions de vérification
   const verifyEmail = useAuthStore((state) => state.verifyEmail);
@@ -40,6 +41,14 @@ export function useAuth() {
     return user?.settings?.devise || 'EUR';
   };
 
+  const fetchMe = async (): Promise<void> => {
+    await fetchMeFromStore(); // Ignore le retour
+  };
+
+  const fetchMeAndGet = async (): Promise<User | null> => {
+    return await fetchMeFromStore(); // Utilise le retour
+  };
+
   return {
     // État
     user,
@@ -54,6 +63,7 @@ export function useAuth() {
     register,
     logout,
     fetchMe,
+    fetchMeAndGet,
     
     // Actions vérification
     verifyEmail,
