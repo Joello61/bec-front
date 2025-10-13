@@ -50,7 +50,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fermer le menu mobile lors du changement de route
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -66,7 +65,6 @@ export default function Header() {
   };
 
   if (!isAuthenticated) {
-    // Header pour utilisateurs non connectés
     return (
       <>
         <header className={cn(
@@ -74,22 +72,18 @@ export default function Header() {
           scrolled && 'shadow-md'
         )}>
           <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo - Version optimisée pour 3000x1500 (ratio 2:1) */}
             <Link href={ROUTES.HOME} className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center">
+              <div className="relative h-14 w-28 flex-shrink-0">
                 <Image
-                  src="/images/logo/logo_icon_only.png"
-                  alt="Logo de Co-Baggage"
-                  width={45}
-                  height={45}
-                  className="object-cover w-full h-full"
+                  src="/images/logo/logo-1.png"
+                  alt="Co-Bage - Le monde à portée de bagage"
+                  fill
+                  className="object-contain"
+                  priority
                 />
               </div>
-              <span className="font-bold text-2xl text-primary select-none">
-                CoBage
-              </span>
             </Link>
-
 
             {/* Navigation Desktop */}
             <div className="hidden md:flex items-center gap-1">
@@ -193,7 +187,7 @@ export default function Header() {
     );
   }
 
-  // Header pour utilisateurs connectés (version actuelle)
+  // Header pour utilisateurs connectés
   return (
     <header className={cn(
       'sticky top-0 z-50 transition-all duration-300 bg-white border-b',
@@ -201,18 +195,32 @@ export default function Header() {
     )}>
       <div className="container mx-auto px-4">
         <div className="h-16 flex items-center justify-between gap-4">
-          {/* Logo */}
+          {/* Logo - Version dashboard (icône uniquement ou logo complet) */}
           <Link href={ROUTES.DASHBOARD} className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center">
-                <Image
-                  src="/images/logo/logo_icon_only.png"
-                  alt="Logo de Co-Baggage"
-                  width={45}
-                  height={45}
-                  className="object-cover w-full h-full"
-                />
-              </div>
+            {/* Option 1: Logo complet (recommandé si logo-1.png est votre logo principal) */}
+            <div className="relative h-10 w-20">
+              <Image
+                src="/images/logo/logo-1.png"
+                alt="Co-Bage"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            
+            {/* Option 2: Icône seule (décommentez si vous préférez) */}
+            {/* 
+            <div className="relative h-10 w-10">
+              <Image
+                src="/images/logo/logo_icon_only.png"
+                alt="Co-Bage"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
             <span className="font-bold text-lg text-gray-900">CoBage</span>
+            */}
           </Link>
 
           {/* Actions */}

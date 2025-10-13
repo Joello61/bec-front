@@ -12,11 +12,11 @@ export const ROUTES = {
   HOME: '/' as Route,
   ABOUT: '/about' as Route,
   CONTACT: '/contact' as Route,
-  TERMS: '/terms' as Route,
-  PRIVACY: '/privacy' as Route,
+  TERMS: '/legal/terms' as Route,
+  PRIVACY: '/legal/privacy' as Route,
   FAQ: '/faq' as Route,
   HOW_IT_WORKS: '/how-it-works' as Route,
-  TRUST_SAFETY: '/trust-safety' as Route,
+  TRUST_SAFETY: '/legal/trust-safety' as Route,
   LOGIN: '/auth/login' as Route,
   REGISTER: '/auth/register' as Route,
   FORGOT_PASSWORD: '/auth/forgot-password' as Route,
@@ -251,9 +251,9 @@ export const SOCIAL_LINKS = {
 
 // Contact
 export const CONTACT = {
-  EMAIL: 'contact@bagage-express.cm',
-  PHONE: '+237 6XX XX XX XX',
-  ADDRESS: 'Yaoundé, Cameroun',
+  EMAIL: 'tchindajoel61@gmail.com',
+  PHONE: '+330752892073',
+  ADDRESS: 'Toulouse, France',
 } as const;
 
 

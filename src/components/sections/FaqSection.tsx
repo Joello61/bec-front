@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { Mail, Plus, Minus } from 'lucide-react';
+import { Mail, Plus, Minus, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 
 const fadeIn: Variants = {
@@ -75,9 +75,10 @@ export function FaqSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary/90 backdrop-blur-sm rounded-full text-gray-900 font-bold mb-8">
+            <HelpCircle className="w-5 h-5" />
             Des questions ?
-          </span>
+          </div> 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Questions Fréquentes
           </h2>

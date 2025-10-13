@@ -7,7 +7,8 @@ import {
   Shield, 
   Users, 
   Zap, 
-  ArrowRight 
+  ArrowRight, 
+  Info
 } from 'lucide-react';
 
 const fadeIn: Variants = {
@@ -35,22 +36,22 @@ export function AboutSection() {
   const features = [
     {
       icon: DollarSign,
-      title: 'Économique',
-      description: 'Des tarifs compétitifs pour l\'expédition de vos colis grâce au partage d\'espace bagages.',
+      title: 'Flexible',
+      description: 'Choisissez le voyageur qui correspond à vos besoins et discutez directement des conditions de transport.',
       color: 'text-primary',
       bgColor: 'bg-primary/10'
     },
     {
       icon: Shield,
-      title: 'Sécurisé',
-      description: 'Système d\'évaluation et de vérification pour des transactions en toute confiance.',
+      title: 'Fiable',
+      description: 'Vérification des profils et système d\'évaluation pour favoriser la confiance entre voyageurs et expéditeurs.',
       color: 'text-info',
       bgColor: 'bg-info/10'
     },
     {
       icon: Zap,
       title: 'Rapide',
-      description: 'Livraison express via des voyageurs déjà en déplacement vers votre destination.',
+      description: 'Mettez en relation les voyageurs déjà en déplacement vers votre destination.',
       color: 'text-secondary',
       bgColor: 'bg-secondary/10'
     },
@@ -63,6 +64,7 @@ export function AboutSection() {
     }
   ];
 
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container-custom">
@@ -74,9 +76,10 @@ export function AboutSection() {
           variants={fadeIn}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            Pourquoi nous choisir
-          </span>
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary/90 backdrop-blur-sm rounded-full text-gray-900 font-bold mb-8">
+            <Info className="w-5 h-5" />
+            Pourquoi nous choisir ?
+          </div>  
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             À propos de CoBage
           </h2>
@@ -106,7 +109,7 @@ export function AboutSection() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 {/* Carte */}
-                <div className="relative bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
+                <div className="relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow h-full border-3 border-primary">
                   <div className='flex flex-col justify-center items-center'>
                     <div className='inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl mb-4'>
                       <Icon className='w-7 h-7 text-primary' />
@@ -154,7 +157,7 @@ export function AboutSection() {
                     <motion.div
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors shadow-md"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white rounded-xl font-semibold hover:bg-primary-dark transition-colors shadow-md"
                     >
                       Découvrir comment ça marche
                       <ArrowRight className="w-5 h-5" />
@@ -164,19 +167,19 @@ export function AboutSection() {
 
                 {/* Colonne droite - Stats */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                  <div className="bg-primary/5 rounded-xl p-6 border-2 border-primary/50">
                     <div className="text-3xl font-bold text-primary mb-1">100%</div>
                     <div className="text-sm text-gray-600">Gratuit pour commencer</div>
                   </div>
-                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                  <div className="bg-primary/5 rounded-xl p-6 border-2 border-primary/50">
                     <div className="text-3xl font-bold text-primary mb-1">24/7</div>
                     <div className="text-sm text-gray-600">Support disponible</div>
                   </div>
-                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                  <div className="bg-primary/5 rounded-xl p-6 border-2 border-primary/50">
                     <div className="text-3xl font-bold text-primary mb-1">-50%</div>
                     <div className="text-sm text-gray-600">Économies moyennes</div>
                   </div>
-                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                  <div className="bg-primary/5 rounded-xl p-6 border-2 border-primary/50">
                     <div className="text-3xl font-bold text-primary mb-1">N°1</div>
                     <div className="text-sm text-gray-600">Plateforme de confiance</div>
                   </div>

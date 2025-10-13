@@ -14,3 +14,4 @@ export * from './proposition'; // ⬅️ AJOUT
 export * from './admin';
 export * from './address'; // ⬅️ AJOUT
 export * from './currency';
+export * from './contact'; // ⬅️ AJOUT

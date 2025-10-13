@@ -171,4 +171,11 @@ export const endpoints = {
     logsStats: '/admin/logs/stats',
     exportLogs: '/admin/logs/export',
   },
+
+  contacts: {
+    create: '/contacts/send',
+    list: '/contacts',
+    show: (id: number) => `/contacts/${id}`,
+    delete: (id: number) => `/contacts/${id}`,
+  },
 } as const;

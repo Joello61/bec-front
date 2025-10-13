@@ -8,7 +8,8 @@ import {
   Package, 
   Star, 
   CheckCircle, 
-  ArrowRight 
+  ArrowRight, 
+  ArrowRightCircle
 } from 'lucide-react';
 import { Route } from 'next';
 
@@ -39,25 +40,21 @@ export function HowItWorksSection() {
       icon: Search,
       title: 'Recherchez',
       description: 'Trouvez un voyageur allant vers votre destination ou une demande de transport correspondant à votre trajet.',
-      forWho: 'Expéditeurs & Voyageurs',
     },
     {
       icon: MessageCircle,
       title: 'Contactez',
       description: 'Échangez directement via notre messagerie sécurisée pour convenir des détails du transport.',
-      forWho: 'Tous',
     },
     {
       icon: Package,
       title: 'Organisez',
       description: 'Convenez ensemble du lieu, de l\'heure et des modalités de remise du colis.',
-      forWho: 'Tous',
     },
     {
       icon: Star,
       title: 'Évaluez',
       description: 'Après la livraison, laissez un avis pour renforcer la confiance dans la communauté.',
-      forWho: 'Tous',
     }
   ];
 
@@ -103,9 +100,10 @@ export function HowItWorksSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            Processus simple
-          </span>
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary/90 backdrop-blur-sm rounded-full text-gray-900 font-bold mb-8">
+            <ArrowRightCircle className="w-5 h-5" />
+            Processus simple et rapide
+          </div> 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Comment ça marche ?
           </h2>
@@ -152,13 +150,6 @@ export function HowItWorksSection() {
                     <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
                       {step.description}
                     </p>
-                    
-                    {/* Footer avec badge */}
-                    <div className="mt-auto">
-                      <span className={`inline-block text-xs font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20`}>
-                        {step.forWho}
-                      </span>
-                    </div>
                   </div>
                 </motion.div>
               );

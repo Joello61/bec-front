@@ -29,31 +29,15 @@ export default function AuthLayout({
         <div className="container-custom py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href={ROUTES.HOME} className="flex items-center gap-3 group">
-              <motion.div 
-                whileHover={{ rotate: 360, scale: 1.1 }}
-                transition={{ duration: 0.6 }}
-                className="relative"
-              >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center">
-                  <Image
-                    src="/images/logo/logo_icon_only.png"
-                    alt="Logo de Co-Baggage"
-                    width={45}
-                    height={45}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute -inset-1 bg-primary/20 rounded-xl blur-md -z-10"
+            <Link href={ROUTES.HOME} className="flex items-center gap-3">
+              <div className="relative h-14 w-28 flex-shrink-0">
+                <Image
+                  src="/images/logo/logo-1.png"
+                  alt="Co-Bage - Le monde à portée de bagage"
+                  fill
+                  className="object-contain"
+                  priority
                 />
-              </motion.div>
-              <div>
-                <span className="font-bold text-xl text-gray-900 block leading-tight">
-                  CoBage
-                </span>
               </div>
             </Link>
 
@@ -75,14 +59,10 @@ export default function AuthLayout({
             
             {/* Bouton retour */}
             <Link href={ROUTES.HOME}>
-              <motion.div
-                whileHover={{ x: -3 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-primary hover:bg-primary/5 rounded-lg transition-all border border-transparent hover:border-primary/20"
-              >
+              <div className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-primary hover:bg-primary/5 rounded-lg transition-all border border-transparent hover:border-primary/20 hover:scale-110">
                 <ArrowLeft className="w-4 h-4" />
                 <span className="hidden sm:inline">Retour</span>
-              </motion.div>
+              </div>
             </Link>
           </div>
         </div>
