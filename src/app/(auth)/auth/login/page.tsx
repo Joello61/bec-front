@@ -133,11 +133,10 @@ export default function LoginPage() {
             className="w-full h-auto object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
-          
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/20 to-transparent" />
           {/* Overlay content */}
-          <div className="absolute bottom-0 left-0 right-0 p-4">
-            <div className="bg-primary/45 backdrop-blur-sm rounded-xl p-3 shadow-lg">
+          <div className="absolute top-0 left-0 right-0 p-4">
+            <div className="bg-primary/55 backdrop-blur-sm rounded-xl p-3 shadow-lg">
               <h3 className="text-2xl font-bold text-white mb-2 text-center">
                 Transportez vos colis en toute confiance
               </h3>
