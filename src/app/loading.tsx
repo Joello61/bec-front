@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 export default function Loading() {
   return (
@@ -25,17 +24,7 @@ export default function Loading() {
             }
           }}
           className="relative"
-        >
-          <div className="w-25 h-25 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
-            <Image
-              src="/images/logo/logo_icon_only.png"
-              alt="Logo de Co-Baggage"
-              width={100}
-              height={100}
-              className="object-cover w-full h-full"
-            />
-          </div>
-          
+        > 
           {/* Cercle de chargement */}
           <motion.div
             animate={{ 

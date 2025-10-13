@@ -66,7 +66,7 @@ export function FaqSection() {
 
   return (
     <section className="py-20 bg-gray-50">
-      <div className="container-custom max-w-4xl">
+      <div className="container-custom max-w-6xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -164,7 +164,7 @@ export function FaqSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="relative overflow-hidden"
+          className="relative overflow-hidden max-w-3xl mx-auto"
         >
           {/* Décorations */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full blur-3xl -z-10" />

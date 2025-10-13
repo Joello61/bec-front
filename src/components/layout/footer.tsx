@@ -66,11 +66,6 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-gray-900 text-gray-300 overflow-hidden">
-      {/* Effet de fond décoratif */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-3xl" />
-      </div>
 
       <div className="relative container-custom py-12">
         <motion.div
@@ -88,36 +83,18 @@ export default function Footer() {
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border-2 border-primary bg-white">
-                  <Image
-                    src="/images/logo/logo_icon_only.png"
-                    alt="Logo de Co-Baggage"
-                    width={45}
-                    height={45}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <motion.div
-                  animate={{ 
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0.6, 0.3]
-                  }}
-                  transition={{ 
-                    duration: 2, 
-                    repeat: Infinity,
-                    ease: 'easeInOut'
-                  }}
-                  className="absolute -inset-1 bg-primary/30 rounded-xl blur-md -z-10"
-                />
+                <Link href={ROUTES.HOME} className="flex items-center gap-3">
+                  <div className="relative h-14 w-28 flex-shrink-0">
+                    <Image
+                      src="/images/logo/logo-1.png"
+                      alt="Co-Bage - Le monde à portée de bagage"
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+                </Link>
               </motion.div>
-              <div>
-                <span className="font-bold text-xl text-white block">
-                  CoBage
-                </span>
-                <span className="text-xs text-gray-400">
-                  Cameroun
-                </span>
-              </div>
             </div>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
               Connectez voyageurs et expéditeurs pour un transport sûr et économique de colis entre le Cameroun et le monde.
@@ -233,7 +210,7 @@ export default function Footer() {
             
             {/* Contact Info avec icônes */}
             <div className="space-y-3 pt-4 border-t border-gray-800">
-              <a 
+              <Link
                 href={`mailto:${CONTACT.EMAIL}`}
                 className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
               >
@@ -241,8 +218,8 @@ export default function Footer() {
                   <Mail className="w-4 h-4" />
                 </div>
                 <span className="text-xs">{CONTACT.EMAIL}</span>
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href={`tel:${CONTACT.PHONE}`}
                 className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
               >
@@ -250,12 +227,12 @@ export default function Footer() {
                   <Phone className="w-4 h-4" />
                 </div>
                 <span className="text-xs">{CONTACT.PHONE}</span>
-              </a>
-              <div className="flex items-start gap-3 text-sm">
+              </Link>
+              <div className="flex items-center gap-3 text-sm">
                 <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center">
                   <MapPin className="w-4 h-4" />
                 </div>
-                <span className="text-xs text-gray-400">Yaoundé, Cameroun</span>
+                <span className="text-xs text-gray-400">{CONTACT.ADDRESS}</span>
               </div>
             </div>
           </motion.div>
