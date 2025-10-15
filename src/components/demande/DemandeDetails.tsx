@@ -13,6 +13,7 @@ import {
   MapPin,
   Phone,
   Mail,
+  ArrowRight,
 } from 'lucide-react';
 import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
 import DemandeStatusBadge from './DemandeStatusBadge';
@@ -83,9 +84,23 @@ export default function DemandeDetails({
         {/* Header Card */}
         <Card>
           <CardHeader
-            title={`${demande.villeDepart} → ${demande.villeArrivee}`}
+            title={
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                <div className="flex items-center gap-2">
+                  <span>{demande.villeDepart}</span>
+                  <ArrowRight className="w-5 h-5 text-gray-400" />
+                  <span>{demande.villeArrivee}</span>
+                </div>
+
+                {/* Sur mobile, le statut passe ici sous l’itinéraire */}
+                <div className="flex sm:hidden mt-3">
+                  <DemandeStatusBadge statut={demande.statut} />
+                </div>
+              </div>
+            }
             action={
-              <div className="flex items-center gap-3">
+              // Sur desktop uniquement, on garde le bloc d’actions à droite
+              <div className="hidden sm:flex items-center gap-3">
                 {user && !isOwner && (
                   <>
                     <FavoriteButton
@@ -108,16 +123,17 @@ export default function DemandeDetails({
               </div>
             }
           />
+
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {/* Poids estimé */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Package className="w-5 h-5 text-primary" />
+              <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Poids estimé</p>
-                  <p className="font-semibold text-gray-900">
+                <div className="flex flex-col justify-center sm:justify-start">
+                  <p className="text-xs sm:text-sm text-gray-500">Poids estimé</p>
+                  <p className="text-sm sm:text-base font-semibold text-gray-900 break-words">
                     {formatWeight(demande.poidsEstime)}
                   </p>
                 </div>
@@ -125,26 +141,31 @@ export default function DemandeDetails({
 
               {/* Date limite */}
               {demande.dateLimite && (
-                <div className="flex items-start gap-3">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                    daysRemaining !== null && daysRemaining < 3 
-                      ? 'bg-red-50' 
-                      : 'bg-primary/10'
-                  }`}>
-                    <Clock className={`w-5 h-5 ${
-                      daysRemaining !== null && daysRemaining < 3 
-                        ? 'text-error' 
-                        : 'text-primary'
-                    }`} />
+                <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                      daysRemaining !== null && daysRemaining < 3
+                        ? 'bg-red-50'
+                        : 'bg-primary/10'
+                    }`}
+                  >
+                    <Clock
+                      className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                        daysRemaining !== null && daysRemaining < 3
+                          ? 'text-error'
+                          : 'text-primary'
+                      }`}
+                    />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Date limite</p>
-                    <p className="font-semibold text-gray-900">
+                  <div className="flex flex-col justify-center sm:justify-start">
+                    <p className="text-xs sm:text-sm text-gray-500">Date limite</p>
+                    <p className="text-sm sm:text-base font-semibold text-gray-900">
                       {formatDate(demande.dateLimite)}
                     </p>
+
                     {daysRemaining !== null && (
                       <p
-                        className={`text-sm mt-1 font-medium ${
+                        className={`text-xs sm:text-sm mt-1 font-medium ${
                           daysRemaining < 0
                             ? 'text-gray-500'
                             : daysRemaining < 3
@@ -167,48 +188,47 @@ export default function DemandeDetails({
 
               {/* Prix par kilo */}
               {demande.prixParKilo && (
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <DollarSign className="w-5 h-5 text-primary" />
+                <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Prix par kilo</p>
+                  <div className="flex flex-col justify-center sm:justify-start">
+                    <p className="text-xs sm:text-sm text-gray-500">Prix par kilo</p>
                     <CurrencyDisplay
                       amount={demande.prixParKilo}
                       currency={demande.currency}
                       converted={demande.converted}
                       viewerCurrency={demande.viewerCurrency}
                       field="prixParKilo"
-                      className="text-gray-900"
+                      className="text-sm sm:text-base font-semibold text-gray-900"
                     />
                   </div>
                 </div>
               )}
-            </div>
 
-            {/* Commission proposée */}
-            {demande.commissionProposeePourUnBagage && (
-              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <DollarSign className="w-6 h-6 text-amber-600" />
-                  <div>
-                    <p className="text-sm font-medium text-amber-900">
-                      Commission proposée pour un bagage
-                    </p>
+              {/* Commission proposée */}
+              {demande.commissionProposeePourUnBagage && (
+                <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  </div>
+                  <div className="flex flex-col justify-center sm:justify-start">
+                    <p className="text-xs sm:text-sm text-gray-500">Commission bagage</p>
                     <CurrencyDisplay
                       amount={demande.commissionProposeePourUnBagage}
                       currency={demande.currency}
                       converted={demande.converted}
                       viewerCurrency={demande.viewerCurrency}
                       field="commission"
-                      className="text-2xl text-amber-600"
+                      className="text-sm sm:text-base font-semibold text-gray-900"
                     />
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </CardContent>
         </Card>
+
 
         {/* Description */}
         <Card>

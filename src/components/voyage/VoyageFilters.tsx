@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Filter, X } from 'lucide-react';
-import { Button, Input } from '@/components/ui';
+import { Button, Input, Select } from '@/components/ui';
 import { TOUTES_VILLES, VOYAGE_STATUTS } from '@/lib/utils/constants';
 import type { VoyageFilters as VoyageFiltersType } from '@/types';
 
@@ -73,18 +73,18 @@ export default function VoyageFilters({ onFilterChange, initialFilters = {} }: V
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Ville de départ
                   </label>
-                  <select
+                  <Select
+                    options={[
+                      { value: '', label: 'Toutes les villes' },
+                      ...TOUTES_VILLES.map((ville) => ({
+                        value: ville,
+                        label: ville
+                      }))
+                    ]}
                     value={filters.villeDepart || ''}
-                    onChange={(e) => handleFilterChange('villeDepart', e.target.value)}
-                    className="input"
-                  >
-                    <option value="">Toutes les villes</option>
-                    {TOUTES_VILLES.map((ville) => (
-                      <option key={ville} value={ville}>
-                        {ville}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(value) => handleFilterChange('villeDepart', value)}
+                    searchable={true}
+                  />
                 </div>
 
                 {/* Ville d'arrivée */}
@@ -92,18 +92,18 @@ export default function VoyageFilters({ onFilterChange, initialFilters = {} }: V
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Ville d&apos;arrivée
                   </label>
-                  <select
+                  <Select
+                    options={[
+                      { value: '', label: 'Toutes les villes' },
+                      ...TOUTES_VILLES.map((ville) => ({
+                        value: ville,
+                        label: ville
+                      }))
+                    ]}
                     value={filters.villeArrivee || ''}
-                    onChange={(e) => handleFilterChange('villeArrivee', e.target.value)}
-                    className="input"
-                  >
-                    <option value="">Toutes les villes</option>
-                    {TOUTES_VILLES.map((ville) => (
-                      <option key={ville} value={ville}>
-                        {ville}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(value) => handleFilterChange('villeArrivee', value)}
+                    searchable={true}
+                  />
                 </div>
 
                 {/* Date de départ */}
@@ -123,18 +123,19 @@ export default function VoyageFilters({ onFilterChange, initialFilters = {} }: V
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Statut
                   </label>
-                  <select
+                  <Select
+                    options={[
+                      { value: '', label: 'Tous les statuts' },
+                      ...VOYAGE_STATUTS.map((status) => ({
+                        value: status.value,
+                        label: status.label
+                      }))
+                    ]}
                     value={filters.statut || ''}
-                    onChange={(e) => handleFilterChange('statut', e.target.value)}
-                    className="input"
-                  >
-                    <option value="">Tous les statuts</option>
-                    {VOYAGE_STATUTS.map((status) => (
-                      <option key={status.value} value={status.value}>
-                        {status.label}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(value) => handleFilterChange('statut', value)}
+                    searchable={false}
+                  />
+
                 </div>
               </div>
             </div>

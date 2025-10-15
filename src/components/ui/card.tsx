@@ -33,9 +33,9 @@ export function Card({
   );
 }
 
-export interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  description?: string;
+export interface CardHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
   action?: React.ReactNode;
 }
 
@@ -68,6 +68,7 @@ export function CardHeader({
     </div>
   );
 }
+
 
 export type CardContentProps = HTMLAttributes<HTMLDivElement>;
 

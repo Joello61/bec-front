@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plane, Info } from 'lucide-react';
-import { Button, Input } from '@/components/ui';
+import { Button, Input, Select } from '@/components/ui';
 import { createVoyageSchema, type CreateVoyageFormData } from '@/lib/validations';
 import { TOUTES_VILLES } from '@/lib/utils/constants';
 import { useUserCurrency } from '@/lib/hooks/useCurrency'; // ⬅️ AJOUT
@@ -26,6 +26,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateVoyageFormData>({
@@ -58,39 +59,51 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="villeDepart" className="block text-sm font-medium text-gray-700 mb-2">
-            Ville de départ <span className="text-error">*</span>
-          </label>
-          <select id="villeDepart" className="input" {...register('villeDepart')}>
-            <option value="">Sélectionnez une ville</option>
-            {TOUTES_VILLES.map((ville) => (
-              <option key={ville} value={ville}>
-                {ville}
-              </option>
-            ))}
-          </select>
-          {errors.villeDepart && (
-            <p className="mt-1 text-sm text-error">{errors.villeDepart.message}</p>
+        <Controller
+          name="villeDepart"
+          control={control}
+          render={({ field }) => (
+            <Select
+              label="Ville de départ"
+              required
+              options={[
+                { value: '', label: 'Sélectionnez une ville' },
+                ...TOUTES_VILLES.map((ville) => ({
+                  value: ville,
+                  label: ville
+                }))
+              ]}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.villeDepart?.message}
+              searchable={true}
+            />
           )}
-        </div>
+        />
 
-        <div>
-          <label htmlFor="villeArrivee" className="block text-sm font-medium text-gray-700 mb-2">
-            Ville d&apos;arrivée <span className="text-error">*</span>
-          </label>
-          <select id="villeArrivee" className="input" {...register('villeArrivee')}>
-            <option value="">Sélectionnez une ville</option>
-            {TOUTES_VILLES.map((ville) => (
-              <option key={ville} value={ville}>
-                {ville}
-              </option>
-            ))}
-          </select>
-          {errors.villeArrivee && (
-            <p className="mt-1 text-sm text-error">{errors.villeArrivee.message}</p>
+        <Controller
+          name="villeArrivee"
+          control={control}
+          render={({ field }) => (
+            <Select
+              label="Ville d'arrivée"
+              required
+              options={[
+                { value: '', label: 'Sélectionnez une ville' },
+                ...TOUTES_VILLES.map((ville) => ({
+                  value: ville,
+                  label: ville
+                }))
+              ]}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.villeArrivee?.message}
+              searchable={true}
+            />
           )}
-        </div>
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

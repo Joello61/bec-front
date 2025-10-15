@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Modal } from '@/components/ui';
+import { Modal, Select } from '@/components/ui';
 import { useAdmin } from '@/lib/hooks';
 import { deleteContentSchema, type DeleteContentFormData } from '@/lib/validations/admin.schema';
 import { useToast } from '@/components/common';
@@ -31,6 +31,7 @@ export default function DeleteContentModal({
 
   const {
     register,
+    control,
     handleSubmit,
     watch,
     formState: { errors },
@@ -120,16 +121,25 @@ export default function DeleteContentModal({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Motif de suppression *
             </label>
-            <select
-              {...register('motif')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-            >
-              <option value="spam">Spam</option>
-              <option value="fraude">Fraude</option>
-              <option value="harcelement">Harcèlement</option>
-              <option value="contenu_inapproprie">Contenu inapproprié</option>
-              <option value="autre">Autre</option>
-            </select>
+            <Controller
+              name="motif"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  options={[
+                    { value: 'spam', label: 'Spam' },
+                    { value: 'fraude', label: 'Fraude' },
+                    { value: 'harcelement', label: 'Harcèlement' },
+                    { value: 'contenu_inapproprie', label: 'Contenu inapproprié' },
+                    { value: 'autre', label: 'Autre' }
+                  ]}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  searchable={false}
+                />
+              )}
+            />
           </div>
 
           {/* Raison détaillée */}
@@ -153,15 +163,24 @@ export default function DeleteContentModal({
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Gravité
             </label>
-            <select
-              {...register('severity')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-            >
-              <option value="low">Faible</option>
-              <option value="medium">Moyenne</option>
-              <option value="high">Élevée</option>
-              <option value="critical">Critique</option>
-            </select>
+            <Controller
+              name="severity"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  options={[
+                    { value: 'low', label: 'Faible' },
+                    { value: 'medium', label: 'Moyenne' },
+                    { value: 'high', label: 'Élevée' },
+                    { value: 'critical', label: 'Critique' }
+                  ]}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  searchable={false}
+                />
+              )}
+            />
           </div>
 
           {/* Options */}

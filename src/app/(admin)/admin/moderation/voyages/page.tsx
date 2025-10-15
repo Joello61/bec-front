@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/lib/utils/constants';
 import type { Voyage, VoyageStatut, VoyageFilters } from '@/types';
 import { ModerationVoyagesTable, DeleteContentModal } from '@/components/admin';
+import { Select } from '@/components/ui';
 
 export default function AdminModerationVoyagesPage() {
   const [page, setPage] = useState(1);
@@ -73,20 +74,21 @@ export default function AdminModerationVoyagesPage() {
           </div>
 
           {/* Status Filter */}
-          <select
+          <Select
+            options={[
+              { value: '', label: 'Tous les statuts' },
+              { value: 'actif', label: 'Actif' },
+              { value: 'en_cours', label: 'En cours' },
+              { value: 'complete', label: 'Complété' },
+              { value: 'annule', label: 'Annulé' }
+            ]}
             value={statusFilter}
-            onChange={(e) => {
-              setStatusFilter(e.target.value as VoyageStatut | '');
+            onChange={(value) => {
+              setStatusFilter(value as VoyageStatut | '');
               setPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option value="">Tous les statuts</option>
-            <option value="actif">Actif</option>
-            <option value="en_cours">En cours</option>
-            <option value="complete">Complété</option>
-            <option value="annule">Annulé</option>
-          </select>
+            searchable={false}
+          />
 
           {/* Reset */}
           <button

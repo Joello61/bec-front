@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle } from 'lucide-react';
-import { Button, Modal } from '@/components/ui';
+import { Button, Modal, Select } from '@/components/ui';
 import { createSignalementSchema, type CreateSignalementFormData } from '@/lib/validations';
 
 interface SignalementFormProps {
@@ -38,6 +38,7 @@ export default function SignalementForm({
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
@@ -96,25 +97,25 @@ export default function SignalementForm({
         </div>
 
         {/* Motif */}
-        <div>
-          <label htmlFor="motif" className="block text-sm font-medium text-gray-700 mb-2">
-            Motif du signalement <span className="text-error">*</span>
-          </label>
-          <select
-            id="motif"
-            className="input"
-            {...register('motif')}
-          >
-            {SIGNALEMENT_MOTIFS.map((motif) => (
-              <option key={motif.value} value={motif.value}>
-                {motif.label}
-              </option>
-            ))}
-          </select>
-          {errors.motif && (
-            <p className="mt-1 text-sm text-error">{errors.motif.message}</p>
+        <Controller
+          name="motif"
+          control={control}
+          render={({ field }) => (
+            <Select
+              label="Motif du signalement"
+              required
+              options={SIGNALEMENT_MOTIFS.map((motif) => ({
+                value: motif.value,
+                label: motif.label
+              }))}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.motif?.message}
+              searchable={false}
+            />
           )}
-        </div>
+        />
 
         {/* Description */}
         <div>

@@ -11,6 +11,7 @@ import {
   ModerationDemandesTable,
   DeleteContentModal,
 } from '@/components/admin';
+import { Select } from '@/components/ui';
 
 export default function AdminModerationDemandesPage() {
   const [page, setPage] = useState(1);
@@ -76,19 +77,20 @@ export default function AdminModerationDemandesPage() {
           </div>
 
           {/* Status Filter */}
-          <select
+          <Select
+            options={[
+              { value: '', label: 'Tous les statuts' },
+              { value: 'en_recherche', label: 'En recherche' },
+              { value: 'voyageur_trouve', label: 'Voyageur trouvé' },
+              { value: 'annulee', label: 'Annulée' }
+            ]}
             value={statusFilter}
-            onChange={(e) => {
-              setStatusFilter(e.target.value as DemandeStatut | '');
+            onChange={(value) => {
+              setStatusFilter(value as DemandeStatut | '');
               setPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option value="">Tous les statuts</option>
-            <option value="en_recherche">En recherche</option>
-            <option value="voyageur_trouve">Voyageur trouvé</option>
-            <option value="annulee">Annulée</option>
-          </select>
+            searchable={false}
+          />
 
           {/* Reset */}
           <button

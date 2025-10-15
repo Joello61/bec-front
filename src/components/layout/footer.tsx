@@ -14,9 +14,16 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { ROUTES, CONTACT } from '@/lib/utils/constants';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  const pathname = usePathname()
+  
+    const isAuthPage = pathname?.includes('/auth')
+    const isAdminPage = pathname?.includes('/admin')
+    const isDashboardPage = pathname?.includes('/dashboard')
 
   const links = {
     platform: [
@@ -63,6 +70,10 @@ export default function Footer() {
       }
     }
   };
+
+  if (isAuthPage || isDashboardPage || isAdminPage) {
+    return null;
+  }
 
   return (
     <footer className="relative bg-gray-900 text-gray-300 overflow-hidden">

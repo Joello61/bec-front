@@ -14,6 +14,7 @@ import {
   Phone,
   Mail,
   Clock,
+  Plane,
 } from 'lucide-react';
 import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
 import VoyageStatusBadge from './VoyageStatusBadge';
@@ -97,9 +98,23 @@ export default function VoyageDetails({
         {/* Header Card */}
         <Card>
           <CardHeader
-            title={`${voyage.villeDepart} vers ${voyage.villeArrivee}`}
+            title={
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                <div className="flex items-center gap-2">
+                  <span>{voyage.villeDepart}</span>
+                  <Plane className="w-5 h-5 text-primary" />
+                  <span>{voyage.villeArrivee}</span>
+                </div>
+
+                {/* Sur mobile : statut sous l’itinéraire */}
+                <div className="flex sm:hidden mt-3">
+                  <VoyageStatusBadge statut={voyage.statut} />
+                </div>
+              </div>
+            }
             action={
-              <div className="flex items-center gap-3">
+              // Sur desktop uniquement : actions + statut à droite
+              <div className="hidden sm:flex items-center gap-3">
                 {user && !isOwner && (
                   <>
                     <FavoriteButton
@@ -122,42 +137,43 @@ export default function VoyageDetails({
               </div>
             }
           />
+
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
               {/* Date de départ */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Calendar className="w-5 h-5 text-primary" />
+              <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Départ</p>
-                  <p className="font-semibold text-gray-900">
+                <div className="flex flex-col justify-center sm:justify-start">
+                  <p className="text-xs sm:text-sm text-gray-500">Départ</p>
+                  <p className="text-sm sm:text-base font-semibold text-gray-900 break-words">
                     {formatDate(voyage.dateDepart)}
                   </p>
                 </div>
               </div>
 
               {/* Date d'arrivée */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Calendar className="w-5 h-5 text-primary" />
+              <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Arrivée</p>
-                  <p className="font-semibold text-gray-900">
+                <div className="flex flex-col justify-center sm:justify-start">
+                  <p className="text-xs sm:text-sm text-gray-500">Arrivée</p>
+                  <p className="text-sm sm:text-base font-semibold text-gray-900 break-words">
                     {formatDate(voyage.dateArrivee)}
                   </p>
                 </div>
               </div>
 
               {/* Poids disponible */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Package className="w-5 h-5 text-primary" />
+              <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Poids disponible</p>
-                  <p className="font-semibold text-gray-900">
+                <div className="flex flex-col justify-center sm:justify-start">
+                  <p className="text-xs sm:text-sm text-gray-500">Poids disponible</p>
+                  <p className="text-sm sm:text-base font-semibold text-gray-900 break-words">
                     {formatWeight(voyage.poidsDisponible)}
                   </p>
                 </div>
@@ -165,48 +181,47 @@ export default function VoyageDetails({
 
               {/* Prix par kilo */}
               {voyage.prixParKilo && (
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <DollarSign className="w-5 h-5 text-primary" />
+                <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Prix par kilo</p>
+                  <div className="flex flex-col justify-center sm:justify-start">
+                    <p className="text-xs sm:text-sm text-gray-500">Prix par kilo</p>
                     <CurrencyDisplay
                       amount={voyage.prixParKilo}
                       currency={voyage.currency}
                       converted={voyage.converted}
                       viewerCurrency={voyage.viewerCurrency}
                       field="prixParKilo"
-                      className="text-gray-900"
+                      className="text-sm sm:text-base font-semibold text-gray-900"
                     />
                   </div>
                 </div>
               )}
-            </div>
 
-            {/* Commission proposée */}
-            {voyage.commissionProposeePourUnBagage && (
-              <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <DollarSign className="w-6 h-6 text-amber-600" />
-                  <div>
-                    <p className="text-sm font-medium text-amber-900">
-                      Commission proposée pour un bagage
-                    </p>
+              {/* Commission proposée */}
+              {voyage.commissionProposeePourUnBagage && (
+                <div className="flex items-center sm:items-start gap-3 bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  </div>
+                  <div className="flex flex-col justify-center sm:justify-start">
+                    <p className="text-xs sm:text-sm text-gray-500">Commission bagage</p>
                     <CurrencyDisplay
                       amount={voyage.commissionProposeePourUnBagage}
                       currency={voyage.currency}
                       converted={voyage.converted}
                       viewerCurrency={voyage.viewerCurrency}
                       field="commission"
-                      className="text-2xl text-amber-600"
+                      className="text-sm sm:text-base font-semibold text-gray-900"
                     />
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </CardContent>
         </Card>
+
 
         {/* Description */}
         {voyage.description && (

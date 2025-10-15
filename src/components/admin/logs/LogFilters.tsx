@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Filter, X } from 'lucide-react';
 import type { AdminLogFilters } from '@/types';
+import { Select } from '@/components/ui';
 
 interface LogFiltersProps {
   filters: AdminLogFilters;
@@ -80,18 +81,18 @@ export default function LogFilters({ filters, onFiltersChange }: LogFiltersProps
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Type d&apos;action
           </label>
-          <select
+          <Select
+            options={[
+              { value: '', label: 'Toutes les actions' },
+              ...actions.map((action) => ({
+                value: action.value,
+                label: action.label
+              }))
+            ]}
             value={localFilters.action || ''}
-            onChange={(e) => handleActionChange(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option value="">Toutes les actions</option>
-            {actions.map((action) => (
-              <option key={action.value} value={action.value}>
-                {action.label}
-              </option>
-            ))}
-          </select>
+            onChange={handleActionChange}
+            searchable={false}
+          />
         </div>
 
         {/* Target Type Filter */}
@@ -99,18 +100,18 @@ export default function LogFilters({ filters, onFiltersChange }: LogFiltersProps
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Type de cible
           </label>
-          <select
+          <Select
+            options={[
+              { value: '', label: 'Tous les types' },
+              ...targetTypes.map((type) => ({
+                value: type.value,
+                label: type.label
+              }))
+            ]}
             value={localFilters.targetType || ''}
-            onChange={(e) => handleTargetTypeChange(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option value="">Tous les types</option>
-            {targetTypes.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
+            onChange={handleTargetTypeChange}
+            searchable={false}
+          />
         </div>
 
         {/* Start Date */}

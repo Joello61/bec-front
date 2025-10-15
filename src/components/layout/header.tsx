@@ -43,6 +43,8 @@ export default function Header() {
   const toast = useToast();
   const router = useRouter();
   const pathname = usePathname();
+  
+  const isAuthPage = pathname?.includes('/auth')
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -63,6 +65,10 @@ export default function Header() {
       toast.error('Erreur lors de la déconnexion');
     }
   };
+
+  if (isAuthPage) {
+    return null;
+  }
 
   if (!isAuthenticated) {
     return (

@@ -5,6 +5,7 @@ import { useAdmin } from '@/lib/hooks';
 import { LoadingSpinner } from '@/components/common';
 import { Search } from 'lucide-react';
 import { UsersTable } from '@/components/admin';
+import { Select } from '@/components/ui';
 
 export default function AdminUsersPage() {
   const [page, setPage] = useState(1);
@@ -57,33 +58,35 @@ export default function AdminUsersPage() {
           </div>
 
           {/* Role Filter */}
-          <select
+          <Select
+            options={[
+              { value: '', label: 'Tous les rôles' },
+              { value: 'ROLE_USER', label: 'Utilisateurs' },
+              { value: 'ROLE_MODERATOR', label: 'Modérateurs' },
+              { value: 'ROLE_ADMIN', label: 'Administrateurs' }
+            ]}
             value={roleFilter}
-            onChange={(e) => {
-              setRoleFilter(e.target.value);
+            onChange={(value) => {
+              setRoleFilter(value);
               setPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option value="">Tous les rôles</option>
-            <option value="ROLE_USER">Utilisateurs</option>
-            <option value="ROLE_MODERATOR">Modérateurs</option>
-            <option value="ROLE_ADMIN">Administrateurs</option>
-          </select>
+            searchable={false}
+          />
 
           {/* Banned Filter */}
-          <select
+          <Select
+            options={[
+              { value: '', label: 'Tous les statuts' },
+              { value: 'false', label: 'Actifs' },
+              { value: 'true', label: 'Bannis' }
+            ]}
             value={bannedFilter}
-            onChange={(e) => {
-              setBannedFilter(e.target.value);
+            onChange={(value) => {
+              setBannedFilter(value);
               setPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option value="">Tous les statuts</option>
-            <option value="false">Actifs</option>
-            <option value="true">Bannis</option>
-          </select>
+            searchable={false}
+          />
 
           {/* Reset */}
           <button

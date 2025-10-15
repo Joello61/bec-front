@@ -1,54 +1,42 @@
-'use client';
+import type { Metadata } from 'next';
+import DashboardLayoutClient from './dashboard-layout-client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Sidebar, BottomNav } from '@/components/layout';
-import { useAuth } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
-import { ROUTES } from '@/lib/utils/constants';
-import VerificationBanner from '@/components/dashboard/VerificationBanner';
+// Metadata pour le dashboard (pages protégées)
+export const metadata: Metadata = {
+  title: {
+    default: 'Tableau de bord - Co-Bage',
+    template: '%s | Co-Bage',
+  },
+  description: 'Gérez vos voyages, demandes de colis, messages et favoris. Trouvez des voyageurs ou expéditeurs pour vos trajets entre le Cameroun, l\'Afrique et la diaspora.',
+  keywords: [
+    'tableau de bord Co-Bage',
+    'mes voyages colis',
+    'mes demandes transport',
+    'explorer trajets Cameroun',
+    'messagerie Co-Bage',
+    'favoris transport colis',
+    'notifications voyage',
+  ],
+  robots: {
+    index: false, // Dashboard privé, pas d'indexation
+    follow: false,
+  },
+  openGraph: {
+    title: 'Tableau de bord Co-Bage',
+    description: 'Gérez vos voyages et demandes de transport de colis.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Tableau de bord Co-Bage',
+  },
+};
 
+// Server Component qui wrap le Client Component
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated, isInitialized } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isInitialized && !isAuthenticated) {
-      router.push(ROUTES.LOGIN);
-    }
-  }, [isAuthenticated, isInitialized, router]);
-
-  if (!isInitialized) {
-    return <LoadingSpinner fullScreen text="Vérification de l'authentification..." />;
-  }
-
-  if (!isAuthenticated) {
-    return null;
-  }
-
-  return (
-    
-    <div className="flex flex-col min-h-screen">
-      <div className="flex flex-1">
-        {/* Sidebar - Desktop uniquement */}
-        <Sidebar />
-
-        {/* Main content */}
-        <main className="flex-1 lg:ml-64 bg-gray-50">
-          {/* Padding adapté : plus sur mobile pour le BottomNav */}
-          <div className="container mx-auto px-4 py-8 pb-24 lg:pb-8">
-            <VerificationBanner />
-            {children}
-          </div>
-        </main>
-      </div>
-
-      {/* Bottom Navigation - Mobile uniquement */}
-      <BottomNav />
-    </div>
-  );
+  return <DashboardLayoutClient>{children}</DashboardLayoutClient>;
 }

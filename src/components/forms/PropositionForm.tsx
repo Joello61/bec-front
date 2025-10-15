@@ -1,9 +1,9 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MessageSquare, Info } from 'lucide-react';
-import { Button, Input } from '@/components/ui';
+import { Button, Input, Select } from '@/components/ui';
 import {
   createPropositionSchema,
   type CreatePropositionFormData,
@@ -37,6 +37,7 @@ export default function PropositionForm({
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CreatePropositionFormData>({
@@ -54,29 +55,28 @@ export default function PropositionForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       {/* Sélection de la demande */}
-      <div>
-        <label
-          htmlFor="demandeId"
-          className="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Sélectionnez votre demande <span className="text-error">*</span>
-        </label>
-        <select
-          id="demandeId"
-          className="input"
-          {...register('demandeId', { valueAsNumber: true })}
-        >
-          <option value="">Choisissez une demande</option>
-          {userDemandes.map((demande) => (
-            <option key={demande.id} value={demande.id}>
-              {demande.villeDepart} vers {demande.villeArrivee}
-            </option>
-          ))}
-        </select>
-        {errors.demandeId && (
-          <p className="mt-1 text-sm text-error">{errors.demandeId.message}</p>
+      <Controller
+        name="demandeId"
+        control={control}
+        render={({ field }) => (
+          <Select
+            label="Sélectionnez votre demande"
+            required
+            options={[
+              { value: '', label: 'Choisissez une demande' },
+              ...userDemandes.map((demande) => ({
+                value: demande.id.toString(),
+                label: `${demande.villeDepart} vers ${demande.villeArrivee}`
+              }))
+            ]}
+            value={field.value?.toString() || ''}
+            onChange={(value) => field.onChange(value ? Number(value) : '')}
+            onBlur={field.onBlur}
+            error={errors.demandeId?.message}
+            searchable={true}
+          />
         )}
-      </div>
+      />
 
       {/* ==================== SECTION PRIX AVEC DEVISE DYNAMIQUE ==================== */}
       <div className="pt-4 border-t border-gray-200">
