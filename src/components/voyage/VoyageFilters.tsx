@@ -64,7 +64,7 @@ export default function VoyageFilters({ onFilterChange, initialFilters = {} }: V
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden"
+            className=""
           >
             <div className="card p-4 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
