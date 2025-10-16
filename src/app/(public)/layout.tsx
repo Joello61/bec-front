@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PublicLayoutClient from './public-layout-client';
+import PublicLayoutClient from '../../components/clients/public/public-layout-client';
 
 // Metadata pour les pages publiques (About, FAQ, Contact, etc.)
 export const metadata: Metadata = {

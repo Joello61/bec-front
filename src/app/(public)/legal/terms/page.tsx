@@ -1,76 +1,61 @@
-'use client';
+import { Metadata } from 'next';
+import TermsPageClient from '../../../../components/clients/public/terms-client';
 
-import React, { useEffect, useState } from 'react';
-import { MarkdownRenderer } from '@/components/common/MarkdownRenderer';
-import { LoadingSpinner } from '@/components/common';
+export const metadata: Metadata = {
+  title: "Conditions Générales d'Utilisation (CGU)",
+  description:
+    "Consultez les conditions générales d'utilisation de Co-Bage. Découvrez vos droits et obligations en tant qu'utilisateur de notre plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et la diaspora.",
+  keywords: [
+    'CGU Co-Bage',
+    'conditions générales utilisation',
+    'règles plateforme Co-Bage',
+    'termes et conditions transport colis',
+    'mentions légales Co-Bage',
+  ],
+  robots: {
+    index: true, // Pages légales doivent être indexées
+    follow: true,
+  },
+  openGraph: {
+    title: 'CGU - Co-Bage',
+    description: "Conditions générales d'utilisation de la plateforme Co-Bage.",
+    type: 'website',
+    url: '/legal/terms',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'CGU Co-Bage',
+    description: "Conditions générales d'utilisation.",
+  },
+  alternates: {
+    canonical: '/legal/terms',
+  },
+};
+
+// Structured Data - WebPage avec datePublished
+const termsPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: "Conditions Générales d'Utilisation",
+  description: "Conditions générales d'utilisation de Co-Bage",
+  url: process.env.NEXT_PUBLIC_APP_URL + '/legal/terms',
+  publisher: {
+    '@type': 'Organization',
+    name: 'Co-Bage',
+  },
+  datePublished: '2025-01-01', // À mettre à jour avec la vraie date
+  dateModified: '2025-01-01', // À mettre à jour lors des modifications
+  inLanguage: 'fr-FR',
+};
 
 export default function TermsPage() {
-  const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchMarkdown = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/legal/variant_A/cgu.md');
-        
-        if (!response.ok) {
-          throw new Error('Impossible de charger les conditions générales');
-        }
-        
-        const text = await response.text();
-        setContent(text);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Une erreur est survenue');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMarkdown();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="card max-w-md text-center">
-          <h2 className="text-2xl font-bold text-error mb-4">Erreur</h2>
-          <p className="text-gray-600">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container-custom">
-        <div className="max-w-8xl mx-auto">
-          <div className="card">
-
-            {/* Markdown Content */}
-            <MarkdownRenderer content={content} />
-
-            {/* Footer */}
-            <div className="mt-12 pt-6 border-t border-gray-200">
-              <p className="text-sm text-gray-500 text-center">
-                Pour toute question concernant ces conditions, veuillez nous contacter à{' '}
-                <a href="mailto:legal@example.com" className="text-primary hover:text-primary-dark">
-                  legal@example.com
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(termsPageSchema) }}
+      />
+      <TermsPageClient />
+    </>
   );
 }

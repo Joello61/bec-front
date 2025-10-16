@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import DashboardLayoutClient from './dashboard-layout-client';
+import DashboardLayoutClient from '../../components/clients/dashboard/dashboard-layout-client';
 
 // Metadata pour le dashboard (pages protégées)
 export const metadata: Metadata = {

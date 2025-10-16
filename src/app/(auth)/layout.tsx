@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import AuthLayoutClient from './auth-layout-client';
+import AuthLayoutClient from '../../components/clients/auth/auth-layout-client';
 
 // Metadata pour toutes les pages d'authentification
 export const metadata: Metadata = {
