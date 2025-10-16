@@ -3,34 +3,36 @@ import HomePageClient from '../components/clients/public/home-page-client';
 
 // Metadata ULTRA-optimisées pour la page d'accueil
 export const metadata: Metadata = {
-  title: 'Co-Bage - Transport Collaboratif de Colis Cameroun-Afrique | Covoiturage Bagages',
-  description: 'Co-Bage connecte voyageurs et expéditeurs pour un transport de colis économique entre le Cameroun, l\'Afrique et la diaspora. Envoyez jusqu\'à 60% moins cher ou gagnez de l\'argent en transportant. Inscription gratuite, 100% sécurisé.',
+  title:
+    'Co-Bage - Transport Collaboratif de Colis Cameroun-Afrique | Covoiturage Bagages',
+  description:
+    "Co-Bage connecte voyageurs et expéditeurs pour un transport de colis économique entre le Cameroun, l'Afrique et la diaspora. Envoyez jusqu'à 60% moins cher ou gagnez de l'argent en transportant. Inscription gratuite, 100% sécurisé.",
   keywords: [
     // Keywords primaires
     'covoiturage colis Cameroun',
     'transport colis Afrique',
     'envoi colis diaspora camerounaise',
     'Co-Bage',
-    
+
     // Keywords long-tail
     'envoyer colis Cameroun pas cher',
     'transport collaboratif colis Douala Yaoundé',
     'livraison colis Cameroun France',
     'transporter colis voyage international',
     'gagner argent transport colis',
-    
+
     // Variations locales
     'colis Cameroun vers France',
     'expédition colis Afrique diaspora',
     'marketplace transport colis',
     'plateforme covoiturage bagages',
-    
+
     // Bénéfices
     'envoi colis économique',
     'transport colis sécurisé',
     'livraison colis rapide Cameroun',
   ],
-  
+
   // Configuration de base
   robots: {
     index: true,
@@ -43,7 +45,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
+
   // Open Graph - Facebook, LinkedIn, WhatsApp
   openGraph: {
     type: 'website',
@@ -51,8 +53,10 @@ export const metadata: Metadata = {
     alternateLocale: ['en_US', 'fr_CM'],
     url: '/',
     siteName: 'Co-Bage',
-    title: 'Co-Bage - Transport Collaboratif de Colis Cameroun-Afrique-Diaspora',
-    description: 'Plateforme n°1 pour envoyer ou transporter des colis entre le Cameroun, l\'Afrique et leur diaspora. Économique, rapide et sécurisé. Inscrivez-vous gratuitement !',
+    title:
+      'Co-Bage - Transport Collaboratif de Colis Cameroun-Afrique-Diaspora',
+    description:
+      "Plateforme n°1 pour envoyer ou transporter des colis entre le Cameroun, l'Afrique et leur diaspora. Économique, rapide et sécurisé. Inscrivez-vous gratuitement !",
     images: [
       {
         url: '/images/og-home.jpg', // Image principale 1200x630
@@ -70,17 +74,18 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Twitter Card
   twitter: {
     card: 'summary_large_image',
     site: '@cobage',
     creator: '@cobage',
     title: 'Co-Bage - Transport Collaboratif Cameroun-Afrique',
-    description: 'Envoyez vos colis jusqu\'à 60% moins cher ou gagnez de l\'argent en transportant. Inscription gratuite 🚀',
+    description:
+      "Envoyez vos colis jusqu'à 60% moins cher ou gagnez de l'argent en transportant. Inscription gratuite 🚀",
     images: ['/images/twitter-home.jpg'],
   },
-  
+
   // Canonical URL
   alternates: {
     canonical: '/',
@@ -90,10 +95,10 @@ export const metadata: Metadata = {
       'en-US': '/en',
     },
   },
-  
+
   // Informations supplémentaires
   category: 'Transport & Logistique',
-  
+
   // Classification
   classification: 'Plateforme de transport collaboratif',
 };
@@ -104,14 +109,15 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'Co-Bage',
   alternateName: 'CoBage',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.com',
+  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   logo: {
     '@type': 'ImageObject',
     url: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo/logo-1.png`,
     width: 250,
     height: 60,
   },
-  description: 'Plateforme de transport collaboratif de colis entre le Cameroun, l\'Afrique et leur diaspora',
+  description:
+    "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora",
   foundingDate: '2025',
   founders: [
     {
@@ -129,7 +135,7 @@ const organizationSchema = {
       '@type': 'ContactPoint',
       contactType: 'Support Client',
       telephone: '+33-07-52-89-20-73',
-      email: 'support@cobage.com',
+      email: 'support@cobage.joeltech.dev',
       availableLanguage: ['French', 'English'],
       areaServed: ['CM', 'FR', 'US', 'CA', 'GB', 'AF'],
     },
@@ -162,8 +168,9 @@ const websiteSchema = {
   '@type': 'WebSite',
   name: 'Co-Bage',
   alternateName: 'Co-Bage - Covoiturage de Colis',
-  url: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.com',
-  description: 'Plateforme de transport collaboratif de colis pour la diaspora camerounaise et africaine',
+  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  description:
+    'Plateforme de transport collaboratif de colis pour la diaspora camerounaise et africaine',
   publisher: {
     '@type': 'Organization',
     name: 'Co-Bage',
@@ -185,7 +192,8 @@ const serviceSchema = {
   '@type': 'Service',
   serviceType: 'Transport collaboratif de colis',
   name: 'Co-Bage - Service de Transport Collaboratif',
-  description: 'Service de mise en relation entre voyageurs et expéditeurs pour le transport économique de colis entre le Cameroun, l\'Afrique et la diaspora',
+  description:
+    "Service de mise en relation entre voyageurs et expéditeurs pour le transport économique de colis entre le Cameroun, l'Afrique et la diaspora",
   provider: {
     '@type': 'Organization',
     name: 'Co-Bage',
@@ -218,7 +226,7 @@ const serviceSchema = {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Gagner de l\'argent en transportant',
+          name: "Gagner de l'argent en transportant",
           description: 'Rentabilisez vos voyages en transportant des colis',
         },
       },
@@ -232,7 +240,8 @@ const serviceSchema = {
   },
   audience: {
     '@type': 'Audience',
-    audienceType: 'Diaspora camerounaise et africaine, voyageurs internationaux, expéditeurs de colis',
+    audienceType:
+      'Diaspora camerounaise et africaine, voyageurs internationaux, expéditeurs de colis',
     geographicArea: {
       '@type': 'Place',
       name: 'Cameroun, Afrique, France, Europe, Amérique du Nord',
@@ -272,15 +281,15 @@ const faqSchema = {
       name: 'Comment fonctionne Co-Bage ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Co-Bage met en relation des voyageurs disposant d\'espace dans leurs bagages avec des personnes souhaitant envoyer des colis. Les voyageurs publient leurs trajets, les expéditeurs créent des demandes, et ils se contactent directement pour organiser le transport de manière sécurisée.',
+        text: "Co-Bage met en relation des voyageurs disposant d'espace dans leurs bagages avec des personnes souhaitant envoyer des colis. Les voyageurs publient leurs trajets, les expéditeurs créent des demandes, et ils se contactent directement pour organiser le transport de manière sécurisée.",
       },
     },
     {
       '@type': 'Question',
-      name: 'L\'inscription est-elle gratuite ?',
+      name: "L'inscription est-elle gratuite ?",
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui, l\'inscription et l\'utilisation de la plateforme Co-Bage sont entièrement gratuites. Vous ne payez que pour le transport de votre colis, directement au voyageur selon vos accords.',
+        text: "Oui, l'inscription et l'utilisation de la plateforme Co-Bage sont entièrement gratuites. Vous ne payez que pour le transport de votre colis, directement au voyageur selon vos accords.",
       },
     },
     {
@@ -288,7 +297,7 @@ const faqSchema = {
       name: 'Est-ce sécurisé ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Oui. Co-Bage dispose d\'un système de vérification d\'identité et d\'évaluation des utilisateurs. Nous recommandons de toujours vérifier les profils et de privilégier les utilisateurs ayant de bonnes évaluations.',
+        text: "Oui. Co-Bage dispose d'un système de vérification d'identité et d'évaluation des utilisateurs. Nous recommandons de toujours vérifier les profils et de privilégier les utilisateurs ayant de bonnes évaluations.",
       },
     },
   ],

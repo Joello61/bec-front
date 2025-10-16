@@ -1,11 +1,11 @@
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.com';
-  
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
   // Date actuelle pour lastModified
   const now = new Date();
-  
+
   // URLs statiques principales (haute priorité)
   const staticRoutes: MetadataRoute.Sitemap = [
     {

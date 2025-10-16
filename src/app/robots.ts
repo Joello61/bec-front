@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.com';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
   return {
     rules: [
@@ -20,29 +20,22 @@ export default function robots(): MetadataRoute.Robots {
           '/auth/register',
         ],
         disallow: [
-          '/dashboard/*',        // Toutes les pages dashboard (privées)
-          '/admin/*',            // Toutes les pages admin
-          '/api/*',              // Routes API
+          '/dashboard/*', // Toutes les pages dashboard (privées)
+          '/admin/*', // Toutes les pages admin
+          '/api/*', // Routes API
           '/auth/forgot-password',
           '/auth/reset-password',
           '/auth/verify-email',
           '/auth/oauth-callback',
-          '/_next/*',            // Next.js internal files
-          '/static/*',           // Static files
+          '/_next/*', // Next.js internal files
+          '/static/*', // Static files
         ],
         crawlDelay: 0, // Pas de délai pour les crawlers
       },
       // Configuration spécifique pour Googlebot (optimal)
       {
         userAgent: 'Googlebot',
-        allow: [
-          '/',
-          '/about',
-          '/how-it-works',
-          '/faq',
-          '/contact',
-          '/legal/*',
-        ],
+        allow: ['/', '/about', '/how-it-works', '/faq', '/contact', '/legal/*'],
         disallow: [
           '/dashboard/*',
           '/admin/*',
@@ -57,12 +50,12 @@ export default function robots(): MetadataRoute.Robots {
       // Bloquer complètement les mauvais bots
       {
         userAgent: [
-          'GPTBot',           // OpenAI
-          'ChatGPT-User',     // ChatGPT
-          'Google-Extended',  // Bard
-          'CCBot',            // Common Crawl
-          'anthropic-ai',     // Claude
-          'PerplexityBot',    // Perplexity
+          'GPTBot', // OpenAI
+          'ChatGPT-User', // ChatGPT
+          'Google-Extended', // Bard
+          'CCBot', // Common Crawl
+          'anthropic-ai', // Claude
+          'PerplexityBot', // Perplexity
         ],
         disallow: ['/'],
       },

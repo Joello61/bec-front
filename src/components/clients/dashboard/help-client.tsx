@@ -15,7 +15,7 @@ import {
   CreditCard,
   AlertCircle,
   ExternalLink,
-  Search
+  Search,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Card, Button, Input } from '@/components/ui';
@@ -41,7 +41,12 @@ const categories: Category[] = [
   { id: 'voyage', name: 'Voyages', icon: Package, color: 'text-info' },
   { id: 'demande', name: 'Demandes', icon: FileText, color: 'text-warning' },
   { id: 'securite', name: 'Sécurité', icon: Shield, color: 'text-success' },
-  { id: 'paiement', name: 'Paiement', icon: CreditCard, color: 'text-secondary' },
+  {
+    id: 'paiement',
+    name: 'Paiement',
+    icon: CreditCard,
+    color: 'text-secondary',
+  },
   { id: 'compte', name: 'Compte', icon: Users, color: 'text-error' },
 ];
 
@@ -50,85 +55,99 @@ const faqs: FAQItem[] = [
     id: '1',
     category: 'general',
     question: 'Comment fonctionne CoBage ?',
-    answer: 'CoBage met en relation des voyageurs avec des personnes souhaitant faire transporter des colis. Les voyageurs publient leurs trajets avec l\'espace disponible, et les expéditeurs créent des demandes de transport. Les deux parties se mettent d\'accord sur les modalités (rencontre, rémunération, etc.).'
+    answer:
+      "CoBage met en relation des voyageurs avec des personnes souhaitant faire transporter des colis. Les voyageurs publient leurs trajets avec l'espace disponible, et les expéditeurs créent des demandes de transport. Les deux parties se mettent d'accord sur les modalités (rencontre, rémunération, etc.).",
   },
   {
     id: '2',
     category: 'general',
     question: 'Est-ce que CoBage est gratuit ?',
-    answer: 'Oui, la création de compte et la mise en relation sont entièrement gratuites. Aucun frais n\'est prélevé par la plateforme. Les arrangements financiers se font directement entre le voyageur et l\'expéditeur.'
+    answer:
+      "Oui, la création de compte et la mise en relation sont entièrement gratuites. Aucun frais n'est prélevé par la plateforme. Les arrangements financiers se font directement entre le voyageur et l'expéditeur.",
   },
   {
     id: '3',
     category: 'voyage',
     question: 'Comment publier une annonce de voyage ?',
-    answer: 'Rendez-vous dans "Mes Voyages" puis cliquez sur "Nouveau voyage". Renseignez votre trajet (départ, arrivée, dates), l\'espace disponible, et publiez. Vous recevrez des notifications quand des demandes correspondantes sont disponibles.'
+    answer:
+      'Rendez-vous dans "Mes Voyages" puis cliquez sur "Nouveau voyage". Renseignez votre trajet (départ, arrivée, dates), l\'espace disponible, et publiez. Vous recevrez des notifications quand des demandes correspondantes sont disponibles.',
   },
   {
     id: '4',
     category: 'voyage',
     question: 'Que puis-je transporter ?',
-    answer: 'Vous pouvez transporter tout objet légal, non dangereux et non périssable. Les objets interdits incluent : armes, drogues, produits chimiques, animaux vivants, nourriture périssable. En cas de doute, refusez le transport.'
+    answer:
+      'Vous pouvez transporter tout objet légal, non dangereux et non périssable. Les objets interdits incluent : armes, drogues, produits chimiques, animaux vivants, nourriture périssable. En cas de doute, refusez le transport.',
   },
   {
     id: '5',
     category: 'demande',
     question: 'Comment créer une demande de transport ?',
-    answer: 'Allez dans "Mes Demandes" et cliquez sur "Nouvelle demande". Indiquez ce que vous souhaitez faire transporter, le trajet, le poids estimé et la date limite. Les voyageurs correspondants seront notifiés.'
+    answer:
+      'Allez dans "Mes Demandes" et cliquez sur "Nouvelle demande". Indiquez ce que vous souhaitez faire transporter, le trajet, le poids estimé et la date limite. Les voyageurs correspondants seront notifiés.',
   },
   {
     id: '6',
     category: 'demande',
     question: 'Puis-je annuler une demande ?',
-    answer: 'Oui, vous pouvez annuler une demande tant qu\'aucun voyageur ne l\'a acceptée. Si un accord a été conclu, contactez le voyageur pour discuter de l\'annulation.'
+    answer:
+      "Oui, vous pouvez annuler une demande tant qu'aucun voyageur ne l'a acceptée. Si un accord a été conclu, contactez le voyageur pour discuter de l'annulation.",
   },
   {
     id: '7',
     category: 'securite',
-    question: 'Comment vérifier l\'identité d\'un utilisateur ?',
-    answer: 'Vérifiez le profil de l\'utilisateur : email vérifié, téléphone vérifié, nombre de voyages effectués, et les avis laissés par d\'autres utilisateurs. Privilégiez les utilisateurs avec un profil complet et des avis positifs.'
+    question: "Comment vérifier l'identité d'un utilisateur ?",
+    answer:
+      "Vérifiez le profil de l'utilisateur : email vérifié, téléphone vérifié, nombre de voyages effectués, et les avis laissés par d'autres utilisateurs. Privilégiez les utilisateurs avec un profil complet et des avis positifs.",
   },
   {
     id: '8',
     category: 'securite',
     question: 'Que faire en cas de problème ?',
-    answer: 'Si vous rencontrez un problème (colis endommagé, utilisateur suspect, etc.), utilisez le système de signalement dans le profil de l\'utilisateur concerné. Notre équipe examinera le signalement et prendra les mesures appropriées.'
+    answer:
+      "Si vous rencontrez un problème (colis endommagé, utilisateur suspect, etc.), utilisez le système de signalement dans le profil de l'utilisateur concerné. Notre équipe examinera le signalement et prendra les mesures appropriées.",
   },
   {
     id: '9',
     category: 'securite',
     question: 'Quelles sont les règles de sécurité à respecter ?',
-    answer: 'Ne transportez jamais d\'objets sans les avoir vérifiés. Rencontrez-vous dans des lieux publics. Ne partagez pas d\'informations personnelles sensibles. Utilisez la messagerie de la plateforme pour communiquer. Signalez tout comportement suspect.'
+    answer:
+      "Ne transportez jamais d'objets sans les avoir vérifiés. Rencontrez-vous dans des lieux publics. Ne partagez pas d'informations personnelles sensibles. Utilisez la messagerie de la plateforme pour communiquer. Signalez tout comportement suspect.",
   },
   {
     id: '10',
     category: 'paiement',
     question: 'Comment se passe le paiement ?',
-    answer: 'CoBage ne gère pas les paiements. Les arrangements financiers se font directement entre le voyageur et l\'expéditeur. Nous recommandons de convenir du montant et du mode de paiement avant la remise du colis.'
+    answer:
+      "CoBage ne gère pas les paiements. Les arrangements financiers se font directement entre le voyageur et l'expéditeur. Nous recommandons de convenir du montant et du mode de paiement avant la remise du colis.",
   },
   {
     id: '11',
     category: 'paiement',
     question: 'Combien dois-je payer pour un transport ?',
-    answer: 'Le prix est libre et se négocie entre le voyageur et l\'expéditeur. Il dépend généralement de la distance, du poids et de l\'urgence. Soyez raisonnable et transparent dans vos tarifs.'
+    answer:
+      "Le prix est libre et se négocie entre le voyageur et l'expéditeur. Il dépend généralement de la distance, du poids et de l'urgence. Soyez raisonnable et transparent dans vos tarifs.",
   },
   {
     id: '12',
     category: 'compte',
     question: 'Comment vérifier mon email et mon téléphone ?',
-    answer: 'Après inscription, vous recevrez un code à 6 chiffres par email. Entrez-le dans la section de vérification. Pour le téléphone, un SMS avec un code vous sera envoyé. Les comptes vérifiés inspirent plus confiance.'
+    answer:
+      'Après inscription, vous recevrez un code à 6 chiffres par email. Entrez-le dans la section de vérification. Pour le téléphone, un SMS avec un code vous sera envoyé. Les comptes vérifiés inspirent plus confiance.',
   },
   {
     id: '13',
     category: 'compte',
     question: 'Puis-je modifier mon profil ?',
-    answer: 'Oui, rendez-vous dans "Mon Profil" pour modifier vos informations (nom, photo, bio, téléphone). Votre email ne peut être modifié pour des raisons de sécurité.'
+    answer:
+      'Oui, rendez-vous dans "Mon Profil" pour modifier vos informations (nom, photo, bio, téléphone). Votre email ne peut être modifié pour des raisons de sécurité.',
   },
   {
     id: '14',
     category: 'compte',
     question: 'Comment supprimer mon compte ?',
-    answer: 'La suppression de compte n\'est pas encore disponible depuis l\'interface. Contactez-nous à contact@cobage.com avec votre demande et nous procéderons à la suppression dans les 48h.'
+    answer:
+      "La suppression de compte n'est pas encore disponible depuis l'interface. Contactez-nous à contact@cobage.joeltech.dev avec votre demande et nous procéderons à la suppression dans les 48h.",
   },
 ];
 
@@ -137,13 +156,15 @@ export default function HelpPageClient() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [expandedFAQ, setExpandedFAQ] = useState<string | null>(null);
 
-  const filteredFAQs = faqs.filter(faq => {
-    const matchesSearch = searchQuery === '' || 
+  const filteredFAQs = faqs.filter((faq) => {
+    const matchesSearch =
+      searchQuery === '' ||
       faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
       faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesCategory = !selectedCategory || faq.category === selectedCategory;
-    
+
+    const matchesCategory =
+      !selectedCategory || faq.category === selectedCategory;
+
     return matchesSearch && matchesCategory;
   });
 
@@ -165,9 +186,7 @@ export default function HelpPageClient() {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Centre d&apos;aide
         </h1>
-        <p className="text-gray-600">
-          Trouvez des réponses à vos questions
-        </p>
+        <p className="text-gray-600">Trouvez des réponses à vos questions</p>
       </motion.div>
 
       {/* Recherche */}
@@ -196,11 +215,13 @@ export default function HelpPageClient() {
           {categories.map((category) => {
             const Icon = category.icon;
             const isSelected = selectedCategory === category.id;
-            
+
             return (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(isSelected ? null : category.id)}
+                onClick={() =>
+                  setSelectedCategory(isSelected ? null : category.id)
+                }
                 className={`p-4 rounded-lg border-2 transition-all ${
                   isSelected
                     ? 'border-primary bg-primary/5'
@@ -225,10 +246,13 @@ export default function HelpPageClient() {
         className="space-y-3"
       >
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          {selectedCategory 
-            ? `${categories.find(c => c.id === selectedCategory)?.name}` 
+          {selectedCategory
+            ? `${categories.find((c) => c.id === selectedCategory)?.name}`
             : 'Questions fréquentes'}
-          {searchQuery && ` (${filteredFAQs.length} résultat${filteredFAQs.length > 1 ? 's' : ''})`}
+          {searchQuery &&
+            ` (${filteredFAQs.length} résultat${
+              filteredFAQs.length > 1 ? 's' : ''
+            })`}
         </h2>
 
         {filteredFAQs.length === 0 ? (
@@ -293,13 +317,19 @@ export default function HelpPageClient() {
                 Notre équipe est là pour vous aider. Contactez-nous par email.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="mailto:contact@cobage.com">
-                  <Button variant="primary" leftIcon={<Mail className="w-4 h-4" />}>
+                <a href="mailto:contact@cobage.joeltech.dev">
+                  <Button
+                    variant="primary"
+                    leftIcon={<Mail className="w-4 h-4" />}
+                  >
                     Nous contacter
                   </Button>
                 </a>
                 <Link href={ROUTES.CONTACT}>
-                  <Button variant="outline" rightIcon={<ExternalLink className="w-4 h-4" />}>
+                  <Button
+                    variant="outline"
+                    rightIcon={<ExternalLink className="w-4 h-4" />}
+                  >
                     Page contact
                   </Button>
                 </Link>
@@ -322,8 +352,12 @@ export default function HelpPageClient() {
               <div className="flex items-center gap-3">
                 <FileText className="w-5 h-5 text-gray-400" />
                 <div>
-                  <p className="font-medium text-gray-900">Conditions d&apos;utilisation</p>
-                  <p className="text-sm text-gray-500">Nos règles et conditions</p>
+                  <p className="font-medium text-gray-900">
+                    Conditions d&apos;utilisation
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Nos règles et conditions
+                  </p>
                 </div>
               </div>
             </Card>
@@ -334,8 +368,12 @@ export default function HelpPageClient() {
               <div className="flex items-center gap-3">
                 <Shield className="w-5 h-5 text-gray-400" />
                 <div>
-                  <p className="font-medium text-gray-900">Politique de confidentialité</p>
-                  <p className="text-sm text-gray-500">Comment nous protégeons vos données</p>
+                  <p className="font-medium text-gray-900">
+                    Politique de confidentialité
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Comment nous protégeons vos données
+                  </p>
                 </div>
               </div>
             </Card>
@@ -346,7 +384,9 @@ export default function HelpPageClient() {
               <div className="flex items-center gap-3">
                 <AlertCircle className="w-5 h-5 text-gray-400" />
                 <div>
-                  <p className="font-medium text-gray-900">Confiance et sécurité</p>
+                  <p className="font-medium text-gray-900">
+                    Confiance et sécurité
+                  </p>
                   <p className="text-sm text-gray-500">Conseils de sécurité</p>
                 </div>
               </div>
