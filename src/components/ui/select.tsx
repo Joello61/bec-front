@@ -17,6 +17,7 @@ export interface SelectProps {
   value?: string;
   onChange?: (value: string) => void;
   onBlur?: () => void;
+  onSearch?: (query: string) => void;
   name?: string;
   id?: string;
   required?: boolean;
@@ -37,6 +38,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       value,
       onChange,
       onBlur,
+      onSearch,
       name,
       id,
       required,
@@ -52,6 +54,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const [searchQuery, setSearchQuery] = useState('');
     const containerRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
     useEffect(() => {
@@ -94,6 +97,42 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       onBlur?.();
     };
 
+    // ✅ Gestion de la recherche avec debounce
+    const handleSearchChange = (query: string) => {
+      setSearchQuery(query);
+
+      // Si onSearch est fourni, l'appeler UNIQUEMENT si le filtrage local ne donne AUCUN résultat
+      if (onSearch && query.length >= 2) {
+        // Annuler le timeout précédent
+        if (searchTimeoutRef.current) {
+          clearTimeout(searchTimeoutRef.current);
+        }
+
+        // Créer un nouveau timeout (debounce de 300ms)
+        searchTimeoutRef.current = setTimeout(() => {
+          // Calculer le nombre de résultats locaux
+          const localResults = options.filter((option) =>
+            option.label.toLowerCase().includes(query.toLowerCase())
+          );
+
+          // ✅ N'appeler l'API QUE si aucun résultat local trouvé
+          if (localResults.length === 0) {
+            onSearch(query);
+          }
+        }, 300);
+      }
+    };
+
+    // ✅ Nettoyage du timeout
+    useEffect(() => {
+      return () => {
+        if (searchTimeoutRef.current) {
+          clearTimeout(searchTimeoutRef.current);
+        }
+      };
+    }, []);
+
+    // ✅ TOUJOURS filtrer localement d'abord (pour résultats instantanés)
     const filteredOptions = searchable && searchQuery
       ? options.filter((option) =>
           option.label.toLowerCase().includes(searchQuery.toLowerCase())
@@ -169,7 +208,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
                       ref={searchInputRef}
                       type="text"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => handleSearchChange(e.target.value)}
                       placeholder="Rechercher..."
                       className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
                     />
@@ -181,7 +220,11 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
               <div className="max-h-60 overflow-auto">
                 {filteredOptions.length === 0 ? (
                   <div className="px-4 py-8 text-center text-sm text-gray-500">
-                    Aucun résultat trouvé
+                    {searchQuery.length > 0 && searchQuery.length < 2 ? (
+                      'Tapez au moins 2 caractères'
+                    ) : (
+                      'Aucun résultat trouvé'
+                    )}
                   </div>
                 ) : (
                   filteredOptions.map((option) => {

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { Button, Input, Select } from '@/components/ui';
 import { completeProfileSchema, type CompleteProfileFormData } from '@/lib/validations';
 import { useAuth } from '@/lib/hooks';
-import { useCountries, useCities } from '@/lib/hooks/useGeo';
+import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { SelectOption } from '@/components/ui/select';
 
 export default function CompleteProfileForm({
@@ -22,11 +22,13 @@ export default function CompleteProfileForm({
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const lastContinentRef = useRef<string>('');
 
-  // ✅ Données géographiques (Zustand)
+  // ✅ Données géographiques
   const { countries, isLoading: isLoadingCountries } = useCountries();
   const { cities, isLoading: isLoadingCities } = useCities(selectedCountry);
+  
+  // ✅ Recherche de villes (autocomplete)
+  const { searchResults, isSearching, search } = useCitySearch(selectedCountry);
 
-  // ✅ RHF setup
   const {
     register,
     handleSubmit,
@@ -52,10 +54,10 @@ export default function CompleteProfileForm({
   const watchPays = watch('pays');
   const watchVille = watch('ville');
 
-  // ✅ Déterminer automatiquement le continent et le type d’adresse
   const selectedCountryData = countries.find((c) => c.label === watchPays);
   const continent = selectedCountryData?.continent || '';
 
+  // ✅ Mise à jour du type d'adresse selon continent
   useEffect(() => {
     if (!continent || continent === lastContinentRef.current) return;
 
@@ -74,14 +76,13 @@ export default function CompleteProfileForm({
     }
   }, [continent, addressType, setValue]);
 
-  // ✅ Charger les villes du pays sélectionné
   useEffect(() => {
     if (watchPays) {
       setSelectedCountry(watchPays);
     }
   }, [watchPays]);
 
-  // ✅ Conversion des pays et villes en SelectOption[]
+  // ✅ Options pays
   const countryOptions = useMemo<SelectOption[]>(() => {
     return countries.map((c) => ({
       value: c.label,
@@ -89,14 +90,33 @@ export default function CompleteProfileForm({
     }));
   }, [countries]);
 
+  // ✅ Options villes : TOP 100 + Résultats de recherche combinés
   const cityOptions = useMemo<SelectOption[]>(() => {
+    // Si on a des résultats de recherche, les afficher en priorité
+    if (searchResults.length > 0) {
+      return searchResults.map((city) => ({
+        value: city.label,
+        label: city.label,
+      }));
+    }
+    
+    // Sinon, afficher le top 100
     return cities.map((city) => ({
       value: city.label,
       label: city.label,
     }));
-  }, [cities]);
+  }, [cities, searchResults]);
 
-  // ✅ Nettoyage des données avant envoi
+  // ✅ Handler de recherche avec debounce
+  const handleCitySearch = useCallback(
+    (query: string) => {
+      if (query.length >= 2) {
+        search(query);
+      }
+    },
+    [search]
+  );
+
   const cleanFormData = useCallback(
     (data: CompleteProfileFormData): CompleteProfileFormData => ({
       ...data,
@@ -124,7 +144,6 @@ export default function CompleteProfileForm({
     }
   };
 
-  // 🧱 UI
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
       {/* Téléphone */}
@@ -162,6 +181,7 @@ export default function CompleteProfileForm({
             onChange={(value) => {
               field.onChange(value);
               setSelectedCountry(value);
+              setValue('ville', ''); // Reset ville quand on change de pays
             }}
             onBlur={field.onBlur}
             searchable
@@ -169,7 +189,7 @@ export default function CompleteProfileForm({
         )}
       />
 
-      {/* Ville */}
+      {/* Ville avec recherche */}
       {watchPays && (
         <Controller
           name="ville"
@@ -180,14 +200,23 @@ export default function CompleteProfileForm({
               error={errors.ville?.message}
               leftIcon={<Building2 className="w-5 h-5" />}
               options={cityOptions}
-              placeholder={isLoadingCities ? 'Chargement des villes...' : 'Sélectionnez une ville'}
+              placeholder={
+                isLoadingCities || isSearching
+                  ? 'Chargement...'
+                  : 'Tapez pour rechercher votre ville'
+              }
               required
               disabled={isLoadingCities || !watchPays}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
               searchable
-              helperText="Utilisez la recherche pour trouver votre ville"
+              onSearch={handleCitySearch} // ✅ Recherche dynamique
+              helperText={
+                searchResults.length > 0
+                  ? `${searchResults.length} résultat(s) trouvé(s)`
+                  : 'Tapez au moins 2 caractères pour rechercher'
+              }
             />
           )}
         />
@@ -247,7 +276,7 @@ export default function CompleteProfileForm({
         </motion.div>
       )}
 
-      {/* Info sur le type d'adresse */}
+      {/* Info type d'adresse */}
       {watchPays && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <p className="text-sm text-blue-800">

@@ -7,9 +7,9 @@ import { MapPin, Home, Building2, Mail as MailIcon, AlertCircle } from 'lucide-r
 import { motion } from 'framer-motion';
 import { Button, Input, Select } from '@/components/ui';
 import { updateAddressSchema, type UpdateAddressFormData } from '@/lib/validations/address.schema';
-import { useCountries, useCities } from '@/lib/hooks/useGeo';
+import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { Address } from '@/types/address';
-import type { SelectOption } from '@/components/ui/select'; // si tu as un type SelectOption
+import type { SelectOption } from '@/components/ui/select';
 
 interface AddressFormProps {
   address: Address;
@@ -32,17 +32,18 @@ export default function AddressForm({
   const [addressType, setAddressType] = useState<'african' | 'postal'>('african');
   const [selectedCountry, setSelectedCountry] = useState<string>(address.pays);
 
-  // ✅ Données géographiques (depuis ton store Zustand)
+  // ✅ Données géographiques
   const { countries, isLoading: isLoadingCountries } = useCountries();
   const { cities, isLoading: isLoadingCities } = useCities(selectedCountry);
+  
+  // ✅ Recherche de villes
+  const { searchResults, isSearching, search } = useCitySearch(selectedCountry);
 
-  // ✅ Refs de sécurité anti-boucle
   const isChangingCountryRef = useRef(false);
   const lastCountryRef = useRef<string>(address.pays);
   const lastContinentRef = useRef<string>('');
   const isInitializedRef = useRef(false);
 
-  // ✅ RHF
   const {
     register,
     handleSubmit,
@@ -65,7 +66,6 @@ export default function AddressForm({
   const watchPays = watch('pays');
   const watchVille = watch('ville');
 
-  // ✅ Trouver le continent du pays sélectionné
   const selectedCountryData = countries.find(c => c.label === watchPays);
   const continent = selectedCountryData?.continent || '';
 
@@ -74,7 +74,6 @@ export default function AddressForm({
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
 
-    // Déterminer le type d'adresse initial
     if (address.quartier) {
       setAddressType('african');
     } else if (address.adresseLigne1) {
@@ -85,7 +84,7 @@ export default function AddressForm({
     if (continent) lastContinentRef.current = continent;
   }, [address, continent]);
 
-  // ✅ Changement de pays (évite les re-renders)
+  // ✅ Changement de pays
   const handleCountryChange = useCallback((newCountry: string) => {
     if (isChangingCountryRef.current) return;
     if (newCountry === lastCountryRef.current) return;
@@ -94,7 +93,6 @@ export default function AddressForm({
     lastCountryRef.current = newCountry;
     setSelectedCountry(newCountry);
     
-    // Reset ville si on change vraiment de pays
     if (newCountry !== address.pays) {
       setTimeout(() => {
         setValue('ville', '', { shouldValidate: false, shouldDirty: false, shouldTouch: false });
@@ -105,7 +103,7 @@ export default function AddressForm({
     }
   }, [address.pays, setValue]);
 
-  // ✅ Mise à jour du type d'adresse selon continent
+  // ✅ Mise à jour type d'adresse
   useEffect(() => {
     if (!continent) return;
     if (continent === lastContinentRef.current) return;
@@ -115,7 +113,6 @@ export default function AddressForm({
     if (newType !== addressType) setAddressType(newType);
   }, [continent, addressType]);
 
-  // ✅ Nettoyage avant soumission
   const cleanFormData = useCallback(
     (data: UpdateAddressFormData): UpdateAddressFormData => ({
       ...data,
@@ -143,7 +140,7 @@ export default function AddressForm({
     }
   };
 
-  // ✅ Conversion des pays & villes en SelectOption[]
+  // ✅ Options
   const countryOptions = useMemo<SelectOption[]>(() => {
     return countries.map(c => ({
       value: c.label,
@@ -151,14 +148,31 @@ export default function AddressForm({
     }));
   }, [countries]);
 
+  // ✅ Options villes : TOP 100 + Résultats de recherche
   const cityOptions = useMemo<SelectOption[]>(() => {
-    return cities.map(city => ({
+    if (searchResults.length > 0) {
+      return searchResults.map((city) => ({
+        value: city.label,
+        label: city.label,
+      }));
+    }
+    
+    return cities.map((city) => ({
       value: city.label,
       label: city.label,
     }));
-  }, [cities]);
+  }, [cities, searchResults]);
 
-  // 🧱 Si modification non autorisée
+  // ✅ Recherche
+  const handleCitySearch = useCallback(
+    (query: string) => {
+      if (query.length >= 2) {
+        search(query);
+      }
+    },
+    [search]
+  );
+
   if (!canModify) {
     return (
       <div className="space-y-4">
@@ -181,12 +195,7 @@ export default function AddressForm({
         </div>
 
         {onCancel && (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onCancel}
-            className="w-full"
-          >
+          <Button type="button" variant="outline" onClick={onCancel} className="w-full">
             Retour
           </Button>
         )}
@@ -196,7 +205,7 @@ export default function AddressForm({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-      {/* Info contrainte */}
+      {/* Info */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="flex gap-3">
           <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -234,7 +243,7 @@ export default function AddressForm({
         )}
       />
 
-      {/* Ville */}
+      {/* Ville avec recherche */}
       {watchPays && (
         <Controller
           name="ville"
@@ -245,14 +254,23 @@ export default function AddressForm({
               error={errors.ville?.message}
               leftIcon={<Building2 className="w-5 h-5" />}
               options={cityOptions}
-              placeholder={isLoadingCities ? 'Chargement des villes...' : 'Sélectionnez une ville'}
+              placeholder={
+                isLoadingCities || isSearching
+                  ? 'Chargement...'
+                  : 'Tapez pour rechercher votre ville'
+              }
               required
               disabled={isLoadingCities || !watchPays}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
               searchable
-              helperText="Utilisez la recherche pour trouver votre ville"
+              onSearch={handleCitySearch} // ✅ Recherche dynamique
+              helperText={
+                searchResults.length > 0
+                  ? `${searchResults.length} résultat(s) trouvé(s)`
+                  : 'Tapez au moins 2 caractères pour rechercher'
+              }
             />
           )}
         />
@@ -260,11 +278,7 @@ export default function AddressForm({
 
       {/* Format africain */}
       {addressType === 'african' && watchVille && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
           <Input
             label="Quartier"
             type="text"
@@ -336,23 +350,11 @@ export default function AddressForm({
       {/* Actions */}
       <div className="flex gap-3 pt-4 border-t border-gray-200">
         {onCancel && (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onCancel}
-            disabled={isSubmitting}
-            className="flex-1"
-          >
+          <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting} className="flex-1">
             Annuler
           </Button>
         )}
-        <Button
-          type="submit"
-          variant="primary"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-          className="flex-1"
-        >
+        <Button type="submit" variant="primary" isLoading={isSubmitting} disabled={isSubmitting} className="flex-1">
           {isSubmitting ? 'Enregistrement...' : "Enregistrer l'adresse"}
         </Button>
       </div>
