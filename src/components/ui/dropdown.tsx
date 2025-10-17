@@ -1,7 +1,21 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { cn } from '@/lib/utils/cn';
+
+interface DropdownContextType {
+  closeDropdown: () => void;
+}
+
+const DropdownContext = createContext<DropdownContextType | null>(null);
+
+const useDropdown = () => {
+  const context = useContext(DropdownContext);
+  if (!context) {
+    throw new Error('useDropdown must be used within a Dropdown');
+  }
+  return context;
+};
 
 export interface DropdownProps {
   trigger: React.ReactNode;
@@ -17,13 +31,25 @@ export default function Dropdown({
   className
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Fermer au clic extérieur
+  const closeDropdown = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsAnimating(false);
+    }, 150); 
+  };
+
+  const openDropdown = () => {
+    setIsOpen(true);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        closeDropdown();
       }
     };
 
@@ -36,11 +62,10 @@ export default function Dropdown({
     };
   }, [isOpen]);
 
-  // Fermer avec Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        closeDropdown();
       }
     };
 
@@ -55,22 +80,31 @@ export default function Dropdown({
   };
 
   return (
-    <div ref={dropdownRef} className={cn('relative', className)}>
-      <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
-        {trigger}
-      </div>
-
-      {isOpen && (
-        <div
-          className={cn(
-            'absolute top-full mt-2 z-50 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-200 py-1 animate-slide-up',
-            alignments[align]
-          )}
+    <DropdownContext.Provider value={{ closeDropdown }}>
+      <div ref={dropdownRef} className={cn('relative', className)}>
+        <div 
+          onClick={() => isOpen ? closeDropdown() : openDropdown()} 
+          className="cursor-pointer"
         >
-          {children}
+          {trigger}
         </div>
-      )}
-    </div>
+
+        {isOpen && (
+          <div
+            className={cn(
+              'absolute top-full mt-2 z-50 min-w-[200px] bg-white rounded-lg shadow-lg border border-gray-200 py-1',
+              'transition-all duration-150 ease-out',
+              alignments[align],
+              isAnimating 
+                ? 'opacity-0 scale-95 translate-y-[-8px]' 
+                : 'opacity-100 scale-100 translate-y-0'
+            )}
+          >
+            {children}
+          </div>
+        )}
+      </div>
+    </DropdownContext.Provider>
   );
 }
 
@@ -81,6 +115,7 @@ export interface DropdownItemProps {
   danger?: boolean;
   disabled?: boolean;
   className?: string;
+  closeOnClick?: boolean;
 }
 
 export function DropdownItem({
@@ -89,20 +124,40 @@ export function DropdownItem({
   icon,
   danger = false,
   disabled = false,
-  className
+  className,
+  closeOnClick = true
 }: DropdownItemProps) {
+  const { closeDropdown } = useDropdown();
+
+  const handleClick = () => {
+    if (!disabled) {
+      onClick?.();
+      if (closeOnClick) {
+        closeDropdown();
+      }
+    }
+  };
+
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
       className={cn(
-        'w-full px-4 py-2 text-left flex items-center gap-3 transition-colors',
+        'w-full px-4 py-2 text-left flex items-center gap-3 transition-colors duration-150',
         'hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed',
-        danger ? 'text-error hover:bg-error/10' : 'text-gray-700',
+        'focus:outline-none focus:bg-gray-100',
+        danger ? 'text-error hover:bg-error/10 focus:bg-error/10' : 'text-gray-700',
         className
       )}
     >
-      {icon && <span className="text-gray-400">{icon}</span>}
+      {icon && (
+        <span className={cn(
+          'transition-colors duration-150',
+          danger ? 'text-error' : 'text-gray-400'
+        )}>
+          {icon}
+        </span>
+      )}
       <span>{children}</span>
     </button>
   );

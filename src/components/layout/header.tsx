@@ -19,6 +19,7 @@ import {
   Menu,
   X,
   Flag,
+  LayoutDashboard,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
@@ -292,10 +293,20 @@ export default function Header() {
               </div>
               
               <DropdownItem
-                onClick={() => router.push(ROUTES.PROFILE)}
+                onClick={() => {
+                  router.push(ROUTES.PROFILE)
+                  
+                }}
                 icon={<User className="w-4 h-4" />}
               >
                 Mon profil
+              </DropdownItem>
+
+              <DropdownItem
+                onClick={() => router.push(ROUTES.DASHBOARD)}
+                icon={<LayoutDashboard className="w-4 h-4" />}
+              >
+                Dashboard
               </DropdownItem>
               
               <DropdownItem
