@@ -1,20 +1,22 @@
-const CACHE_NAME = 'bec-v1';
-const STATIC_CACHE = 'bec-static-v1';
-const DYNAMIC_CACHE = 'bec-dynamic-v1';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const CACHE_NAME = 'cobage-v1'; // ← CORRIGER
+const STATIC_CACHE = 'cobage-static-v1';
+const DYNAMIC_CACHE = 'cobage-dynamic-v1';
 
 const STATIC_ASSETS = [
   '/',
-  '/voyages',
-  '/demandes',
-  '/messages',
-  '/notifications',
-  '/profile',
-  '/offline.html'
+  '/about',
+  '/how-it-works',
+  '/faq',
+  '/contact',
+  '/offline.html',
+  '/images/logo/logo-1.png', // ← CORRIGER nom
+  '/favicon.svg',
 ];
 
 // Installation du Service Worker
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installation...');
+  console.log('[SW] Installation Co-Bage...');
   
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
@@ -28,7 +30,7 @@ self.addEventListener('install', (event) => {
 
 // Activation du Service Worker
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activation...');
+  console.log('[SW] Activation Co-Bage...');
   
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -117,7 +119,7 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Gestion des messages depuis le client
+// Gestion des messages
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
@@ -134,22 +136,20 @@ self.addEventListener('message', (event) => {
   }
 });
 
-// Gestion de la synchronisation en arrière-plan
+// Background Sync
 self.addEventListener('sync', (event) => {
   console.log('[SW] Background Sync:', event.tag);
   
-  if (event.tag === 'sync-messages') {
+  if (event.data.tag === 'sync-messages') {
     event.waitUntil(syncMessages());
   }
 });
 
-// Fonction de synchronisation des messages
 async function syncMessages() {
   try {
-    // Récupérer les messages en attente depuis IndexedDB
-    // et les envoyer à l'API
     console.log('[SW] Synchronisation des messages...');
+    // Logique de sync
   } catch (error) {
-    console.error('[SW] Erreur sync messages:', error);
+    console.error('[SW] Erreur sync:', error);
   }
 }

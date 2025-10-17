@@ -13,31 +13,28 @@ const inter = Inter({
   preload: true,
 });
 
-// Configuration du viewport (séparée depuis Next.js 14+)
+// Configuration du viewport
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f172a' },
+    { media: '(prefers-color-scheme: light)', color: '#00695c' }, // ← CORRIGER (primary color)
+    { media: '(prefers-color-scheme: dark)', color: '#004d40' },
   ],
 };
 
 // Métadonnées globales de l'application
 export const metadata: Metadata = {
-  // Informations de base
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
   ),
   title: {
-    default:
-      'Co-Bage - Covoiturage de colis vers le Cameroun, l’Afrique et la diaspora',
-    template: '%s | CoBage',
+    default: 'Co-Bage - Covoiturage de colis vers le Cameroun, l\'Afrique et la diaspora',
+    template: '%s | Co-Bage', // ← CORRIGER (pas "CoBage")
   },
-  description:
-    "Co-Bage connecte voyageurs et expéditeurs pour un transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora. Envoyez vos colis moins cher, transportez et gagnez un revenu complémentaire.",
+  description: 'Co-Bage connecte voyageurs et expéditeurs pour un transport collaboratif de colis entre le Cameroun, l\'Afrique et leur diaspora. Envoyez vos colis moins cher, transportez et gagnez un revenu complémentaire.',
   keywords: [
     'covoiturage colis Cameroun',
     'transport colis Afrique',
@@ -59,7 +56,6 @@ export const metadata: Metadata = {
   creator: 'Co-Bage',
   publisher: 'Co-Bage',
 
-  // Robots et indexation
   robots: {
     index: true,
     follow: true,
@@ -72,7 +68,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // Open Graph (Facebook, LinkedIn, etc.)
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
@@ -80,8 +75,7 @@ export const metadata: Metadata = {
     url: '/',
     siteName: 'Co-Bage',
     title: 'Co-Bage - Transport Collaboratif de Colis Cameroun-Afrique',
-    description:
-      "Plateforme collaborative pour envoyer et transporter des colis entre le Cameroun, l'Afrique et leur diaspora. Économique, sécurisé et humain.",
+    description: 'Plateforme collaborative pour envoyer et transporter des colis entre le Cameroun, l\'Afrique et leur diaspora. Économique, sécurisé et humain.',
     images: [
       {
         url: '/images/og-image.jpg',
@@ -93,18 +87,15 @@ export const metadata: Metadata = {
     ],
   },
 
-  // Twitter/X
   twitter: {
     card: 'summary_large_image',
-    site: '@co-bage',
-    creator: '@co-bage',
+    site: '@cobage', // ← CORRIGER (pas de tiret)
+    creator: '@cobage',
     title: 'Co-Bage - Transport Collaboratif Cameroun-Afrique',
-    description:
-      "Connectez voyageurs et expéditeurs pour un transport de colis économique entre le Cameroun, l'Afrique et leur diaspora.",
+    description: 'Connectez voyageurs et expéditeurs pour un transport de colis économique entre le Cameroun, l\'Afrique et leur diaspora.',
     images: ['/images/twitter-image.jpg'],
   },
 
-  // Configuration PWA
   applicationName: 'Co-Bage',
   appleWebApp: {
     capable: true,
@@ -117,7 +108,6 @@ export const metadata: Metadata = {
     address: false,
   },
 
-  // Manifest et icônes
   manifest: '/site.webmanifest',
   icons: {
     icon: [
@@ -128,12 +118,10 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
 
-  // Vérification des outils webmaster
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 
-  // Métadonnées alternatives
   alternates: {
     canonical: '/',
     languages: {
@@ -143,7 +131,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // Autres métadonnées
   category: 'Transport collaboratif de colis',
 };
 
@@ -163,10 +150,9 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Co-Bage',
-              url: process.env.NEXT_PUBLIC_APP_URL || 'http://locahost:3000',
-              logo: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo/logo.png`,
-              description:
-                "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora",
+              url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000', // ← CORRIGER typo
+              logo: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo/logo-1.png`, // ← CORRIGER nom fichier
+              description: 'Plateforme de transport collaboratif de colis entre le Cameroun, l\'Afrique et leur diaspora',
               areaServed: [
                 {
                   '@type': 'Country',
@@ -178,15 +164,16 @@ export default function RootLayout({
                 },
               ],
               sameAs: [
-                'https://twitter.com/co-bage',
-                'https://www.facebook.com/co-bage',
-                'https://www.linkedin.com/company/co-bage',
-                'https://www.instagram.com/co-bage',
+                'https://twitter.com/cobage', // ← CORRIGER (pas de tiret)
+                'https://www.facebook.com/cobage',
+                'https://www.linkedin.com/company/cobage',
+                'https://www.instagram.com/cobage',
               ],
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'Support Client',
-                email: 'support@cobage.joeltech.dev',
+                email: 'support@cobage.com', // ← CORRIGER email
+                telephone: '+33752892073', // ← AJOUTER
                 availableLanguage: ['French', 'English'],
                 areaServed: ['CM', 'FR', 'US', 'CA', 'GB'],
               },
@@ -194,7 +181,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* Structured Data - WebSite Schema avec SearchAction */}
+        {/* Structured Data - WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -204,8 +191,7 @@ export default function RootLayout({
               name: 'Co-Bage',
               alternateName: 'Co-Bage - Covoiturage de Colis Cameroun',
               url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-              description:
-                'Plateforme de transport collaboratif de colis pour la diaspora africaine et camerounaise',
+              description: 'Plateforme de transport collaboratif de colis pour la diaspora africaine et camerounaise',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
@@ -242,41 +228,39 @@ export default function RootLayout({
               ],
               audience: {
                 '@type': 'Audience',
-                audienceType:
-                  'Diaspora camerounaise et africaine, voyageurs internationaux, expéditeurs de colis',
+                audienceType: 'Diaspora camerounaise et africaine, voyageurs internationaux, expéditeurs de colis',
               },
               offers: {
                 '@type': 'Offer',
                 description: 'Transport économique de colis entre particuliers',
-                priceCurrency: 'XAF',
+                priceCurrency: 'EUR', // ← CORRIGER (pas XAF pour international)
               },
             }),
           }}
         />
 
-        {/* Structured Data - LocalBusiness (si pertinent) */}
+        {/* Structured Data - LocalBusiness */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              name: 'CoBage',
-              description:
-                "Service de covoiturage de colis entre le Cameroun, l'Afrique et leur diaspora",
+              name: 'Co-Bage', // ← CORRIGER (pas "CoBage")
+              description: 'Service de covoiturage de colis entre le Cameroun, l\'Afrique et leur diaspora',
               url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-              telephone: '+33-07-52-89-20-73',
+              telephone: '+33752892073',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'FR',
-                addressLocality: 'France',
+                addressLocality: 'Toulouse', // ← AJOUTER ville
               },
               geo: {
                 '@type': 'GeoCoordinates',
                 latitude: '43.5812863',
                 longitude: '1.4074899',
               },
-              servesCuisine: 'Transport collaboratif de colis',
+              servesCuisine: 'Transport & Logistique', // ← CORRIGER
             }),
           }}
         />
