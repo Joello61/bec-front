@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MapPin, Home, Building2, Mail as MailIcon, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button, Input, Select } from '@/components/ui';
 import { updateAddressSchema, type UpdateAddressFormData } from '@/lib/validations/address.schema';
-import { PAYS, TOUTES_VILLES, QUARTIERS_PAR_VILLE } from '@/lib/utils/constants';
+import { useCountries, useCities } from '@/lib/hooks/useGeo';
 import type { Address } from '@/types/address';
+import type { SelectOption } from '@/components/ui/select'; // si tu as un type SelectOption
 
 interface AddressFormProps {
   address: Address;
@@ -29,7 +30,19 @@ export default function AddressForm({
 }: AddressFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addressType, setAddressType] = useState<'african' | 'postal'>('african');
+  const [selectedCountry, setSelectedCountry] = useState<string>(address.pays);
 
+  // ✅ Données géographiques (depuis ton store Zustand)
+  const { countries, isLoading: isLoadingCountries } = useCountries();
+  const { cities, isLoading: isLoadingCities } = useCities(selectedCountry);
+
+  // ✅ Refs de sécurité anti-boucle
+  const isChangingCountryRef = useRef(false);
+  const lastCountryRef = useRef<string>(address.pays);
+  const lastContinentRef = useRef<string>('');
+  const isInitializedRef = useRef(false);
+
+  // ✅ RHF
   const {
     register,
     handleSubmit,
@@ -52,56 +65,76 @@ export default function AddressForm({
   const watchPays = watch('pays');
   const watchVille = watch('ville');
 
-  // Déterminer le type d'adresse initial
+  // ✅ Trouver le continent du pays sélectionné
+  const selectedCountryData = countries.find(c => c.label === watchPays);
+  const continent = selectedCountryData?.continent || '';
+
+  // ✅ Initialisation unique
   useEffect(() => {
+    if (isInitializedRef.current) return;
+    isInitializedRef.current = true;
+
+    // Déterminer le type d'adresse initial
     if (address.quartier) {
       setAddressType('african');
     } else if (address.adresseLigne1) {
       setAddressType('postal');
     }
-  }, [address]);
 
-  // Déterminer automatiquement le type d'adresse selon le pays
-  useEffect(() => {
-    if (watchPays) {
-      const paysAfricains = [
-        'Cameroun', 'Sénégal', 'Côte d\'Ivoire', 'Mali', 
-        'Burkina Faso', 'Niger', 'Tchad', 'Congo', 
-        'Gabon', 'Bénin', 'Togo'
-      ];
-      const newAddressType = paysAfricains.includes(watchPays) ? 'african' : 'postal';
-      
-      if (newAddressType !== addressType) {
-        setAddressType(newAddressType);
-        
-        // Réinitialiser les champs de l'autre type
-        if (newAddressType === 'african') {
-          setValue('adresseLigne1', '');
-          setValue('adresseLigne2', '');
-          setValue('codePostal', '');
-        } else {
-          setValue('quartier', '');
-        }
-      }
+    lastCountryRef.current = address.pays;
+    if (continent) lastContinentRef.current = continent;
+  }, [address, continent]);
+
+  // ✅ Changement de pays (évite les re-renders)
+  const handleCountryChange = useCallback((newCountry: string) => {
+    if (isChangingCountryRef.current) return;
+    if (newCountry === lastCountryRef.current) return;
+    
+    isChangingCountryRef.current = true;
+    lastCountryRef.current = newCountry;
+    setSelectedCountry(newCountry);
+    
+    // Reset ville si on change vraiment de pays
+    if (newCountry !== address.pays) {
+      setTimeout(() => {
+        setValue('ville', '', { shouldValidate: false, shouldDirty: false, shouldTouch: false });
+        isChangingCountryRef.current = false;
+      }, 0);
+    } else {
+      isChangingCountryRef.current = false;
     }
-  }, [watchPays, addressType, setValue]);
+  }, [address.pays, setValue]);
+
+  // ✅ Mise à jour du type d'adresse selon continent
+  useEffect(() => {
+    if (!continent) return;
+    if (continent === lastContinentRef.current) return;
+    
+    lastContinentRef.current = continent;
+    const newType = continent === 'AF' ? 'african' : 'postal';
+    if (newType !== addressType) setAddressType(newType);
+  }, [continent, addressType]);
+
+  // ✅ Nettoyage avant soumission
+  const cleanFormData = useCallback(
+    (data: UpdateAddressFormData): UpdateAddressFormData => ({
+      ...data,
+      ...(addressType === 'african' && {
+        adresseLigne1: undefined,
+        adresseLigne2: undefined,
+        codePostal: undefined,
+      }),
+      ...(addressType === 'postal' && {
+        quartier: undefined,
+      }),
+    }),
+    [addressType]
+  );
 
   const handleFormSubmit = async (data: UpdateAddressFormData) => {
     setIsSubmitting(true);
     try {
-      // Nettoyer les données selon le type d'adresse
-      const cleanedData: UpdateAddressFormData = {
-        ...data,
-        ...(addressType === 'african' && {
-          adresseLigne1: undefined,
-          adresseLigne2: undefined,
-          codePostal: undefined,
-        }),
-        ...(addressType === 'postal' && {
-          quartier: undefined,
-        }),
-      };
-
+      const cleanedData = cleanFormData(data);
       await onSubmit(cleanedData);
     } catch (error) {
       console.error('Form submission error:', error);
@@ -110,20 +143,22 @@ export default function AddressForm({
     }
   };
 
-  // Convertir en options
-  const paysOptions = PAYS.map(pays => ({ value: pays, label: pays }));
-  const villesOptions = TOUTES_VILLES.map(ville => ({ value: ville, label: ville }));
-  
-  const quartiersDisponibles = watchVille && QUARTIERS_PAR_VILLE[watchVille] 
-    ? QUARTIERS_PAR_VILLE[watchVille] 
-    : [];
-  
-  const quartiersOptions = quartiersDisponibles.map(quartier => ({ 
-    value: quartier, 
-    label: quartier 
-  }));
+  // ✅ Conversion des pays & villes en SelectOption[]
+  const countryOptions = useMemo<SelectOption[]>(() => {
+    return countries.map(c => ({
+      value: c.label,
+      label: c.label,
+    }));
+  }, [countries]);
 
-  // Si modification non autorisée
+  const cityOptions = useMemo<SelectOption[]>(() => {
+    return cities.map(city => ({
+      value: city.label,
+      label: city.label,
+    }));
+  }, [cities]);
+
+  // 🧱 Si modification non autorisée
   if (!canModify) {
     return (
       <div className="space-y-4">
@@ -184,76 +219,66 @@ export default function AddressForm({
             label="Pays"
             error={errors.pays?.message}
             leftIcon={<MapPin className="w-5 h-5" />}
-            options={paysOptions}
-            placeholder="Sélectionnez un pays"
+            options={countryOptions}
+            placeholder={isLoadingCountries ? 'Chargement des pays...' : 'Sélectionnez un pays'}
             required
+            disabled={isLoadingCountries}
             value={field.value}
-            onChange={field.onChange}
+            onChange={(value) => {
+              field.onChange(value);
+              handleCountryChange(value);
+            }}
             onBlur={field.onBlur}
+            searchable
           />
         )}
       />
 
       {/* Ville */}
-      <Controller
-        name="ville"
-        control={control}
-        render={({ field }) => (
-          <Select
-            label="Ville"
-            error={errors.ville?.message}
-            leftIcon={<Building2 className="w-5 h-5" />}
-            options={villesOptions}
-            placeholder="Sélectionnez une ville"
-            required
-            value={field.value}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-          />
-        )}
-      />
+      {watchPays && (
+        <Controller
+          name="ville"
+          control={control}
+          render={({ field }) => (
+            <Select
+              label="Ville"
+              error={errors.ville?.message}
+              leftIcon={<Building2 className="w-5 h-5" />}
+              options={cityOptions}
+              placeholder={isLoadingCities ? 'Chargement des villes...' : 'Sélectionnez une ville'}
+              required
+              disabled={isLoadingCities || !watchPays}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              searchable
+              helperText="Utilisez la recherche pour trouver votre ville"
+            />
+          )}
+        />
+      )}
 
-      {/* FORMAT AFRIQUE */}
-      {addressType === 'african' && (
+      {/* Format africain */}
+      {addressType === 'african' && watchVille && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
         >
-          {quartiersOptions.length > 0 ? (
-            <Controller
-              name="quartier"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  label="Quartier"
-                  error={errors.quartier?.message}
-                  leftIcon={<Home className="w-5 h-5" />}
-                  options={quartiersOptions}
-                  placeholder="Sélectionnez un quartier"
-                  required
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                />
-              )}
-            />
-          ) : (
-            <Input
-              label="Quartier"
-              type="text"
-              placeholder="Ex: Bastos, Bonanjo"
-              error={errors.quartier?.message}
-              leftIcon={<Home className="w-5 h-5" />}
-              {...register('quartier')}
-              required
-            />
-          )}
+          <Input
+            label="Quartier"
+            type="text"
+            placeholder="Ex: Bastos, Bonanjo"
+            error={errors.quartier?.message}
+            leftIcon={<Home className="w-5 h-5" />}
+            {...register('quartier')}
+            required
+          />
         </motion.div>
       )}
 
-      {/* FORMAT DIASPORA */}
-      {addressType === 'postal' && (
+      {/* Format postal */}
+      {addressType === 'postal' && watchVille && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -291,20 +316,22 @@ export default function AddressForm({
         </motion.div>
       )}
 
-      {/* Info sur le type d'adresse */}
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <p className="text-sm text-gray-700">
-          {addressType === 'african' ? (
-            <>
-              <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
-            </>
-          ) : (
-            <>
-              <strong>Format international :</strong> Adresse postale complète requise.
-            </>
-          )}
-        </p>
-      </div>
+      {/* Info type */}
+      {watchPays && (
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+          <p className="text-sm text-gray-700">
+            {addressType === 'african' ? (
+              <>
+                <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
+              </>
+            ) : (
+              <>
+                <strong>Format international :</strong> Adresse postale complète requise.
+              </>
+            )}
+          </p>
+        </div>
+      )}
 
       {/* Actions */}
       <div className="flex gap-3 pt-4 border-t border-gray-200">
@@ -326,7 +353,7 @@ export default function AddressForm({
           disabled={isSubmitting}
           className="flex-1"
         >
-          {isSubmitting ? 'Enregistrement...' : 'Enregistrer l\'adresse'}
+          {isSubmitting ? 'Enregistrement...' : "Enregistrer l'adresse"}
         </Button>
       </div>
     </form>

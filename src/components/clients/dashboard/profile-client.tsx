@@ -18,7 +18,7 @@ import {
   Calendar,
   ChevronRight
 } from 'lucide-react';
-import { useAuth } from '@/lib/hooks';
+import { useAddress, useAuth } from '@/lib/hooks';
 import { usersApi } from '@/lib/api/users';
 import { ProfileForm } from '@/components/forms';
 import AddressCard from '@/components/user/AddressCard';
@@ -38,6 +38,7 @@ export default function ProfilePageClient() {
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { modificationInfo } = useAddress();
 
   useEffect(() => {
     loadDashboard();
@@ -219,7 +220,8 @@ export default function ProfilePageClient() {
               </div>
               <AddressCard
                 address={user.address}
-                canModify={true}
+                canModify={modificationInfo?.canModify ?? true}
+                nextModificationDate={modificationInfo?.nextModificationDate}
                 showEditButton={false}
               />
             </motion.div>

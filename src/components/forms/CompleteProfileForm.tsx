@@ -1,24 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Phone, MapPin, Home, Building2, Mail as MailIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button, Input, Select } from '@/components/ui';
 import { completeProfileSchema, type CompleteProfileFormData } from '@/lib/validations';
-import { PAYS, TOUTES_VILLES, QUARTIERS_PAR_VILLE } from '@/lib/utils/constants';
 import { useAuth } from '@/lib/hooks';
+import { useCountries, useCities } from '@/lib/hooks/useGeo';
+import type { SelectOption } from '@/components/ui/select';
 
-interface CompleteProfileFormProps {
+export default function CompleteProfileForm({
+  onSubmit,
+}: {
   onSubmit: (data: CompleteProfileFormData) => Promise<void>;
-}
-
-export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormProps) {
+}) {
   const { user } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addressType, setAddressType] = useState<'african' | 'postal'>('african');
+  const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const lastContinentRef = useRef<string>('');
 
+  // ✅ Données géographiques (Zustand)
+  const { countries, isLoading: isLoadingCountries } = useCountries();
+  const { cities, isLoading: isLoadingCities } = useCities(selectedCountry);
+
+  // ✅ RHF setup
   const {
     register,
     handleSubmit,
@@ -44,47 +52,70 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
   const watchPays = watch('pays');
   const watchVille = watch('ville');
 
-  // Déterminer automatiquement le type d'adresse selon le pays
+  // ✅ Déterminer automatiquement le continent et le type d’adresse
+  const selectedCountryData = countries.find((c) => c.label === watchPays);
+  const continent = selectedCountryData?.continent || '';
+
   useEffect(() => {
-    if (watchPays) {
-      const paysAfricains = [
-        'Cameroun', 'Sénégal', 'Côte d\'Ivoire', 'Mali', 
-        'Burkina Faso', 'Niger', 'Tchad', 'Congo', 
-        'Gabon', 'Bénin', 'Togo'
-      ];
-      const newAddressType = paysAfricains.includes(watchPays) ? 'african' : 'postal';
-      
-      if (newAddressType !== addressType) {
-        setAddressType(newAddressType);
-        
-        // Réinitialiser les champs de l'autre type
-        if (newAddressType === 'african') {
-          setValue('adresseLigne1', '');
-          setValue('adresseLigne2', '');
-          setValue('codePostal', '');
-        } else {
-          setValue('quartier', '');
-        }
+    if (!continent || continent === lastContinentRef.current) return;
+
+    lastContinentRef.current = continent;
+    const newType = continent === 'AF' ? 'african' : 'postal';
+
+    if (newType !== addressType) {
+      setAddressType(newType);
+      if (newType === 'african') {
+        setValue('adresseLigne1', '');
+        setValue('adresseLigne2', '');
+        setValue('codePostal', '');
+      } else {
+        setValue('quartier', '');
       }
     }
-  }, [watchPays, addressType, setValue]);
+  }, [continent, addressType, setValue]);
+
+  // ✅ Charger les villes du pays sélectionné
+  useEffect(() => {
+    if (watchPays) {
+      setSelectedCountry(watchPays);
+    }
+  }, [watchPays]);
+
+  // ✅ Conversion des pays et villes en SelectOption[]
+  const countryOptions = useMemo<SelectOption[]>(() => {
+    return countries.map((c) => ({
+      value: c.label,
+      label: c.label,
+    }));
+  }, [countries]);
+
+  const cityOptions = useMemo<SelectOption[]>(() => {
+    return cities.map((city) => ({
+      value: city.label,
+      label: city.label,
+    }));
+  }, [cities]);
+
+  // ✅ Nettoyage des données avant envoi
+  const cleanFormData = useCallback(
+    (data: CompleteProfileFormData): CompleteProfileFormData => ({
+      ...data,
+      ...(addressType === 'african' && {
+        adresseLigne1: undefined,
+        adresseLigne2: undefined,
+        codePostal: undefined,
+      }),
+      ...(addressType === 'postal' && {
+        quartier: undefined,
+      }),
+    }),
+    [addressType]
+  );
 
   const handleFormSubmit = async (data: CompleteProfileFormData) => {
     setIsSubmitting(true);
     try {
-      // Nettoyer les données selon le type d'adresse
-      const cleanedData: CompleteProfileFormData = {
-        ...data,
-        ...(addressType === 'african' && {
-          adresseLigne1: undefined,
-          adresseLigne2: undefined,
-          codePostal: undefined,
-        }),
-        ...(addressType === 'postal' && {
-          quartier: undefined,
-        }),
-      };
-
+      const cleanedData = cleanFormData(data);
       await onSubmit(cleanedData);
     } catch (error) {
       console.error('Form submission error:', error);
@@ -93,19 +124,7 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
     }
   };
 
-  // Convertir en options
-  const paysOptions = PAYS.map(pays => ({ value: pays, label: pays }));
-  const villesOptions = TOUTES_VILLES.map(ville => ({ value: ville, label: ville }));
-  
-  const quartiersDisponibles = watchVille && QUARTIERS_PAR_VILLE[watchVille] 
-    ? QUARTIERS_PAR_VILLE[watchVille] 
-    : [];
-  
-  const quartiersOptions = quartiersDisponibles.map(quartier => ({ 
-    value: quartier, 
-    label: quartier 
-  }));
-
+  // 🧱 UI
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
       {/* Téléphone */}
@@ -135,76 +154,62 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
             label="Pays"
             error={errors.pays?.message}
             leftIcon={<MapPin className="w-5 h-5" />}
-            options={paysOptions}
-            placeholder="Sélectionnez un pays"
+            options={countryOptions}
+            placeholder={isLoadingCountries ? 'Chargement des pays...' : 'Sélectionnez un pays'}
             required
+            disabled={isLoadingCountries}
             value={field.value}
-            onChange={field.onChange}
+            onChange={(value) => {
+              field.onChange(value);
+              setSelectedCountry(value);
+            }}
             onBlur={field.onBlur}
+            searchable
           />
         )}
       />
 
       {/* Ville */}
-      <Controller
-        name="ville"
-        control={control}
-        render={({ field }) => (
-          <Select
-            label="Ville"
-            error={errors.ville?.message}
-            leftIcon={<Building2 className="w-5 h-5" />}
-            options={villesOptions}
-            placeholder="Sélectionnez une ville"
-            required
-            value={field.value}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-          />
-        )}
-      />
-
-      {/* FORMAT AFRIQUE */}
-      {addressType === 'african' && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          {quartiersOptions.length > 0 ? (
-            <Controller
-              name="quartier"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  label="Quartier"
-                  error={errors.quartier?.message}
-                  leftIcon={<Home className="w-5 h-5" />}
-                  options={quartiersOptions}
-                  placeholder="Sélectionnez un quartier"
-                  required
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                />
-              )}
-            />
-          ) : (
-            <Input
-              label="Quartier"
-              type="text"
-              placeholder="Ex: Bastos, Bonanjo"
-              error={errors.quartier?.message}
-              leftIcon={<Home className="w-5 h-5" />}
-              {...register('quartier')}
+      {watchPays && (
+        <Controller
+          name="ville"
+          control={control}
+          render={({ field }) => (
+            <Select
+              label="Ville"
+              error={errors.ville?.message}
+              leftIcon={<Building2 className="w-5 h-5" />}
+              options={cityOptions}
+              placeholder={isLoadingCities ? 'Chargement des villes...' : 'Sélectionnez une ville'}
               required
+              disabled={isLoadingCities || !watchPays}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              searchable
+              helperText="Utilisez la recherche pour trouver votre ville"
             />
           )}
+        />
+      )}
+
+      {/* Format Afrique */}
+      {addressType === 'african' && watchVille && (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+          <Input
+            label="Quartier"
+            type="text"
+            placeholder="Ex: Bastos, Bonanjo"
+            error={errors.quartier?.message}
+            leftIcon={<Home className="w-5 h-5" />}
+            {...register('quartier')}
+            required
+          />
         </motion.div>
       )}
 
-      {/* FORMAT DIASPORA */}
-      {addressType === 'postal' && (
+      {/* Format postal */}
+      {addressType === 'postal' && watchVille && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -243,19 +248,21 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
       )}
 
       {/* Info sur le type d'adresse */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-800">
-          {addressType === 'african' ? (
-            <>
-              <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
-            </>
-          ) : (
-            <>
-              <strong>Format international :</strong> Adresse postale complète requise.
-            </>
-          )}
-        </p>
-      </div>
+      {watchPays && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p className="text-sm text-blue-800">
+            {addressType === 'african' ? (
+              <>
+                <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
+              </>
+            ) : (
+              <>
+                <strong>Format international :</strong> Adresse postale complète requise.
+              </>
+            )}
+          </p>
+        </div>
+      )}
 
       {/* Champs optionnels */}
       <div className="pt-4 border-t border-gray-200">
@@ -296,9 +303,9 @@ export default function CompleteProfileForm({ onSubmit }: CompleteProfileFormPro
             {isSubmitting ? 'Envoi en cours...' : 'Compléter mon profil'}
           </Button>
         </motion.div>
-        
+
         <p className="text-xs text-gray-500 text-center mt-4">
-          {user?.telephoneVerifie 
+          {user?.telephoneVerifie
             ? 'Vos informations seront mises à jour'
             : 'Un code de vérification sera envoyé par SMS à votre numéro'}
         </p>

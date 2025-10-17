@@ -178,4 +178,10 @@ export const endpoints = {
     show: (id: number) => `/contacts/${id}`,
     delete: (id: number) => `/contacts/${id}`,
   },
+
+  geo: {
+    countries: '/geo/countries',
+    cities: '/geo/cities',
+    searchCities: '/geo/cities/search',
+  },
 } as const;
