@@ -8,8 +8,8 @@ import {
   createPropositionSchema,
   type CreatePropositionFormData,
 } from '@/lib/validations';
-import { useUserCurrency } from '@/lib/hooks/useCurrency'; // ⬅️ AJOUT
-import { getCurrencySymbol } from '@/lib/utils/format'; // ⬅️ AJOUT
+import { useUserCurrency } from '@/lib/hooks/useCurrency';
+import { getCurrencySymbol } from '@/lib/utils/format';
 import type { Voyage } from '@/types';
 
 interface PropositionFormProps {
@@ -31,7 +31,6 @@ export default function PropositionForm({
   onCancel,
   isSubmitting,
 }: PropositionFormProps) {
-  // ⬅️ AJOUT : Récupérer la devise de l'utilisateur
   const userCurrency = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
 
@@ -82,7 +81,6 @@ export default function PropositionForm({
       <div className="pt-4 border-t border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900">Votre proposition</h3>
-          {/* Badge devise de l'utilisateur */}
           <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
             <span className="text-sm font-medium text-primary">
               Devise : {currencySymbol}
@@ -90,7 +88,6 @@ export default function PropositionForm({
           </div>
         </div>
 
-        {/* Message informatif */}
         <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex gap-2">
           <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <p className="text-sm text-blue-900">

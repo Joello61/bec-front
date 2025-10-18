@@ -30,13 +30,12 @@ export const createVoyageSchema = z.object({
     .min(1, 'Le poids doit être d\'au moins 1 kg')
     .max(100, 'Le poids ne peut pas dépasser 100 kg'),
   
-  // ==================== NOUVEAUX CHAMPS ====================
   prixParKilo: z
     .number({
       error: 'Le prix par kilo doit être un nombre',
     })
     .positive('Le prix par kilo doit être positif')
-    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000 XAF')
+    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000')
     .optional(),
   
   commissionProposeePourUnBagage: z
@@ -44,20 +43,28 @@ export const createVoyageSchema = z.object({
       error: 'La commission doit être un nombre',
     })
     .positive('La commission doit être positive')
-    .max(1000000, 'La commission ne peut pas dépasser 1 000 000 XAF')
+    .max(1000000, 'La commission ne peut pas dépasser 1 000 000')
     .optional(),
   
   description: z
     .string()
     .max(500, 'La description ne peut pas dépasser 500 caractères')
     .optional(),
-}).refine((data) => {
+})
+.refine((data) => {
   const depart = new Date(data.dateDepart);
   const arrivee = new Date(data.dateArrivee);
   return arrivee > depart;
 }, {
   message: 'La date d\'arrivée doit être après la date de départ',
   path: ['dateArrivee'],
+})
+// ✅ NOUVEAU - Validation ville départ ≠ ville arrivée
+.refine((data) => {
+  return data.villeDepart.trim().toLowerCase() !== data.villeArrivee.trim().toLowerCase();
+}, {
+  message: 'La ville de départ et la ville d\'arrivée doivent être différentes',
+  path: ['villeArrivee'],
 });
 
 export const updateVoyageSchema = z.object({
@@ -89,23 +96,32 @@ export const updateVoyageSchema = z.object({
     .max(100, 'Le poids ne peut pas dépasser 100 kg')
     .optional(),
   
-  // ==================== NOUVEAUX CHAMPS ====================
   prixParKilo: z
     .number()
     .positive('Le prix par kilo doit être positif')
-    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000 XAF')
+    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000')
     .optional(),
   
   commissionProposeePourUnBagage: z
     .number()
     .positive('La commission doit être positive')
-    .max(1000000, 'La commission ne peut pas dépasser 1 000 000 XAF')
+    .max(1000000, 'La commission ne peut pas dépasser 1 000 000')
     .optional(),
   
   description: z
     .string()
     .max(500, 'La description ne peut pas dépasser 500 caractères')
     .optional(),
+})
+.refine((data) => {
+  // Si les deux villes sont présentes, elles doivent être différentes
+  if (data.villeDepart && data.villeArrivee) {
+    return data.villeDepart.trim().toLowerCase() !== data.villeArrivee.trim().toLowerCase();
+  }
+  return true;
+}, {
+  message: 'La ville de départ et la ville d\'arrivée doivent être différentes',
+  path: ['villeArrivee'],
 });
 
 export const voyageFiltersSchema = z.object({

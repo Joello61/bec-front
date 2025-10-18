@@ -22,6 +22,17 @@ export interface City extends GeoOption {
 }
 
 /**
+ * Ville globale (inclut infos pays)
+ */
+export interface CityGlobal extends GeoOption {
+  country: string;        // Nom français du pays (ex: "France")
+  countryCode: string;    // Code ISO (ex: "FR")
+  population?: number;    // Population
+  admin1Name?: string;    // Région/État
+}
+
+
+/**
  * Réponse API erreur géographique
  */
 export interface GeoApiError {

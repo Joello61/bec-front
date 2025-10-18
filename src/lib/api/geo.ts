@@ -1,6 +1,6 @@
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Country, City } from '@/types/geo';
+import type { Country, City, CityGlobal } from '@/types/geo';
 
 export const geoApi = {
   /**
@@ -39,6 +39,35 @@ export const geoApi = {
       params: { 
         country: countryName,
         q: query,
+      },
+    });
+    return response.data;
+  },
+
+  /**
+   * Récupère le top 100 des villes mondiales
+   * GET /api/geo/cities/top100
+   */
+  async getTopCitiesGlobal(): Promise<CityGlobal[]> {
+    const response = await apiClient.get<CityGlobal[]>(endpoints.geo.topCitiesGlobal);
+    return response.data;
+  },
+
+  /**
+   * Recherche globale de villes (tous pays confondus)
+   * GET /api/geo/cities/search-global?q=paris&limit=50
+   * @param query - Terme de recherche (min 2 caractères)
+   * @param limit - Nombre max de résultats (défaut: 50, max: 100)
+   */
+  async searchCitiesGlobal(query: string, limit = 50): Promise<CityGlobal[]> {
+    if (query.length < 2) {
+      return [];
+    }
+
+    const response = await apiClient.get<CityGlobal[]>(endpoints.geo.searchCitiesGlobal, {
+      params: { 
+        q: query,
+        limit: Math.min(limit, 100), // Cap à 100
       },
     });
     return response.data;

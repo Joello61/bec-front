@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useGeoStore } from '@/lib/store';
-import type { City } from '@/types/geo';
+import type { City, CityGlobal } from '@/types/geo';
 
 /* ———————————————————————————————— */
 /* Hook pour charger et accéder aux pays */
@@ -101,6 +101,68 @@ export function useCitySearch(countryName: string | null) {
   useEffect(() => {
     setSearchResults([]);
   }, [countryName]);
+
+  const clearResults = useCallback(() => {
+    setSearchResults([]);
+  }, []);
+
+  return {
+    searchResults,
+    isSearching,
+    search,
+    clearResults,
+  };
+}
+
+/* ———————————————————————————————— */
+/* ✅ NOUVEAU - Hook top 100 mondial */
+/* ———————————————————————————————— */
+export function useTopCitiesGlobal() {
+  const topCitiesGlobal = useGeoStore((state) => state.topCitiesGlobal);
+  const hasFetchedRef = useRef(false);
+
+  useEffect(() => {
+    if (hasFetchedRef.current) return;
+    const st = useGeoStore.getState();
+    if (st.topCitiesGlobal.length > 0) {
+      hasFetchedRef.current = true;
+      return;
+    }
+    hasFetchedRef.current = true;
+    st.fetchTopCitiesGlobal();
+  }, []);
+
+  const isLoading = topCitiesGlobal.length === 0;
+
+  return {
+    topCitiesGlobal,
+    isLoading,
+  };
+}
+
+/* ———————————————————————————————— */
+/* ✅ NOUVEAU - Hook recherche globale */
+/* ———————————————————————————————— */
+export function useCitySearchGlobal() {
+  const [searchResults, setSearchResults] = useState<CityGlobal[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  const search = useCallback(
+    async (query: string, limit = 50) => {
+      if (query.length < 2) {
+        setSearchResults([]);
+        return;
+      }
+      setIsSearching(true);
+      try {
+        const results = await useGeoStore.getState().searchCitiesGlobal(query, limit);
+        setSearchResults(results);
+      } finally {
+        setIsSearching(false);
+      }
+    },
+    []
+  );
 
   const clearResults = useCallback(() => {
     setSearchResults([]);

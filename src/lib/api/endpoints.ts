@@ -183,5 +183,7 @@ export const endpoints = {
     countries: '/geo/countries',
     cities: '/geo/cities',
     searchCities: '/geo/cities/search',
+    topCitiesGlobal: '/geo/cities/top100',
+    searchCitiesGlobal: '/geo/cities/search-global',
   },
 } as const;

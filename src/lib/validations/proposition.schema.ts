@@ -14,14 +14,14 @@ export const createPropositionSchema = z.object({
         error: 'Le prix par kilo est requis et doit être un nombre',
     })
     .positive('Le prix par kilo doit être positif')
-    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000 XAF'),
+    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000'),
 
   commissionProposeePourUnBagage: z
     .number({
         error: 'La commission est requise et doit être un nombre',
     })
     .positive('La commission doit être positive')
-    .max(1000000, 'La commission ne peut pas dépasser 1 000 000 XAF'),
+    .max(1000000, 'La commission ne peut pas dépasser 1 000 000'),
 
   message: z
     .string()
@@ -32,8 +32,8 @@ export const createPropositionSchema = z.object({
 // Schéma pour répondre à une proposition
 export const respondPropositionSchema = z.object({
   action: z.enum(['accepter', 'refuser']).refine((val) => !!val, {
-  message: "L'action est requise",
-}),
+    message: "L'action est requise",
+  }),
 
   messageRefus: z
     .string()
@@ -44,7 +44,6 @@ export const respondPropositionSchema = z.object({
       'Le message de refus ne peut pas être vide'
     ),
 }).refine(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (data) => {
     // Si l'action est "refuser", le message de refus devrait être fourni (optionnel mais recommandé)
     return true;

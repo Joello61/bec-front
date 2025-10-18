@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Package, Info } from 'lucide-react';
+import { Package, Info, MapPin, AlertCircle } from 'lucide-react';
 import { Button, Input, Select } from '@/components/ui';
 import { createDemandeSchema, type CreateDemandeFormData } from '@/lib/validations';
-import { TOUTES_VILLES } from '@/lib/utils/constants';
-import { useUserCurrency } from '@/lib/hooks/useCurrency'; // ⬅️ AJOUT
-import { getCurrencySymbol } from '@/lib/utils/format'; // ⬅️ AJOUT
+import { useTopCitiesGlobal, useCitySearchGlobal } from '@/lib/hooks/useGeo';
+import { useUserCurrency } from '@/lib/hooks/useCurrency';
+import { getCurrencySymbol } from '@/lib/utils/format';
 import type { Demande } from '@/types';
+import type { SelectOption } from '@/components/ui/select';
 
 interface DemandeFormProps {
   demande?: Demande;
@@ -20,14 +21,31 @@ interface DemandeFormProps {
 export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // ⬅️ AJOUT : Récupérer la devise de l'utilisateur
+  // Devise utilisateur
   const userCurrency = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
+
+  // ✅ Top 100 villes mondiales
+  const { topCitiesGlobal, isLoading: isLoadingTopCities } = useTopCitiesGlobal();
+
+  // ✅ Recherche globale pour chaque champ
+  const { 
+    searchResults: searchResultsDepart, 
+    isSearching: isSearchingDepart,
+    search: searchDepart 
+  } = useCitySearchGlobal();
+
+  const { 
+    searchResults: searchResultsArrivee, 
+    isSearching: isSearchingArrivee,
+    search: searchArrivee 
+  } = useCitySearchGlobal();
 
   const {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<CreateDemandeFormData>({
     resolver: zodResolver(createDemandeSchema),
@@ -46,6 +64,53 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
       : undefined,
   });
 
+  // ✅ Surveiller les villes pour détecter doublons
+  const watchVilleDepart = watch('villeDepart');
+  const watchVilleArrivee = watch('villeArrivee');
+
+  // ✅ Options ville départ
+  const optionsDepart = useMemo<SelectOption[]>(() => {
+    if (searchResultsDepart.length > 0) {
+      return searchResultsDepart.map((city) => ({
+        value: city.label,
+        label: `${city.label} (${city.country})`,
+      }));
+    }
+    
+    return topCitiesGlobal.map((city) => ({
+      value: city.label,
+      label: `${city.label} (${city.country})`,
+    }));
+  }, [topCitiesGlobal, searchResultsDepart]);
+
+  // ✅ Options ville arrivée
+  const optionsArrivee = useMemo<SelectOption[]>(() => {
+    if (searchResultsArrivee.length > 0) {
+      return searchResultsArrivee.map((city) => ({
+        value: city.label,
+        label: `${city.label} (${city.country})`,
+      }));
+    }
+    
+    return topCitiesGlobal.map((city) => ({
+      value: city.label,
+      label: `${city.label} (${city.country})`,
+    }));
+  }, [topCitiesGlobal, searchResultsArrivee]);
+
+  // ✅ Recherche handlers
+  const handleSearchDepart = useCallback((query: string) => {
+    if (query.length >= 2) {
+      searchDepart(query, 50);
+    }
+  }, [searchDepart]);
+
+  const handleSearchArrivee = useCallback((query: string) => {
+    if (query.length >= 2) {
+      searchArrivee(query, 50);
+    }
+  }, [searchArrivee]);
+
   const handleFormSubmit = async (data: CreateDemandeFormData) => {
     setIsSubmitting(true);
     try {
@@ -55,8 +120,31 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
     }
   };
 
+  // ✅ Warning villes identiques
+  const showCityWarning = watchVilleDepart && watchVilleArrivee && 
+    watchVilleDepart.trim().toLowerCase() === watchVilleArrivee.trim().toLowerCase();
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
+      {/* ✅ Warning villes identiques */}
+      {showCityWarning && (
+        <div className="bg-warning/10 border border-warning rounded-lg p-4">
+          <div className="flex gap-3">
+            <AlertCircle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold text-warning mb-1">
+                Villes identiques
+              </h3>
+              <p className="text-sm text-gray-700">
+                La ville de départ et la ville d&apos;arrivée sont les mêmes. 
+                Veuillez sélectionner des villes différentes.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ✅ Sélection des villes avec recherche globale */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Controller
           name="villeDepart"
@@ -65,18 +153,23 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
             <Select
               label="Ville de départ"
               required
-              options={[
-                { value: '', label: 'Sélectionnez une ville' },
-                ...TOUTES_VILLES.map((ville) => ({
-                  value: ville,
-                  label: ville
-                }))
-              ]}
+              leftIcon={<MapPin className="w-5 h-5" />}
+              options={optionsDepart}
+              placeholder={isLoadingTopCities ? 'Chargement...' : 'Sélectionnez ou recherchez une ville'}
+              disabled={isLoadingTopCities}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
               error={errors.villeDepart?.message}
-              searchable={true}
+              searchable
+              onSearch={handleSearchDepart}
+              helperText={
+                searchResultsDepart.length > 0
+                  ? `${searchResultsDepart.length} résultat(s) trouvé(s)`
+                  : isSearchingDepart
+                  ? 'Recherche en cours...'
+                  : 'Top 100 des villes mondiales affichées'
+              }
             />
           )}
         />
@@ -88,18 +181,23 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
             <Select
               label="Ville d'arrivée"
               required
-              options={[
-                { value: '', label: 'Sélectionnez une ville' },
-                ...TOUTES_VILLES.map((ville) => ({
-                  value: ville,
-                  label: ville
-                }))
-              ]}
+              leftIcon={<MapPin className="w-5 h-5" />}
+              options={optionsArrivee}
+              placeholder={isLoadingTopCities ? 'Chargement...' : 'Sélectionnez ou recherchez une ville'}
+              disabled={isLoadingTopCities}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
               error={errors.villeArrivee?.message}
-              searchable={true}
+              searchable
+              onSearch={handleSearchArrivee}
+              helperText={
+                searchResultsArrivee.length > 0
+                  ? `${searchResultsArrivee.length} résultat(s) trouvé(s)`
+                  : isSearchingArrivee
+                  ? 'Recherche en cours...'
+                  : 'Top 100 des villes mondiales affichées'
+              }
             />
           )}
         />
@@ -127,11 +225,10 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
         />
       </div>
 
-      {/* ==================== SECTION BUDGET AVEC DEVISE DYNAMIQUE ==================== */}
+      {/* ==================== SECTION BUDGET ==================== */}
       <div className="pt-4 border-t border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900">Budget (optionnel)</h3>
-          {/* Badge devise de l'utilisateur */}
           <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
             <span className="text-sm font-medium text-primary">
               Devise : {currencySymbol}
@@ -139,7 +236,6 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
           </div>
         </div>
 
-        {/* Message informatif */}
         <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex gap-2">
           <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <p className="text-sm text-blue-900">
