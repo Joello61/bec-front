@@ -14,13 +14,13 @@ import { useAuthStore } from '@/lib/store';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5
-    }
-  }
+      duration: 0.5,
+    },
+  },
 };
 
 export default function LoginPageClient() {
@@ -32,12 +32,12 @@ export default function LoginPageClient() {
   const handleLogin = async (data: LoginFormData) => {
     try {
       await login(data);
-      
+
       // ✅ Si on arrive ici = email vérifié + JWT créé
       const user = useAuthStore.getState().user;
-      
+
       toast.success('Connexion réussie !');
-      
+
       // ==================== VÉRIFIER PROFIL COMPLET ====================
       if (!user?.isProfileComplete) {
         // Profil incomplet → Redirection complete-profile
@@ -46,13 +46,13 @@ export default function LoginPageClient() {
         }, 500);
         return;
       }
-      
+
       // Profil complet → Dashboard
       setTimeout(() => {
         router.push(ROUTES.EXPLORE);
       }, 500);
-      
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // ==================== EMAIL NON VÉRIFIÉ ====================
       if (error.message === 'EMAIL_NOT_VERIFIED') {
@@ -62,7 +62,7 @@ export default function LoginPageClient() {
         }, 1000);
         return;
       }
-      
+
       toast.error(error.message || 'Erreur de connexion');
     }
   };
@@ -70,7 +70,7 @@ export default function LoginPageClient() {
   const features = [
     { icon: Shield, description: 'Données protégées' },
     { icon: Zap, description: 'Connexion rapide' },
-    { icon: Users, description: 'Communauté active' }
+    { icon: Users, description: 'Communauté active' },
   ];
 
   return (
@@ -90,7 +90,7 @@ export default function LoginPageClient() {
           className="relative"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl blur-2xl opacity-50" />
-          
+
           <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <LoginForm onSubmit={handleLogin}>
               <motion.div
@@ -127,7 +127,7 @@ export default function LoginPageClient() {
         <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
             src="/images/auth/login.jpg"
-            alt="Connexion CoBage"
+            alt="Connexion Co-Bage"
             width={750}
             height={400}
             className="w-full h-auto object-cover"
@@ -141,7 +141,8 @@ export default function LoginPageClient() {
                 Transportez vos colis en toute confiance
               </h3>
               <p className="text-white/90 text-center">
-                Connectez-vous avec des voyageurs de confiance partout dans le monde
+                Connectez-vous avec des voyageurs de confiance partout dans le
+                monde
               </p>
             </div>
           </div>
@@ -149,7 +150,7 @@ export default function LoginPageClient() {
 
         {/* Features list */}
         <div className="space-y-4">
-          <div className='grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-6'>
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
@@ -164,7 +165,9 @@ export default function LoginPageClient() {
                     <Icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 mt-2">{feature.description}</p>
+                    <p className="text-sm text-gray-600 mt-2">
+                      {feature.description}
+                    </p>
                   </div>
                 </motion.div>
               );

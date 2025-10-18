@@ -133,7 +133,7 @@ export default function SignalementCard({ signalement }: SignalementCardProps) {
               <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-semibold text-blue-900 mb-1">
-                  Réponse de l&apos;équipe CoBage :
+                  Réponse de l&apos;équipe Co-Bage :
                 </p>
                 <p className="text-sm text-blue-800">
                   {signalement.reponseAdmin}

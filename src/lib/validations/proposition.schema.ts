@@ -44,7 +44,7 @@ export const respondPropositionSchema = z.object({
       'Le message de refus ne peut pas être vide'
     ),
 }).refine(
-  (data) => {
+  () => {
     // Si l'action est "refuser", le message de refus devrait être fourni (optionnel mais recommandé)
     return true;
   },

@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
-import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Mail, 
-  Phone, 
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Mail,
+  Phone,
   MapPin,
   ArrowUpRight,
   Heart,
@@ -19,11 +19,11 @@ import { usePathname } from 'next/navigation';
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const pathname = usePathname()
-  
-    const isAuthPage = pathname?.includes('/auth')
-    const isAdminPage = pathname?.includes('/admin')
-    const isDashboardPage = pathname?.includes('/dashboard')
+  const pathname = usePathname();
+
+  const isAuthPage = pathname?.includes('/auth');
+  const isAdminPage = pathname?.includes('/admin');
+  const isDashboardPage = pathname?.includes('/dashboard');
 
   const links = {
     platform: [
@@ -32,9 +32,10 @@ export default function Footer() {
       { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS },
     ],
     legal: [
-      { name: 'Conditions d\'utilisation', href: ROUTES.TERMS },
+      { name: "Conditions d'utilisation", href: ROUTES.TERMS },
       { name: 'Politique de confidentialité', href: ROUTES.PRIVACY },
       { name: 'Sécurité', href: ROUTES.TRUST_SAFETY },
+      { name: 'Politique relative aux cookies', href: ROUTES.COOKIES },
     ],
     support: [
       { name: 'Contact', href: ROUTES.CONTACT },
@@ -43,9 +44,24 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com', color: 'hover:text-[#1877F2]' },
-    { name: 'Twitter', icon: Twitter, href: 'https://twitter.com', color: 'hover:text-[#1DA1F2]' },
-    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com', color: 'hover:text-[#E4405F]' },
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      href: 'https://facebook.com',
+      color: 'hover:text-[#1877F2]',
+    },
+    {
+      name: 'Twitter',
+      icon: Twitter,
+      href: 'https://twitter.com',
+      color: 'hover:text-[#1DA1F2]',
+    },
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      href: 'https://instagram.com',
+      color: 'hover:text-[#E4405F]',
+    },
   ];
 
   const containerVariants: Variants = {
@@ -53,9 +69,9 @@ export default function Footer() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants: Variants = {
@@ -66,9 +82,9 @@ export default function Footer() {
       transition: {
         type: 'spring' as const,
         stiffness: 300,
-        damping: 24
-      }
-    }
+        damping: 24,
+      },
+    },
   };
 
   if (isAuthPage || isDashboardPage || isAdminPage) {
@@ -77,13 +93,12 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-gray-900 text-gray-300 overflow-hidden">
-
       <div className="relative container-custom py-12">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
         >
           {/* Brand Section */}
@@ -108,9 +123,10 @@ export default function Footer() {
               </motion.div>
             </div>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-              Connectez voyageurs et expéditeurs pour un transport sûr et économique de colis entre le Cameroun et le monde.
+              Connectez voyageurs et expéditeurs pour un transport sûr et
+              économique de colis entre le Cameroun et le monde.
             </p>
-            
+
             {/* Social Links avec animations */}
             <div className="flex gap-3">
               {socialLinks.map((social) => {
@@ -218,7 +234,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            
+
             {/* Contact Info avec icônes */}
             <div className="space-y-3 pt-4 border-t border-gray-800">
               <Link
@@ -230,7 +246,7 @@ export default function Footer() {
                 </div>
                 <span className="text-xs">{CONTACT.EMAIL}</span>
               </Link>
-              <Link 
+              <Link
                 href={`tel:${CONTACT.PHONE}`}
                 className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
               >
@@ -259,18 +275,18 @@ export default function Footer() {
           <div className="mb-8">
             <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent" />
           </div>
-          
+
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500 text-center md:text-left">
-              © {currentYear}  CoBage. Tous droits réservés.
+              © {currentYear} Co-Bage. Tous droits réservés.
             </p>
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex items-center gap-2 text-sm text-gray-500"
             >
               <span>Fait avec</span>
               <span className="text-error">
-                <Heart strokeWidth={3} className='w-4 h-4'/>
+                <Heart strokeWidth={3} className="w-4 h-4" />
               </span>
               <span>au Cameroun</span>
             </motion.div>

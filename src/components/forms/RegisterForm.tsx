@@ -15,7 +15,10 @@ interface RegisterFormProps {
   children?: React.ReactNode;
 }
 
-export default function RegisterForm({ onSubmit, children }: RegisterFormProps) {
+export default function RegisterForm({
+  onSubmit,
+  children,
+}: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,12 +58,12 @@ export default function RegisterForm({ onSubmit, children }: RegisterFormProps) 
           transition={{ delay: 0.2, duration: 0.5 }}
           className="text-gray-600 text-center"
         >
-          Rejoignez la communauté CoBage
+          Rejoignez la communauté Co-Bage
         </motion.p>
       </div>
 
       {children}
-      
+
       <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input

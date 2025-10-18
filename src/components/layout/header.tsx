@@ -5,10 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Bell, 
-  MessageSquare, 
-  User, 
+import {
+  Bell,
+  MessageSquare,
+  User,
   LogOut,
   Settings,
   HelpCircle,
@@ -23,29 +23,35 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
-import { Avatar, Dropdown, DropdownItem, DropdownDivider } from '@/components/ui';
+import {
+  Avatar,
+  Dropdown,
+  DropdownItem,
+  DropdownDivider,
+} from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
 import { cn } from '@/lib/utils/cn';
 import { useToast } from '../common';
 
 const navigation = [
-  { name: "Accueil", href: ROUTES.HOME, icon: Home },
-  { name: "À propos", href: ROUTES.ABOUT, icon: Info },
-  { name: "Comment ça marche", href: ROUTES.HOW_IT_WORKS, icon: BookOpen },
-  { name: "Contact", href: ROUTES.CONTACT, icon: Mail },
+  { name: 'Accueil', href: ROUTES.HOME, icon: Home },
+  { name: 'À propos', href: ROUTES.ABOUT, icon: Info },
+  { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS, icon: BookOpen },
+  { name: 'Contact', href: ROUTES.CONTACT, icon: Mail },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
-  const { unreadCount: notifCount } = useUnreadNotificationCount(isAuthenticated);
+  const { unreadCount: notifCount } =
+    useUnreadNotificationCount(isAuthenticated);
   const { unreadCount: messageCount } = useUnreadMessages(isAuthenticated);
   const toast = useToast();
   const router = useRouter();
   const pathname = usePathname();
-  
-  const isAuthPage = pathname?.includes('/auth')
+
+  const isAuthPage = pathname?.includes('/auth');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -74,10 +80,12 @@ export default function Header() {
   if (!isAuthenticated) {
     return (
       <>
-        <header className={cn(
-          'sticky top-0 z-50 transition-all duration-300 bg-white',
-          scrolled && 'shadow-md'
-        )}>
+        <header
+          className={cn(
+            'sticky top-0 z-50 transition-all duration-300 bg-white',
+            scrolled && 'shadow-md'
+          )}
+        >
           <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
             {/* Logo - Version optimisée pour 3000x1500 (ratio 2:1) */}
             <Link href={ROUTES.HOME} className="flex items-center gap-3">
@@ -196,14 +204,19 @@ export default function Header() {
 
   // Header pour utilisateurs connectés
   return (
-    <header className={cn(
-      'sticky top-0 z-50 transition-all duration-300 bg-white border-b',
-      scrolled ? 'shadow-md border-gray-200' : 'border-transparent'
-    )}>
+    <header
+      className={cn(
+        'sticky top-0 z-50 transition-all duration-300 bg-white border-b',
+        scrolled ? 'shadow-md border-gray-200' : 'border-transparent'
+      )}
+    >
       <div className="container mx-auto px-4">
         <div className="h-16 flex items-center justify-between gap-4">
           {/* Logo - Version dashboard (icône uniquement ou logo complet) */}
-          <Link href={ROUTES.DASHBOARD} className="flex items-center gap-2 flex-shrink-0">
+          <Link
+            href={ROUTES.DASHBOARD}
+            className="flex items-center gap-2 flex-shrink-0"
+          >
             {/* Option 1: Logo complet (recommandé si logo-1.png est votre logo principal) */}
             <div className="relative h-10 w-20">
               <Image
@@ -214,7 +227,7 @@ export default function Header() {
                 priority
               />
             </div>
-            
+
             {/* Option 2: Icône seule (décommentez si vous préférez) */}
             {/* 
             <div className="relative h-10 w-10">
@@ -226,7 +239,7 @@ export default function Header() {
                 priority
               />
             </div>
-            <span className="font-bold text-lg text-gray-900">CoBage</span>
+            <span className="font-bold text-lg text-gray-900">Co-Bage</span>
             */}
           </Link>
 
@@ -274,7 +287,9 @@ export default function Header() {
                 >
                   <Avatar
                     src={user?.photo || undefined}
-                    fallback={`${user?.prenom?.charAt(0)}${user?.nom?.charAt(0)}`}
+                    fallback={`${user?.prenom?.charAt(0)}${user?.nom?.charAt(
+                      0
+                    )}`}
                     size="sm"
                     verified={user?.emailVerifie}
                   />
@@ -291,11 +306,10 @@ export default function Header() {
                 </p>
                 <p className="text-xs text-gray-500 mt-0.5">{user?.email}</p>
               </div>
-              
+
               <DropdownItem
                 onClick={() => {
-                  router.push(ROUTES.PROFILE)
-                  
+                  router.push(ROUTES.PROFILE);
                 }}
                 icon={<User className="w-4 h-4" />}
               >
@@ -308,7 +322,7 @@ export default function Header() {
               >
                 Dashboard
               </DropdownItem>
-              
+
               <DropdownItem
                 onClick={() => router.push(ROUTES.SETTINGS)}
                 icon={<Settings className="w-4 h-4" />}
@@ -322,16 +336,16 @@ export default function Header() {
               >
                 Mes signalements
               </DropdownItem>
-              
+
               <DropdownItem
                 onClick={() => router.push(ROUTES.HELP)}
                 icon={<HelpCircle className="w-4 h-4" />}
               >
                 Aide & Support
               </DropdownItem>
-              
+
               <DropdownDivider />
-              
+
               <DropdownItem
                 onClick={handleLogout}
                 danger

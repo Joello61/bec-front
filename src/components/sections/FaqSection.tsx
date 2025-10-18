@@ -7,13 +7,13 @@ import { useState } from 'react';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5
-    }
-  }
+      duration: 0.5,
+    },
+  },
 };
 
 const staggerContainer: Variants = {
@@ -21,9 +21,9 @@ const staggerContainer: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05
-    }
-  }
+      staggerChildren: 0.05,
+    },
+  },
 };
 
 export function FaqSection() {
@@ -31,37 +31,45 @@ export function FaqSection() {
 
   const faqs = [
     {
-      question: 'Comment fonctionne CoBage ?',
-      answer: 'CoBage met en relation des voyageurs disposant d\'espace dans leurs bagages avec des personnes souhaitant envoyer des colis. Les voyageurs publient leurs trajets, les expéditeurs créent des demandes, et ils se contactent directement pour organiser le transport.'
+      question: 'Comment fonctionne Co-Bage ?',
+      answer:
+        "Co-Bage met en relation des voyageurs disposant d'espace dans leurs bagages avec des personnes souhaitant envoyer des colis. Les voyageurs publient leurs trajets, les expéditeurs créent des demandes, et ils se contactent directement pour organiser le transport.",
     },
     {
       question: 'La plateforme est-elle sécurisée ?',
-      answer: 'Oui. Nous avons un système d\'évaluation qui permet de consulter les avis des utilisateurs. Nous recommandons de toujours vérifier le profil de votre interlocuteur et de privilégier les utilisateurs ayant de bonnes évaluations.'
+      answer:
+        "Oui. Nous avons un système d'évaluation qui permet de consulter les avis des utilisateurs. Nous recommandons de toujours vérifier le profil de votre interlocuteur et de privilégier les utilisateurs ayant de bonnes évaluations.",
     },
     {
       question: 'Comment se fait le paiement ?',
-      answer: 'Le paiement se fait directement entre le voyageur et l\'expéditeur selon les modalités qu\'ils conviennent ensemble. CoBage facilite uniquement la mise en relation, sans gérer les transactions financières.'
+      answer:
+        "Le paiement se fait directement entre le voyageur et l'expéditeur selon les modalités qu'ils conviennent ensemble. Co-Bage facilite uniquement la mise en relation, sans gérer les transactions financières.",
     },
     {
-      question: 'Quels types d\'objets peuvent être transportés ?',
-      answer: 'Seuls les objets légaux, non dangereux et autorisés par les compagnies aériennes peuvent être transportés. Il est interdit de transporter des substances illicites, des armes, ou tout objet prohibé.'
+      question: "Quels types d'objets peuvent être transportés ?",
+      answer:
+        'Seuls les objets légaux, non dangereux et autorisés par les compagnies aériennes peuvent être transportés. Il est interdit de transporter des substances illicites, des armes, ou tout objet prohibé.',
     },
     {
       question: 'Que faire en cas de problème ?',
-      answer: 'Si vous rencontrez un problème, vous pouvez signaler l\'utilisateur ou l\'annonce via notre système de signalement. Notre équipe examinera la situation et prendra les mesures appropriées.'
+      answer:
+        "Si vous rencontrez un problème, vous pouvez signaler l'utilisateur ou l'annonce via notre système de signalement. Notre équipe examinera la situation et prendra les mesures appropriées.",
     },
     {
       question: 'Comment évaluer un utilisateur ?',
-      answer: 'Après une transaction réussie, vous pouvez laisser un avis sur le profil de l\'utilisateur. Cela aide la communauté à identifier les membres fiables et sérieux.'
+      answer:
+        "Après une transaction réussie, vous pouvez laisser un avis sur le profil de l'utilisateur. Cela aide la communauté à identifier les membres fiables et sérieux.",
     },
     {
-      question: 'L\'inscription est-elle gratuite ?',
-      answer: 'Oui, l\'inscription et l\'utilisation de la plateforme sont entièrement gratuites. Vous ne payez que pour le transport de votre colis, directement au voyageur.'
+      question: "L'inscription est-elle gratuite ?",
+      answer:
+        "Oui, l'inscription et l'utilisation de la plateforme sont entièrement gratuites. Vous ne payez que pour le transport de votre colis, directement au voyageur.",
     },
     {
       question: 'Puis-je annuler une demande ou un voyage ?',
-      answer: 'Oui, vous pouvez annuler vos annonces à tout moment depuis votre tableau de bord. Nous vous recommandons toutefois de prévenir les personnes avec qui vous étiez en contact.'
-    }
+      answer:
+        'Oui, vous pouvez annuler vos annonces à tout moment depuis votre tableau de bord. Nous vous recommandons toutefois de prévenir les personnes avec qui vous étiez en contact.',
+    },
   ];
 
   return (
@@ -78,12 +86,12 @@ export function FaqSection() {
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary/90 backdrop-blur-sm rounded-full text-gray-900 font-bold mb-8">
             <HelpCircle className="w-5 h-5" />
             Des questions ?
-          </div> 
+          </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Questions Fréquentes
           </h2>
           <p className="text-lg md:text-xl text-gray-600">
-            Tout ce que vous devez savoir sur CoBage
+            Tout ce que vous devez savoir sur Co-Bage
           </p>
         </motion.div>
 
@@ -97,7 +105,7 @@ export function FaqSection() {
         >
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
-            
+
             return (
               <motion.div
                 key={index}
@@ -137,7 +145,7 @@ export function FaqSection() {
                     </AnimatePresence>
                   </div>
                 </button>
-                
+
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
@@ -169,7 +177,7 @@ export function FaqSection() {
           {/* Décorations */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full blur-3xl -z-10" />
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-secondary/5 rounded-full blur-3xl -z-10" />
-          
+
           <div className="relative bg-white border border-gray-200 rounded-2xl p-8 md:p-10 text-center shadow-sm">
             <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl mb-4">
               <Mail className="w-7 h-7 text-primary" />
@@ -178,7 +186,8 @@ export function FaqSection() {
               Encore des questions ?
             </h3>
             <p className="text-gray-600 mb-6 max-w-lg mx-auto">
-              Notre équipe est là pour vous aider. N&apos;hésitez pas à nous contacter pour toute question supplémentaire.
+              Notre équipe est là pour vous aider. N&apos;hésitez pas à nous
+              contacter pour toute question supplémentaire.
             </p>
             <Link href="/contact">
               <motion.div

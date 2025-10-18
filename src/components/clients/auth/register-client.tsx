@@ -14,13 +14,13 @@ import OAuthButtons from '@/components/auth/OAuthButtons';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5
-    }
-  }
+      duration: 0.5,
+    },
+  },
 };
 
 export default function RegisterPageClient() {
@@ -33,25 +33,41 @@ export default function RegisterPageClient() {
   const handleRegister = async (data: RegisterFormData) => {
     try {
       await register(data);
-      
+
       toast.success('Inscription réussie ! Vérifiez votre email.');
-      
+
       // ⬅️ REDIRECTION VERS VERIFY-EMAIL (pas login)
       setTimeout(() => {
         router.push(ROUTES.VERIFY_EMAIL);
       }, 1000);
-      
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error.message || 'Erreur lors de l\'inscription');
+      toast.error(error.message || "Erreur lors de l'inscription");
     }
   };
 
   const benefits = [
-    { icon: CheckCircle, text: 'Inscription 100% gratuite', description: 'Aucun frais caché' },
-    { icon: Users, text: 'Communauté de confiance', description: 'Des milliers d\'utilisateurs vérifiés' },
-    { icon: Globe, text: 'Transport international', description: 'Vers toutes les destinations' },
-    { icon: TrendingUp, text: 'Économisez jusqu\'à 70%', description: 'Par rapport aux services classiques' }
+    {
+      icon: CheckCircle,
+      text: 'Inscription 100% gratuite',
+      description: 'Aucun frais caché',
+    },
+    {
+      icon: Users,
+      text: 'Communauté de confiance',
+      description: "Des milliers d'utilisateurs vérifiés",
+    },
+    {
+      icon: Globe,
+      text: 'Transport international',
+      description: 'Vers toutes les destinations',
+    },
+    {
+      icon: TrendingUp,
+      text: "Économisez jusqu'à 70%",
+      description: 'Par rapport aux services classiques',
+    },
   ];
 
   return (
@@ -71,7 +87,7 @@ export default function RegisterPageClient() {
           className="relative"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl blur-2xl opacity-50" />
-          
+
           <div className="relative bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
             <RegisterForm onSubmit={handleRegister}>
               <motion.div
@@ -106,11 +122,17 @@ export default function RegisterPageClient() {
           className="mt-6 text-center text-xs text-gray-500"
         >
           En vous inscrivant, vous acceptez nos{' '}
-          <Link href={ROUTES.TERMS} className="text-primary hover:text-primary-dark transition-colors font-medium">
+          <Link
+            href={ROUTES.TERMS}
+            className="text-primary hover:text-primary-dark transition-colors font-medium"
+          >
             Conditions d&apos;utilisation
           </Link>{' '}
           et notre{' '}
-          <Link href={ROUTES.PRIVACY} className="text-primary hover:text-primary-dark transition-colors font-medium">
+          <Link
+            href={ROUTES.PRIVACY}
+            className="text-primary hover:text-primary-dark transition-colors font-medium"
+          >
             Politique de confidentialité
           </Link>
         </motion.div>
@@ -127,17 +149,17 @@ export default function RegisterPageClient() {
         <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
             src="/images/auth/register.jpg"
-            alt="Inscription CoBage"
+            alt="Inscription Co-Bage"
             width={750}
             height={400}
             className="w-full h-auto object-cover"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
-          
+
           {/* Overlay content */}
           <div className="absolute bottom-0 left-0 right-0 p-4">
-            <div className='bg-primary/45 backdrop-blur-sm rounded-xl p-3 shadow-lg'>
+            <div className="bg-primary/45 backdrop-blur-sm rounded-xl p-3 shadow-lg">
               <h3 className="text-2xl font-bold text-white mb-2 text-center">
                 Commencez à transporter dès aujourd&apos;hui
               </h3>
@@ -164,7 +186,9 @@ export default function RegisterPageClient() {
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">{benefit.text}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">
+                    {benefit.text}
+                  </h4>
                   <p className="text-sm text-gray-600">{benefit.description}</p>
                 </div>
               </motion.div>

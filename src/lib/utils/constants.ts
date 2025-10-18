@@ -14,6 +14,7 @@ export const ROUTES = {
   CONTACT: '/contact' as Route,
   TERMS: '/legal/terms' as Route,
   PRIVACY: '/legal/privacy' as Route,
+  COOKIES: '/legal/cookies' as Route,
   FAQ: '/faq' as Route,
   HOW_IT_WORKS: '/how-it-works' as Route,
   TRUST_SAFETY: '/legal/trust-safety' as Route,

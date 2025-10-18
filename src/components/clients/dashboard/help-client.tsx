@@ -54,14 +54,14 @@ const faqs: FAQItem[] = [
   {
     id: '1',
     category: 'general',
-    question: 'Comment fonctionne CoBage ?',
+    question: 'Comment fonctionne Co-Bage ?',
     answer:
-      "CoBage met en relation des voyageurs avec des personnes souhaitant faire transporter des colis. Les voyageurs publient leurs trajets avec l'espace disponible, et les expéditeurs créent des demandes de transport. Les deux parties se mettent d'accord sur les modalités (rencontre, rémunération, etc.).",
+      "Co-Bage met en relation des voyageurs avec des personnes souhaitant faire transporter des colis. Les voyageurs publient leurs trajets avec l'espace disponible, et les expéditeurs créent des demandes de transport. Les deux parties se mettent d'accord sur les modalités (rencontre, rémunération, etc.).",
   },
   {
     id: '2',
     category: 'general',
-    question: 'Est-ce que CoBage est gratuit ?',
+    question: 'Est-ce que Co-Bage est gratuit ?',
     answer:
       "Oui, la création de compte et la mise en relation sont entièrement gratuites. Aucun frais n'est prélevé par la plateforme. Les arrangements financiers se font directement entre le voyageur et l'expéditeur.",
   },
@@ -119,7 +119,7 @@ const faqs: FAQItem[] = [
     category: 'paiement',
     question: 'Comment se passe le paiement ?',
     answer:
-      "CoBage ne gère pas les paiements. Les arrangements financiers se font directement entre le voyageur et l'expéditeur. Nous recommandons de convenir du montant et du mode de paiement avant la remise du colis.",
+      "Co-Bage ne gère pas les paiements. Les arrangements financiers se font directement entre le voyageur et l'expéditeur. Nous recommandons de convenir du montant et du mode de paiement avant la remise du colis.",
   },
   {
     id: '11',
