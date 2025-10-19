@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       "Plateforme n°1 pour envoyer ou transporter des colis entre le Cameroun, l'Afrique et leur diaspora. Économique, rapide et sécurisé. Inscrivez-vous gratuitement !",
     images: [
       {
-        url: '/images/og-home.jpg', // Image principale 1200x630
+        url: '/images/og-image.jpg', // Image principale 1200x630
         width: 1200,
         height: 630,
         alt: 'Co-Bage - Covoiturage de Colis Cameroun Afrique',
