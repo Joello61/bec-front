@@ -11,6 +11,7 @@ export default function DemandeStatusBadge({ statut, size = 'md' }: DemandeStatu
     en_recherche: { variant: 'info' as const, label: 'En recherche', dot: true },
     voyageur_trouve: { variant: 'success' as const, label: 'Voyageur trouvé', dot: false },
     annulee: { variant: 'error' as const, label: 'Annulée', dot: false },
+    expiree: { variant: 'warning' as const, label: 'Expirée', dot: false },
   };
 
   const config = statusConfig[statut];

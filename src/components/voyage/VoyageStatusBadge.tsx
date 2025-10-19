@@ -12,6 +12,7 @@ export default function VoyageStatusBadge({ statut, size = 'md' }: VoyageStatusB
     complete: { variant: 'warning' as const, label: 'Complet', dot: false },
     en_cours: { variant: 'neutral' as const, label: 'Terminé', dot: false },
     annule: { variant: 'error' as const, label: 'Annulé', dot: false },
+    expire: { variant: 'warning' as const, label: 'Expiré', dot: false },
   };
 
   const config = statusConfig[statut];
