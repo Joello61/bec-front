@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { Modal } from '@/components/ui';
 import PropositionForm from '@/components/forms/PropositionForm';
 import type { Voyage, CreatePropositionInput } from '@/types';
+import { CurrencyDisplay } from '../common';
 
 interface PropositionModalProps {
   isOpen: boolean;
@@ -77,19 +78,29 @@ export default function PropositionModal({
               </p>
             </div>
             {voyage.prixParKilo && (
-              <div>
+              <div className='flex flex-col'>
                 <span className="text-gray-600">Prix suggéré/kg:</span>
-                <p className="font-medium text-primary">
-                  {voyage.prixParKilo} XAF
-                </p>
+                <CurrencyDisplay
+                  amount={voyage.prixParKilo}
+                  currency={voyage.currency}
+                  converted={voyage.converted}
+                  viewerCurrency={voyage.viewerCurrency}
+                  field="prixParKilo"
+                  className="text-sm sm:text-base font-semibold text-gray-900"
+                />
               </div>
             )}
             {voyage.commissionProposeePourUnBagage && (
-              <div>
+              <div className='flex flex-col'>
                 <span className="text-gray-600">Commission suggérée:</span>
-                <p className="font-medium text-secondary-dark">
-                  {voyage.commissionProposeePourUnBagage} XAF
-                </p>
+                <CurrencyDisplay
+                  amount={voyage.commissionProposeePourUnBagage}
+                  currency={voyage.currency}
+                  converted={voyage.converted}
+                  viewerCurrency={voyage.viewerCurrency}
+                  field="prixParKilo"
+                  className="text-sm sm:text-base font-semibold text-gray-900"
+                />
               </div>
             )}
           </div>

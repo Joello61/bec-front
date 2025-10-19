@@ -58,6 +58,7 @@ export default function VoyageDetails({
   const { createAvis } = useAvisStore();
 
   const isFavorite = isFavoriVoyage(voyage.id);
+  const isExpired = voyage.statut === 'expire';
   const canLeaveReview = !isOwner && voyage.statut === 'complete';
 
   const handleToggleFavorite = async () => {
@@ -117,11 +118,13 @@ export default function VoyageDetails({
               <div className="hidden sm:flex items-center gap-3">
                 {user && !isOwner && (
                   <>
-                    <FavoriteButton
+                    {!isExpired && (
+                      <FavoriteButton
                       isFavorite={isFavorite}
                       onToggle={handleToggleFavorite}
                       size="md"
                     />
+                    )}
                     <Button
                       variant="ghost"
                       size="sm"
@@ -350,7 +353,7 @@ export default function VoyageDetails({
         </Card>
 
         {/* Owner Actions */}
-        {isOwner && (
+        {isOwner && !isExpired && (
           <Card>
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-3">

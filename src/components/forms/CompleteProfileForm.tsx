@@ -29,6 +29,23 @@ export default function CompleteProfileForm({
   // ✅ Recherche de villes (autocomplete)
   const { searchResults, isSearching, search } = useCitySearch(selectedCountry);
 
+  // ==================== PRÉ-REMPLISSAGE AVEC user.address ====================
+  const defaultValues = useMemo<CompleteProfileFormData>(() => {
+    const address = user?.address;
+    
+    return {
+      telephone: user?.telephone || '',
+      pays: address?.pays || '',
+      ville: address?.ville || '',
+      quartier: address?.quartier || '',
+      adresseLigne1: address?.adresseLigne1 || '',
+      adresseLigne2: address?.adresseLigne2 || '',
+      codePostal: address?.codePostal || '',
+      bio: user?.bio || '',
+      photo: user?.photo || '',
+    };
+  }, [user]);
+
   const {
     register,
     handleSubmit,
@@ -38,17 +55,7 @@ export default function CompleteProfileForm({
     formState: { errors },
   } = useForm<CompleteProfileFormData>({
     resolver: zodResolver(completeProfileSchema),
-    defaultValues: {
-      telephone: user?.telephone || '',
-      pays: '',
-      ville: '',
-      quartier: '',
-      adresseLigne1: '',
-      adresseLigne2: '',
-      codePostal: '',
-      bio: user?.bio || '',
-      photo: user?.photo || '',
-    },
+    defaultValues,
   });
 
   const watchPays = watch('pays');
@@ -56,6 +63,27 @@ export default function CompleteProfileForm({
 
   const selectedCountryData = countries.find((c) => c.label === watchPays);
   const continent = selectedCountryData?.continent || '';
+
+  // ✅ Initialiser le pays sélectionné au chargement
+  useEffect(() => {
+    if (defaultValues.pays && !selectedCountry) {
+      setSelectedCountry(defaultValues.pays);
+    }
+  }, [defaultValues.pays, selectedCountry]);
+
+  // ✅ Détecter le type d'adresse initial depuis user.address
+  useEffect(() => {
+    if (user?.address) {
+      const hasQuartier = !!user.address.quartier;
+      const hasPostal = !!user.address.adresseLigne1 || !!user.address.codePostal;
+      
+      if (hasQuartier) {
+        setAddressType('african');
+      } else if (hasPostal) {
+        setAddressType('postal');
+      }
+    }
+  }, [user?.address]);
 
   // ✅ Mise à jour du type d'adresse selon continent
   useEffect(() => {
@@ -211,7 +239,7 @@ export default function CompleteProfileForm({
               onChange={field.onChange}
               onBlur={field.onBlur}
               searchable
-              onSearch={handleCitySearch} // ✅ Recherche dynamique
+              onSearch={handleCitySearch}
               helperText={
                 searchResults.length > 0
                   ? `${searchResults.length} résultat(s) trouvé(s)`

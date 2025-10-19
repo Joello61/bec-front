@@ -148,10 +148,10 @@ export default function DemandeDetailsPageClient() {
                 {matchingVoyages.length} {matchingVoyages.length > 1 ? 'voyages trouvés' : 'voyage trouvé'}
               </p>
               
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {matchingVoyages.map((item) => (
                   <div key={item.voyage.id} className="relative">
-                    <div className="absolute top-4 right-4 z-10 bg-secondary text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                    <div className="absolute top-[-12px] right-0 z-10 bg-secondary text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
                       {item.score}% match
                     </div>
                     

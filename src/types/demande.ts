@@ -1,7 +1,7 @@
 import type { User } from './user';
 import type { ConvertedAmount } from './currency'; // ⬅️ AJOUT
 
-export type DemandeStatut = 'en_recherche' | 'voyageur_trouve' | 'annulee';
+export type DemandeStatut = 'en_recherche' | 'voyageur_trouve' | 'annulee' | 'expiree';
 
 export interface Demande {
   id: number;

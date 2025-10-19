@@ -100,7 +100,6 @@ export default function PropositionForm({
         <Input
           label={`Prix par kilo (${currencySymbol})`}
           type="number"
-          step="100"
           min="0"
           max="100000"
           placeholder={voyage.prixParKilo || '5000'}
@@ -115,7 +114,6 @@ export default function PropositionForm({
           <Input
             label={`Commission pour un bagage complet (${currencySymbol})`}
             type="number"
-            step="1000"
             min="0"
             max="1000000"
             placeholder={voyage.commissionProposeePourUnBagage || '50000'}

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import VoyageDetailsPageClient from "./voyage-details-client";
+import VoyageDetailsPageClient from "../../../../../../components/clients/dashboard/voyage-details-client";
 
 export const metadata: Metadata = {
   title: 'Détails de voyage',

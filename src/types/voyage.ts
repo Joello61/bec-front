@@ -1,7 +1,7 @@
 import type { User } from './user';
 import type { ConvertedAmount } from './currency'; // ⬅️ AJOUT
 
-export type VoyageStatut = 'actif' | 'complete' | 'en_cours' | 'annule';
+export type VoyageStatut = 'actif' | 'complete' | 'en_cours' | 'annule' | 'expire';
 
 export interface Voyage {
   id: number;

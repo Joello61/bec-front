@@ -53,6 +53,7 @@ export default function DemandeDetails({
   const { createSignalement } = useSignalementActions();
 
   const isFavorite = isFavoriDemande(demande.id);
+  const isExpired = demande.statut === 'expiree';
 
   const handleToggleFavorite = async () => {
     if (user?.isProfileComplete) {
@@ -103,11 +104,13 @@ export default function DemandeDetails({
               <div className="hidden sm:flex items-center gap-3">
                 {user && !isOwner && (
                   <>
-                    <FavoriteButton
+                    {!isExpired && (
+                      <FavoriteButton
                       isFavorite={isFavorite}
                       onToggle={handleToggleFavorite}
                       size="md"
                     />
+                    )}
                     <Button
                       variant="ghost"
                       size="sm"
@@ -332,7 +335,7 @@ export default function DemandeDetails({
         </Card>
 
         {/* Owner Actions */}
-        {isOwner && (
+        {isOwner && !isExpired && (
           <Card>
             <CardContent className="p-4">
               <div className="flex flex-wrap gap-3">

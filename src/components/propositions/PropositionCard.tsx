@@ -64,6 +64,14 @@ export default function PropositionCard({
 
       {/* Prix proposé */}
       <div className="space-y-2 mb-4">
+
+        <div className='flex items-center justify-between p-2 bg-primary/5 rounded'>
+          <span className="text-sm text-gray-700">Poids estimé:</span>
+          <span className="text-primary font-semibold">
+            {proposition.demande.poidsEstime} kg
+          </span>
+        </div>
+
         <div className="flex items-center justify-between p-2 bg-primary/5 rounded">
           <span className="text-sm text-gray-700">Prix/kg proposé:</span>
           <CurrencyDisplay
