@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
-import { useGeoStore } from '@/lib/store';
+import { useAuthStore, useGeoStore } from '@/lib/store';
 import type { City, CityGlobal } from '@/types/geo';
 
 /* ———————————————————————————————— */
@@ -203,4 +203,62 @@ export function useGeoData() {
     selectCountry,
     resetCountry,
   };
+}
+
+export function useContinent(countryName: string | null) {
+  const [continent, setContinent] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchContinent = useCallback(async (pays: string) => {
+    if (!pays) return null;
+    setIsLoading(true);
+    try {
+      const result = await useGeoStore.getState().fetchContinentByPays(pays);
+      setContinent(result);
+      return result;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Auto-fetch si le pays change
+  useEffect(() => {
+    if (!countryName) {
+      setContinent(null);
+      return;
+    }
+
+    const st = useGeoStore.getState();
+    const cached = st.continentByCountry[countryName];
+    if (cached) {
+      setContinent(cached);
+      return;
+    }
+
+    fetchContinent(countryName);
+  }, [countryName, fetchContinent]);
+
+  return {
+    continent,
+    isLoading,
+    fetchContinent,
+  };
+}
+
+export function useUserContinent() {
+  const user = useAuthStore((state) => state.user);
+  const country = user?.address?.pays || null;
+
+  const continentByCountry = useGeoStore((state) => state.continentByCountry);
+  const fetchContinentByPays = useGeoStore((state) => state.fetchContinentByPays);
+
+  const continent = country ? continentByCountry[country] || null : null;
+
+  useEffect(() => {
+    if (country && !continent) {
+      fetchContinentByPays(country);
+    }
+  }, [country, continent, fetchContinentByPays]);
+
+  return continent;
 }

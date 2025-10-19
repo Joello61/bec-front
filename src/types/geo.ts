@@ -39,3 +39,8 @@ export interface GeoApiError {
   error: string;
   message?: string;
 }
+
+export interface ContinentResponse {
+  continent?: string;
+  error?: string;
+}

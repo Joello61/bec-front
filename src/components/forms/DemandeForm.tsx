@@ -22,7 +22,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Devise utilisateur
-  const userCurrency = useUserCurrency();
+  const {userCurrency} = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
 
   // ✅ Top 100 villes mondiales
@@ -248,6 +248,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
           <Input
             label={`Prix max par kilo (${currencySymbol})`}
             type="number"
+            step="0.01"
             min="0"
             max="100000"
             placeholder="5000"
@@ -260,6 +261,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
             label={`Commission max pour bagage (${currencySymbol})`}
             type="number"
             min="0"
+            step="0.01"
             max="1000000"
             placeholder="50000"
             error={errors.commissionProposeePourUnBagage?.message}

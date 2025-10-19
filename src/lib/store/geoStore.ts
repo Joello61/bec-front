@@ -8,12 +8,13 @@ interface GeoState {
   countries: Country[];
   cities: Record<string, City[]>;
   topCitiesGlobal: CityGlobal[];
+  continentByCountry: Record<string, string>;
   
   // États de chargement (pour usage interne uniquement)
   isLoadingCountries: boolean;
   isLoadingCities: boolean;
   isLoadingTopGlobal: boolean;
-  
+  isLoadingContinent: boolean;
   
   // Erreurs
   error: string | null;
@@ -26,6 +27,8 @@ interface GeoState {
   fetchTopCitiesGlobal: () => Promise<void>;
   searchCitiesGlobal: (query: string, limit?: number) => Promise<CityGlobal[]>;
 
+  fetchContinentByPays: (pays: string) => Promise<string | null>;
+
   clearError: () => void;
   reset: () => void;
 }
@@ -35,9 +38,11 @@ export const useGeoStore = create<GeoState>((set, get) => ({
   countries: [],
   cities: {},
   topCitiesGlobal: [],
+  continentByCountry: {},
   isLoadingCountries: false,
   isLoadingCities: false,
   isLoadingTopGlobal: false,
+  isLoadingContinent: false,
   error: null,
 
   /**
@@ -183,15 +188,43 @@ export const useGeoStore = create<GeoState>((set, get) => ({
     }
   },
 
+  fetchContinentByPays: async (pays: string) => {
+    const state = get();
+    if (state.continentByCountry[pays]) return state.continentByCountry[pays]; // cache
+
+    set({ isLoadingContinent: true, error: null });
+    try {
+      const data = await geoApi.getContinentPays(pays);
+      const continent = data.continent ?? null;
+      if (continent) {
+        set((current) => ({
+          continentByCountry: {
+            ...current.continentByCountry,
+            [pays]: continent,
+          },
+          isLoadingContinent: false,
+        }));
+      } else {
+        set({ isLoadingContinent: false });
+      }
+      return continent;
+    } catch (error: any) {
+      set({ error: error.message || 'Erreur lors du chargement du continent', isLoadingContinent: false });
+      return null;
+    }
+  },
+
   clearError: () => set({ error: null }),
 
   reset: () => set({ 
     countries: [],
     cities: {},
     topCitiesGlobal: [],
+    continentByCountry: {},
     isLoadingCountries: false,
     isLoadingCities: false,
     isLoadingTopGlobal: false,
+    isLoadingContinent: false,
     error: null,
   }),
 }));

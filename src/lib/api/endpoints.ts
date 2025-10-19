@@ -185,5 +185,6 @@ export const endpoints = {
     searchCities: '/geo/cities/search',
     topCitiesGlobal: '/geo/cities/top100',
     searchCitiesGlobal: '/geo/cities/search-global',
+    continent: (pays: string) => `/geo/continent/${pays}`,
   },
 } as const;

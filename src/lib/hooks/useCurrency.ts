@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useCurrencyStore } from '@/lib/store/currencyStore';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useSettingsStore } from '../store';
 
 /**
  * Hook principal pour gérer les devises
@@ -57,10 +58,23 @@ export function useCurrency() {
  * Hook pour obtenir uniquement la devise de l'utilisateur
  */
 export function useUserCurrency() {
-  const user = useAuthStore((state) => state.user);
+  const userSettings = useSettingsStore((state) => state.settings);
+  const fetchSettings = useSettingsStore((state) => state.fetchSettings);
   const defaultCurrency = useCurrencyStore((state) => state.defaultCurrency);
-  
-  return user?.settings?.devise || defaultCurrency;
+
+  const isLoading = useSettingsStore((state) => state.isLoading);
+
+  // 🔹 Charger les settings si absents
+  useEffect(() => {
+    if (!userSettings && !isLoading) {
+      fetchSettings(); // appel API une seule fois
+    }
+  }, [userSettings, isLoading, fetchSettings]);
+
+  // 🔹 Déterminer la devise finale
+  const userCurrency = userSettings?.devise ?? defaultCurrency;
+
+  return { userCurrency, isLoading };
 }
 
 /**

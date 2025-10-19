@@ -1,6 +1,6 @@
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Country, City, CityGlobal } from '@/types/geo';
+import type { Country, City, CityGlobal, ContinentResponse } from '@/types/geo';
 
 export const geoApi = {
   /**
@@ -70,6 +70,14 @@ export const geoApi = {
         limit: Math.min(limit, 100), // Cap à 100
       },
     });
+    return response.data;
+  },
+
+  /**
+   * Voir le continent d'un pays par son nom
+   */
+  async getContinentPays(pays: string): Promise<ContinentResponse> {
+    const response = await apiClient.get<ContinentResponse>(endpoints.geo.continent(pays));
     return response.data;
   },
 };

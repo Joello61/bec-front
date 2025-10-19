@@ -6,7 +6,7 @@ import type { ConvertedAmount } from '@/types';
  * Hook pour formater les montants avec gestion de la conversion
  */
 export function useCurrencyFormat() {
-  const userCurrency = useUserCurrency();
+  const {userCurrency} = useUserCurrency();
 
   /**
    * Formate un prix en utilisant les montants convertis si disponibles

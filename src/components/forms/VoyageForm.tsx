@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Plane, Info, MapPin, AlertCircle } from 'lucide-react';
 import { Button, Input, Select } from '@/components/ui';
 import { createVoyageSchema, type CreateVoyageFormData } from '@/lib/validations';
-import { useTopCitiesGlobal, useCitySearchGlobal } from '@/lib/hooks/useGeo';
+import { useTopCitiesGlobal, useCitySearchGlobal, useUserContinent } from '@/lib/hooks/useGeo';
 import { useUserCurrency } from '@/lib/hooks/useCurrency';
 import { getCurrencySymbol } from '@/lib/utils/format';
 import type { Voyage } from '@/types';
@@ -22,8 +22,10 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Devise utilisateur
-  const userCurrency = useUserCurrency();
+  const {userCurrency} = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
+  const continent = useUserContinent()
+  const isAfricanOrAsian = continent === 'AF' || continent === 'AS';
 
   // ✅ Top 100 villes mondiales (chargé une seule fois)
   const { topCitiesGlobal, isLoading: isLoadingTopCities } = useTopCitiesGlobal();
@@ -259,6 +261,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
           <Input
             label={`Prix par kilo (${currencySymbol})`}
             type="number"
+            step={isAfricanOrAsian ? 5 : 0.01}
             min="0"
             max="100000"
             placeholder="5000"
@@ -270,6 +273,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
           <Input
             label={`Commission pour un bagage (${currencySymbol})`}
             type="number"
+            step={isAfricanOrAsian ? 5 : 0.01}
             min="0"
             max="1000000"
             placeholder="50000"
