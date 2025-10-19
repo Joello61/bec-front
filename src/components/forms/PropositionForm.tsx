@@ -31,7 +31,7 @@ export default function PropositionForm({
   onCancel,
   isSubmitting,
 }: PropositionFormProps) {
-  const userCurrency = useUserCurrency();
+  const {userCurrency} = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
 
   const {
