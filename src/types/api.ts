@@ -53,6 +53,7 @@ export interface LoginResponse {
 export interface RegisterResponse {
   success: true;
   message: string;
+  emailVerificationEnabled: boolean;
   user: {
     id: number;
     email: string;

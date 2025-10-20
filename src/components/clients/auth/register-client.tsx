@@ -31,21 +31,31 @@ export default function RegisterPageClient() {
   // ==================== REGISTER MODIFIÉ ====================
   // Redirection vers verify-email au lieu de login
   const handleRegister = async (data: RegisterFormData) => {
-    try {
-      await register(data);
+  try {
+    const response = await register(data); // <-- récupère la réponse JSON du backend
 
+    // On lit la valeur du flag renvoyé par le backend
+    const emailVerificationEnabled = response.emailVerificationEnabled;
+
+    if (emailVerificationEnabled) {
+      // Mode PRODUCTION : email de vérification envoyé
       toast.success('Inscription réussie ! Vérifiez votre email.');
-
-      // ⬅️ REDIRECTION VERS VERIFY-EMAIL (pas login)
       setTimeout(() => {
         router.push(ROUTES.VERIFY_EMAIL);
       }, 1000);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      toast.error(error.message || "Erreur lors de l'inscription");
+    } else {
+      // Mode DEV / PANNE RESEND : auto-vérification
+      toast.success('Inscription réussie ! Votre compte est déjà vérifié.');
+      setTimeout(() => {
+        router.push(ROUTES.LOGIN); // ou le tableau de bord selon ton flow
+      }, 1000);
     }
-  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    toast.error(error.message || "Erreur lors de l'inscription");
+  }
+};
 
   const benefits = [
     {

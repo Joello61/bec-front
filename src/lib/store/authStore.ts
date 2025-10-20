@@ -7,7 +7,8 @@ import type {
   LoginInput, 
   RegisterInput,
   CompleteProfileInput, 
-  CompleteProfileResponse
+  CompleteProfileResponse,
+  RegisterResponse
 } from '@/types';
 
 interface AuthState {
@@ -20,7 +21,7 @@ interface AuthState {
   
   // Actions principales
   login: (credentials: LoginInput) => Promise<void>;
-  register: (data: RegisterInput) => Promise<void>;
+  register: (data: RegisterInput) => Promise<RegisterResponse>;
   logout: () => Promise<void>;
   fetchMe: () => Promise<User | null>;
   
@@ -87,12 +88,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   register: async (data) => {
     set({ isLoading: true, error: null });
     try {
-      await authApi.register(data);
+      const response = await authApi.register(data);
       set({ 
         isLoading: false,
         error: null,
         pendingEmail: data.email,
       });
+      return response; // ⬅️ Retourne la réponse pour accéder à emailVerificationEnabled
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de l\'inscription', 
