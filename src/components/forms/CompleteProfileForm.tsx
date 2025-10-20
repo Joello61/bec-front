@@ -337,13 +337,13 @@ export default function CompleteProfileForm({
             {...register('bio')}
           />
 
-          <Input
+          {/*<Input
             label="Photo de profil (URL)"
             type="url"
             placeholder="https://exemple.com/photo.jpg"
             error={errors.photo?.message}
             {...register('photo')}
-          />
+          />*/}
         </div>
       </div>
 
