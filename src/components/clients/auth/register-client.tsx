@@ -71,7 +71,9 @@ export default function RegisterPageClient() {
   ];
 
   return (
-    <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
       {/* Colonne gauche - Formulaire */}
       <motion.div
         initial="hidden"
@@ -196,6 +198,7 @@ export default function RegisterPageClient() {
           })}
         </div>
       </motion.div>
+    </div>
     </div>
   );
 }
