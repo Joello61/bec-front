@@ -28,8 +28,8 @@ export default function RechercherPageClient() {
     setIsMounted(true);
   }, []);
 
-  const { voyages, isLoading: voyagesLoading } = useVoyages(1, 12, voyageFilters);
-  const { demandes, isLoading: demandesLoading } = useDemandes(1, 12, demandeFilters);
+  const { voyages, isLoading: voyagesLoading, refetch: refetchVoyages } = useVoyages(1, 12, voyageFilters);
+  const { demandes, isLoading: demandesLoading, refetch: refetchDemandes } = useDemandes(1, 12, demandeFilters);
 
   // ==================== FILTRAGE OPTIMISÉ AVEC USEMEMO ====================
   // Exclure les voyages/demandes de l'utilisateur connecté
@@ -173,11 +173,13 @@ export default function RechercherPageClient() {
               <VoyageFilters
                 onFilterChange={handleVoyageFilterChange}
                 initialFilters={voyageFilters}
+                refetchVoyages={refetchVoyages}
               />
             ) : (
               <DemandeFilters
                 onFilterChange={handleDemandeFilterChange}
                 initialFilters={demandeFilters}
+                refetchDemandes={refetchDemandes}
               />
             )}
           </motion.div>

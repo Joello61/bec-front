@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Filter, X } from 'lucide-react';
+import { Filter, RefreshCw, X } from 'lucide-react';
 import { Button, Input, Select } from '@/components/ui';
 import { TOUTES_VILLES, VOYAGE_STATUTS } from '@/lib/utils/constants';
 import type { VoyageFilters as VoyageFiltersType } from '@/types';
@@ -10,9 +10,10 @@ import type { VoyageFilters as VoyageFiltersType } from '@/types';
 interface VoyageFiltersProps {
   onFilterChange: (filters: VoyageFiltersType) => void;
   initialFilters?: VoyageFiltersType;
+  refetchVoyages?: () => void;
 }
 
-export default function VoyageFilters({ onFilterChange, initialFilters = {} }: VoyageFiltersProps) {
+export default function VoyageFilters({ onFilterChange, initialFilters = {}, refetchVoyages }: VoyageFiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState<VoyageFiltersType>(initialFilters);
 
@@ -33,17 +34,24 @@ export default function VoyageFilters({ onFilterChange, initialFilters = {} }: V
     <div className="space-y-4">
       {/* Filter Toggle Button */}
       <div className="flex items-center justify-between">
-        <Button
-          variant="outline"
-          size="md"
-          onClick={() => setIsOpen(!isOpen)}
-          leftIcon={<Filter className="w-4 h-4" />}
-        >
-          Filtres
-          {hasActiveFilters && (
-            <span className="ml-2 w-2 h-2 bg-primary rounded-full" />
-          )}
-        </Button>
+        <div className='flex items-start gap-6'>
+          <Button
+            variant="outline"
+            size="md"
+            onClick={() => setIsOpen(!isOpen)}
+            leftIcon={<Filter className="w-4 h-4" />}
+          >
+            Filtres
+            {hasActiveFilters && (
+              <span className="ml-2 w-2 h-2 bg-primary rounded-full" />
+            )}
+          </Button>
+
+          <Button variant="outline" onClick={refetchVoyages}>
+            <RefreshCw className="w-4 h-4" />
+            Actualiser
+          </Button>
+        </div>
 
         {hasActiveFilters && (
           <button

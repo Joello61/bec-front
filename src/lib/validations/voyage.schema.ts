@@ -35,16 +35,14 @@ export const createVoyageSchema = z.object({
       error: 'Le prix par kilo doit être un nombre',
     })
     .positive('Le prix par kilo doit être positif')
-    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000')
-    .optional(),
+    .max(100000, 'Le prix par kilo ne peut pas dépasser 100 000'),
   
   commissionProposeePourUnBagage: z
     .number({
       error: 'La commission doit être un nombre',
     })
     .positive('La commission doit être positive')
-    .max(1000000, 'La commission ne peut pas dépasser 1 000 000')
-    .optional(),
+    .max(1000000, 'La commission ne peut pas dépasser 1 000 000'),
   
   description: z
     .string()

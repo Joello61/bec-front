@@ -205,7 +205,8 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
-          label="Date limite (optionnel)"
+          label="Date limite"
+          required
           type="date"
           error={errors.dateLimite?.message}
           helperText="Date limite pour trouver un voyageur"
@@ -228,7 +229,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
       {/* ==================== SECTION BUDGET ==================== */}
       <div className="pt-4 border-t border-gray-200">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Budget (optionnel)</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Budget</h3>
           <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
             <span className="text-sm font-medium text-primary">
               Devise : {currencySymbol}
@@ -247,6 +248,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
             label={`Prix max par kilo (${currencySymbol})`}
+            required
             type="number"
             step="0.01"
             min="0"
@@ -259,6 +261,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
 
           <Input
             label={`Commission max pour bagage (${currencySymbol})`}
+            required
             type="number"
             min="0"
             step="0.01"

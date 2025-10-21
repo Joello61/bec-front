@@ -241,7 +241,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
       {/* ==================== SECTION TARIFICATION ==================== */}
       <div className="pt-4 border-t border-gray-200">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Tarification (optionnel)</h3>
+          <h3 className="text-lg font-semibold text-gray-900">Tarification</h3>
           <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg">
             <span className="text-sm font-medium text-primary">
               Devise : {currencySymbol}
@@ -260,6 +260,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
             label={`Prix par kilo (${currencySymbol})`}
+            required
             type="number"
             step={isAfricanOrAsian ? 5 : 0.01}
             min="0"
@@ -272,6 +273,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
 
           <Input
             label={`Commission pour un bagage (${currencySymbol})`}
+            required
             type="number"
             step={isAfricanOrAsian ? 5 : 0.01}
             min="0"
