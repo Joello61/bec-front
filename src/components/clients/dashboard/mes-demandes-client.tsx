@@ -105,6 +105,7 @@ export default function DemandesPageClient() {
       <DemandeFilters
         onFilterChange={setFilters}
         initialFilters={filters}
+        refetchDemandes={refetch}
       />
 
       {/* Content */}

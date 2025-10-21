@@ -114,6 +114,7 @@ export default function VoyagesPageClient() {
       <VoyageFilters
         onFilterChange={setFilters}
         initialFilters={filters}
+        refetchVoyages={refetch}
       />
 
       {/* Content */}
