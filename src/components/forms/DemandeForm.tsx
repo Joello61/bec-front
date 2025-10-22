@@ -31,13 +31,11 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
   // ✅ Recherche globale pour chaque champ
   const { 
     searchResults: searchResultsDepart, 
-    isSearching: isSearchingDepart,
     search: searchDepart 
   } = useCitySearchGlobal();
 
   const { 
     searchResults: searchResultsArrivee, 
-    isSearching: isSearchingArrivee,
     search: searchArrivee 
   } = useCitySearchGlobal();
 
@@ -163,13 +161,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
               error={errors.villeDepart?.message}
               searchable
               onSearch={handleSearchDepart}
-              helperText={
-                searchResultsDepart.length > 0
-                  ? `${searchResultsDepart.length} résultat(s) trouvé(s)`
-                  : isSearchingDepart
-                  ? 'Recherche en cours...'
-                  : 'Top 100 des villes mondiales affichées'
-              }
+              helperText={'Ville de départ du colis'}
             />
           )}
         />
@@ -191,13 +183,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
               error={errors.villeArrivee?.message}
               searchable
               onSearch={handleSearchArrivee}
-              helperText={
-                searchResultsArrivee.length > 0
-                  ? `${searchResultsArrivee.length} résultat(s) trouvé(s)`
-                  : isSearchingArrivee
-                  ? 'Recherche en cours...'
-                  : 'Top 100 des villes mondiales affichées'
-              }
+              helperText={'Ville d\'arrivée du colis'}
             />
           )}
         />

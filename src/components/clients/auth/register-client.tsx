@@ -83,36 +83,35 @@ export default function RegisterPageClient() {
   return (
     <div>
 
-      {/* Alerte temporaire panne e-mail */}
-<motion.div
-  initial={{ opacity: 0, y: -10 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.4 }}
-  className="mb-6 rounded-xl border border-yellow-300 bg-yellow-50 text-yellow-800 px-4 py-3 shadow-sm flex items-center gap-2"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={1.5}
-    stroke="currentColor"
-    className="w-5 h-5 text-yellow-600"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 9v3.75m0 3.75h.007v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg>
-  <p className="text-sm font-medium">
-    Les emails de vérification sont actuellement retardés à cause d’un incident
-    chez notre fournisseur. ⚠️
-    <br />
-    👉 Nous vous recommandons d’utiliser l’inscription via{' '}
-    <span className="font-semibold text-primary">Google</span> pour le moment.
-  </p>
-</motion.div>
-
+      {/* Alerte temporaire panne e-mail 
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-6 rounded-xl border border-yellow-300 bg-yellow-50 text-yellow-800 px-4 py-3 shadow-sm flex items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-5 h-5 text-yellow-600"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 9v3.75m0 3.75h.007v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <p className="text-sm font-medium">
+          Les emails de vérification sont actuellement retardés à cause d’un incident
+          chez notre fournisseur. ⚠️
+          <br />
+          👉 Nous vous recommandons d’utiliser l’inscription via{' '}
+          <span className="font-semibold text-primary">Google</span> pour le moment.
+        </p>
+      </motion.div>*/}
       
       <div className="grid lg:grid-cols-2 gap-12 items-center">
       {/* Colonne gauche - Formulaire */}

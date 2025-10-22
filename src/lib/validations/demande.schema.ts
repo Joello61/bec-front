@@ -13,14 +13,13 @@ export const createDemandeSchema = z.object({
     .max(100, 'La ville d\'arrivée ne peut pas dépasser 100 caractères'),
   dateLimite: z
     .string()
+    .min(1, "La date limite est obligatoire")
     .refine((date) => {
-      if (!date) return true;
       const selectedDate = new Date(date);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      return selectedDate >= today;
-    }, 'La date limite ne peut pas être dans le passé')
-    .optional(),
+      return !isNaN(selectedDate.getTime()) && selectedDate >= today;
+    }, "La date limite ne peut pas être dans le passé"),
   poidsEstime: z
     .number({
         error: 'Le poids doit être un nombre',

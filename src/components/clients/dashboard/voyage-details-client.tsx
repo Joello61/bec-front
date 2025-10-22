@@ -116,10 +116,15 @@ export default function VoyageDetailsPageClient() {
           isOpen={isPropositionModalOpen}
           onClose={() => setIsPropositionModalOpen(false)}
           voyage={voyage}
-          userDemandes={userDemandes.map(d => ({
+          userDemandes={userDemandes
+          .filter(d => d.statut === 'en_recherche')
+          .map(d => ({
             id: d.id,
             villeDepart: d.villeDepart,
             villeArrivee: d.villeArrivee,
+            dateLimite: d.dateLimite,
+            prixParKilo: Number(d.converted?.prixParKilo ?? d.prixParKilo ?? 0),
+            commission: Number(d.converted?.commission ?? d.commissionProposeePourUnBagage ?? 0)
           }))}
           onSubmit={handleCreateProposition}
         />

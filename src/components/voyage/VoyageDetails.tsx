@@ -180,6 +180,14 @@ export default function VoyageDetails({
                     {formatWeight(voyage.poidsDisponible)}
                   </p>
                 </div>
+                {parseFloat(voyage.poidsDisponibleRestant) !== parseFloat(voyage.poidsDisponible) && (
+                  <div className="flex flex-col justify-center sm:justify-start">
+                  <p className="text-xs sm:text-sm text-gray-500">Poids disponible Restant</p>
+                  <p className="text-sm sm:text-base font-semibold text-gray-900 break-words">
+                    {formatWeight(voyage.poidsDisponibleRestant)}
+                  </p>
+                </div>
+                )}
               </div>
 
               {/* Prix par kilo */}

@@ -33,13 +33,11 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
   // ✅ Recherche globale
   const { 
     searchResults: searchResultsDepart, 
-    isSearching: isSearchingDepart,
     search: searchDepart 
   } = useCitySearchGlobal();
 
   const { 
     searchResults: searchResultsArrivee, 
-    isSearching: isSearchingArrivee,
     search: searchArrivee 
   } = useCitySearchGlobal();
 
@@ -167,13 +165,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
               error={errors.villeDepart?.message}
               searchable
               onSearch={handleSearchDepart}
-              helperText={
-                searchResultsDepart.length > 0
-                  ? `${searchResultsDepart.length} résultat(s) trouvé(s)`
-                  : isSearchingDepart
-                  ? 'Recherche en cours...'
-                  : 'Top 100 des villes mondiales affichées'
-              }
+              helperText={'Ville de départ du voyage'}
             />
           )}
         />
@@ -195,13 +187,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
               error={errors.villeArrivee?.message}
               searchable
               onSearch={handleSearchArrivee}
-              helperText={
-                searchResultsArrivee.length > 0
-                  ? `${searchResultsArrivee.length} résultat(s) trouvé(s)`
-                  : isSearchingArrivee
-                  ? 'Recherche en cours...'
-                  : 'Top 100 des villes mondiales affichées'
-              }
+              helperText={'Ville d\'arrivée du voyage'}
             />
           )}
         />

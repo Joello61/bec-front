@@ -15,6 +15,9 @@ interface PropositionModalProps {
     id: number;
     villeDepart: string;
     villeArrivee: string;
+    dateLimite: string;
+    prixParKilo: number;
+    commission: number;
   }>;
   onSubmit: (data: CreatePropositionInput) => Promise<void>;
 }
@@ -98,7 +101,7 @@ export default function PropositionModal({
                   currency={voyage.currency}
                   converted={voyage.converted}
                   viewerCurrency={voyage.viewerCurrency}
-                  field="prixParKilo"
+                  field="commission"
                   className="text-sm sm:text-base font-semibold text-gray-900"
                 />
               </div>

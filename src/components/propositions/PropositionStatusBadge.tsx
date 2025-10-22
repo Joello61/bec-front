@@ -26,6 +26,11 @@ export function PropositionStatusBadge({ statut, className }: PropositionStatusB
       icon: XCircle,
       className: 'bg-error/10 text-error border-error/20',
     },
+    annulee: {
+      label: 'Annulée',
+      icon: XCircle,
+      className: 'bg-error/10 text-error border-error/20',
+    },
   };
 
   const { label, icon: Icon, className: statusClass } = config[statut];

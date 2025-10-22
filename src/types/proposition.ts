@@ -3,7 +3,7 @@ import type { Demande } from './demande';
 import type { Voyage } from './voyage';
 import type { ConvertedAmount } from './currency';
 
-export type PropositionStatut = 'en_attente' | 'acceptee' | 'refusee';
+export type PropositionStatut = 'en_attente' | 'acceptee' | 'refusee' | 'annulee';
 
 export interface Proposition {
   id: number;

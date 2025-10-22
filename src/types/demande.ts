@@ -8,7 +8,7 @@ export interface Demande {
   client: User;
   villeDepart: string;
   villeArrivee: string;
-  dateLimite: string | null;
+  dateLimite: string;
   poidsEstime: string;
   prixParKilo: string | null;
   commissionProposeePourUnBagage: string | null;

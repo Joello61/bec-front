@@ -11,6 +11,7 @@ export interface Voyage {
   dateDepart: string;
   dateArrivee: string;
   poidsDisponible: string;
+  poidsDisponibleRestant  : string;
   prixParKilo: string | null;
   commissionProposeePourUnBagage: string | null;
   

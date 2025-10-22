@@ -9,8 +9,9 @@ import {
   type CreatePropositionFormData,
 } from '@/lib/validations';
 import { useUserCurrency } from '@/lib/hooks/useCurrency';
-import { getCurrencySymbol } from '@/lib/utils/format';
+import { formatDateShort, getCurrencySymbol } from '@/lib/utils/format';
 import type { Voyage } from '@/types';
+import { useUserContinent } from '@/lib/hooks/useGeo';
 
 interface PropositionFormProps {
   voyage: Voyage;
@@ -18,6 +19,9 @@ interface PropositionFormProps {
     id: number;
     villeDepart: string;
     villeArrivee: string;
+    dateLimite: string;
+    prixParKilo: number;
+    commission: number;
   }>;
   onSubmit: (data: CreatePropositionFormData) => Promise<void>;
   onCancel?: () => void;
@@ -34,6 +38,9 @@ export default function PropositionForm({
   const {userCurrency} = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
 
+  const continent = useUserContinent()
+  const isAfricanOrAsian = continent === 'AF' || continent === 'AS';
+
   const {
     register,
     control,
@@ -43,10 +50,10 @@ export default function PropositionForm({
     resolver: zodResolver(createPropositionSchema),
     defaultValues: {
       prixParKilo: voyage.prixParKilo
-        ? parseFloat(voyage.prixParKilo)
+        ? voyage.converted?.prixParKilo || parseFloat(voyage.prixParKilo)
         : undefined,
       commissionProposeePourUnBagage: voyage.commissionProposeePourUnBagage
-        ? parseFloat(voyage.commissionProposeePourUnBagage)
+        ? voyage.converted?.commission || parseFloat(voyage.commissionProposeePourUnBagage)
         : undefined,
     },
   });
@@ -65,14 +72,14 @@ export default function PropositionForm({
               { value: '', label: 'Choisissez une demande' },
               ...userDemandes.map((demande) => ({
                 value: demande.id.toString(),
-                label: `${demande.villeDepart} vers ${demande.villeArrivee}`
+                label: `${demande.villeDepart} vers ${demande.villeArrivee} du ${formatDateShort(demande.dateLimite)}`, 
               }))
             ]}
             value={field.value?.toString() || ''}
             onChange={(value) => field.onChange(value ? Number(value) : '')}
             onBlur={field.onBlur}
             error={errors.demandeId?.message}
-            searchable={true}
+            searchable={false}
           />
         )}
       />
@@ -100,6 +107,7 @@ export default function PropositionForm({
         <Input
           label={`Prix par kilo (${currencySymbol})`}
           type="number"
+          step={isAfricanOrAsian ? 5 : 0.01}
           min="0"
           max="100000"
           placeholder={voyage.prixParKilo || '5000'}
@@ -114,6 +122,7 @@ export default function PropositionForm({
           <Input
             label={`Commission pour un bagage complet (${currencySymbol})`}
             type="number"
+            step={isAfricanOrAsian ? 5 : 0.01}
             min="0"
             max="1000000"
             placeholder={voyage.commissionProposeePourUnBagage || '50000'}

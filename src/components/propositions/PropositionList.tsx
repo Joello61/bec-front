@@ -27,7 +27,7 @@ export default function PropositionList({
   onViewDetails,
   onRetry,
 }: PropositionListProps) {
-  const [filter, setFilter] = useState<'all' | 'en_attente' | 'acceptee' | 'refusee'>('all');
+  const [filter, setFilter] = useState<'all' | 'en_attente' | 'acceptee' | 'refusee' | 'annulee'>('all');
 
   const filteredPropositions = filter === 'all' 
     ? propositions 
@@ -102,6 +102,16 @@ export default function PropositionList({
           }`}
         >
           Refusées ({propositions.filter(p => p.statut === 'refusee').length})
+        </button>
+        <button
+          onClick={() => setFilter('annulee')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            filter === 'refusee'
+              ? 'bg-error text-white'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Annulées ({propositions.filter(p => p.statut === 'annulee').length})
         </button>
       </div>
 

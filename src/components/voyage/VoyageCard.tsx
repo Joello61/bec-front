@@ -149,6 +149,19 @@ export default function VoyageCard({ voyage }: VoyageCardProps) {
                       {formatWeight(voyage.poidsDisponible)}
                     </span>
                   </div>
+                  {parseFloat(voyage.poidsDisponibleRestant) !== parseFloat(voyage.poidsDisponible) && (
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <Package className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-primary flex-shrink-0" />
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">
+                          Poids disponible Restant
+                        </span>
+                      </div>
+                      <span className="text-base sm:text-lg lg:text-xl font-bold text-primary">
+                        {formatWeight(voyage.poidsDisponibleRestant)}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <PriceDisplay
                   prixParKilo={voyage.prixParKilo}
