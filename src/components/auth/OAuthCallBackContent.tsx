@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect } from "react";
 import { useToast } from "../common";
+import { Route } from "next";
 
 export default function OAuthCallbackContent() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function OAuthCallbackContent() {
   const { fetchMeAndGet } = useAuth();
   const toast = useToast();
   const hasRun = useRef(false);
+  const redirectTo = (searchParams.get('redirect') || ROUTES.EXPLORE) as Route;
 
   useEffect(() => {
     if (hasRun.current) return;
@@ -22,7 +24,7 @@ export default function OAuthCallbackContent() {
       
       if (error) {
         toast.error('Erreur lors de l\'authentification OAuth');
-        router.push(ROUTES.LOGIN);
+        router.replace(ROUTES.LOGIN);
         return;
       }
 
@@ -39,21 +41,17 @@ export default function OAuthCallbackContent() {
         // ==================== VÉRIFIER PROFIL COMPLET ====================
         if (!user.isProfileComplete) {
           // Profil incomplet → Complete profile
-          setTimeout(() => {
-            router.push(ROUTES.COMPLETE_PROFILE);
-          }, 1000);
+          router.replace(ROUTES.COMPLETE_PROFILE);
           return;
         }
         
         // Profil complet → Dashboard
-        setTimeout(() => {
-          router.push(ROUTES.EXPLORE);
-        }, 1000);
+        router.replace(redirectTo);
         
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         toast.error(err.message || 'Erreur lors de la récupération des données');
-        router.push(ROUTES.LOGIN);
+        router.replace(ROUTES.LOGIN);
       }
     };
 

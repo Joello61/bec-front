@@ -106,14 +106,10 @@ export default function VerifyEmailPageClient() {
       
       if (!user?.isProfileComplete) {
         // Profil incomplet → Complete profile
-        setTimeout(() => {
-          router.push(ROUTES.COMPLETE_PROFILE);
-        }, 1000);
+        router.replace(ROUTES.COMPLETE_PROFILE);
       } else {
         // Profil complet → Dashboard
-        setTimeout(() => {
-          router.push(ROUTES.EXPLORE);
-        }, 1000);
+        router.replace(ROUTES.EXPLORE);
       }
       
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -37,14 +37,14 @@ export default function manifest(): MetadataRoute.Manifest {
     ],
     screenshots: [
       {
-        src: '/screenshots/home-desktop.png',
+        src: '/images/screenshots/home-desktop.png',
         sizes: '1920x1080',
         type: 'image/png',
         form_factor: 'wide',
         label: "Page d'accueil sur desktop",
       },
       {
-        src: '/screenshots/home-mobile.png',
+        src: '/images/screenshots/home-mobile.png',
         sizes: '390x844',
         type: 'image/png',
         form_factor: 'narrow',

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 import { Shield, Zap, Users } from 'lucide-react';
@@ -11,6 +11,7 @@ import type { LoginFormData } from '@/lib/validations';
 import { useToast } from '@/components/common';
 import OAuthButtons from '@/components/auth/OAuthButtons';
 import { useAuthStore } from '@/lib/store';
+import { Route } from 'next';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -27,6 +28,8 @@ export default function LoginPageClient() {
   const router = useRouter();
   const { login } = useAuth();
   const toast = useToast();
+  const searchParams = useSearchParams()
+  const redirectTo = (searchParams.get('redirect') || ROUTES.EXPLORE) as Route;
 
   // ==================== LOGIN MODIFIÉ ====================
   const handleLogin = async (data: LoginFormData) => {
@@ -41,25 +44,19 @@ export default function LoginPageClient() {
       // ==================== VÉRIFIER PROFIL COMPLET ====================
       if (!user?.isProfileComplete) {
         // Profil incomplet → Redirection complete-profile
-        setTimeout(() => {
-          router.push(ROUTES.COMPLETE_PROFILE);
-        }, 500);
+        router.replace(ROUTES.COMPLETE_PROFILE);
         return;
       }
 
       // Profil complet → Dashboard
-      setTimeout(() => {
-        router.push(ROUTES.EXPLORE);
-      }, 500);
+      router.replace(redirectTo);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // ==================== EMAIL NON VÉRIFIÉ ====================
       if (error.message === 'EMAIL_NOT_VERIFIED') {
         toast.error('Veuillez vérifier votre email avant de vous connecter');
-        setTimeout(() => {
-          router.push(ROUTES.VERIFY_EMAIL);
-        }, 1000);
+        router.replace(ROUTES.VERIFY_EMAIL);
         return;
       }
 

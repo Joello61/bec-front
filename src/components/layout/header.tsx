@@ -67,7 +67,7 @@ export default function Header() {
     try {
       await logout();
       toast.info('Déconnexion réussie');
-      router.push(ROUTES.HOME);
+      router.replace(ROUTES.HOME);
     } catch {
       toast.error('Erreur lors de la déconnexion');
     }
