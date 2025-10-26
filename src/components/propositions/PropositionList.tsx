@@ -136,7 +136,7 @@ export default function PropositionList({
         />
       ) : (
         <motion.div 
-          className="grid gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-4 md:gap-6"
           initial="hidden"
           animate="visible"
           variants={{

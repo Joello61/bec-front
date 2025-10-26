@@ -107,14 +107,26 @@ export default function DemandeDetailsPageClient() {
       {/* Propositions envoyées */}
       {isOwner && propositions.length > 0 && (
         <div className="mt-12">
-          <div className="flex items-center gap-2 mb-6">
-            <Send className="w-6 h-6 text-secondary" />
-            <h2 className="text-2xl font-bold text-gray-900">
-              Mes propositions pour cette demande
-            </h2>
-            <span className="badge badge-secondary ml-2">
-              {propositions.length}
-            </span>
+          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 mb-4 md:mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+              {/* Icône + Titre */}
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Send className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 truncate">
+                    Propositions envoyées
+                  </h2>
+                  <p className="text-xs md:text-sm text-gray-600 mt-0.5">
+                    {propositions.length > 0 
+                      ? `${propositions.length} proposition${propositions.length > 1 ? 's' : ''} au total`
+                      : 'Aucune proposition pour le moment'
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <PropositionList
@@ -128,11 +140,26 @@ export default function DemandeDetailsPageClient() {
       {/* Voyages correspondants */}
       {isOwner && (
         <div className="mt-12">
-          <div className="flex items-center gap-2 mb-6">
-            <Sparkles className="w-6 h-6 text-secondary" />
-            <h2 className="text-2xl font-bold text-gray-900">
-              Voyages correspondants
-            </h2>
+          <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 mb-4 md:mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+              {/* Icône + Titre */}
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 truncate">
+                    Voyages correspondants
+                  </h2>
+                  <p className="text-xs md:text-sm text-gray-600 mt-0.5">
+                    {matchingVoyages.length > 0 
+                      ? `${matchingVoyages.length} voyage${matchingVoyages.length > 1 ? 's' : ''} au total`
+                      : 'Aucun voyage correspondant pour le moment'
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {isLoadingMatching ? (
@@ -144,10 +171,6 @@ export default function DemandeDetailsPageClient() {
             />
           ) : (
             <div className="space-y-4">
-              <p className="text-sm text-gray-600 mb-4">
-                {matchingVoyages.length} {matchingVoyages.length > 1 ? 'voyages trouvés' : 'voyage trouvé'}
-              </p>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 {matchingVoyages.map((item) => (
                   <div key={item.voyage.id} className="relative">

@@ -83,7 +83,7 @@ export default function DemandeDetails({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="lg:hidden space-y-4 md:space-y-6 pb-24 md:pb-6"
+        className="lg:hidden space-y-4 md:space-y-6 md:pb-6"
       >
         {/* Header Card */}
         <Card>
@@ -341,7 +341,7 @@ export default function DemandeDetails({
         <details className="md:block group">
           <summary className="md:hidden cursor-pointer list-none">
             <Card className="group-open:rounded-b-none">
-              <CardContent className="p-4">
+              <CardContent className="">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-gray-700">Informations système</span>
                   <svg 
@@ -572,7 +572,7 @@ export default function DemandeDetails({
             <details className="group">
               <summary className="cursor-pointer list-none">
                 <Card className="group-open:rounded-b-none hover:bg-gray-50 transition-colors">
-                  <CardContent className="p-4">
+                  <CardContent className="">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Clock className="w-4 h-4 text-gray-400" />
