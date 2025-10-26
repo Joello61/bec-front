@@ -10,6 +10,7 @@ class MercureService {
   private anyListeners: ((eventType: string, data: any) => void)[] = [];
 
   private readonly MERCURE_HUB_URL = process.env.NEXT_PUBLIC_MERCURE_HUB_URL;
+  private readonly isDev = process.env.NODE_ENV !== "production";
 
   private isRefreshing = false;
   private refreshAttemptCount = 0;
@@ -19,13 +20,13 @@ class MercureService {
     if (this.eventSource || !this.MERCURE_HUB_URL) return;
 
     const url = new URL(this.MERCURE_HUB_URL);
-    this.topics.forEach((topic) => url.searchParams.append('topic', topic));
+    this.topics.forEach((topic) => url.searchParams.append("topic", topic));
 
-    console.log('[Mercure] Tentative de connexion EventSource...');
+    this.log("Connexion Mercure…");
     this.eventSource = new EventSource(url.toString(), { withCredentials: true });
 
     this.eventSource.onopen = () => {
-      console.log('[Mercure] Connexion EventSource ouverte.');
+      this.log("Connexion Mercure ouverte");
       this.refreshAttemptCount = 0;
     };
 
@@ -34,30 +35,27 @@ class MercureService {
         const eventData = JSON.parse(event.data);
         const { eventType, data } = eventData;
         if (!eventType) return;
+
         this.eventListeners.get(eventType)?.forEach((cb) => cb(data));
+
         this.prefixListeners.forEach((listeners, prefix) => {
           if (eventType.startsWith(prefix)) {
             listeners.forEach((cb) => cb(eventType, data));
           }
         });
+
         this.anyListeners.forEach((cb) => cb(eventType, data));
-      } catch (e) {
-        console.error('Erreur de parsing Mercure:', e);
+      } catch {
+        this.log("Erreur de parsing Mercure", true);
       }
     };
-    this.eventSource.onerror = (err) => {
-      console.error('Erreur EventSource Mercure:', err);
+
+    this.eventSource.onerror = () => {
       if (this.eventSource?.readyState === EventSource.CLOSED) {
-        console.warn(
-          '[Mercure] EventSource fermé. Tentative de rafraîchissement du token...'
-        );
+        this.log("Connexion Mercure fermée. Tentative de rafraîchissement…", true);
         this.attemptMercureTokenRefresh();
       } else {
-        console.log(
-          '[Mercure] Erreur détectée (readyState:',
-          this.eventSource?.readyState,
-          '). Attente de reconnexion auto...'
-        );
+        this.log("Erreur EventSource (reconnexion auto…)", true);
       }
     };
   }
@@ -65,9 +63,7 @@ class MercureService {
   private async attemptMercureTokenRefresh(): Promise<void> {
     if (this.isRefreshing || this.refreshAttemptCount >= this.MAX_REFRESH_ATTEMPTS) {
       if (this.refreshAttemptCount >= this.MAX_REFRESH_ATTEMPTS) {
-        console.error(
-          '[Mercure] Nombre maximum de tentatives de rafraîchissement atteint. Abandon.'
-        );
+        this.log("Tentatives de rafraîchissement épuisées — déconnexion.", true);
         this.disconnect();
       }
       return;
@@ -75,23 +71,13 @@ class MercureService {
 
     this.isRefreshing = true;
     this.refreshAttemptCount++;
-    console.log(
-      `[Mercure] Tentative de rafraîchissement du cookie Mercure #${this.refreshAttemptCount}...`
-    );
 
     try {
-      await apiClient.post('/token/mercure/refresh');
-
-      console.log(
-        '[Mercure] Cookie Mercure rafraîchi avec succès. Reconnexion...'
-      );
+      await apiClient.post("/token/mercure/refresh");
+      this.log("Cookie Mercure rafraîchi avec succès.");
       this.reconnect();
-
-    } catch (error) {
-      console.error(
-        '[Mercure] Échec de la demande de rafraîchissement du cookie Mercure:',
-        error
-      );
+    } catch {
+      this.log("Échec du rafraîchissement du cookie Mercure.", true);
       this.disconnect();
     } finally {
       this.isRefreshing = false;
@@ -156,6 +142,14 @@ class MercureService {
     this.eventSource?.close();
     this.eventSource = null;
     setTimeout(() => this.connect(), 500);
+  }
+
+  /** Log utile en dev uniquement */
+  private log(message: string, isError = false): void {
+    if (this.isDev) {
+      if (isError) console.warn(`[Mercure] ${message}`);
+      else console.log(`[Mercure] ${message}`);
+    }
   }
 }
 
