@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNotificationStore } from '@/lib/store';
 
 /**
@@ -18,6 +18,10 @@ export function useNotifications() {
     fetchNotifications();
   }, []);
 
+  const refetch = useCallback(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
+
   return {
     notifications,
     isLoading,
@@ -25,7 +29,7 @@ export function useNotifications() {
     markAsRead,
     markAllAsRead,
     deleteNotification,
-    refetch: fetchNotifications,
+    refetch,
   };
 }
 
@@ -59,14 +63,16 @@ export function useUnreadNotificationCount(isAuthenticated?: boolean) {
     if (!isAuthenticated) return;
 
     fetchUnreadCount();
+  }, [isAuthenticated, fetchUnreadCount]);
 
-    // Rafraîchir toutes les 30 secondes
-    const interval = setInterval(fetchUnreadCount, 30000);
-    return () => clearInterval(interval);
+  const refetch = useCallback(() => {
+    if (!isAuthenticated) return;
+
+    fetchUnreadCount();
   }, [isAuthenticated, fetchUnreadCount]);
 
   return {
     unreadCount: isAuthenticated ? unreadCount : 0,
-    refetch: fetchUnreadCount,
+    refetch,
   };
 }

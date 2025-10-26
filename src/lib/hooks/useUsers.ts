@@ -67,3 +67,21 @@ export function useUpdateProfile() {
     clearError,
   };
 }
+
+export function useAvatar() {
+  const uploadAvatar = useUserStore((state) => state.uploadAvatar);
+  const deleteAvatar = useUserStore((state) => state.deleteAvatar);
+  const isUploadingAvatar = useUserStore((state) => state.isUploadingAvatar);
+  const error = useUserStore((state) => state.error);
+  const clearError = useUserStore((state) => state.clearError);
+  const currentUser = useUserStore((state) => state.currentUser);
+
+  return {
+    uploadAvatar,
+    deleteAvatar,
+    isUploading: isUploadingAvatar,
+    error,
+    clearError,
+    currentAvatar: currentUser?.photo || null,
+  };
+}

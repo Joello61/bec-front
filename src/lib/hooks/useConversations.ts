@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useConversationStore } from '@/lib/store/conversationStore';
 
 /**
@@ -15,11 +15,15 @@ export function useConversations() {
     fetchConversations();
   }, []);
 
+  const refetch = useCallback(() => {
+    fetchConversations();
+  }, [fetchConversations]);
+
   return {
     conversations,
     isLoading,
     error,
-    refetch: fetchConversations,
+    refetch,
   };
 }
 
@@ -93,14 +97,16 @@ export function useUnreadMessages(isAuthenticated?: boolean) {
     if (!isAuthenticated) return;
 
     fetchUnreadCount();
+  }, [isAuthenticated, fetchUnreadCount]);
 
-    // Rafraîchir toutes les 30 secondes seulement si connecté
-    const interval = setInterval(fetchUnreadCount, 30000);
-    return () => clearInterval(interval);
+  const refetch = useCallback(() => {
+    if (!isAuthenticated) return;
+
+    fetchUnreadCount();
   }, [isAuthenticated, fetchUnreadCount]);
 
   return {
     unreadCount: isAuthenticated ? unreadCount : 0,
-    refetch: fetchUnreadCount,
+    refetch,
   };
 }

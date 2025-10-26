@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useContactStore } from '@/lib/store/contactStore';
+import { useAuth } from './useAuth';
 
 /**
  * Hook pour créer un contact (formulaire public)
@@ -31,9 +32,14 @@ export function useContacts() {
   const error = useContactStore((state) => state.error);
   const fetchContacts = useContactStore((state) => state.fetchContacts);
 
+  const { user } = useAuth();
+  const isAdmin = user?.roles?.includes('ROLE_ADMIN');
+
   useEffect(() => {
-    fetchContacts();
-  }, [fetchContacts]);
+    if (isAdmin) {
+      fetchContacts();
+    }
+  }, [isAdmin,fetchContacts]);
 
   const refetch = useCallback(() => {
     fetchContacts();

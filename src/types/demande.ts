@@ -50,6 +50,7 @@ export interface DemandeFilters {
   villeDepart?: string;
   villeArrivee?: string;
   statut?: DemandeStatut;
+  dateLimite?: string;
 }
 
 export interface DemandeWithScore {

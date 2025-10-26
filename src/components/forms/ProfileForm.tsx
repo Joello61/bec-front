@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Save, Camera } from 'lucide-react';
+import { Save, Trash2 } from 'lucide-react';
 import { Button, Input, Avatar } from '@/components/ui';
+import InputFile from '@/components/ui/InputFile';
 import { updateUserSchema, type UpdateUserFormData } from '@/lib/validations';
 import type { User } from '@/types';
+import { useAvatar } from '@/lib/hooks/useUsers';
 
 interface ProfileFormProps {
   user: User;
@@ -16,7 +18,16 @@ interface ProfileFormProps {
 
 export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [photoPreview, setPhotoPreview] = useState(user.photo || '');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
+  const { 
+    uploadAvatar, 
+    deleteAvatar,
+    isUploading, 
+    error: uploadError,
+    clearError,
+    currentAvatar 
+  } = useAvatar();
 
   const {
     register,
@@ -29,18 +40,51 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
       prenom: user.prenom,
       telephone: user.telephone || '',
       bio: user.bio || '',
-      photo: user.photo || '',
     },
   });
 
   const handleFormSubmit = async (data: UpdateUserFormData) => {
     setIsSubmitting(true);
+    
     try {
+      // 1. Si un nouveau fichier a été sélectionné, on l'upload en premier
+      if (selectedFile) {
+        try {
+          await uploadAvatar(selectedFile);
+          // L'avatar est maintenant uploadé et le store est mis à jour
+        } catch (error) {
+          console.error('Erreur lors de l\'upload de l\'avatar:', error);
+          // On continue quand même avec la mise à jour du profil
+        }
+      }
+
+      // 2. Ensuite on met à jour le profil (sans la photo)
       await onSubmit(data);
+
+      // Réinitialiser le fichier sélectionné après succès
+      setSelectedFile(null);
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const handleFileSelect = (file: File | null) => {
+    setSelectedFile(file);
+    clearError();
+  };
+
+  const handleDeleteAvatar = async () => {
+    try {
+      await deleteAvatar();
+      setSelectedFile(null);
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l\'avatar:', error);
+    }
+  };
+
+  const isProcessing = isSubmitting || isUploading;
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
@@ -49,25 +93,34 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
         <label className="block text-sm font-medium text-gray-700 mb-3">
           Photo de profil
         </label>
-        <div className="flex items-center gap-4">
+        <div className="flex items-start gap-4">
           <Avatar
-            src={photoPreview || undefined}
+            src={currentAvatar || undefined}
             fallback={`${user.nom} ${user.prenom}`}
             size="xl"
           />
-          <div className="flex-1">
-            <Input
-              type="url"
-              placeholder="https://exemple.com/photo.jpg"
-              error={errors.photo?.message}
-              helperText="URL de votre photo de profil"
-              {...register('photo')}
-              onChange={(e) => {
-                register('photo').onChange(e);
-                setPhotoPreview(e.target.value);
-              }}
-              leftIcon={<Camera className="w-5 h-5" />}
+          <div className="flex-1 space-y-2">
+            <InputFile
+              onFileSelect={handleFileSelect}
+              error={uploadError || undefined}
+              helperText="Formats acceptés: JPG, PNG, WEBP (max 5MB)"
+              maxSize={5}
+              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+              showPreview={true}
+              disabled={isProcessing}
             />
+            {currentAvatar && !selectedFile && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleDeleteAvatar}
+                disabled={isProcessing}
+                leftIcon={<Trash2 className="w-4 h-4" />}
+              >
+                Supprimer la photo
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -79,6 +132,7 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
           type="text"
           placeholder="Jean"
           error={errors.prenom?.message}
+          disabled={isProcessing}
           {...register('prenom')}
         />
 
@@ -87,6 +141,7 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
           type="text"
           placeholder="Dupont"
           error={errors.nom?.message}
+          disabled={isProcessing}
           {...register('nom')}
         />
       </div>
@@ -97,6 +152,7 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
         placeholder="+237 6XX XX XX XX"
         error={errors.telephone?.message}
         helperText="Format: +237XXXXXXXXX"
+        disabled={isProcessing}
         {...register('telephone')}
       />
 
@@ -110,6 +166,7 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
           rows={4}
           className="input"
           placeholder="Parlez un peu de vous..."
+          disabled={isProcessing}
           {...register('bio')}
         />
         {errors.bio && (
@@ -127,7 +184,7 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
             type="button"
             variant="outline"
             onClick={onCancel}
-            disabled={isSubmitting}
+            disabled={isProcessing}
             className="flex-1"
           >
             Annuler
@@ -136,7 +193,7 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
         <Button
           type="submit"
           variant="primary"
-          isLoading={isSubmitting}
+          isLoading={isProcessing}
           leftIcon={<Save className="w-4 h-4" />}
           className="flex-1"
         >

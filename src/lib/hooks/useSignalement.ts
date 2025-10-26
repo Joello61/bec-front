@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSignalementStore } from '@/lib/store';
+import { useAuth } from './useAuth';
 
 /**
  * Hook pour charger les signalements avec pagination
@@ -12,16 +13,25 @@ export function useSignalements(page = 1, limit = 10, statut?: string) {
   const error = useSignalementStore((state) => state.error);
   const fetchSignalements = useSignalementStore((state) => state.fetchSignalements);
 
+  const { user } = useAuth();
+  const isAdmin = user?.roles?.includes('ROLE_ADMIN');
+
   useEffect(() => {
+    if (isAdmin) {
+      fetchSignalements(page, limit, statut);
+    }
+  }, [isAdmin, page, limit, statut]);
+
+  const refetch = useCallback(() => {
     fetchSignalements(page, limit, statut);
-  }, [page, limit, statut]);
+  }, [page, limit, statut, fetchSignalements]);
 
   return {
     signalements,
     pagination,
     isLoading,
     error,
-    refetch: () => fetchSignalements(page, limit, statut),
+    refetch,
   };
 }
 
@@ -36,12 +46,16 @@ export function useMesSignalements(page = 1, limit = 10, statut?: string) {
     fetchMesSignalements(page, limit, statut);
   }, [page, limit, statut]);
 
+  const refetch = useCallback(() => {
+    fetchMesSignalements(page, limit, statut);
+  }, [page, limit, statut, fetchMesSignalements]);
+
   return {
     mesSignalements,
     pagination,
     isLoading,
     error,
-    refetch: () => fetchMesSignalements(page, limit, statut),
+    refetch
   };
 }
 
@@ -73,14 +87,14 @@ export function usePendingSignalements() {
 
   useEffect(() => {
     fetchPendingCount();
-    
-    // Rafraîchir toutes les 60 secondes
-    const interval = setInterval(fetchPendingCount, 60000);
-    return () => clearInterval(interval);
   }, []);
+
+  const refetch = useCallback(() => {
+    fetchPendingCount();
+  }, [fetchPendingCount]);
 
   return {
     pendingCount,
-    refetch: fetchPendingCount,
+    refetch,
   };
 }

@@ -1,0 +1,27 @@
+'use client';
+
+import { ReactNode } from 'react';
+import { AuthProvider } from '@/components/providers/AuthProvider';
+import { NotificationPermissionProvider } from '@/components/providers/NotificationPermissionProvider';
+import { InAppNotificationProvider } from '@/components/providers/InAppNotificationProvider';
+import ToastProvider from '@/components/providers/ToastProvider';
+import { Footer, Header } from '@/components/layout';
+
+export default function ClientRootProvider({ children }: { children: ReactNode }) {
+  return (
+    <body className="min-h-screen bg-gray-50 antialiased">
+        <AuthProvider>
+            <NotificationPermissionProvider>
+                <InAppNotificationProvider>
+                    <Header />
+                        <main id="main-content" role="main">
+                            {children}
+                        </main>
+                    <Footer />
+                </InAppNotificationProvider>
+            </NotificationPermissionProvider>
+            <ToastProvider />
+        </AuthProvider>
+    </body>
+  );
+}

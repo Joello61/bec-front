@@ -1,13 +1,13 @@
 'use client';
 
-import { useAuthStore } from '@/lib/store';
 import { useEffect } from 'react';
+import { useAuthStore } from '@/lib/store';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchMe = useAuthStore((state) => state.fetchMe);
 
+  // On lance la récupération de l’utilisateur au montage
   useEffect(() => {
-    // Vérifier si l'utilisateur a un cookie JWT valide
     fetchMe();
   }, [fetchMe]);
 

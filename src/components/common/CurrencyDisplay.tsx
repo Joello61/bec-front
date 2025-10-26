@@ -1,6 +1,5 @@
 'use client';
 
-import { Info } from 'lucide-react';
 import { useCurrencyFormat } from '@/lib/hooks/useCurrencyFormat';
 import type { ConvertedAmount } from '@/types';
 
@@ -9,9 +8,10 @@ interface CurrencyDisplayProps {
   currency: string;
   converted?: ConvertedAmount;
   viewerCurrency?: string;
-  showOriginal?: boolean; // Afficher l'original en tooltip
-  field?: 'prixParKilo' | 'commission'; // Quel champ afficher
+  showOriginal?: boolean;
+  field?: 'prixParKilo' | 'commission';
   className?: string;
+  compact?: boolean; // Mode compact pour les cards mobiles
 }
 
 export default function CurrencyDisplay({
@@ -22,6 +22,7 @@ export default function CurrencyDisplay({
   showOriginal = true,
   field = 'prixParKilo',
   className = '',
+  compact = false,
 }: CurrencyDisplayProps) {
   const { formatPrice, formatAmount } = useCurrencyFormat();
 
@@ -35,11 +36,8 @@ export default function CurrencyDisplay({
     ? formatPrice(amount, currency, converted, field)
     : formatAmount(amount, currency);
 
-  // Montant original pour le tooltip
-  const originalAmount = formatAmount(amount, currency);
-
+  // Pas de conversion ou tooltip désactivé
   if (!hasConversion || !showOriginal) {
-    // Pas de conversion ou tooltip désactivé
     return (
       <span className={`font-bold ${className}`}>
         {displayAmount}
@@ -47,27 +45,25 @@ export default function CurrencyDisplay({
     );
   }
 
-  // Avec conversion et tooltip
+  // Mode compact (pour les cards mobiles)
+  if (compact) {
+    return (
+      <>
+        <div className="flex items-center gap-1.5 group">
+          <span className={`font-bold ${className}`}>
+            {displayAmount}
+          </span>
+        </div>
+      </>
+    );
+  }
+
+  // Mode desktop normal (avec tooltip hover)
   return (
     <div className="flex items-center gap-2 group relative">
       <span className={`font-bold ${className}`}>
         {displayAmount}
       </span>
-      
-      {/* Icône de conversion avec tooltip */}
-      <div className="relative">
-        <Info className="w-4 h-4 text-primary opacity-60 group-hover:opacity-100 transition-opacity cursor-help" />
-        
-        {/* Tooltip */}
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
-          <div className="text-center">
-            <div className="text-gray-300 mb-1">Montant original</div>
-            <div className="font-semibold">{originalAmount}</div>
-          </div>
-          {/* Flèche du tooltip */}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
-        </div>
-      </div>
     </div>
   );
 }

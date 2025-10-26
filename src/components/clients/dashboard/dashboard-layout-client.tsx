@@ -7,6 +7,7 @@ import { useAuth } from '@/lib/hooks';
 import { LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 import VerificationBanner from '@/components/dashboard/VerificationBanner';
+import { useMercureEvents } from '@/lib/hooks/useMercureEvents';
 
 export default function DashboardLayoutClient({
   children,
@@ -15,6 +16,8 @@ export default function DashboardLayoutClient({
 }) {
   const { isAuthenticated, isInitialized } = useAuth();
   const router = useRouter();
+
+  useMercureEvents();
 
   useEffect(() => {
     if (isInitialized && !isAuthenticated) {

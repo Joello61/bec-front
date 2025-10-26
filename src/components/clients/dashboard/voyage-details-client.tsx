@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft, Send } from 'lucide-react';
 import Link from 'next/link';
@@ -19,17 +19,40 @@ export default function VoyageDetailsPageClient() {
 
   const { user } = useAuth();
   const { voyage, isLoading, error, refetch } = useVoyage(voyageId);
-  const { demandes: userDemandes } = useUserDemandes(user?.id);
+  const { mesDemandes: userDemandes } = useUserDemandes(user?.id);
   const { createProposition } = usePropositionActions();
   const toast = useToast();
 
-  // ✅ CORRECTION : Passer l'ID du VOYAGEUR, pas le vôtre
+  // ✅ Conversation avec le voyageur
   const { conversation } = useConversationWithUser(voyage?.voyageur.id);
 
   const [isPropositionModalOpen, setIsPropositionModalOpen] = useState(false);
 
   const isOwner = user?.id === voyage?.voyageur.id;
   const canPropose = !isOwner && voyage?.statut === 'actif';
+
+  // ✅ FILTRAGE INTELLIGENT : Demandes qui correspondent au voyage
+  const relevantDemandes = useMemo(() => {
+    if (!voyage || !userDemandes.length) return [];
+
+    return userDemandes
+      .filter(d => 
+        // Statut actif
+        d.statut === 'en_recherche' &&
+        // Même ville de départ
+        d.villeDepart.trim().toLowerCase() === voyage.villeDepart.trim().toLowerCase() &&
+        // Même ville d'arrivée
+        d.villeArrivee.trim().toLowerCase() === voyage.villeArrivee.trim().toLowerCase()
+      )
+      .map(d => ({
+        id: d.id,
+        villeDepart: d.villeDepart,
+        villeArrivee: d.villeArrivee,
+        dateLimite: d.dateLimite,
+        prixParKilo: Number(d.converted?.prixParKilo ?? d.prixParKilo ?? 0),
+        commission: Number(d.converted?.commission ?? d.commissionProposeePourUnBagage ?? 0)
+      }));
+  }, [voyage, userDemandes]);
 
   const handleContact = () => {
     if (conversation) {
@@ -96,7 +119,10 @@ export default function VoyageDetailsPageClient() {
                 Intéressé par ce voyage ?
               </h3>
               <p className="text-sm text-gray-600">
-                Faites une proposition au voyageur avec votre prix et votre demande
+                {relevantDemandes.length > 0 
+                  ? `Vous avez ${relevantDemandes.length} demande${relevantDemandes.length > 1 ? 's' : ''} correspondante${relevantDemandes.length > 1 ? 's' : ''} pour ce trajet`
+                  : 'Créez d\'abord une demande pour ce trajet pour faire une proposition'
+                }
               </p>
             </div>
             <Button
@@ -116,16 +142,7 @@ export default function VoyageDetailsPageClient() {
           isOpen={isPropositionModalOpen}
           onClose={() => setIsPropositionModalOpen(false)}
           voyage={voyage}
-          userDemandes={userDemandes
-          .filter(d => d.statut === 'en_recherche')
-          .map(d => ({
-            id: d.id,
-            villeDepart: d.villeDepart,
-            villeArrivee: d.villeArrivee,
-            dateLimite: d.dateLimite,
-            prixParKilo: Number(d.converted?.prixParKilo ?? d.prixParKilo ?? 0),
-            commission: Number(d.converted?.commission ?? d.commissionProposeePourUnBagage ?? 0)
-          }))}
+          userDemandes={relevantDemandes}
           onSubmit={handleCreateProposition}
         />
       )}

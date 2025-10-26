@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAvisStore } from '@/lib/store';
 
 /**
  * Hook pour charger les avis d'un utilisateur avec statistiques
  */
-export function useUserAvis(userId: number) {
+export function useUserAvis(userId?: number) {
   const avisWithStats = useAvisStore((state) => state.avisWithStats);
   const isLoading = useAvisStore((state) => state.isLoading);
   const error = useAvisStore((state) => state.error);
@@ -17,12 +17,18 @@ export function useUserAvis(userId: number) {
     }
   }, [userId]);
 
+  const refetch = useCallback(() => {
+      if (userId != null) {
+        fetchUserAvis(userId);
+      }
+    }, [userId, fetchUserAvis]);
+
   return {
     avis: avisWithStats?.avis || [],
     stats: avisWithStats?.stats || null,
     isLoading,
     error,
-    refetch: () => fetchUserAvis(userId),
+    refetch,
   };
 }
 

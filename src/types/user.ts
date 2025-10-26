@@ -50,7 +50,6 @@ export interface CompleteProfileInput {
   
   // Optionnels
   bio?: string;
-  photo?: string;
 }
 
 // ==================== PROFILE STATUS ====================
@@ -72,7 +71,6 @@ export interface UpdateUserInput {
   prenom?: string;
   telephone?: string;
   bio?: string;
-  photo?: string;
 }
 
 export interface ChangePasswordInput {
@@ -101,4 +99,10 @@ export interface VerifyPhoneInput {
 export interface ResendVerificationInput {
   type: 'email' | 'phone';
   email?: string;
+}
+
+export interface AvatarResponse {
+  success: boolean;
+  message: string;
+  photoUrl: string | null;
 }

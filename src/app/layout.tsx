@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-
-import ToastProvider from '@/components/providers/ToastProvider';
-import { Footer, Header } from '@/components/layout';
-import { AuthProvider } from '@/components/providers/AuthProvider';
+import ClientRootProvider from '@/components/clients/dashboard/client-root-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -273,19 +270,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-gray-50 antialiased">
-        <AuthProvider>
-          <Header />
-
-          <main id="main-content" role="main">
-            {children}
-          </main>
-
-          <Footer />
-        </AuthProvider>
-
-        <ToastProvider />
-      </body>
+        <ClientRootProvider>
+          {children}
+        </ClientRootProvider>
     </html>
   );
 }

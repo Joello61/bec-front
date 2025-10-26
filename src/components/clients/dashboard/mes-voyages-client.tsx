@@ -16,15 +16,15 @@ export default function VoyagesPageClient() {
   const { user } = useAuth();
   const toast = useToast();
 
-  const { voyages, isLoading, error, refetch } = useUserVoyages(user?.id);
+  const { mesVoyages, isLoading, error, refetch } = useUserVoyages(user?.id);
   const { createVoyage } = useVoyageActions();
 
   // ==================== FILTRAGE CÔTÉ CLIENT ====================
   // Filtrer les voyages selon les critères sélectionnés
   const filteredVoyages = useMemo(() => {
-    if (!voyages.length) return [];
+    if (!mesVoyages.length) return [];
 
-    return voyages.filter((voyage: Voyage) => {
+    return mesVoyages.filter((voyage: Voyage) => {
       // Filtre par ville de départ
       if (filters.villeDepart && voyage.villeDepart !== filters.villeDepart) {
         return false;
@@ -51,7 +51,7 @@ export default function VoyagesPageClient() {
 
       return true;
     });
-  }, [voyages, filters]);
+  }, [mesVoyages, filters]);
 
   if (!user) {
     return <p>Veuillez vous connecter</p>;
@@ -68,7 +68,7 @@ export default function VoyagesPageClient() {
     }
   };
 
-  if (error && !voyages.length) {
+  if (error && !mesVoyages.length) {
     return (
       <div className="container-custom py-8">
         <ErrorState
@@ -88,9 +88,9 @@ export default function VoyagesPageClient() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Mes Voyages</h1>
           <p className="text-gray-600">
             Gérez vos annonces de voyage
-            {filteredVoyages.length !== voyages.length && (
+            {filteredVoyages.length !== mesVoyages.length && (
               <span className="ml-2 text-primary font-medium">
-                ({filteredVoyages.length} sur {voyages.length})
+                ({filteredVoyages.length} sur {mesVoyages.length})
               </span>
             )}
           </p>
@@ -119,9 +119,9 @@ export default function VoyagesPageClient() {
 
       {/* Content */}
       <div className="mt-8">
-        {isLoading && voyages.length === 0 ? (
+        {isLoading && mesVoyages.length === 0 ? (
           <LoadingSpinner text="Chargement des voyages..." />
-        ) : voyages.length === 0 ? (
+        ) : mesVoyages.length === 0 ? (
           <EmptyState
             title="Aucun voyage"
             description="Commencez par créer votre premier voyage"

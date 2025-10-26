@@ -90,7 +90,7 @@ export function useVoyageActions() {
  * Hook pour les voyages d'un utilisateur
  */
 export function useUserVoyages(userId?: number) {
-  const voyages = useVoyageStore((state) => state.voyages);
+  const mesVoyages = useVoyageStore((state) => state.mesVoyages);
   const isLoading = useVoyageStore((state) => state.isLoading);
   const error = useVoyageStore((state) => state.error);
   const fetchUserVoyages = useVoyageStore((state) => state.fetchUserVoyages);
@@ -109,7 +109,7 @@ export function useUserVoyages(userId?: number) {
   }, [userId, fetchUserVoyages]);
 
   return {
-    voyages,
+    mesVoyages,
     isLoading,
     error,
     refetch,

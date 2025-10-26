@@ -3,13 +3,15 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, MapPin, Home, Building2, Mail as MailIcon } from 'lucide-react';
+import { Phone, MapPin, Home, Building2, Mail as MailIcon, Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button, Input, Select } from '@/components/ui';
+import { Button, Input, Select, Avatar } from '@/components/ui';
+import InputFile from '@/components/ui/InputFile';
 import { completeProfileSchema, type CompleteProfileFormData } from '@/lib/validations';
 import { useAuth } from '@/lib/hooks';
 import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { SelectOption } from '@/components/ui/select';
+import { useAvatar } from '@/lib/hooks/useUsers';
 
 export default function CompleteProfileForm({
   onSubmit,
@@ -20,7 +22,18 @@ export default function CompleteProfileForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addressType, setAddressType] = useState<'african' | 'postal'>('african');
   const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const lastContinentRef = useRef<string>('');
+
+  // ✅ Hook pour l'avatar
+  const { 
+    uploadAvatar, 
+    deleteAvatar,
+    isUploading, 
+    error: uploadError,
+    clearError,
+    currentAvatar 
+  } = useAvatar();
 
   // ✅ Données géographiques
   const { countries, isLoading: isLoadingCountries } = useCountries();
@@ -148,6 +161,7 @@ export default function CompleteProfileForm({
   const cleanFormData = useCallback(
     (data: CompleteProfileFormData): CompleteProfileFormData => ({
       ...data,
+      photo: undefined, // On ne passe pas la photo dans le formulaire
       ...(addressType === 'african' && {
         adresseLigne1: undefined,
         adresseLigne2: undefined,
@@ -160,11 +174,41 @@ export default function CompleteProfileForm({
     [addressType]
   );
 
+  const handleFileSelect = (file: File | null) => {
+    setSelectedFile(file);
+    clearError();
+  };
+
+  const handleDeleteAvatar = async () => {
+    try {
+      await deleteAvatar();
+      setSelectedFile(null);
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l\'avatar:', error);
+    }
+  };
+
   const handleFormSubmit = async (data: CompleteProfileFormData) => {
     setIsSubmitting(true);
+    
     try {
+      // 1. Si un fichier est sélectionné, on l'upload en premier
+      if (selectedFile) {
+        try {
+          await uploadAvatar(selectedFile);
+          // L'avatar est maintenant uploadé et le store est mis à jour
+        } catch (error) {
+          console.error('Erreur lors de l\'upload de l\'avatar:', error);
+          // On continue quand même avec la complétion du profil
+        }
+      }
+
+      // 2. Ensuite on complète le profil (sans la photo)
       const cleanedData = cleanFormData(data);
       await onSubmit(cleanedData);
+
+      // Réinitialiser le fichier sélectionné après succès
+      setSelectedFile(null);
     } catch (error) {
       console.error('Form submission error:', error);
     } finally {
@@ -172,8 +216,47 @@ export default function CompleteProfileForm({
     }
   };
 
+  const isProcessing = isSubmitting || isUploading;
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
+      {/* Photo de profil */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-3">
+          Photo de profil (optionnel)
+        </label>
+        <div className="flex items-start gap-4">
+          <Avatar
+            src={currentAvatar || undefined}
+            fallback={user ? `${user.nom} ${user.prenom}` : 'User'}
+            size="xl"
+          />
+          <div className="flex-1 space-y-2">
+            <InputFile
+              onFileSelect={handleFileSelect}
+              error={uploadError || undefined}
+              helperText="Formats acceptés: JPG, PNG, WEBP (max 5MB)"
+              maxSize={5}
+              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+              showPreview={true}
+              disabled={isProcessing}
+            />
+            {currentAvatar && !selectedFile && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleDeleteAvatar}
+                disabled={isProcessing}
+                leftIcon={<Trash2 className="w-4 h-4" />}
+              >
+                Supprimer la photo
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Téléphone */}
       <Input
         label="Numéro de téléphone"
@@ -184,7 +267,7 @@ export default function CompleteProfileForm({
         leftIcon={<Phone className="w-5 h-5" />}
         {...register('telephone')}
         required
-        disabled={!!user?.telephone && user?.telephoneVerifie}
+        disabled={!!user?.telephone && user?.telephoneVerifie || isProcessing}
       />
       {user?.telephone && user?.telephoneVerifie && (
         <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
@@ -204,7 +287,7 @@ export default function CompleteProfileForm({
             options={countryOptions}
             placeholder={isLoadingCountries ? 'Chargement des pays...' : 'Sélectionnez un pays'}
             required
-            disabled={isLoadingCountries}
+            disabled={isLoadingCountries || isProcessing}
             value={field.value}
             onChange={(value) => {
               field.onChange(value);
@@ -234,7 +317,7 @@ export default function CompleteProfileForm({
                   : 'Tapez pour rechercher votre ville'
               }
               required
-              disabled={isLoadingCities || !watchPays}
+              disabled={isLoadingCities || !watchPays || isProcessing}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -261,6 +344,7 @@ export default function CompleteProfileForm({
             leftIcon={<Home className="w-5 h-5" />}
             {...register('quartier')}
             required
+            disabled={isProcessing}
           />
         </motion.div>
       )}
@@ -281,6 +365,7 @@ export default function CompleteProfileForm({
             leftIcon={<Home className="w-5 h-5" />}
             {...register('adresseLigne1')}
             required
+            disabled={isProcessing}
           />
 
           <Input
@@ -290,6 +375,7 @@ export default function CompleteProfileForm({
             error={errors.adresseLigne2?.message}
             leftIcon={<Building2 className="w-5 h-5" />}
             {...register('adresseLigne2')}
+            disabled={isProcessing}
           />
 
           <Input
@@ -300,6 +386,7 @@ export default function CompleteProfileForm({
             leftIcon={<MailIcon className="w-5 h-5" />}
             {...register('codePostal')}
             required
+            disabled={isProcessing}
           />
         </motion.div>
       )}
@@ -335,15 +422,8 @@ export default function CompleteProfileForm({
             error={errors.bio?.message}
             helperText="500 caractères maximum"
             {...register('bio')}
+            disabled={isProcessing}
           />
-
-          {/*<Input
-            label="Photo de profil (URL)"
-            type="url"
-            placeholder="https://exemple.com/photo.jpg"
-            error={errors.photo?.message}
-            {...register('photo')}
-          />*/}
         </div>
       </div>
 
@@ -353,11 +433,11 @@ export default function CompleteProfileForm({
           <Button
             type="submit"
             variant="primary"
-            isLoading={isSubmitting}
-            disabled={isSubmitting}
+            isLoading={isProcessing}
+            disabled={isProcessing}
             className="w-full"
           >
-            {isSubmitting ? 'Envoi en cours...' : 'Compléter mon profil'}
+            {isProcessing ? 'Envoi en cours...' : 'Compléter mon profil'}
           </Button>
         </motion.div>
 

@@ -1,4 +1,5 @@
 import { useAdminStore } from '@/lib/store/adminStore';
+import { useCallback } from 'react';
 
 /**
  * Hook personnalisé pour simplifier l'utilisation du store admin
@@ -6,6 +7,24 @@ import { useAdminStore } from '@/lib/store/adminStore';
  */
 export function useAdmin() {
   const store = useAdminStore();
+
+  const refetchAdminStats = useCallback(async () => {
+    try {
+      // Call the stable functions directly from the store instance
+      await Promise.all([
+        store.fetchDashboard(),
+        store.fetchUsersStats(),
+        store.fetchVoyagesStats(),
+        store.fetchDemandesStats(),
+        store.fetchSignalementsStats(),
+        store.fetchActivityStats(),
+        store.fetchEngagementStats(),
+      ]);
+      console.log('[Admin] Statistiques rechargées avec succès ✅');
+    } catch (err) {
+      console.error('[Admin] Erreur lors du refetch des stats ❌', err);
+    }
+  }, [store]);
 
   return {
     // State
@@ -55,5 +74,6 @@ export function useAdmin() {
     exportLogs: store.exportLogs,
     clearError: store.clearError,
     reset: store.reset,
+    refetchAdminStats,
   };
 }

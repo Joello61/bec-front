@@ -195,7 +195,7 @@ export default function BottomNav() {
                     <Plane className="w-6 h-6" />
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="font-semibold">Créer un voyage</p>
+                    <p className="font-semibold">Gérer mes voyages</p>
                     <p className="text-sm text-white/80">Proposez de transporter des colis</p>
                   </div>
                 </button>
@@ -211,7 +211,7 @@ export default function BottomNav() {
                     <Package className="w-6 h-6" />
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="font-semibold">Créer une demande</p>
+                    <p className="font-semibold">Gérer mes demandes</p>
                     <p className="text-sm text-gray-600">Demandez le transport d&apos;un colis</p>
                   </div>
                 </button>

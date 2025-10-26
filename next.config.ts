@@ -25,7 +25,11 @@ const nextConfig = {
         hostname: 'cobage-api.joeltech.dev',
         port: '',
         pathname: '/uploads/**',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
   

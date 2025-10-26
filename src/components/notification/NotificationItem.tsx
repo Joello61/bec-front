@@ -29,30 +29,47 @@ export default function NotificationItem({ notification, onClick, onDismiss }: N
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 20 }}
       className={cn(
-        'p-4 flex items-start gap-2 border-2 rounded-lg transition-colors cursor-pointer',
-        !notification.lue ? 'bg-primary/5 hover:bg-primary/10' : 'hover:bg-gray-50'
+        'relative p-3 sm:p-4 flex items-start gap-3 border-2 rounded-lg transition-all cursor-pointer',
+        'hover:shadow-md active:scale-[0.98]',
+        !notification.lue 
+          ? 'bg-primary/5 border-primary/20 hover:bg-primary/10' 
+          : 'border-gray-200 hover:bg-gray-50'
       )}
       onClick={onClick}
     >
+      {/* Indicateur non lu - Mobile (point sur l'icône) */}
+      {!notification.lue && (
+        <span className="absolute top-2 left-2 w-2 h-2 bg-primary rounded-full sm:hidden" />
+      )}
+
       {/* Icon */}
-      <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+      <div className={cn(
+        'w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0',
+        !notification.lue ? 'bg-primary/15 text-primary' : 'bg-gray-100 text-gray-600'
+      )}>
         {notificationIcons[notification.type]}
       </div>
 
       {/* Content */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <p className={cn('text-sm font-medium', !notification.lue && 'text-gray-900')}>
-              {notification.titre}
-            </p>
-            <p className="text-sm text-gray-600 mt-0.5">{notification.message}</p>
-          </div>
+      <div className="flex-1 min-w-0 pr-8 sm:pr-0">
+        <div className="flex items-start justify-between gap-2 mb-1">
+          <h4 className={cn(
+            'text-sm sm:text-base font-medium leading-tight',
+            !notification.lue ? 'text-gray-900' : 'text-gray-700'
+          )}>
+            {notification.titre}
+          </h4>
+          {/* Indicateur non lu - Desktop */}
           {!notification.lue && (
-            <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1" />
+            <span className="hidden sm:block w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1.5" />
           )}
         </div>
-        <p className="text-xs text-gray-500 mt-1">
+
+        <p className="text-xs sm:text-sm text-gray-600 line-clamp-2 mb-1.5">
+          {notification.message}
+        </p>
+
+        <p className="text-xs text-gray-500">
           {formatDateRelative(notification.createdAt)}
         </p>
       </div>
@@ -64,10 +81,14 @@ export default function NotificationItem({ notification, onClick, onDismiss }: N
             e.stopPropagation();
             onDismiss();
           }}
-          className="p-1 hover:bg-gray-200 rounded transition-colors flex-shrink-0"
-          aria-label="Supprimer"
+          className={cn(
+            'absolute top-2 right-2 sm:relative sm:top-0 sm:right-0',
+            'p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors flex-shrink-0',
+            'z-10'
+          )}
+          aria-label="Supprimer la notification"
         >
-          <X className="w-4 h-4 text-gray-400" />
+          <X className="w-4 h-4 text-gray-400 hover:text-gray-600" />
         </button>
       )}
     </motion.div>

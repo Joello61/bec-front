@@ -44,12 +44,12 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
-  const { unreadCount: notifCount } =
-    useUnreadNotificationCount(isAuthenticated);
-  const { unreadCount: messageCount } = useUnreadMessages(isAuthenticated);
   const toast = useToast();
   const router = useRouter();
   const pathname = usePathname();
+
+  const { unreadCount: notifCount } = useUnreadNotificationCount(isAuthenticated);
+  const { unreadCount: messageCount } = useUnreadMessages(isAuthenticated);
 
   const isAuthPage = pathname?.includes('/auth');
 
@@ -96,6 +96,7 @@ export default function Header() {
                   fill
                   className="object-contain"
                   priority
+                  sizes="112px"
                 />
               </div>
             </Link>
@@ -225,22 +226,9 @@ export default function Header() {
                 fill
                 className="object-contain"
                 priority
+                sizes="80px"
               />
             </div>
-
-            {/* Option 2: Icône seule (décommentez si vous préférez) */}
-            {/* 
-            <div className="relative h-10 w-10">
-              <Image
-                src="/images/logo/logo_icon_only.png"
-                alt="Co-Bage"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            <span className="font-bold text-lg text-gray-900">Co-Bage</span>
-            */}
           </Link>
 
           {/* Actions */}

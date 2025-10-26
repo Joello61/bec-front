@@ -13,6 +13,7 @@ import { VOYAGE_STATUTS } from '../utils/constants';
 
 interface VoyageState {
   voyages: Voyage[];
+  mesVoyages: Voyage[];
   currentVoyage: Voyage | null;
   pagination: PaginationMeta | null;
   isLoading: boolean;
@@ -33,6 +34,7 @@ interface VoyageState {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useVoyageStore = create<VoyageState>((set, get) => ({
   voyages: [],
+  mesVoyages: [],
   currentVoyage: null,
   pagination: null,
   isLoading: false,
@@ -73,7 +75,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     try {
       const voyage = await voyagesApi.create(data);
       set((state) => ({ 
-        voyages: [voyage, ...state.voyages],
+        mesVoyages: [voyage, ...state.mesVoyages],
         isLoading: false 
       }));
       return voyage;
@@ -91,7 +93,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     try {
       const updatedVoyage = await voyagesApi.update(id, data);
       set((state) => ({
-        voyages: state.voyages.map((v) => v.id === id ? updatedVoyage : v),
+        mesVoyages: state.mesVoyages.map((v) => v.id === id ? updatedVoyage : v),
         currentVoyage: state.currentVoyage?.id === id ? updatedVoyage : state.currentVoyage,
         isLoading: false
       }));
@@ -109,7 +111,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     try {
       const updatedVoyage = await voyagesApi.updateStatus(id, statut);
       set((state) => ({
-        voyages: state.voyages.map((v) => v.id === id ? updatedVoyage : v),
+        mesVoyages: state.mesVoyages.map((v) => v.id === id ? updatedVoyage : v),
         currentVoyage: state.currentVoyage?.id === id ? updatedVoyage : state.currentVoyage,
         isLoading: false
       }));
@@ -127,7 +129,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     try {
       await voyagesApi.delete(id);
       set((state) => ({
-         voyages: state.voyages.map((v) =>
+         mesVoyages: state.mesVoyages.map((v) =>
         v.id === id ? { ...v, status: VOYAGE_STATUTS[3]} : v
       ),
       currentVoyage:
@@ -149,7 +151,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       const voyages = await voyagesApi.byUser(userId);
-      set({ voyages, isLoading: false });
+      set({ mesVoyages: voyages, isLoading: false });
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors du chargement des voyages', 
@@ -162,6 +164,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
   
   reset: () => set({ 
     voyages: [], 
+    mesVoyages: [],
     currentVoyage: null, 
     pagination: null, 
     error: null 

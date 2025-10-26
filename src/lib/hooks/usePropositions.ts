@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { usePropositionStore } from '@/lib/store';
 
 /**
@@ -17,11 +17,17 @@ export function useVoyagePropositions(voyageId?: number) {
     }
   }, [voyageId]);
 
+  const refetch = useCallback(() => {
+    if (voyageId != null) {
+      fetchPropositionsByVoyage(voyageId);
+    }
+  }, [voyageId, fetchPropositionsByVoyage]);
+
   return {
     propositions,
     isLoading,
     error,
-    refetch: voyageId != null ? () => fetchPropositionsByVoyage(voyageId) : async () => {},
+    refetch
   };
 }
 
@@ -99,13 +105,6 @@ export function usePendingPropositionsCount() {
 
   useEffect(() => {
     fetchPendingCount();
-    
-    // Rafraîchir toutes les 30 secondes
-    const interval = setInterval(() => {
-      fetchPendingCount();
-    }, 30000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return {

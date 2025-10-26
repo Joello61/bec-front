@@ -13,6 +13,7 @@ import { DEMANDE_STATUTS } from '../utils/constants';
 
 interface DemandeState {
   demandes: Demande[];
+  mesDemandes: Demande[];
   currentDemande: Demande | null;
   pagination: PaginationMeta | null;
   isLoading: boolean;
@@ -32,6 +33,7 @@ interface DemandeState {
 
 export const useDemandeStore = create<DemandeState>((set) => ({
   demandes: [],
+  mesDemandes: [],
   currentDemande: null,
   pagination: null,
   isLoading: false,
@@ -72,7 +74,7 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     try {
       const demande = await demandesApi.create(data);
       set((state) => ({ 
-        demandes: [demande, ...state.demandes],
+        mesDemandes: [demande, ...state.mesDemandes],
         isLoading: false 
       }));
       return demande;
@@ -90,7 +92,7 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     try {
       const updatedDemande = await demandesApi.update(id, data);
       set((state) => ({
-        demandes: state.demandes.map((d) => d.id === id ? updatedDemande : d),
+        mesDemandes: state.mesDemandes.map((d) => d.id === id ? updatedDemande : d),
         currentDemande: state.currentDemande?.id === id ? updatedDemande : state.currentDemande,
         isLoading: false
       }));
@@ -108,7 +110,7 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     try {
       const updatedDemande = await demandesApi.updateStatus(id, statut);
       set((state) => ({
-        demandes: state.demandes.map((d) => d.id === id ? updatedDemande : d),
+        mesDemandes: state.mesDemandes.map((d) => d.id === id ? updatedDemande : d),
         currentDemande: state.currentDemande?.id === id ? updatedDemande : state.currentDemande,
         isLoading: false
       }));
@@ -126,10 +128,10 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     try {
       await demandesApi.delete(id);
       set((state) => ({
-               voyages: state.demandes.map((v) =>
-              v.id === id ? { ...v, status: DEMANDE_STATUTS[2]} : v
+               mesDemandes: state.mesDemandes.map((d) =>
+              d.id === id ? { ...d, status: DEMANDE_STATUTS[2]} : d
             ),
-            currentVoyage:
+            currentDemande:
               state.currentDemande?.id === id
                 ? { ...state.currentDemande, status: DEMANDE_STATUTS[2] }
                 : state.currentDemande,
@@ -148,7 +150,7 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     set({ isLoading: true, error: null });
     try {
       const demandes = await demandesApi.byUser(userId);
-      set({ demandes, isLoading: false });
+      set({ mesDemandes: demandes, isLoading: false });
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors du chargement des demandes', 
@@ -161,6 +163,7 @@ export const useDemandeStore = create<DemandeState>((set) => ({
   
   reset: () => set({ 
     demandes: [], 
+    mesDemandes: [],
     currentDemande: null, 
     pagination: null, 
     error: null 

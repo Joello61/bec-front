@@ -10,23 +10,28 @@ interface UserState {
   searchResults: User[];
   isLoading: boolean;
   error: string | null;
+  isUploadingAvatar: boolean;
   
   // Actions
   fetchUsers: (page?: number, limit?: number) => Promise<void>;
   fetchUser: (id: number) => Promise<void>;
   updateMe: (data: UpdateUserInput) => Promise<void>;
   searchUsers: (query: string) => Promise<void>;
+  uploadAvatar: (file: File) => Promise<string | null>;
+  deleteAvatar: () => Promise<void>;
+  
   clearError: () => void;
   reset: () => void;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   users: [],
   currentUser: null,
   pagination: null,
   searchResults: [],
   isLoading: false,
   error: null,
+  isUploadingAvatar: false,
 
   fetchUsers: async (page = 1, limit = 10) => {
     set({ isLoading: true, error: null });
@@ -85,6 +90,58 @@ export const useUserStore = create<UserState>((set) => ({
     }
   },
 
+  uploadAvatar: async (file: File) => {
+    set({ isUploadingAvatar: true, error: null });
+    try {
+      const response = await usersApi.uploadAvatar(file);
+      
+      // Mettre à jour le currentUser avec la nouvelle photo
+      const currentUser = get().currentUser;
+      if (currentUser) {
+        set({ 
+          currentUser: { ...currentUser, photo: response.photoUrl },
+          isUploadingAvatar: false 
+        });
+      } else {
+        set({ isUploadingAvatar: false });
+      }
+      
+      return response.photoUrl;
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || 'Erreur lors de l\'upload de l\'avatar';
+      set({ 
+        error: errorMessage,
+        isUploadingAvatar: false 
+      });
+      throw new Error(errorMessage);
+    }
+  },
+
+  deleteAvatar: async () => {
+    set({ isUploadingAvatar: true, error: null });
+    try {
+      await usersApi.deleteAvatar();
+      
+      // Mettre à jour le currentUser en supprimant la photo
+      const currentUser = get().currentUser;
+      if (currentUser) {
+        set({ 
+          currentUser: { ...currentUser, photo: null },
+          isUploadingAvatar: false 
+        });
+      } else {
+        set({ isUploadingAvatar: false });
+      }
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || 'Erreur lors de la suppression de l\'avatar';
+      set({ 
+        error: errorMessage,
+        isUploadingAvatar: false 
+      });
+      throw new Error(errorMessage);
+    }
+  },
+
   clearError: () => set({ error: null }),
   
   reset: () => set({ 
@@ -92,6 +149,7 @@ export const useUserStore = create<UserState>((set) => ({
     currentUser: null, 
     pagination: null,
     searchResults: [],
-    error: null 
+    error: null,
+    isUploadingAvatar: false,
   }),
 }));

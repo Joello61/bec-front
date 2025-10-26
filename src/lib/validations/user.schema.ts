@@ -27,12 +27,6 @@ export const updateUserSchema = z.object({
     .max(500, 'La bio ne peut pas dépasser 500 caractères')
     .optional()
     .or(z.literal('')),
-  
-  photo: z
-    .string()
-    .url('L\'URL de la photo n\'est pas valide')
-    .optional()
-    .or(z.literal('')),
 });
 
 export const searchUserSchema = z.object({

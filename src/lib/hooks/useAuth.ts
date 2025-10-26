@@ -1,5 +1,6 @@
 import { useAuthStore } from '@/lib/store';
 import { User } from '@/types';
+import { useCallback } from 'react';
 
 /**
  * Hook simplifié pour accéder aux données d'authentification
@@ -49,6 +50,10 @@ export function useAuth() {
     return await fetchMeFromStore(); // Utilise le retour
   };
 
+  const refetch = useCallback(() => {
+    fetchMeFromStore();
+  }, [fetchMeFromStore]);
+
   return {
     // État
     user,
@@ -63,6 +68,7 @@ export function useAuth() {
     register,
     logout,
     fetchMe,
+    refetch,
     fetchMeAndGet,
     
     // Actions vérification

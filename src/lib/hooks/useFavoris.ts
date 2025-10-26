@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFavoriStore } from '@/lib/store';
 import { usePathname } from 'next/navigation';
 
@@ -16,11 +16,15 @@ export function useFavoris() {
     fetchFavoris();
   }, []);
 
+  const refetch = useCallback(() => {
+    fetchFavoris();
+  }, [fetchFavoris]);
+
   return {
     favoris,
     isLoading,
     error,
-    refetch: fetchFavoris,
+    refetch,
   };
 }
 
@@ -39,11 +43,16 @@ export function useFavorisVoyages() {
     }
   }, [pathname, fetchFavorisVoyages]);
 
+  const refetch = useCallback(() => {
+    if (pathname.includes('/dashboard/favoris')) {
+      fetchFavorisVoyages();
+    }
+  }, [pathname, fetchFavorisVoyages]);
 
   return {
     favorisVoyages,
     isLoading,
-    refetch: fetchFavorisVoyages,
+    refetch,
   };
 }
 
@@ -62,10 +71,16 @@ export function useFavorisDemandes() {
     }
   }, [pathname, fetchFavorisDemandes]);
 
+  const refetch = useCallback(() => {
+    if (pathname.includes('/dashboard/favoris')) {
+      fetchFavorisDemandes();
+    }
+  }, [pathname, fetchFavorisDemandes]);
+
   return {
     favorisDemandes,
     isLoading,
-    refetch: fetchFavorisDemandes,
+    refetch
   };
 }
 

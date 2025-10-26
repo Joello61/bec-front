@@ -321,3 +321,19 @@ export function calculateConversion(
   // Ex: XAF vers USD = (montant / rateXAF) * rateUSD
   return (amount / fromRate) * toRate;
 }
+
+export function formatImageUrl(imagePath?: string | null): string | null {
+  if (!imagePath) return null;
+
+  // Vérifie si c'est déjà une URL absolue (http:// ou https://)
+  const isAbsolute = /^(https?:)?\/\//i.test(imagePath);
+  if (isAbsolute) return imagePath;
+
+  // Base URL du backend
+  const baseApiUrl = (process.env.NEXT_PUBLIC_BACKEND_URL || '').replace(/\/$/, '');
+
+  // Nettoie le chemin pour éviter les doubles slash
+  const cleanPath = imagePath.replace(/^\/+/, '');
+
+  return `${baseApiUrl}/${cleanPath}`;
+}

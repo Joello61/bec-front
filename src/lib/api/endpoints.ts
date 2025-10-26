@@ -28,6 +28,7 @@ export const endpoints = {
     completeProfile: '/users/me/complete-profile',
     addressModificationInfo: '/users/me/address/modification-info',
     updateAddress: '/users/me/address',
+    manageAvatar: '/users/me/avatar',
   },
 
   // ==================== CURRENCIES (NOUVEAU) ====================

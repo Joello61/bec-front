@@ -16,12 +16,18 @@ interface SettingsState {
   clearError: () => void;
 }
 
-export const useSettingsStore = create<SettingsState>((set) => ({
+export const useSettingsStore = create<SettingsState>((set, get) => ({
   settings: null,
   isLoading: false,
   error: null,
 
   fetchSettings: async () => {
+
+    if (get().isLoading || get().settings) {
+      // console.log('[SettingsStore] Fetch ignoré (déjà en cours ou données présentes)');
+      return; // Ne rien faire
+    }
+
     set({ isLoading: true, error: null });
     try {
       const settings = await settingsApi.get();

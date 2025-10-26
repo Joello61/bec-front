@@ -17,6 +17,7 @@ import {
 import { useDashboard } from '@/lib/hooks/useDashboard';
 
 export default function DashboardPageClient() {
+
   const { user } = useAuth();
   const { data, isLoading, error, refresh } = useDashboard();
 

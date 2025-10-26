@@ -90,7 +90,7 @@ export function useDemandeActions() {
  * Hook pour les demandes d'un utilisateur
  */
 export function useUserDemandes(userId?: number) {
-  const demandes = useDemandeStore((state) => state.demandes);
+  const mesDemandes = useDemandeStore((state) => state.mesDemandes);
   const isLoading = useDemandeStore((state) => state.isLoading);
   const error = useDemandeStore((state) => state.error);
   const fetchUserDemandes = useDemandeStore((state) => state.fetchUserDemandes);
@@ -109,7 +109,7 @@ export function useUserDemandes(userId?: number) {
   }, [userId, fetchUserDemandes]);
 
   return {
-    demandes,
+    mesDemandes,
     isLoading,
     error,
     refetch,

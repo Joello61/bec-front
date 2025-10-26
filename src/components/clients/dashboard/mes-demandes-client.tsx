@@ -18,13 +18,13 @@ export default function DemandesPageClient() {
   const toast = useToast();
 
   const { createDemande } = useDemandeActions();
-  const { demandes, isLoading, error, refetch } = useUserDemandes(user?.id);
+  const { mesDemandes, isLoading, error, refetch } = useUserDemandes(user?.id);
 
   // ==================== FILTRAGE CÔTÉ CLIENT ====================
   const filteredDemandes = useMemo(() => {
-    if (!demandes.length) return [];
+    if (!mesDemandes.length) return [];
 
-    return demandes.filter((demande: Demande) => {
+    return mesDemandes.filter((demande: Demande) => {
       // Filtre par ville de départ
       if (filters.villeDepart && demande.villeDepart !== filters.villeDepart) {
         return false;
@@ -42,7 +42,7 @@ export default function DemandesPageClient() {
 
       return true;
     });
-  }, [demandes, filters]);
+  }, [mesDemandes, filters]);
 
   if (!user) {
     return null;
@@ -59,7 +59,7 @@ export default function DemandesPageClient() {
     }
   };
 
-  if (error && !demandes.length) {
+  if (error && !mesDemandes.length) {
     return (
       <div className="container-custom py-8">
         <ErrorState
@@ -79,9 +79,9 @@ export default function DemandesPageClient() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Mes Demandes</h1>
           <p className="text-gray-600">
             Gérez vos demandes de transport
-            {filteredDemandes.length !== demandes.length && (
+            {filteredDemandes.length !== mesDemandes.length && (
               <span className="ml-2 text-primary font-medium">
-                ({filteredDemandes.length} sur {demandes.length})
+                ({filteredDemandes.length} sur {mesDemandes.length})
               </span>
             )}
           </p>
@@ -110,9 +110,9 @@ export default function DemandesPageClient() {
 
       {/* Content */}
       <div className="mt-8">
-        {isLoading && demandes.length === 0 ? (
+        {isLoading && mesDemandes.length === 0 ? (
           <LoadingSpinner text="Chargement des demandes..." />
-        ) : demandes.length === 0 ? (
+        ) : mesDemandes.length === 0 ? (
           <EmptyState
             title="Aucune demande"
             description="Commencez par créer votre première demande de transport"

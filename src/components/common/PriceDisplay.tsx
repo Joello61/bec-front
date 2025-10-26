@@ -12,11 +12,13 @@ interface PriceDisplayProps {
   viewerCurrency?: string;
   layout?: 'horizontal' | 'vertical';
   showIcons?: boolean;
+  compact?: boolean; // Mode compact pour cards mobiles
   className?: string;
 }
 
 /**
  * Composant pour afficher les prix (par kilo et commission) avec conversion
+ * Mode compact optimisé pour les cards mobiles
  */
 export default function PriceDisplay({
   prixParKilo,
@@ -26,12 +28,47 @@ export default function PriceDisplay({
   viewerCurrency,
   layout = 'vertical',
   showIcons = true,
+  compact = false,
   className = '',
 }: PriceDisplayProps) {
   const containerClass = layout === 'horizontal' 
     ? 'flex gap-4' 
     : 'space-y-3';
 
+  // ==================== MODE COMPACT (Cards Mobiles) ====================
+  if (compact) {
+    // Afficher UNIQUEMENT le prix principal (prixParKilo OU commission)
+    const mainPrice = prixParKilo || commission;
+    const mainField = prixParKilo ? 'prixParKilo' : 'commission';
+
+    if (!mainPrice) {
+      return (
+        <div className="text-sm text-gray-500 italic">
+          Prix non spécifié
+        </div>
+      );
+    }
+
+    // Format compact : montant + suffix (/kg)
+    return (
+      <div className="flex items-center gap-1">
+        <CurrencyDisplay
+          amount={mainPrice}
+          currency={currency}
+          converted={converted}
+          viewerCurrency={viewerCurrency}
+          field={mainField}
+          className="text-lg font-bold text-primary"
+          compact={true}
+        />
+        {prixParKilo && (
+          <span className="text-sm text-gray-600">/kg</span>
+        )}
+      </div>
+    );
+  }
+
+  // ==================== MODE NORMAL (Desktop & Pages détails) ====================
   return (
     <div className={`${containerClass} ${className}`}>
       {/* Prix par kilo */}
