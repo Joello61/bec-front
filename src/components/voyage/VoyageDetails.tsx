@@ -97,7 +97,7 @@ export default function VoyageDetails({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="lg:hidden space-y-4 md:space-y-6 pb-24 md:pb-6"
+        className="lg:hidden space-y-4 md:space-y-6 md:pb-6"
       >
         {/* Header Card Mobile */}
         <Card>
