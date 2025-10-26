@@ -80,7 +80,7 @@ class MercureService {
     );
 
     try {
-      await apiClient.post('/mercure/refresh');
+      await apiClient.post('/token/mercure/refresh');
 
       console.log(
         '[Mercure] Cookie Mercure rafraîchi avec succès. Reconnexion...'
