@@ -225,7 +225,6 @@ export default function Header() {
                 alt="Co-Bage"
                 fill
                 className="object-contain"
-                priority
                 sizes="80px"
               />
             </div>
