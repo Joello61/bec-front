@@ -1,155 +1,138 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const CACHE_NAME = 'cobage-v1'; // ← CORRIGER
-const STATIC_CACHE = 'cobage-static-v1';
-const DYNAMIC_CACHE = 'cobage-dynamic-v1';
+/**
+ * Service Worker CoBage – v2.0.0
+ * Fonctionnalités :
+ * - Mise en cache des fichiers statiques essentiels
+ * - Gestion des requêtes API en mode réseau-prioritaire
+ * - Fallback vers offline.html si déconnexion
+ * - Prêt pour syncMessages() et notifications futures
+ */
+
+const VERSION = 'v2.0.0';
+const STATIC_CACHE = `cobage-static-${VERSION}`;
+const DYNAMIC_CACHE = `cobage-dynamic-${VERSION}`;
 
 const STATIC_ASSETS = [
   '/',
-  '/about',
-  '/how-it-works',
-  '/faq',
-  '/contact',
   '/offline.html',
-  '/images/logo/logo-1.png', // ← CORRIGER nom
   '/favicon.svg',
+  '/manifest.json',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png'
 ];
 
-// Installation du Service Worker
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installation Co-Bage...');
-  
+  console.log('[SW] Installation CoBage...');
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
-      console.log('[SW] Mise en cache des assets statiques');
+      console.log('[SW] Mise en cache des assets statiques...');
       return cache.addAll(STATIC_ASSETS);
     })
   );
-  
   self.skipWaiting();
 });
 
-// Activation du Service Worker
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activation Co-Bage...');
-  
+  console.log('[SW] Activation CoBage...');
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((names) => {
       return Promise.all(
-        cacheNames
-          .filter((name) => name !== STATIC_CACHE && name !== DYNAMIC_CACHE)
-          .map((name) => {
-            console.log('[SW] Suppression ancien cache:', name);
-            return caches.delete(name);
+        names
+          .filter((n) => ![STATIC_CACHE, DYNAMIC_CACHE].includes(n))
+          .map((oldName) => {
+            console.log('[SW] Suppression ancien cache:', oldName);
+            return caches.delete(oldName);
           })
       );
     })
   );
-  
   self.clients.claim();
 });
 
-// Stratégie de cache
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Ignorer les requêtes non-HTTP
-  if (!request.url.startsWith('http')) return;
+  // Ignorer les requêtes non-HTTP (ex. chrome-extension://)
+  if (!url.protocol.startsWith('http')) return;
 
-  // API requests - Network First
+  // API (JWT requis) → Network First
   if (url.pathname.startsWith('/api/')) {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          const responseClone = response.clone();
-          caches.open(DYNAMIC_CACHE).then((cache) => {
-            cache.put(request, responseClone);
-          });
+          const clone = response.clone();
+          caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, clone));
           return response;
         })
-        .catch(() => {
-          return caches.match(request);
-        })
+        .catch(() => caches.match(request))
     );
     return;
   }
 
-  // Static assets - Cache First
-  if (
-    request.destination === 'image' ||
-    request.destination === 'font' ||
-    request.destination === 'style' ||
-    request.destination === 'script'
-  ) {
+  // Assets statiques (images, scripts, styles) → Stale While Revalidate
+  if (['image', 'font', 'style', 'script'].includes(request.destination)) {
     event.respondWith(
-      caches.match(request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(request).then((response) => {
-          return caches.open(DYNAMIC_CACHE).then((cache) => {
-            cache.put(request, response.clone());
-            return response;
-          });
-        });
+      caches.open(DYNAMIC_CACHE).then(async (cache) => {
+        const cached = await cache.match(request);
+        const network = fetch(request)
+          .then((res) => {
+            cache.put(request, res.clone());
+            return res;
+          })
+          .catch(() => cached);
+        return cached || network;
       })
     );
     return;
   }
 
-  // Pages - Network First with fallback
+  // Pages → Network First avec fallback offline
   event.respondWith(
     fetch(request)
-      .then((response) => {
-        const responseClone = response.clone();
-        caches.open(DYNAMIC_CACHE).then((cache) => {
-          cache.put(request, responseClone);
-        });
-        return response;
+      .then((res) => {
+        const clone = res.clone();
+        caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, clone));
+        return res;
       })
-      .catch(() => {
-        return caches.match(request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          // Fallback vers la page offline
-          return caches.match('/offline.html');
-        });
-      })
+      .catch(() =>
+        caches.match(request).then((cached) => cached || caches.match('/offline.html'))
+      )
   );
 });
 
-// Gestion des messages
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  const data = event.data;
+  if (!data) return;
+
+  if (data.type === 'SKIP_WAITING') {
+    console.log('[SW] Forçage de mise à jour (skipWaiting)');
     self.skipWaiting();
   }
-  
-  if (event.data && event.data.type === 'CLEAR_CACHE') {
+
+  if (data.type === 'CLEAR_CACHE') {
+    console.log('[SW] Suppression manuelle de tous les caches');
     event.waitUntil(
-      caches.keys().then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => caches.delete(cacheName))
-        );
-      })
+      caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
     );
   }
 });
 
-// Background Sync
 self.addEventListener('sync', (event) => {
-  console.log('[SW] Background Sync:', event.tag);
-  
-  if (event.data.tag === 'sync-messages') {
+  console.log('[SW] Background Sync détecté :', event.tag);
+  if (event.tag === 'sync-messages') {
     event.waitUntil(syncMessages());
   }
 });
 
 async function syncMessages() {
   try {
-    console.log('[SW] Synchronisation des messages...');
-    // Logique de sync
-  } catch (error) {
-    console.error('[SW] Erreur sync:', error);
+    console.log('[SW] (TODO) Synchronisation des messages hors ligne...');
+    // Exemple futur :
+    // - Ouvrir IndexedDB 'cobage-messages'
+    // - Lire les messages en attente
+    // - Les envoyer à /api/messages avec JWT
+    // - Supprimer ceux envoyés
+  } catch (err) {
+    console.error('[SW] Erreur pendant syncMessages :', err);
   }
 }

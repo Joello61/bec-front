@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#00695c">
+  <link rel="icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
   <title>Hors ligne - BEC</title>
   <style>
     * {
@@ -61,6 +65,21 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
+
+    .spinner {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
     
     @keyframes pulse {
       0%, 100% {
@@ -77,14 +96,18 @@
 <body>
   <div class="container">
     <div class="icon">📡</div>
-    <h1>Vous êtes hors ligne</h1>
+    <h1>Connexion requise</h1>
     <p>
-      Vérifiez votre connexion internet et réessayez. 
-      Certaines fonctionnalités peuvent être limitées en mode hors ligne.
+      Vous êtes actuellement hors ligne ou votre session est expirée.<br>
+      Reconnectez-vous à Internet pour accéder à votre espace CoBage.
     </p>
-    <a href="/" class="btn" onclick="location.reload(); return false;">
+    <a href="/" class="btn" onclick="window.location.replace('/'); return false;">
       Réessayer
     </a>
+
+    <div>
+      <p id="status">Vérification de la connexion... <span class="spinner"></span></p>
+    </div>
   </div>
   
   <script>
@@ -99,6 +122,16 @@
     window.addEventListener('online', () => {
       location.reload();
     });
+
+    function updateStatus() {
+    const el = document.getElementById('status');
+    el.textContent = navigator.onLine
+      ? 'Connexion restaurée ! Rechargement en cours...'
+      : 'Toujours hors ligne...';
+    }
+    window.addEventListener('online', updateStatus);
+    window.addEventListener('offline', updateStatus);
+    updateStatus();
   </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { registerServiceWorker } from '@/lib/utils/pwa';
+import { registerServiceWorker } from '@/lib/utils/pwa/client';
 
 export default function PublicLayoutClient({
   children,
@@ -9,7 +9,6 @@ export default function PublicLayoutClient({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    // Enregistrer le Service Worker pour PWA
     registerServiceWorker();
   }, []);
 
