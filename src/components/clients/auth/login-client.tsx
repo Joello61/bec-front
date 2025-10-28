@@ -28,10 +28,10 @@ export default function LoginPageClient() {
   const router = useRouter();
   const { login } = useAuth();
   const toast = useToast();
-  const searchParams = useSearchParams()
-  const redirectTo = (searchParams.get('redirect') || ROUTES.EXPLORE) as Route;
+  const searchParams = useSearchParams();
+  const redirectTo = (searchParams.get('redirect')) as Route || ROUTES.EXPLORE;
 
-  // ==================== LOGIN MODIFIÉ ====================
+  // ==================== LOGIN CORRIGÉ ====================
   const handleLogin = async (data: LoginFormData) => {
     try {
       await login(data);
@@ -48,7 +48,7 @@ export default function LoginPageClient() {
         return;
       }
 
-      // Profil complet → Dashboard
+      // ✅ Profil complet → Redirection SANS paramètres
       router.replace(redirectTo);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

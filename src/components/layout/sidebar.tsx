@@ -16,6 +16,7 @@ import {
   LayoutDashboard,
   User,
   Shield,
+  Handshake,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
@@ -52,6 +53,11 @@ export default function Sidebar() {
       name: 'Mes Demandes',
       href: ROUTES.MES_DEMANDES,
       icon: Package,
+    },
+    {
+      name: 'Mes Propositions',
+      href: ROUTES.MES_PROPOSITIONS,
+      icon: Handshake,
     },
     {
       name: 'Messages',

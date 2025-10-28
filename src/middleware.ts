@@ -38,6 +38,13 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
+  // ==================== REDIRECTION RACINE SI CONNECTÉ ====================
+  if (pathname === '/' && hasToken) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/dashboard/explore';
+    return NextResponse.redirect(url);
+  }
+
   // ==================== REDIRECTION SI PAS AUTHENTIFIÉ ====================
   if (isProtectedRoute && !hasToken) {
     const url = request.nextUrl.clone();
@@ -67,6 +74,7 @@ export function middleware(request: NextRequest) {
     
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard/explore';
+    url.search = ''; // ✅ Nettoie tous les paramètres de recherche
     return NextResponse.redirect(url);
   }
 
