@@ -28,7 +28,7 @@ export default function manifest(): MetadataRoute.Manifest {
 
     screenshots: [
       {
-        src: "/images/screenshots/desktop-home.png",
+        src: "/images/screenshots/home-desktop.png",
         sizes: "1280x720",
         type: "image/png",
         form_factor: "wide",
