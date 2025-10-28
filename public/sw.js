@@ -14,10 +14,15 @@ const DYNAMIC_CACHE = `cobage-dynamic-${VERSION}`;
 const STATIC_ASSETS = [
   '/',
   '/offline.html',
+  '/favicon.ico',
   '/favicon.svg',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/manifest.webmanifest',
+  '/apple-touch-icon.png',
+  '/favicon-96x96.png',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png'
 ];
 
 self.addEventListener('install', (event) => {
