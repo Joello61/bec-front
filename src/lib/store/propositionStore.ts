@@ -8,6 +8,7 @@ import type {
 } from '@/types';
 
 interface PropositionState {
+  currentProposition: Proposition | null;
   propositions: Proposition[];
   myPropositionsSent: Proposition[];
   myPropositionsReceived: Proposition[];
@@ -16,7 +17,9 @@ interface PropositionState {
   error: string | null;
   
   // Actions
+  getById: (propositionId: number) => Promise<Proposition>;
   createProposition: (voyageId: number, data: CreatePropositionInput) => Promise<Proposition>;
+  deleteProposition: (propositionId: number) => Promise<void>;
   respondToProposition: (propositionId: number, data: RespondPropositionInput) => Promise<void>;
   fetchPropositionsByVoyage: (voyageId: number) => Promise<void>;
   fetchAcceptedByVoyage: (voyageId: number) => Promise<void>;
@@ -28,12 +31,28 @@ interface PropositionState {
 }
 
 export const usePropositionStore = create<PropositionState>((set) => ({
+  currentProposition: null,
   propositions: [],
   myPropositionsSent: [],
   myPropositionsReceived: [],
   pendingCount: 0,
   isLoading: false,
   error: null,
+
+  getById: async (propositionId: number) => {
+    set({ isLoading: true, error: null });
+    try {
+      const proposition = await propositionsApi.getById(propositionId);
+      set({ currentProposition: proposition, isLoading: false });
+      return proposition;
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors du chargement de la proposition', 
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
 
   createProposition: async (voyageId, data) => {
     set({ isLoading: true, error: null });
@@ -69,6 +88,28 @@ export const usePropositionStore = create<PropositionState>((set) => ({
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de la réponse à la proposition', 
+        isLoading: false 
+      });
+      throw error;
+    }
+  },
+
+  deleteProposition: async (propositionId: number) => {
+    set({ isLoading: true, error: null });
+    try {
+      await propositionsApi.delete(propositionId);
+      set((state) => ({
+        myPropositionsSent: state.myPropositionsSent.map((p) => 
+          p.id === propositionId ? { ...p, status: 'annulee' } : p
+        ),
+        propositions: state.propositions.map((p) => 
+          p.id === propositionId ? { ...p, status: 'annulee' } : p
+        ),
+        isLoading: false
+      }));
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors de l\'annulation de la proposition', 
         isLoading: false 
       });
       throw error;

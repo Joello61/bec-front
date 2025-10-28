@@ -132,8 +132,10 @@ export const endpoints = {
 
   // Propositions
   propositions: {
+    byId: (id: number) => `/propositions/${id}`,
     create: (voyageId: number) => `/propositions/voyage/${voyageId}`,
     respond: (id: number) => `/propositions/${id}/respond`,
+    delete: (id: number) => `/propositions/${id}`,
     byVoyage: (voyageId: number) => `/propositions/voyage/${voyageId}`,
     acceptedByVoyage: (voyageId: number) => `/propositions/voyage/${voyageId}/accepted`,
     mySent: '/propositions/me/sent',

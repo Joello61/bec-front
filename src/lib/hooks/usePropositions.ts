@@ -2,6 +2,32 @@
 import { useCallback, useEffect } from 'react';
 import { usePropositionStore } from '@/lib/store';
 
+export function useProposition(propositionId?: number) {
+  const proposition = usePropositionStore((state) => state.currentProposition);
+  const isLoading = usePropositionStore((state) => state.isLoading);
+  const error = usePropositionStore((state) => state.error);
+  const getById = usePropositionStore((state) => state.getById);
+
+  useEffect(() => {
+    if (propositionId != null) {
+      getById(propositionId);
+    }
+  }, [propositionId]);
+
+  const refetch = useCallback(() => {
+    if (propositionId != null) {
+      getById(propositionId);
+    }
+  }, [propositionId, getById]);
+
+  return {
+    proposition,
+    isLoading,
+    error,
+    refetch
+  };
+}
+
 /**
  * Hook pour charger les propositions d'un voyage
  */
@@ -119,6 +145,7 @@ export function usePendingPropositionsCount() {
 export function usePropositionActions() {
   const createProposition = usePropositionStore((state) => state.createProposition);
   const respondToProposition = usePropositionStore((state) => state.respondToProposition);
+  const deleteProposition = usePropositionStore((state) => state.deleteProposition);
   const isLoading = usePropositionStore((state) => state.isLoading);
   const error = usePropositionStore((state) => state.error);
   const clearError = usePropositionStore((state) => state.clearError);
@@ -126,6 +153,7 @@ export function usePropositionActions() {
   return {
     createProposition,
     respondToProposition,
+    deleteProposition,
     isLoading,
     error,
     clearError,

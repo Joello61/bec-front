@@ -36,6 +36,8 @@ export const ROUTES = {
   MES_VOYAGE_DETAILS: (id: number) => `/dashboard/mes-voyages/${id}` as Route,
   MES_DEMANDES: '/dashboard/mes-demandes' as Route,
   MES_DEMANDE_DETAILS: (id: number) => `/dashboard/mes-demandes/${id}` as Route,
+  MES_PROPOSITIONS: '/dashboard/mes-propositions' as Route,
+  MES_PROPOSITION_DETAILS: (id: number) => `/dashboard/mes-propositions/${id}` as Route,
   MESSAGES: '/dashboard/messages' as Route,
   CONVERSATION: (id: number) => `/dashboard/messages/${id}` as Route,
   NOTIFICATIONS: '/dashboard/notifications' as Route,

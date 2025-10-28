@@ -7,6 +7,14 @@ import type {
 } from '@/types';
 
 export const propositionsApi = {
+
+  async getById(propositionId: number): Promise<Proposition> {
+    const response = await apiClient.get<Proposition>(
+      endpoints.propositions.byId(propositionId)
+    );
+    return response.data;
+  },
+
   /**
    * Créer une proposition sur un voyage
    * ⚠️ La devise est automatiquement celle de la demande du client
@@ -28,6 +36,15 @@ export const propositionsApi = {
       data
     );
     return response.data;
+  },
+
+  /**
+   * Supprimer une proposition
+   */
+  async delete(propositionId: number): Promise<void> {
+    await apiClient.delete(
+      endpoints.propositions.delete(propositionId)
+    );
   },
 
   /**
