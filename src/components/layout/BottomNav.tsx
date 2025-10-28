@@ -85,9 +85,9 @@ export default function BottomNav() {
       <motion.nav
         initial={{ y: 100 }}
         animate={{ y: 0 }}
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl safe-area-bottom"
+        className="lg:hidden pb-4 fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-2xl safe-area-bottom"
       >
-        <div className="flex items-end justify-around px-2 pb-2 pt-1">
+        <div className="flex items-end justify-around px-2 pb-2 pt-2">
           {navigation.map((item) => {
             const Icon = item.icon;
             const active = item.href ? isActive(item.href) : false;
@@ -100,10 +100,9 @@ export default function BottomNav() {
                   whileTap={{ scale: 0.9 }}
                   className="relative -mt-6"
                 >
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-r from-primary to-primary-dark flex items-center justify-center shadow-xl shadow-primary/30">
+                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center ">
                     <Icon strokeWidth={4} className="w-6 h-6 text-white" />
                   </div>
-                  <div className="absolute -inset-1 bg-primary/20 rounded-full blur-md -z-10" />
                 </motion.button>
               );
             }
@@ -116,7 +115,7 @@ export default function BottomNav() {
                 className="relative flex flex-col items-center gap-1 px-3 py-2 min-w-[64px]"
               >
                 <div className={cn(
-                  'relative p-2 rounded-xl transition-all',
+                  'relative p-0 rounded-xl transition-all',
                   active && 'bg-primary/10'
                 )}>
                   <Icon strokeWidth={3} className={cn(

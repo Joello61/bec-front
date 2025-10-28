@@ -141,7 +141,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning className={inter.variable}>
+    <html lang="fr" suppressHydrationWarning className={`${inter.variable} md:scrollbar-thin no-scrollbar-mobile`}>
       <head>
         {/* Structured Data - Organisation Schema */}
         <script

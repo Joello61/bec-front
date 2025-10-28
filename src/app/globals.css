@@ -217,6 +217,29 @@
   .animate-slide-up {
     animation: slide-up 0.3s ease-out;
   }
+
+  @media (max-width: 768px) {
+    html, body {
+      scrollbar-width: none;          /* Firefox */
+      -ms-overflow-style: none;       /* IE/Edge */
+      overflow-y: scroll;             /* garder le scroll */
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none;                  /* Chrome/Safari/Edge mobile */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .no-scrollbar-mobile {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .no-scrollbar-mobile::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 
 /* ===========================================
