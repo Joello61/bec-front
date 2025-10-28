@@ -1,78 +1,88 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Co-Bage',
-    short_name: 'CB',
+    id: "/",
+    name: "CoBage - Transport Collaboratif de Colis",
+    short_name: "CoBage",
     description:
-      'Plateforme de mise en relation entre voyageurs et personnes souhaitant faire transporter des objets',
-    start_url: '/',
-    scope: '/',
-    display: 'standalone',
-    background_color: '#ffffff',
-    theme_color: '#00695c',
-    orientation: 'portrait-primary',
-    categories: ['travel', 'logistics', 'transport'],
-    lang: 'fr-FR',
-    dir: 'ltr',
+      "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora. Envoyez moins cher, transportez et gagnez.",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    orientation: "portrait-primary",
+    background_color: "#ffffff",
+    theme_color: "#00695c",
+    lang: "fr-FR",
+    dir: "ltr",
+    categories: ["travel", "logistics", "business", "utilities"],
+
     icons: [
-      {
-        src: '/favicon-96x96.png',
-        sizes: '96x96',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/web-app-manifest-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src: '/web-app-manifest-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'maskable',
-      },
+      { src: "/favicon-16x16.png", sizes: "16x16", type: "image/png", purpose: "any" },
+      { src: "/favicon-32x32.png", sizes: "32x32", type: "image/png", purpose: "any" },
+      { src: "/favicon-96x96.png", sizes: "96x96", type: "image/png", purpose: "any" },
+      { src: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png", purpose: "any" },
     ],
+
     screenshots: [
       {
-        src: '/images/screenshots/home-desktop.png',
-        sizes: '1920x1080',
-        type: 'image/png',
-        form_factor: 'wide',
-        label: "Page d'accueil sur desktop",
+        src: "/images/screenshots/desktop-home.png",
+        sizes: "1280x720",
+        type: "image/png",
+        form_factor: "wide",
+        label: "Page d'accueil CoBage sur ordinateur",
       },
       {
-        src: '/images/screenshots/home-mobile.png',
-        sizes: '390x844',
-        type: 'image/png',
-        form_factor: 'narrow',
-        label: "Page d'accueil sur mobile",
+        src: "/images/screenshots/mobile-explore.png",
+        sizes: "750x1334",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Exploration des voyages sur mobile",
       },
     ],
+
     shortcuts: [
       {
-        name: 'Rechercher un voyage',
-        short_name: 'Voyages',
-        description: 'Trouver un voyageur disponible',
-        url: '/voyages',
-        icons: [{ src: '/icons/shortcut-voyages.png', sizes: '96x96' }],
+        name: "Explorer les voyages",
+        short_name: "Explorer",
+        description: "Rechercher des voyages disponibles",
+        url: "/dashboard/explore",
+        icons: [{ src: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }],
       },
       {
-        name: 'Créer une demande',
-        short_name: 'Demande',
-        description: 'Publier une demande de transport',
-        url: '/demandes',
-        icons: [{ src: '/icons/shortcut-demandes.png', sizes: '96x96' }],
+        name: "Mes voyages",
+        short_name: "Voyages",
+        description: "Gérer mes voyages",
+        url: "/dashboard/mes-voyages",
+        icons: [{ src: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }],
       },
       {
-        name: 'Messages',
-        short_name: 'Messages',
-        description: 'Voir mes conversations',
-        url: '/messages',
-        icons: [{ src: '/icons/shortcut-messages.png', sizes: '96x96' }],
+        name: "Messages",
+        short_name: "Messages",
+        description: "Accéder à la messagerie",
+        url: "/dashboard/messages",
+        icons: [{ src: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }],
       },
     ],
+
+    protocol_handlers: [
+      { protocol: "web+cobage", url: "/%s" },
+    ],
+
+    share_target: {
+      action: "/dashboard/mes-demandes",
+      method: "GET",
+      enctype: "application/x-www-form-urlencoded",
+      params: {
+        title: "title",
+        text: "text",
+        url: "url",
+      },
+    },
+
+    related_applications: [],
+    prefer_related_applications: false,
   };
 }

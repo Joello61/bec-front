@@ -16,7 +16,7 @@ const STATIC_ASSETS = [
   '/offline.html',
   '/favicon.ico',
   '/favicon.svg',
-  '/manifest.webmanifest',
+  '/site.webmanifest',
   '/apple-touch-icon.png',
   '/favicon-96x96.png',
   '/favicon-16x16.png',
@@ -79,7 +79,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.open(DYNAMIC_CACHE).then(async (cache) => {
         const cached = await cache.match(request);
-        const network = fetch(request)
+        const network = fetcregisterServiceWorkerh(request)
           .then((res) => {
             cache.put(request, res.clone());
             return res;
