@@ -94,7 +94,6 @@ export default function Header() {
                   alt="Co-Bage - Le monde à portée de bagage"
                   fill
                   className="object-contain"
-                  priority
                   sizes="112px"
                 />
               </div>

@@ -29,14 +29,14 @@ export default function manifest(): MetadataRoute.Manifest {
     screenshots: [
       {
         src: "/images/screenshots/home-desktop.png",
-        sizes: "1280x720",
+        sizes: "1242x714",
         type: "image/png",
         form_factor: "wide",
         label: "Page d'accueil CoBage sur ordinateur",
       },
       {
         src: "/images/screenshots/mobile-explore.png",
-        sizes: "750x1334",
+        sizes: "782x1662",
         type: "image/png",
         form_factor: "narrow",
         label: "Exploration des voyages sur mobile",
