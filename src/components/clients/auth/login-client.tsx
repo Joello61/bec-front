@@ -42,7 +42,7 @@ export default function LoginPageClient() {
       toast.success('Connexion réussie !');
 
       // ✅ Attendre que le cookie soit bien set
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // ==================== VÉRIFIER PROFIL COMPLET ====================
       if (!user?.isProfileComplete) {
