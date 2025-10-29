@@ -54,11 +54,11 @@ export default function Sidebar() {
       href: ROUTES.MES_DEMANDES,
       icon: Package,
     },
-    {
+    /*{
       name: 'Mes Propositions',
       href: ROUTES.MES_PROPOSITIONS,
       icon: Handshake,
-    },
+    },*/
     {
       name: 'Messages',
       href: ROUTES.MESSAGES,
