@@ -1,24 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, Variants } from 'framer-motion';
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Mail,
-  Phone,
-  MapPin,
-  ArrowUpRight,
-  Heart,
-} from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
 import { ROUTES, CONTACT } from '@/lib/utils/constants';
 import { usePathname } from 'next/navigation';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-
   const pathname = usePathname();
 
   const isAuthPage = pathname?.includes('/auth');
@@ -27,15 +16,15 @@ export default function Footer() {
 
   const links = {
     platform: [
-      { name: 'Voyages', href: ROUTES.MES_VOYAGES },
-      { name: 'Demandes', href: ROUTES.MES_DEMANDES },
+      { name: 'Accueil', href: ROUTES.HOME },
+      { name: 'À propos', href: ROUTES.ABOUT },
       { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS },
     ],
     legal: [
       { name: "Conditions d'utilisation", href: ROUTES.TERMS },
-      { name: 'Politique de confidentialité', href: ROUTES.PRIVACY },
+      { name: 'Confidentialité', href: ROUTES.PRIVACY },
       { name: 'Sécurité', href: ROUTES.TRUST_SAFETY },
-      { name: 'Politique relative aux cookies', href: ROUTES.COOKIES },
+      { name: 'Cookies', href: ROUTES.COOKIES },
     ],
     support: [
       { name: 'Contact', href: ROUTES.CONTACT },
@@ -44,115 +33,110 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    {
-      name: 'Facebook',
-      icon: Facebook,
-      href: 'https://facebook.com',
-      color: 'hover:text-[#1877F2]',
-    },
-    {
-      name: 'Twitter',
-      icon: Twitter,
-      href: 'https://twitter.com',
-      color: 'hover:text-[#1DA1F2]',
-    },
-    {
-      name: 'Instagram',
-      icon: Instagram,
-      href: 'https://instagram.com',
-      color: 'hover:text-[#E4405F]',
-    },
+    { name: 'Facebook', image: '/images/social/facebook.png', href: 'https://facebook.com' },
+    { name: 'X', image: '/images/social/x.svg', href: 'https://x.com' },
+    { name: 'Instagram', image: '/images/social/instagram.png', href: 'https://instagram.com' },
+    { name: 'LinkedIn', image: '/images/social/linkedin.png', href: 'https://linkedin.com' },
   ];
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring' as const,
-        stiffness: 300,
-        damping: 24,
-      },
-    },
-  };
 
   if (isAuthPage || isDashboardPage || isAdminPage) {
     return null;
   }
 
   return (
-    <footer className="relative bg-gray-900 text-gray-300 overflow-hidden">
-      <div className="relative container-custom py-12">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
-        >
+    <footer className="bg-white border-t border-gray-200">
+      <div className="container-custom py-12 lg:py-16">
+        {/* Section principale */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand Section */}
-          <motion.div variants={itemVariants}>
-            <div className="flex items-center gap-3 mb-4">
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-                className="relative"
-              >
-                <Link href={ROUTES.HOME} className="flex items-center gap-3">
-                  <div className="relative h-14 w-28 flex-shrink-0">
-                    <Image
-                      src="/images/logo/logo-1.png"
-                      alt="Co-Bage - Le monde à portée de bagage"
-                      fill
-                      className="object-contain"
-                      priority
-                    />
-                  </div>
-                </Link>
-              </motion.div>
-            </div>
-            <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-              Connectez voyageurs et expéditeurs pour un transport sûr et
-              économique de colis entre le Cameroun et le monde.
+          <div className="lg:col-span-1">
+            <Link href={ROUTES.HOME} className="inline-block mb-4">
+              <div className="relative h-12 w-24">
+                <Image
+                  src="/images/logo/logo-1.png"
+                  alt="CoBage"
+                  priority
+                  className="object-contain"
+                  width={96}
+                  height={48}
+                />
+              </div>
+            </Link>
+            <p className="text-sm text-gray-600 leading-relaxed mb-6">
+              Le monde à portée de bagages. Transport collaboratif entre le Cameroun et le monde.
             </p>
 
-            {/* Social Links avec animations */}
-            <div className="flex gap-3">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center transition-all ${social.color} hover:shadow-lg`}
-                    aria-label={social.name}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </motion.a>
-                );
-              })}
-            </div>
-          </motion.div>
+            {/* Réseaux sociaux */}
+            <div className="flex gap-4">
+              <a
+                href={socialLinks[0].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-7 h-7 transition-transform duration-200 hover:scale-110"
+                aria-label={socialLinks[0].name}
+              >
+                <Image
+                  src={socialLinks[0].image}
+                  alt={socialLinks[0].name}
+                  width={20}
+                  height={20}
+                  className="w-7 h-7"
+                />
+              </a>
 
-          {/* Platform Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <div className="w-1 h-5 bg-primary rounded-full" />
+              <a
+                href={socialLinks[1].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-7 h-7 flex justify-center items-center rounded-md bg-black transition-transform duration-200 hover:scale-110"
+                aria-label={socialLinks[1].name}
+              >
+                <Image
+                  src={socialLinks[1].image}
+                  alt={socialLinks[1].name}
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
+              </a>
+
+              <a
+                href={socialLinks[2].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-7 h-7 transition-transform duration-200 hover:scale-110"
+                aria-label={socialLinks[2].name}
+              >
+                <Image
+                  src={socialLinks[2].image}
+                  alt={socialLinks[2].name}
+                  width={20}
+                  height={20}
+                  className="w-7 h-7"
+                />
+              </a>
+
+              <a
+                href={socialLinks[3].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-7 transition-transform duration-200 hover:scale-110"
+                aria-label={socialLinks[3].name}
+              >
+                <Image
+                  src={socialLinks[3].image}
+                  alt={socialLinks[3].name}
+                  width={20}
+                  height={20}
+                  className="w-8 h-7"
+                />
+              </a>
+            </div>
+          </div>
+
+          {/* Plateforme */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
               Plateforme
             </h3>
             <ul className="space-y-3">
@@ -160,57 +144,18 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                    className="text-sm text-gray-600 hover:text-primary transition-colors duration-200"
                   >
-                    <motion.div
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 4 }}
-                      transition={{ type: 'spring' as const, stiffness: 400 }}
-                    >
-                      <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </motion.div>
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      {link.name}
-                    </span>
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Legal Links */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <div className="w-1 h-5 bg-secondary rounded-full" />
-              Légal
-            </h3>
-            <ul className="space-y-3">
-              {links.legal.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="group flex items-center gap-2 text-sm hover:text-primary transition-colors"
-                  >
-                    <motion.div
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 4 }}
-                      transition={{ type: 'spring' as const, stiffness: 400 }}
-                    >
-                      <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </motion.div>
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      {link.name}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Support & Contact */}
-          <motion.div variants={itemVariants}>
-            <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-              <div className="w-1 h-5 bg-accent rounded-full" />
+          {/* Support */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
               Support
             </h3>
             <ul className="space-y-3 mb-6">
@@ -218,80 +163,68 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                    className="text-sm text-gray-600 hover:text-primary transition-colors duration-200"
                   >
-                    <motion.div
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 4 }}
-                      transition={{ type: 'spring' as const, stiffness: 400 }}
-                    >
-                      <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </motion.div>
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      {link.name}
-                    </span>
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
 
-            {/* Contact Info avec icônes */}
-            <div className="space-y-3 pt-4 border-t border-gray-800">
-              <Link
+            {/* Contact rapide */}
+            <div className="space-y-2">
+              <a
                 href={`mailto:${CONTACT.EMAIL}`}
-                className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
+                className="flex items-center gap-2 text-sm text-gray-600 hover:text-primary transition-colors"
               >
-                <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <Mail className="w-4 h-4" />
-                </div>
+                <Mail className="w-4 h-4 flex-shrink-0" />
                 <span className="text-xs">{CONTACT.EMAIL}</span>
-              </Link>
-              <Link
+              </a>
+              <a
                 href={`tel:${CONTACT.PHONE}`}
-                className="flex items-center gap-3 text-sm hover:text-primary transition-colors group"
+                className="flex items-center gap-2 text-sm text-gray-600 hover:text-primary transition-colors"
               >
-                <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <Phone className="w-4 h-4" />
-                </div>
+                <Phone className="w-4 h-4 flex-shrink-0" />
                 <span className="text-xs">{CONTACT.PHONE}</span>
-              </Link>
-              <div className="flex items-center gap-3 text-sm">
-                <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <span className="text-xs text-gray-400">{CONTACT.ADDRESS}</span>
-              </div>
+              </a>
             </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Bottom Section avec séparateur élégant */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
-          <div className="mb-8">
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent" />
           </div>
 
+          {/* Légal */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
+              Légal
+            </h3>
+            <ul className="space-y-3">
+              {links.legal.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-600 hover:text-primary transition-colors duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Séparateur */}
+        <div className="border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            {/* Copyright */}
             <p className="text-sm text-gray-500 text-center md:text-left">
-              © {currentYear} Co-Bage. Tous droits réservés.
+              © {currentYear} CoBage. Tous droits réservés.
             </p>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-2 text-sm text-gray-500"
-            >
-              <span>Fait avec</span>
-              <span className="text-error">
-                <Heart strokeWidth={3} className="w-4 h-4" />
-              </span>
-              <span>au Cameroun</span>
-            </motion.div>
+
+            {/* From JoelTech */}
+            <div className="text-sm text-gray-400">
+              <span className="text-xs">from</span>{' '}
+              <span className="font-semibold text-gray-600">JoelTech</span>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

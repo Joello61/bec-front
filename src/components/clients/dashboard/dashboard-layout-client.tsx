@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sidebar, BottomNav } from '@/components/layout';
 import { useAuth } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 import VerificationBanner from '@/components/dashboard/VerificationBanner';
 import { useMercureEvents } from '@/lib/hooks/useMercureEvents';
+import SplashScreen from '@/components/common/SplashScreen';
 
 export default function DashboardLayoutClient({
   children,
@@ -16,6 +16,8 @@ export default function DashboardLayoutClient({
 }) {
   const { isAuthenticated, isInitialized } = useAuth();
   const router = useRouter();
+  const MIN_DURATION = 2500;
+  const [showSplash, setShowSplash] = useState(true);
 
   useMercureEvents();
 
@@ -25,9 +27,17 @@ export default function DashboardLayoutClient({
     }
   }, [isAuthenticated, isInitialized, router]);
 
-  if (!isInitialized) {
-    return <LoadingSpinner fullScreen text="Vérification de l'authentification..." />;
-  }
+  useEffect(() => {
+    const start = Date.now();
+    if (isInitialized) {
+      const elapsed = Date.now() - start;
+      const remaining = Math.max(0, MIN_DURATION - elapsed);
+      const timer = setTimeout(() => setShowSplash(false), remaining);
+      return () => clearTimeout(timer);
+    }
+  }, [isInitialized]);
+
+  if (showSplash) return <SplashScreen visible={showSplash} />;
 
   if (!isAuthenticated) {
     return null;
