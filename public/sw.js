@@ -27,14 +27,23 @@ const STATIC_ASSETS = [
 
 self.addEventListener('install', (event) => {
   console.log('[SW] Installation CoBage...');
+
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
-      console.log('[SW] Mise en cache des assets statiques...');
-      return cache.addAll(STATIC_ASSETS);
-    })
+    (async () => {
+      const cache = await caches.open(STATIC_CACHE);
+      try {
+        console.log('[SW] Mise en cache des assets statiques...');
+        await cache.addAll(STATIC_ASSETS);
+        console.log('[SW] Mise en cache réussie ✅');
+      } catch (err) {
+        console.warn('[SW] Certains assets n’ont pas pu être mis en cache:', err);
+      }
+    })()
   );
+
   self.skipWaiting();
 });
+
 
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activation CoBage...');
