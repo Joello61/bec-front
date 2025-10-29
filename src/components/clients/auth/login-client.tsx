@@ -8,10 +8,10 @@ import { LoginForm } from '@/components/forms';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { LoginFormData } from '@/lib/validations';
-import { useToast } from '@/components/common';
+import { LoadingSpinner, useToast } from '@/components/common';
 import OAuthButtons from '@/components/auth/OAuthButtons';
 import { Route } from 'next';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -31,22 +31,23 @@ export default function LoginPageClient() {
   const searchParams = useSearchParams();
   const redirectTo = (searchParams.get('redirect')) as Route || ROUTES.EXPLORE;
 
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
   useEffect(() => {
     // Si le 'user' est chargé (donc connexion réussie)
     if (user) {
+      // Indiquer qu'on va rediriger
+      setIsRedirecting(true); 
       toast.success('Connexion réussie !');
 
-      // VÉRIFIER PROFIL COMPLET
-      if (!user.isProfileComplete) {
-        router.replace(ROUTES.COMPLETE_PROFILE);
-        return;
-      }
+      // Déterminer la destination
+      const destination = !user.isProfileComplete
+        ? ROUTES.COMPLETE_PROFILE
+        : redirectTo;
 
-      // PROFIL COMPLET
-      router.replace(redirectTo);
+      window.location.replace(destination);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, router, redirectTo]);
+  }, [user, redirectTo, toast]); // router n'est plus requis ici
 
   // ==================== LOGIN CORRIGÉ ====================
   const handleLogin = async (data: LoginFormData) => {
@@ -71,6 +72,14 @@ export default function LoginPageClient() {
     { icon: Zap, description: 'Connexion rapide' },
     { icon: Users, description: 'Communauté active' },
   ];
+
+  if (isRedirecting) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <LoadingSpinner size='md' text='Connexion reussie, redirection...'/>
+      </div>
+    );
+  }
 
   return (
     <div className="grid lg:grid-cols-2 gap-12 items-center">
