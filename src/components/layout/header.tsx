@@ -66,7 +66,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await logout();
-      router.replace(ROUTES.HOME);
+      window.location.replace(ROUTES.HOME);
     } catch {
       toast.error('Erreur lors de la déconnexion');
     }
