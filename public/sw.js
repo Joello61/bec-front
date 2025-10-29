@@ -1,5 +1,5 @@
 /**
- * Service Worker CoBage – v2.0.0
+ * Service Worker CoBage – v3.0.0
  * Fonctionnalités :
  * - Mise en cache des fichiers statiques essentiels
  * - Gestion des requêtes API en mode réseau-prioritaire
@@ -7,7 +7,7 @@
  * - Prêt pour syncMessages() et notifications futures
  */
 
-const VERSION = 'v2.0.0';
+const VERSION = 'v3.0.0';
 const STATIC_CACHE = `cobage-static-${VERSION}`;
 const DYNAMIC_CACHE = `cobage-dynamic-${VERSION}`;
 
