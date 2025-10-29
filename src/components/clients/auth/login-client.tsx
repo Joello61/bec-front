@@ -38,8 +38,6 @@ export default function LoginPageClient() {
     if (user) {
       // Indiquer qu'on va rediriger
       setIsRedirecting(true); 
-      toast.success('Connexion réussie !');
-
       // Déterminer la destination
       const destination = !user.isProfileComplete
         ? ROUTES.COMPLETE_PROFILE
@@ -47,7 +45,7 @@ export default function LoginPageClient() {
 
       window.location.replace(destination);
     }
-  }, [user, redirectTo, toast]); // router n'est plus requis ici
+  }, [user, redirectTo]); // router n'est plus requis ici
 
   // ==================== LOGIN CORRIGÉ ====================
   const handleLogin = async (data: LoginFormData) => {
