@@ -10,8 +10,8 @@ import { ROUTES } from '@/lib/utils/constants';
 import type { LoginFormData } from '@/lib/validations';
 import { useToast } from '@/components/common';
 import OAuthButtons from '@/components/auth/OAuthButtons';
-import { useAuthStore } from '@/lib/store';
 import { Route } from 'next';
+import { useEffect } from 'react';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -26,33 +26,32 @@ const fadeIn: Variants = {
 
 export default function LoginPageClient() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const toast = useToast();
   const searchParams = useSearchParams();
   const redirectTo = (searchParams.get('redirect')) as Route || ROUTES.EXPLORE;
+
+  useEffect(() => {
+    // Si le 'user' est chargé (donc connexion réussie)
+    if (user) {
+      toast.success('Connexion réussie !');
+
+      // VÉRIFIER PROFIL COMPLET
+      if (!user.isProfileComplete) {
+        router.replace(ROUTES.COMPLETE_PROFILE);
+        return;
+      }
+
+      // PROFIL COMPLET
+      router.replace(redirectTo);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, router, redirectTo]);
 
   // ==================== LOGIN CORRIGÉ ====================
   const handleLogin = async (data: LoginFormData) => {
     try {
       await login(data);
-
-      // ✅ Si on arrive ici = email vérifié + JWT créé
-      const user = useAuthStore.getState().user;
-
-      toast.success('Connexion réussie !');
-
-      // ✅ Attendre que le cookie soit bien set
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // ==================== VÉRIFIER PROFIL COMPLET ====================
-      if (!user?.isProfileComplete) {
-        // Profil incomplet → Redirection complete-profile
-        router.replace(ROUTES.COMPLETE_PROFILE);
-        return;
-      }
-
-      // ✅ Profil complet → Redirection SANS paramètres
-      router.replace(redirectTo);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

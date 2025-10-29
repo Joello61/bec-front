@@ -23,7 +23,7 @@ export default function DashboardLayoutClient({
 
   useEffect(() => {
     if (isInitialized && !isAuthenticated) {
-      router.push(ROUTES.LOGIN);
+      router.replace(ROUTES.LOGIN);
     }
   }, [isAuthenticated, isInitialized, router]);
 
@@ -40,7 +40,7 @@ export default function DashboardLayoutClient({
   if (showSplash) return <SplashScreen visible={showSplash} />;
 
   if (!isAuthenticated) {
-    router.replace(ROUTES.LOGIN);
+    return null;
   }
 
   return (

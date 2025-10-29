@@ -88,15 +88,14 @@ export default function Header() {
           <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
             {/* Logo - Version optimisée pour 3000x1500 (ratio 2:1) */}
             <Link href={ROUTES.HOME} className="flex items-center gap-3">
-              <div className="relative h-14 w-28 flex-shrink-0">
-                <Image
-                  src="/images/logo/logo-1.png"
-                  alt="Co-Bage - Le monde à portée de bagage"
-                  fill
-                  className="object-contain"
-                  sizes="112px"
-                />
-              </div>
+              <Image
+                src="/images/logo/logo-1.png"
+                alt="Co-Bage – Le monde à portée de bagage"
+                width={112}
+                height={56}
+                priority
+                className="object-contain w-28 h-auto flex-shrink-0"
+              />
             </Link>
 
             {/* Navigation Desktop */}
@@ -212,20 +211,14 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="h-16 flex items-center justify-between gap-4">
           {/* Logo - Version dashboard (icône uniquement ou logo complet) */}
-          <Link
-            href={ROUTES.DASHBOARD}
-            className="flex items-center gap-2 flex-shrink-0"
-          >
-            {/* Option 1: Logo complet (recommandé si logo-1.png est votre logo principal) */}
-            <div className="relative h-10 w-20">
-              <Image
-                src="/images/logo/logo-1.png"
-                alt="Co-Bage"
-                fill
-                className="object-contain"
-                sizes="80px"
-              />
-            </div>
+          <Link href={ROUTES.DASHBOARD} className="flex items-center gap-2 flex-shrink-0">
+            <Image
+              src="/images/logo/logo-1.png"
+              alt="Co-Bage"
+              width={80}
+              height={40}
+              className="object-contain w-20 h-auto"
+            />
           </Link>
 
           {/* Actions */}

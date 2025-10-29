@@ -34,9 +34,10 @@ export default function AuthLayoutClient({
                 <Image
                   src="/images/logo/logo-1.png"
                   alt="Co-Bage - Le monde à portée de bagage"
-                  fill
                   className="object-contain"
                   priority
+                  width={80}
+                  height={40}
                 />
               </div>
             </Link>
