@@ -40,7 +40,7 @@ export default function DashboardLayoutClient({
   if (showSplash) return <SplashScreen visible={showSplash} />;
 
   if (!isAuthenticated) {
-    return null;
+    router.replace(ROUTES.LOGIN);
   }
 
   return (
