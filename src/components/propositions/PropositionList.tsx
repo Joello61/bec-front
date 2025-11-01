@@ -16,7 +16,8 @@ interface PropositionListProps {
   error?: string | null;
   onAccept?: (id: number) => void;
   onRefuse?: (id: number) => void;
-  onViewDetails?: (id: number) => void;
+  onViewVoyageDetails?: (idVoyage: number) => void;
+  onViewPropositionDetails?: (idProposition: number) => void;
   onRetry?: () => void;
 }
 
@@ -29,7 +30,8 @@ export default function PropositionList({
   error,
   onAccept,
   onRefuse,
-  onViewDetails,
+  onViewVoyageDetails,
+  onViewPropositionDetails,
   onRetry,
 }: PropositionListProps) {
   const [filter, setFilter] = useState<FilterType>('all');
@@ -161,7 +163,8 @@ export default function PropositionList({
                 viewMode={viewMode}
                 onAccept={onAccept}
                 onRefuse={onRefuse}
-                onViewDetails={onViewDetails}
+                onViewVoyageDetails={onViewVoyageDetails}
+                onViewPropositionDetails={onViewPropositionDetails}
               />
             </motion.div>
           ))}

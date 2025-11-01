@@ -132,7 +132,7 @@ export default function DemandeDetailsPageClient() {
           <PropositionList
             propositions={propositions}
             viewMode="sent"
-            onViewDetails={(voyageId) => router.push(ROUTES.VOYAGE_DETAILS(voyageId))}
+            onViewVoyageDetails={(voyageId) => router.push(ROUTES.VOYAGE_DETAILS(voyageId))}
           />
         </div>
       )}

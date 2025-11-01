@@ -15,7 +15,7 @@ import {
   LogOut,
   X,
   LayoutDashboard,
-  //Handshake,
+  Handshake,
 } from 'lucide-react';
 import { useAuth } from '@/lib/hooks';
 import { useUnreadMessages } from '@/lib/hooks';
@@ -215,9 +215,7 @@ export default function BottomNav() {
                     <p className="text-sm text-gray-600">Demandez le transport d&apos;un colis</p>
                   </div>
                 </button>
-
-                {/*
-                  <button
+                <button
                   onClick={() => {
                     setShowCreateMenu(false);
                     router.push(ROUTES.MES_PROPOSITIONS);
@@ -232,7 +230,6 @@ export default function BottomNav() {
                     <p className="text-sm text-gray-600">Accepter, refuser ou annuler</p>
                   </div>
                 </button>
-                */}
               </div>
             </motion.div>
           </>

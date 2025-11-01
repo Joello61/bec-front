@@ -1,6 +1,6 @@
 'use client';
 
-import { Package, MessageSquare, MapPin, Calendar, Weight, DollarSign, ArrowRight } from 'lucide-react';
+import { Package, MapPin, Calendar, Weight, DollarSign, ArrowRight, Eye, Plane } from 'lucide-react';
 import { PropositionStatusBadge } from './PropositionStatusBadge';
 import type { Proposition } from '@/types';
 import { formatDateRelative, formatFullName } from '@/lib/utils/format';
@@ -13,6 +13,8 @@ interface PropositionCardProps {
   onAccept?: (id: number) => void;
   onRefuse?: (id: number) => void;
   onViewDetails?: (id: number) => void;
+  onViewVoyageDetails?: (idVoyage: number) => void;
+  onViewPropositionDetails?: (idProposition: number) => void;
 }
 
 export default function PropositionCard({
@@ -20,11 +22,11 @@ export default function PropositionCard({
   viewMode,
   onAccept,
   onRefuse,
-  onViewDetails,
+  onViewVoyageDetails,
+  onViewPropositionDetails
 }: PropositionCardProps) {
   const isReceived = viewMode === 'received';
   const isPending = proposition.statut === 'en_attente';
-  const isRefused = proposition.statut === 'refusee';
   const otherUser = isReceived ? proposition.client : proposition.voyageur;
 
   return (
@@ -62,7 +64,7 @@ export default function PropositionCard({
               </p>
             </div>
             <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <MapPin className="w-3.5 h-3.5 text-primary" />
+              <Plane className="w-3.5 h-3.5 text-primary rotate-45" />
             </div>
             <div className="flex-1 min-w-0 text-right">
               <p className="text-sm font-bold text-gray-900 truncate">
@@ -128,33 +130,6 @@ export default function PropositionCard({
               />
             </div>
           </div>
-
-          {/* Message */}
-          {proposition.message && (
-            <div className="p-2.5 bg-primary/5 rounded-lg border border-primary/20">
-              <div className="flex items-start gap-2">
-                <MessageSquare className="w-3.5 h-3.5 text-gray-400 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-gray-700 break-words leading-relaxed">
-                  {proposition.message}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Message de refus */}
-          {isRefused && proposition.messageRefus && (
-            <div className="p-2.5 bg-error/5 rounded-lg border border-error/20">
-              <div className="flex items-start gap-2">
-                <MessageSquare className="w-3.5 h-3.5 text-error flex-shrink-0 mt-0.5" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-error mb-0.5">Raison du refus</p>
-                  <p className="text-xs text-error-dark break-words">
-                    {proposition.messageRefus}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Footer */}
@@ -167,6 +142,15 @@ export default function PropositionCard({
 
           {/* Actions */}
           <div className="flex flex-col gap-2">
+            <div className='flex item-center justify-between'>
+              <button onClick={() => onViewPropositionDetails?.(proposition.id)}
+              className="w-full px-3 py-2 text-sm font-medium text-primary border border-primary/30 rounded-lg hover:bg-primary hover:text-white transition-colors flex items-center justify-center gap-2"
+              >
+                <span>Détails</span>
+                <Eye className="w-4 h-4" />
+              </button>
+            </div>
+            
             {isPending && isReceived ? (
               <>
                 <button
@@ -184,7 +168,7 @@ export default function PropositionCard({
               </>
             ) : (
               <button
-                onClick={() => onViewDetails?.(proposition.voyage.id)}
+                onClick={() => onViewVoyageDetails?.(proposition.voyage.id)}
                 className="w-full px-3 py-2 text-sm font-medium text-primary border border-primary/30 rounded-lg hover:bg-primary hover:text-white transition-colors flex items-center justify-center gap-2"
               >
                 <span>Voir le voyage</span>
@@ -313,41 +297,19 @@ export default function PropositionCard({
               />
             </div>
           </div>
-
-          {/* Message */}
-          {proposition.message && (
-            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <div className="flex items-start gap-3">
-                <MessageSquare className="w-4 h-4 text-gray-400 flex-shrink-0 mt-1" />
-                <div className="flex-1">
-                  <p className="text-xs font-medium text-gray-500 mb-1">Message</p>
-                  <p className="text-sm text-gray-700 break-words leading-relaxed">
-                    {proposition.message}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Message de refus */}
-          {isRefused && proposition.messageRefus && (
-            <div className="p-4 bg-error/5 rounded-lg border border-error/20">
-              <div className="flex items-start gap-3">
-                <MessageSquare className="w-4 h-4 text-error flex-shrink-0 mt-1" />
-                <div className="flex-1">
-                  <p className="text-xs font-medium text-error mb-1">Raison du refus</p>
-                  <p className="text-sm text-error-dark break-words leading-relaxed">
-                    {proposition.messageRefus}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Footer */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 rounded-b-xl">
-          <div className="flex items-center justify-end gap-3">
+          <div className='flex items-center justify-between gap-3'>
+            <button
+              onClick={() => onViewPropositionDetails?.(proposition.id)}
+              className="px-6 py-2 text-sm font-medium text-primary border border-primary/30 rounded-lg hover:bg-primary hover:text-white transition-colors flex items-center gap-2"
+            >
+              <span>Détails</span>
+              <Eye className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <div className="flex items-center justify-end gap-3">
             {isPending && isReceived ? (
               <>
                 <button
@@ -365,13 +327,14 @@ export default function PropositionCard({
               </>
             ) : (
               <button
-                onClick={() => onViewDetails?.(proposition.voyage.id)}
+                onClick={() => onViewVoyageDetails?.(proposition.voyage.id)}
                 className="px-6 py-2 text-sm font-medium text-primary border border-primary/30 rounded-lg hover:bg-primary hover:text-white transition-colors flex items-center gap-2"
               >
                 <span>Voir le voyage</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             )}
+          </div>
           </div>
         </div>
       </div>

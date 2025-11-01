@@ -183,7 +183,7 @@ export default function VoyageDetailsPageClient() {
               isLoading={isLoadingPropositions}
               onAccept={handleAcceptProposition}
               onRefuse={openRefuseDialog}
-              onViewDetails={(demandeId) => router.push(ROUTES.DEMANDE_DETAILS(demandeId))}
+              onViewVoyageDetails={() => router.push(ROUTES.VOYAGE_DETAILS(voyageId))}
             />
           </div>
         )}
