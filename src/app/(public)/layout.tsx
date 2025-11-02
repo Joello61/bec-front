@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     'contact Co-Bage',
     'aide envoi colis Afrique',
     'questions transport collaboratif',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   openGraph: {
     title: 'Co-Bage - Transport Collaboratif de Colis',

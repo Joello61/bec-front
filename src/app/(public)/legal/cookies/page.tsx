@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'gestion des cookies',
     'traceurs',
     'consentement cookies CNIL',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   robots: {
     index: true, // les politiques légales doivent être indexées

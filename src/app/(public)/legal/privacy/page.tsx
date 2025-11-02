@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'vie privée transport colis',
     'données utilisateurs Co-Bage',
     'cookies Co-Bage',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   robots: {
     index: true,

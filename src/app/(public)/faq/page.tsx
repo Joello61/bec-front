@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'sécurité transport collaboratif',
     'aide covoiturage colis Cameroun',
     'guide utilisation Co-Bage',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   openGraph: {
     title: 'FAQ Co-Bage - Questions Fréquentes',

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'fonctionnement Co-Bage',
     'tutoriel envoi colis Cameroun',
     'devenir transporteur colis',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   openGraph: {
     title: 'Comment fonctionne Co-Bage ? Guide Complet',

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'assistance voyageur',
     'service client Co-Bage',
     'contacter équipe Co-Bage',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   openGraph: {
     title: 'Contactez Co-Bage - Support & Assistance',

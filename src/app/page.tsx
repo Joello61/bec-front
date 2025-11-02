@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     'covoiturage colis Cameroun',
     'transport colis Afrique',
     'envoi colis diaspora camerounaise',
-    'Co-Bage',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
 
     // Keywords long-tail
     'envoyer colis Cameroun pas cher',
@@ -108,7 +108,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Co-Bage',
-  alternateName: 'Co-Bage',
+  alternateName: ["CoBage", "COBAGE", "co bage", "cobage"],
   url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   logo: {
     '@type': 'ImageObject',

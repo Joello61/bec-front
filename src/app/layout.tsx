@@ -30,11 +30,12 @@ export const metadata: Metadata = {
   title: {
     default:
       "Co-Bage - Covoiturage de colis vers le Cameroun, l'Afrique et la diaspora",
-    template: '%s | Co-Bage', // ← CORRIGER (pas "Co-Bage")
+    template: '%s | Co-Bage',
   },
   description:
     "Co-Bage connecte voyageurs et expéditeurs pour un transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora. Envoyez vos colis moins cher, transportez et gagnez un revenu complémentaire.",
   keywords: [
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
     'covoiturage colis Cameroun',
     'transport colis Afrique',
     'envoi colis diaspora camerounaise',
@@ -141,9 +142,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning className={`${inter.variable} md:scrollbar-thin no-scrollbar-mobile`}>
+    <html
+      lang="fr"
+      suppressHydrationWarning
+      className={`${inter.variable} md:scrollbar-thin no-scrollbar-mobile`}
+    >
       <head>
-        {/* Structured Data - Organisation Schema */}
+        {/* Structured Data - Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -151,22 +156,17 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Co-Bage',
-              url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000', // ← CORRIGER typo
-              logo: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo/logo-1.png`, // ← CORRIGER nom fichier
+              alternateName: ['CoBage', 'COBAGE', 'co bage', 'cobage'],
+              url: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev',
+              logo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev'}/images/logo/logo-1.png`,
               description:
-                "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora",
+                "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora.",
               areaServed: [
-                {
-                  '@type': 'Country',
-                  name: 'Cameroun',
-                },
-                {
-                  '@type': 'Continent',
-                  name: 'Afrique',
-                },
+                { '@type': 'Country', name: 'Cameroun' },
+                { '@type': 'Continent', name: 'Afrique' },
               ],
               sameAs: [
-                'https://twitter.com/cobage', // ← CORRIGER (pas de tiret)
+                'https://twitter.com/cobage',
                 'https://www.facebook.com/cobage',
                 'https://www.linkedin.com/company/cobage',
                 'https://www.instagram.com/cobage',
@@ -174,8 +174,8 @@ export default function RootLayout({
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'Support Client',
-                email: 'support@cobage.com', // ← CORRIGER email
-                telephone: '+33752892073', // ← AJOUTER
+                email: 'support@cobage.com',
+                telephone: '+33752892073',
                 availableLanguage: ['French', 'English'],
                 areaServed: ['CM', 'FR', 'US', 'CA', 'GB'],
               },
@@ -191,15 +191,16 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: 'Co-Bage',
-              alternateName: 'Co-Bage - Covoiturage de Colis Cameroun',
-              url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+              alternateName: ['CoBage', 'COBAGE', 'cobage'],
+              url: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev',
               description:
-                'Plateforme de transport collaboratif de colis pour la diaspora africaine et camerounaise',
+                'Plateforme de transport collaboratif de colis pour la diaspora africaine et camerounaise.',
+              inLanguage: 'fr-FR',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
                   '@type': 'EntryPoint',
-                  urlTemplate: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/explore?q={search_term_string}`,
+                  urlTemplate: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev'}/dashboard/explore?q={search_term_string}`,
                 },
                 'query-input': 'required name=search_term_string',
               },
@@ -214,20 +215,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Service',
+              name: 'Co-Bage',
+              alternateName: ['CoBage', 'COBAGE', 'cobage'],
               serviceType: 'Transport collaboratif de colis',
               provider: {
                 '@type': 'Organization',
                 name: 'Co-Bage',
+                url: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev',
+                logo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev'}/images/logo/logo-1.png`,
               },
               areaServed: [
-                {
-                  '@type': 'Country',
-                  name: 'Cameroun',
-                },
-                {
-                  '@type': 'Continent',
-                  name: 'Afrique',
-                },
+                { '@type': 'Country', name: 'Cameroun' },
+                { '@type': 'Continent', name: 'Afrique' },
               ],
               audience: {
                 '@type': 'Audience',
@@ -237,42 +236,48 @@ export default function RootLayout({
               offers: {
                 '@type': 'Offer',
                 description: 'Transport économique de colis entre particuliers',
-                priceCurrency: 'EUR', // ← CORRIGER (pas XAF pour international)
+                priceCurrency: 'EUR',
               },
             }),
           }}
         />
 
-        {/* Structured Data - LocalBusiness */}
+        {/* Structured Data - LocalBusiness Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
-              name: 'Co-Bage', // ← CORRIGER (pas "Co-Bage")
+              name: 'Co-Bage',
+              alternateName: ['CoBage', 'COBAGE', 'cobage'],
               description:
-                "Service de covoiturage de colis entre le Cameroun, l'Afrique et leur diaspora",
-              url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+                "Service de covoiturage de colis entre le Cameroun, l'Afrique et leur diaspora.",
+              url: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev',
               telephone: '+33752892073',
               address: {
                 '@type': 'PostalAddress',
                 addressCountry: 'FR',
-                addressLocality: 'Toulouse', // ← AJOUTER ville
+                addressLocality: 'Toulouse',
               },
               geo: {
                 '@type': 'GeoCoordinates',
                 latitude: '43.5812863',
                 longitude: '1.4074899',
               },
-              servesCuisine: 'Transport & Logistique', // ← CORRIGER
+              category: 'Transport et logistique',
+              openingHours: 'Mo-Fr 09:00-18:00',
+              paymentAccepted: ['Card', 'Cash', 'Transfer'],
             }),
           }}
         />
       </head>
+
+      <body>
         <ClientRootProvider>
           {children}
         </ClientRootProvider>
+      </body>
     </html>
   );
 }

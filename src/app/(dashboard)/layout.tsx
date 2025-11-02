@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     'messagerie Co-Bage',
     'favoris transport colis',
     'notifications voyage',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   robots: {
     index: false, // Dashboard privé, pas d'indexation

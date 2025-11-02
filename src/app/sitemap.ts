@@ -55,6 +55,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
+      url: `${baseUrl}/legal/cookies`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/legal/trust-safety`,
       lastModified: now,
       changeFrequency: 'yearly',
@@ -78,49 +84,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // ========================================
-  // SECTION DYNAMIQUE (Optionnel si API disponible)
-  // ========================================
-  // Si vous voulez ajouter des pages de voyages/demandes publiques plus tard :
-  /*
-  let dynamicVoyages: MetadataRoute.Sitemap = [];
-  let dynamicDemandes: MetadataRoute.Sitemap = [];
-
-  try {
-    // Exemple : Récupérer les voyages publics depuis l'API
-    const voyagesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/voyages/public`);
-    if (voyagesResponse.ok) {
-      const voyages = await voyagesResponse.json();
-      dynamicVoyages = voyages.data.map((voyage: any) => ({
-        url: `${baseUrl}/voyages/${voyage.slug}`,
-        lastModified: new Date(voyage.updatedAt),
-        changeFrequency: 'weekly' as const,
-        priority: 0.6,
-      }));
-    }
-
-    // Exemple : Récupérer les demandes publiques depuis l'API
-    const demandesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/demandes/public`);
-    if (demandesResponse.ok) {
-      const demandes = await demandesResponse.json();
-      dynamicDemandes = demandes.data.map((demande: any) => ({
-        url: `${baseUrl}/demandes/${demande.slug}`,
-        lastModified: new Date(demande.updatedAt),
-        changeFrequency: 'weekly' as const,
-        priority: 0.6,
-      }));
-    }
-  } catch (error) {
-    console.error('Erreur lors de la récupération des données pour le sitemap:', error);
-  }
-  */
-
   // Combiner toutes les routes
   return [
     ...staticRoutes,
     ...legalRoutes,
     ...authRoutes,
-    // ...dynamicVoyages,  // Décommenter si vous avez des pages publiques
-    // ...dynamicDemandes, // Décommenter si vous avez des pages publiques
   ];
 }

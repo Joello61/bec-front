@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     'signalement Co-Bage',
     'bonnes pratiques covoiturage colis',
     'transport sécurisé Cameroun',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   robots: {
     index: true,

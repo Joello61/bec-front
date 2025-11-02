@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'règles plateforme Co-Bage',
     'termes et conditions transport colis',
     'mentions légales Co-Bage',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   robots: {
     index: true, // Pages légales doivent être indexées

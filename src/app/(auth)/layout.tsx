@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     'créer compte Co-Bage',
     'login transport colis',
     's\'inscrire covoiturage colis',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   robots: {
     index: false, // On n'indexe généralement pas les pages d'auth

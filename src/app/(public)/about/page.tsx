@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     'mission Co-Bage',
     'transport colis Cameroun Afrique',
     'covoiturage bagages camerounais',
+    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
   ],
   openGraph: {
     title: 'À propos de Co-Bage - Transport Collaboratif Cameroun-Afrique',
