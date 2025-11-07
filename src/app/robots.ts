@@ -1,65 +1,64 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://cobage.joeltech.dev";
 
   return {
     rules: [
       {
-        userAgent: '*',
+        userAgent: "Googlebot",
         allow: [
-          '/',
-          '/about',
-          '/how-it-works',
-          '/faq',
-          '/contact',
-          '/legal/terms',
-          '/legal/privacy',
-          '/legal/trust-safety',
-          '/auth/login',
-          '/auth/register',
+          "/",
+          "/about",
+          "/how-it-works",
+          "/faq",
+          "/contact",
+          "/legal/*",
         ],
         disallow: [
-          '/dashboard/*', // Toutes les pages dashboard (privées)
-          '/admin/*', // Toutes les pages admin
-          '/api/*', // Routes API
-          '/auth/forgot-password',
-          '/auth/reset-password',
-          '/auth/verify-email',
-          '/auth/oauth-callback',
-          '/_next/*', // Next.js internal files
-          '/static/*', // Static files
-        ],
-        crawlDelay: 0, // Pas de délai pour les crawlers
-      },
-      // Configuration spécifique pour Googlebot (optimal)
-      {
-        userAgent: 'Googlebot',
-        allow: ['/', '/about', '/how-it-works', '/faq', '/contact', '/legal/*'],
-        disallow: [
-          '/dashboard/*',
-          '/admin/*',
-          '/api/*',
-          '/auth/forgot-password',
-          '/auth/reset-password',
-          '/auth/verify-email',
-          '/auth/oauth-callback',
+          "/dashboard/*",
+          "/admin/*",
+          "/api/*",
+          "/auth/*",
+          "/server/*",
+          "/_next/*",
+          "/static/*",
+          "/uploads/private/*",
         ],
         crawlDelay: 0,
       },
-      // Bloquer complètement les mauvais bots
+
+      {
+        userAgent: "*",
+        allow: ["/"],
+        disallow: [
+          "/dashboard/*",
+          "/admin/*",
+          "/api/*",
+          "/auth/*",
+          "/server/*",
+          "/_next/*",
+          "/static/*",
+          "/uploads/private/*",
+          "/__nextjs_original-stack-frame",
+        ],
+        crawlDelay: 0,
+      },
+
       {
         userAgent: [
-          'GPTBot', // OpenAI
-          'ChatGPT-User', // ChatGPT
-          'Google-Extended', // Bard
-          'CCBot', // Common Crawl
-          'anthropic-ai', // Claude
-          'PerplexityBot', // Perplexity
+          "GPTBot",
+          "ChatGPT-User",
+          "Google-Extended",
+          "CCBot",
+          "anthropic-ai",
+          "PerplexityBot",
         ],
-        disallow: ['/'],
+        disallow: ["/"],
       },
     ],
+
     sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }

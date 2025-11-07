@@ -1,15 +1,16 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "CoBage - Transport Collaboratif de Colis",
-    short_name: "CoBage",
+    name: "Co-Bage - Transport Collaboratif de Colis",
+    short_name: "Co-Bage",
     description:
       "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora. Envoyez moins cher, transportez et gagnez.",
     start_url: "/",
     scope: "/",
     display: "standalone",
+    display_override: ["standalone", "window-controls-overlay"],
     orientation: "portrait-primary",
     background_color: "#ffffff",
     theme_color: "#00695c",
@@ -23,6 +24,7 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: "/favicon-96x96.png", sizes: "96x96", type: "image/png", purpose: "any" },
       { src: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/android-chrome-maskable-512x512.png", sizes: "512x512", type: "image/png", purpose: "any" },
       { src: "/apple-touch-icon.png", sizes: "180x180", type: "image/png", purpose: "any" },
     ],
 
@@ -32,7 +34,7 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "1242x714",
         type: "image/png",
         form_factor: "wide",
-        label: "Page d'accueil CoBage sur ordinateur",
+        label: "Page d'accueil Co-Bage sur ordinateur",
       },
       {
         src: "/images/screenshots/mobile-explore.png",
@@ -67,9 +69,7 @@ export default function manifest(): MetadataRoute.Manifest {
       },
     ],
 
-    protocol_handlers: [
-      { protocol: "web+cobage", url: "/%s" },
-    ],
+    protocol_handlers: [{ protocol: "web+cobage", url: "/%s" }],
 
     share_target: {
       action: "/dashboard/mes-demandes",

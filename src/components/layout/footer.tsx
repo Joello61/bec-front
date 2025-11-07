@@ -33,10 +33,10 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { name: 'Facebook', image: '/images/social/facebook.png', href: 'https://facebook.com' },
-    { name: 'X', image: '/images/social/x.svg', href: 'https://x.com' },
-    { name: 'Instagram', image: '/images/social/instagram.png', href: 'https://instagram.com' },
-    { name: 'LinkedIn', image: '/images/social/linkedin.png', href: 'https://linkedin.com' },
+    { name: 'Facebook', image: '/images/social/facebook.png', href: 'https://www.facebook.com/cobageOfficiel' },
+    { name: 'X', image: '/images/social/x.svg', href: 'https://x.com/cobage_officiel' },
+    { name: 'Instagram', image: '/images/social/instagram.png', href: 'https://www.instagram.com/cobage_officiel' },
+    { name: 'LinkedIn', image: '/images/social/linkedin.png', href: 'https://www.linkedin.com/company/cobage-officiel' },
   ];
 
   if (isAuthPage || isDashboardPage || isAdminPage) {

@@ -1,65 +1,99 @@
-import { Metadata } from 'next';
-import PrivacyPageClient from '../../../../components/clients/public/privacy-client';
+import type { Metadata } from "next";
+import PrivacyPageClient from "@/components/clients/public/privacy-client";
+import Script from "next/script";
+
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://cobage.joeltech.dev";
 
 export const metadata: Metadata = {
-  title: 'Politique de Confidentialité',
+  metadataBase: new URL(APP_URL),
+  title: "Politique de Confidentialité – Co-Bage",
   description:
-    'Découvrez comment Co-Bage collecte, utilise et protège vos données personnelles. Notre engagement RGPD pour la protection de votre vie privée sur notre plateforme de transport collaboratif.',
-  keywords: [
-    'politique confidentialité Co-Bage',
-    'protection données personnelles',
-    'RGPD Co-Bage',
-    'vie privée transport colis',
-    'données utilisateurs Co-Bage',
-    'cookies Co-Bage',
-    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
-  ],
-  robots: {
-    index: true,
-    follow: true,
-  },
+    "Découvrez comment Co-Bage collecte, utilise et protège vos données personnelles. Engagement RGPD pour la protection de votre vie privée.",
+  robots: { index: true, follow: true },
+
   openGraph: {
-    title: 'Politique de Confidentialité - Co-Bage',
+    type: "website",
+    url: `${APP_URL}/legal/privacy`,
+    siteName: "Co-Bage",
+    title: "Politique de Confidentialité – Co-Bage",
     description:
-      'Comment nous protégeons vos données personnelles en conformité avec le RGPD.',
-    type: 'website',
-    url: '/legal/privacy',
+      "Comment nous protégeons vos données personnelles en conformité avec le RGPD.",
+    images: [
+      {
+        url: `${APP_URL}/images/og-legal-privacy.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Politique de Confidentialité Co-Bage",
+      },
+    ],
   },
+
   twitter: {
-    card: 'summary',
-    title: 'Politique de Confidentialité Co-Bage',
-    description: 'Protection de vos données personnelles.',
+    card: "summary_large_image",
+    site: "@cobage_official",
+    creator: "@cobage_official",
+    title: "Politique de Confidentialité – Co-Bage",
+    description: "Protection de vos données personnelles (RGPD).",
+    images: [`${APP_URL}/images/twitter-legal-privacy.jpg`],
   },
+
   alternates: {
-    canonical: '/legal/privacy',
+    canonical: `${APP_URL}/legal/privacy`,
   },
+
+  category: "Mentions légales",
+  classification: "Politique de confidentialité (RGPD)",
 };
 
-// Structured Data - PrivacyPolicy
 const privacyPageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'Politique de Confidentialité',
-  description:
-    'Politique de confidentialité et protection des données de Co-Bage',
-  url: process.env.NEXT_PUBLIC_APP_URL + '/legal/privacy',
-  publisher: {
-    '@type': 'Organization',
-    name: 'Co-Bage',
-  },
-  datePublished: '2025-01-01',
-  dateModified: '2025-01-01',
-  inLanguage: 'fr-FR',
-  about: {
-    '@type': 'Thing',
-    name: 'Protection des données personnelles',
-  },
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["WebPage", "PrivacyPolicy"],
+      name: "Politique de Confidentialité",
+      description:
+        "Politique de confidentialité et protection des données de Co-Bage conformément au RGPD.",
+      url: `${APP_URL}/legal/privacy`,
+      datePublished: "2025-01-01",
+      dateModified: "2025-01-01",
+      inLanguage: "fr-FR",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "Co-Bage",
+        url: APP_URL,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Co-Bage",
+        url: APP_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${APP_URL}/images/logo/logo-1.png`,
+          width: 250,
+          height: 60,
+        },
+      },
+      about: {
+        "@type": "Thing",
+        name: "Protection des données personnelles",
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: APP_URL },
+        { "@type": "ListItem", position: 2, name: "Mentions légales", item: `${APP_URL}/legal` },
+        { "@type": "ListItem", position: 3, name: "Politique de Confidentialité", item: `${APP_URL}/legal/privacy` },
+      ],
+    },
+  ],
 };
 
 export default function PrivacyPage() {
   return (
     <>
-      <script
+      <Script
+        id="privacy-page-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyPageSchema) }}
       />

@@ -1,40 +1,48 @@
-import type { Metadata } from 'next';
-import { AboutSection } from '@/components/sections';
+import type { Metadata } from "next";
+import { AboutSection } from "@/components/sections";
+
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://cobage.joeltech.dev";
 
 export const metadata: Metadata = {
-  title: 'À propos de Co-Bage',
-  description: 'Découvrez Co-Bage, la première plateforme camerounaise de transport collaboratif de colis. Connectez voyageurs et expéditeurs pour un transport intelligent, économique et sécurisé entre le Cameroun, l\'Afrique et la diaspora.',
-  keywords: [
-    'à propos Co-Bage',
-    'plateforme transport collaboratif Cameroun',
-    'qui sommes nous Co-Bage',
-    'mission Co-Bage',
-    'transport colis Cameroun Afrique',
-    'covoiturage bagages camerounais',
-    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
-  ],
+  metadataBase: new URL(APP_URL),
+
+  title: "À propos de Co-Bage - Transport Collaboratif Cameroun-Afrique",
+  description:
+    "Découvrez Co-Bage, la première plateforme camerounaise de transport collaboratif de colis entre le Cameroun, l'Afrique et la diaspora. Économique, sécurisé et humain.",
+
   openGraph: {
-    title: 'À propos de Co-Bage - Transport Collaboratif Cameroun-Afrique',
-    description: 'La première plateforme camerounaise qui connecte voyageurs et expéditeurs pour un transport de colis économique et sécurisé.',
-    type: 'website',
-    url: '/about',
+    type: "website",
+    url: `${APP_URL}/about`,
+    siteName: "Co-Bage",
+    title: "À propos de Co-Bage - Transport Collaboratif Cameroun-Afrique",
+    description:
+      "La plateforme camerounaise qui connecte voyageurs et expéditeurs pour un transport de colis économique et sécurisé.",
     images: [
       {
-        url: '/images/og-about.jpg',
+        url: `${APP_URL}/images/og-about.jpg`,
         width: 1200,
         height: 630,
-        alt: 'À propos de Co-Bage',
+        alt: "À propos de Co-Bage",
       },
     ],
   },
+
   twitter: {
-    card: 'summary_large_image',
-    title: 'À propos de Co-Bage',
-    description: 'Plateforme de transport collaboratif entre le Cameroun, l\'Afrique et la diaspora.',
+    card: "summary_large_image",
+    site: "@cobage_official",
+    creator: "@cobage_official",
+    title: "À propos de Co-Bage",
+    description:
+      "Plateforme de transport collaboratif de colis entre le Cameroun, l'Afrique et la diaspora.",
+    images: [`${APP_URL}/images/twitter-about.jpg`],
   },
+
   alternates: {
-    canonical: '/about',
+    canonical: `${APP_URL}/about`,
   },
+
+  category: "Transport & Logistique",
+  classification: "Plateforme de transport collaboratif",
 };
 
 export default function AboutPage() {

@@ -1,62 +1,116 @@
-import CookiePolicyPageClient from '@/components/clients/public/cookies-page-client';
-import { Metadata } from 'next';
+import type { Metadata } from "next";
+import CookiePolicyPageClient from "@/components/clients/public/cookies-page-client";
+import Script from "next/script";
+
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://cobage.joeltech.dev";
 
 export const metadata: Metadata = {
-  title: 'Politique de Cookies - Co-Bage',
+  metadataBase: new URL(APP_URL),
+
+  title: "Politique de Cookies – Co-Bage",
   description:
-    "Découvrez comment Co-Bage utilise des cookies et technologies similaires pour améliorer votre expérience utilisateur, mesurer l'audience et personnaliser certaines fonctionnalités.",
-  keywords: [
-    'cookies Co-Bage',
-    'politique cookies',
-    'gestion des cookies',
-    'traceurs',
-    'consentement cookies CNIL',
-    'CoBage', 'Co-Bage', 'COBAGE', 'co bage', 'cobage',
-  ],
+    "Découvrez comment Co-Bage utilise des cookies et technologies similaires pour améliorer votre expérience, mesurer l’audience et personnaliser certaines fonctionnalités, conformément au RGPD et aux recommandations de la CNIL.",
+
   robots: {
-    index: true, // les politiques légales doivent être indexées
+    index: true,
     follow: true,
   },
+
   openGraph: {
-    title: 'Politique de Cookies - Co-Bage',
+    type: "website",
+    url: `${APP_URL}/legal/cookies`,
+    siteName: "Co-Bage",
+    title: "Politique de Cookies – Co-Bage",
     description:
-      "Informations sur l'utilisation des cookies par la plateforme Co-Bage : finalités, durée de conservation, gestion du consentement.",
-    type: 'website',
-    url: '/legal/cookies',
+      "Informations sur l’utilisation des cookies par la plateforme Co-Bage : finalités, durée de conservation et gestion du consentement utilisateur.",
+    images: [
+      {
+        url: `${APP_URL}/images/og-legal-cookies.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Politique de Cookies Co-Bage",
+      },
+    ],
   },
+
   twitter: {
-    card: 'summary',
-    title: 'Politique de Cookies - Co-Bage',
+    card: "summary_large_image",
+    site: "@cobage_official",
+    creator: "@cobage_official",
+    title: "Politique de Cookies – Co-Bage",
     description:
-      "En savoir plus sur l'utilisation des cookies sur la plateforme Co-Bage.",
+      "En savoir plus sur l’utilisation des cookies et traceurs sur la plateforme Co-Bage.",
+    images: [`${APP_URL}/images/twitter-legal-cookies.jpg`],
   },
+
   alternates: {
-    canonical: '/legal/cookies',
+    canonical: `${APP_URL}/legal/cookies`,
   },
+
+  category: "Mentions légales",
+  classification: "Politique d’utilisation des cookies",
 };
 
-// Données structurées JSON-LD pour le SEO
 const cookiesPageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'Politique de Cookies',
-  description:
-    "Informations détaillées sur l'utilisation des cookies et traceurs par Co-Bage, conformément au RGPD et aux recommandations de la CNIL.",
-  url: process.env.NEXT_PUBLIC_APP_URL + '/legal/cookies',
-  publisher: {
-    '@type': 'Organization',
-    name: 'Co-Bage',
-    url: process.env.NEXT_PUBLIC_APP_URL,
-  },
-  datePublished: '2025-10-18', // 📅 date de mise en ligne
-  dateModified: '2025-10-18', // 📅 date de dernière mise à jour
-  inLanguage: 'fr-FR',
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      name: "Politique de Cookies",
+      description:
+        "Informations détaillées sur l’utilisation des cookies et traceurs par Co-Bage, conformément au RGPD et aux recommandations de la CNIL.",
+      url: `${APP_URL}/legal/cookies`,
+      datePublished: "2025-10-18",
+      dateModified: "2025-10-18",
+      inLanguage: "fr-FR",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "Co-Bage",
+        url: APP_URL,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Co-Bage",
+        url: APP_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${APP_URL}/images/logo/logo-1.png`,
+          width: 250,
+          height: 60,
+        },
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: APP_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Mentions légales",
+          item: `${APP_URL}/legal`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Politique de Cookies",
+          item: `${APP_URL}/legal/cookies`,
+        },
+      ],
+    },
+  ],
 };
 
 export default function CookiePolicyPage() {
   return (
     <>
-      <script
+      <Script
+        id="cookies-page-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(cookiesPageSchema) }}
       />
