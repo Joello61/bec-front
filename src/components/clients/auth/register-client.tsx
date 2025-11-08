@@ -190,7 +190,7 @@ export default function RegisterPageClient() {
         {/* Image */}
         <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
-            src="/images/auth/register.webp"
+            src="/images/auth/register.jpg"
             alt="Inscription Co-Bage"
             width={750}
             height={400}
