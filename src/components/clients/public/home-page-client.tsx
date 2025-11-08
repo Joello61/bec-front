@@ -168,7 +168,7 @@ export default function HomePageClient() {
             >
               <div className="relative">
                 <Image
-                  src="/images/hero/hero-image.jpg"
+                  src="/images/hero/hero-image.webp"
                   alt="Transport de colis"
                   width={400}
                   height={600}
