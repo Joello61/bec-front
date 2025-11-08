@@ -11,7 +11,7 @@ import PWAProvider from '@/components/providers/PWAProvider';
 export default function ClientRootProvider({ children }: { children: ReactNode }) {
   
   return (
-    <body className="min-h-screen bg-gray-50 antialiased">
+    <div>
         <PWAProvider>
             <AuthProvider>
                 <NotificationPermissionProvider>
@@ -26,6 +26,6 @@ export default function ClientRootProvider({ children }: { children: ReactNode }
                 <ToastProvider />
             </AuthProvider>
         </PWAProvider>
-    </body>
+    </div>
   );
 }

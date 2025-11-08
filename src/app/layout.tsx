@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import ClientRootProvider from '@/components/clients/dashboard/client-root-provider';
 import Script from 'next/script';
+import CookieConsentBanner from '@/components/common/CookiesConsent';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -181,7 +182,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} md:scrollbar-thin no-scrollbar-mobile`}
     >
-      <body>
+      <body className="min-h-screen bg-gray-50 antialiased" suppressHydrationWarning>
         <Script
           id="ld-org"
           type="application/ld+json"
@@ -196,20 +197,7 @@ export default function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-
-        <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></Script>
-        <Script
-          id="google-analytics"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-            `,
-          }}
-        />
-
+        <CookieConsentBanner />
         <ClientRootProvider>{children}</ClientRootProvider>
       </body>
     </html>

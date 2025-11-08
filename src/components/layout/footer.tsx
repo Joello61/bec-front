@@ -5,6 +5,7 @@ import { Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
 import { ROUTES, CONTACT } from '@/lib/utils/constants';
 import { usePathname } from 'next/navigation';
+import { CookiePreferencesButton } from '../common/CookiesConsent';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -45,7 +46,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      <div className="container-custom py-12 lg:py-16">
+      <div className="container-custom py-6 lg:py-8">
         {/* Section principale */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand Section */}
@@ -209,6 +210,8 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
+        <CookiePreferencesButton />
 
         {/* Séparateur */}
         <div className="border-t border-gray-200 pt-8">
