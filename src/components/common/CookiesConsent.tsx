@@ -156,6 +156,12 @@ const CookieConsentBanner: React.FC = () => {
 
     try {
       localStorage.setItem("cookieConsent", JSON.stringify(consent));
+      
+      // 🚀 Déclencher un événement personnalisé pour notifier les autres composants
+      window.dispatchEvent(new CustomEvent('cookieConsentChange', { 
+        detail: consent 
+      }));
+      
       loadGoogleScripts();
       updateGoogleConsent(consent.consent);
       setShowBanner(false);
@@ -178,6 +184,12 @@ const CookieConsentBanner: React.FC = () => {
 
     try {
       localStorage.setItem("cookieConsent", JSON.stringify(consent));
+      
+      // 🚀 Déclencher un événement personnalisé pour notifier les autres composants
+      window.dispatchEvent(new CustomEvent('cookieConsentChange', { 
+        detail: consent 
+      }));
+      
       updateGoogleConsent(consent.consent);
       setShowBanner(false);
     } catch (error) {
@@ -260,6 +272,13 @@ export const CookiePreferencesButton: React.FC = () => {
     // Supprimer le consentement existant pour rouvrir la bannière
     try {
       localStorage.removeItem("cookieConsent");
+      
+      // Déclencher l'événement pour notifier les composants
+      window.dispatchEvent(new CustomEvent('cookieConsentChange', { 
+        detail: { accepted: false } 
+      }));
+      
+      // Recharger la page pour réafficher la bannière
       window.location.reload();
     } catch (error) {
       console.error("Erreur lors de la réinitialisation du consentement:", error);

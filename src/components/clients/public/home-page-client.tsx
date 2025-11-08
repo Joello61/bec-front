@@ -21,6 +21,7 @@ import {
 } from '@/components/sections';
 import { ScrollToTop } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
+import HomeBannerAd from '@/components/ads/HomeBannerAd';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -52,7 +53,7 @@ export default function HomePageClient() {
 
   const stats = [
     { icon: Users, value: 'Notre mission', label: 'Connecter le Cameroun et sa diaspora' },
-    { icon: TrendingUp, value: 'Notre vision', label: 'Simplifier l’envoi de colis à l’international' },
+    { icon: TrendingUp, value: 'Notre vision', label: 'Simplifier l\'envoi de colis à l\'international' },
     { icon: Sparkles, value: 'Notre promesse', label: 'Sécurité, simplicité, confiance' },
   ]
 
@@ -211,9 +212,32 @@ export default function HomePageClient() {
         </div>
       </section>
 
+      <HomeBannerAd 
+        adSlot="1234567890"
+        adFormat="auto"
+        variant="display"
+        className="bg-gray-50"
+      />
+
       {/* Sections importées */}
       <AboutSection />
+
+      <HomeBannerAd 
+        adSlot="2345678901"
+        adFormat="horizontal"
+        variant="infeed"
+        className="bg-white"
+      />
+
       <HowItWorksSection />
+
+      <HomeBannerAd 
+        adSlot="3456789012"
+        adFormat="auto"
+        variant="display"
+        className="bg-gray-50"
+      />
+
       <FaqSection />
 
       {/* CTA Section - Version améliorée */}
