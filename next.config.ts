@@ -1,9 +1,3 @@
-import bundleAnalyzer from '@next/bundle-analyzer';
-
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   
@@ -38,6 +32,7 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 5184000, // 60 jours
@@ -78,48 +73,6 @@ const nextConfig = {
   async redirects() {
     return [];
   },
-
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  webpack: (config: any, { dev, isServer }: any) => {
-    // Optimisation du bundle en prod
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            name: 'vendor',
-            test: /node_modules/,
-            chunks: 'all',
-            priority: 20,
-          },
-          react: {
-            name: 'react',
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            chunks: 'all',
-            priority: 30,
-          },
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'all',
-            priority: 10,
-            reuseExistingChunk: true,
-            enforce: true,
-          },
-        },
-      };
-    }
-
-    // Support SVG → Composants React
-    config.module.rules.push({
-      test: /\.svg$/,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    });
-
-    return config;
-  },
   
   env: {
     NEXT_PUBLIC_APP_NAME: 'Co-Bage',
@@ -137,15 +90,6 @@ const nextConfig = {
     ],
   },
 
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
-
   logging: {
     fetches: { fullUrl: true },
   },
@@ -153,4 +97,4 @@ const nextConfig = {
   typedRoutes: true,
 } satisfies import('next').NextConfig;
 
-export default withBundleAnalyzer(nextConfig);
+export default nextConfig;
