@@ -2,15 +2,17 @@
  * Constantes globales de l'application
  */
 
-import { Route } from "next";
+import { Route } from 'next';
 
 // API
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
 
 // Routes
 export const ROUTES = {
   HOME: '/' as Route,
   ABOUT: '/about' as Route,
+  PUBLIC_EXPLORE: '/explore' as Route,
   CONTACT: '/contact' as Route,
   TERMS: '/legal/terms' as Route,
   PRIVACY: '/legal/privacy' as Route,
@@ -23,11 +25,11 @@ export const ROUTES = {
   FORGOT_PASSWORD: '/auth/forgot-password' as Route,
   RESET_PASSWORD: '/auth/reset-password' as Route,
   AUTH_CHANGE_PASSWORD: '/dashboard/profile/change-password' as Route,
-  
+
   // ==================== NOUVELLES ROUTES AUTH ====================
   VERIFY_EMAIL: '/auth/verify-email' as Route,
   COMPLETE_PROFILE: '/dashboard/complete-profile' as Route,
-  
+
   DASHBOARD: '/dashboard' as Route,
   EXPLORE: '/dashboard/explore' as Route,
   VOYAGE_DETAILS: (id: number) => `/dashboard/explore/voyage/${id}` as Route,
@@ -37,7 +39,8 @@ export const ROUTES = {
   MES_DEMANDES: '/dashboard/mes-demandes' as Route,
   MES_DEMANDE_DETAILS: (id: number) => `/dashboard/mes-demandes/${id}` as Route,
   MES_PROPOSITIONS: '/dashboard/mes-propositions' as Route,
-  MES_PROPOSITION_DETAILS: (id: number) => `/dashboard/mes-propositions/${id}` as Route,
+  MES_PROPOSITION_DETAILS: (id: number) =>
+    `/dashboard/mes-propositions/${id}` as Route,
   MESSAGES: '/dashboard/messages' as Route,
   CONVERSATION: (id: number) => `/dashboard/messages/${id}` as Route,
   NOTIFICATIONS: '/dashboard/notifications' as Route,
@@ -65,7 +68,7 @@ export const PAYS = [
   // Afrique
   'Cameroun',
   'Sénégal',
-  'Côte d\'Ivoire',
+  "Côte d'Ivoire",
   'Mali',
   'Burkina Faso',
   'Niger',
@@ -74,7 +77,7 @@ export const PAYS = [
   'Gabon',
   'Bénin',
   'Togo',
-  
+
   // Europe
   'France',
   'Belgique',
@@ -85,11 +88,11 @@ export const PAYS = [
   'Espagne',
   'Portugal',
   'Pays-Bas',
-  
+
   // Amérique du Nord
   'Canada',
   'États-Unis',
-  
+
   // Autre
   'Autre',
 ] as const;
@@ -133,7 +136,7 @@ export const TOUTES_VILLES = [...VILLES_CAMEROUN, ...VILLES_INTERNATIONALES];
 
 // ==================== QUARTIERS PAR VILLE (CAMEROUN) ====================
 export const QUARTIERS_PAR_VILLE: Record<string, string[]> = {
-  'Yaoundé': [
+  Yaoundé: [
     'Bastos',
     'Nlongkak',
     'Mvan',
@@ -145,7 +148,7 @@ export const QUARTIERS_PAR_VILLE: Record<string, string[]> = {
     'Odza',
     'Nkol-Eton',
   ],
-  'Douala': [
+  Douala: [
     'Akwa',
     'Bonanjo',
     'Bonapriso',
@@ -157,12 +160,7 @@ export const QUARTIERS_PAR_VILLE: Record<string, string[]> = {
     'New Bell',
     'Bépanda',
   ],
-  'Bafoussam': [
-    'Tamdja',
-    'Famla',
-    'Tchoungang',
-    'Djeleng',
-  ],
+  Bafoussam: ['Tamdja', 'Famla', 'Tchoungang', 'Djeleng'],
 };
 
 // Statuts
@@ -196,7 +194,11 @@ export const PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
 
 // Limites
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as const;
+export const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+] as const;
 export const MAX_MESSAGE_LENGTH = 2000;
 export const MAX_DESCRIPTION_LENGTH = 1000;
 export const MAX_BIO_LENGTH = 500;
@@ -218,11 +220,12 @@ export const ERROR_MESSAGES = {
   GENERIC: 'Une erreur est survenue',
   NETWORK: 'Erreur de connexion. Vérifiez votre connexion internet.',
   UNAUTHORIZED: 'Vous devez être connecté pour accéder à cette page',
-  FORBIDDEN: 'Vous n\'avez pas les droits pour effectuer cette action',
-  NOT_FOUND: 'La ressource demandée n\'existe pas',
+  FORBIDDEN: "Vous n'avez pas les droits pour effectuer cette action",
+  NOT_FOUND: "La ressource demandée n'existe pas",
   VALIDATION: 'Veuillez vérifier les informations saisies',
   // ==================== NOUVEAU ====================
-  PROFILE_INCOMPLETE: 'Vous devez compléter votre profil pour effectuer cette action',
+  PROFILE_INCOMPLETE:
+    'Vous devez compléter votre profil pour effectuer cette action',
   EMAIL_NOT_VERIFIED: 'Veuillez vérifier votre adresse email',
 } as const;
 
@@ -254,11 +257,10 @@ export const SOCIAL_LINKS = {
 
 // Contact
 export const CONTACT = {
-  EMAIL: 'tchindajoel61@gmail.com',
+  EMAIL: 'support@cobage.joeltech.dev',
   PHONE: '+330752892073',
   ADDRESS: 'Toulouse, France',
 } as const;
-
 
 /**
  * Liste des devises supportées avec leurs informations
@@ -339,7 +341,9 @@ export const CURRENCIES = {
 /**
  * Codes de devises disponibles
  */
-export const CURRENCY_CODES = Object.keys(CURRENCIES) as Array<keyof typeof CURRENCIES>;
+export const CURRENCY_CODES = Object.keys(CURRENCIES) as Array<
+  keyof typeof CURRENCIES
+>;
 
 /**
  * Symboles des devises (map rapide)
@@ -397,14 +401,14 @@ export const COUNTRY_TO_CURRENCY: Record<string, string> = {
   FI: 'EUR',
   GR: 'EUR',
   LU: 'EUR',
-  
+
   // Amérique
   US: 'USD',
   CA: 'CAD',
-  
+
   // Royaume-Uni
   GB: 'GBP',
-  
+
   // Afrique francophone (CEMAC)
   CM: 'XAF',
   GA: 'XAF',
@@ -412,7 +416,7 @@ export const COUNTRY_TO_CURRENCY: Record<string, string> = {
   CF: 'XAF',
   TD: 'XAF',
   GQ: 'XAF',
-  
+
   // Afrique francophone (UEMOA)
   SN: 'XOF',
   CI: 'XOF',
@@ -422,12 +426,12 @@ export const COUNTRY_TO_CURRENCY: Record<string, string> = {
   ML: 'XOF',
   NE: 'XOF',
   GW: 'XOF',
-  
+
   // Maghreb
   MA: 'MAD',
   TN: 'TND',
   DZ: 'DZD',
-  
+
   // Suisse
   CH: 'CHF',
 };
@@ -435,15 +439,49 @@ export const COUNTRY_TO_CURRENCY: Record<string, string> = {
 /**
  * Options de formatage par devise
  */
-export const CURRENCY_FORMAT_OPTIONS: Record<string, Intl.NumberFormatOptions> = {
-  EUR: { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 },
-  USD: { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 },
-  CAD: { style: 'currency', currency: 'CAD', minimumFractionDigits: 2, maximumFractionDigits: 2 },
-  GBP: { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 },
-  XAF: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0 },
-  XOF: { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0 },
-  CHF: { style: 'currency', currency: 'CHF', minimumFractionDigits: 2, maximumFractionDigits: 2 },
-};
+export const CURRENCY_FORMAT_OPTIONS: Record<string, Intl.NumberFormatOptions> =
+  {
+    EUR: {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    },
+    USD: {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    },
+    CAD: {
+      style: 'currency',
+      currency: 'CAD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    },
+    GBP: {
+      style: 'currency',
+      currency: 'GBP',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    },
+    XAF: {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    },
+    XOF: {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    },
+    CHF: {
+      style: 'currency',
+      currency: 'CHF',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    },
+  };
 
 /**
  * Labels pour les devises (utilisation dans les formulaires)

@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Confiance et Sécurité – Co-Bage",
     description:
       "Conseils pratiques et règles de sécurité pour utiliser Co-Bage en toute confiance.",
-    images: [`${APP_URL}/images/twitter-legal-trust-safety.jpg`],
+    images: [`${APP_URL}/images/og-legal-trust-safety.jpg`],
   },
 
   alternates: {

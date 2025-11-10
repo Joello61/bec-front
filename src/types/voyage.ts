@@ -26,6 +26,23 @@ export interface Voyage {
   updatedAt: string;
 }
 
+export interface PublicVoyage {
+  id: number;
+  villeDepart: string;
+  villeArrivee: string;
+  dateDepart: string;
+  dateArrivee: string;
+  poidsDisponible: string;
+  poidsDisponibleRestant  : string;
+  prixParKilo: string | null;
+  commissionProposeePourUnBagage: string | null;
+
+  // ==================== DEVISE ====================
+  currency: string; // ⬅️ AJOUT - Code devise (EUR, XAF, USD)
+
+  description: string | null;
+}
+
 export interface CreateVoyageInput {
   villeDepart: string;
   villeArrivee: string;

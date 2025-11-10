@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${APP_URL}/images/og-legal-cookies.jpg`,
-        width: 1200,
-        height: 630,
+        width: 1217,
+        height: 500,
         alt: "Politique de Cookies Co-Bage",
       },
     ],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Politique de Cookies – Co-Bage",
     description:
       "En savoir plus sur l’utilisation des cookies et traceurs sur la plateforme Co-Bage.",
-    images: [`${APP_URL}/images/twitter-legal-cookies.jpg`],
+    images: [`${APP_URL}/images/og-legal-cookies.jpg`],
   },
 
   alternates: {

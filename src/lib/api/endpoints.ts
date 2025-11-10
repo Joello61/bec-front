@@ -47,6 +47,7 @@ export const endpoints = {
   // Voyages
   voyages: {
     list: '/voyages',
+    publicList: '/voyages/public',
     show: (id: number) => `/voyages/${id}`,
     create: '/voyages',
     update: (id: number) => `/voyages/${id}`,
@@ -54,11 +55,13 @@ export const endpoints = {
     delete: (id: number) => `/voyages/${id}`,
     byUser: (userId: number) => `/voyages/user/${userId}`,
     matchingDemandes: (id: number) => `/voyages/${id}/matching-demandes`,
+
   },
 
   // Demandes
   demandes: {
     list: '/demandes',
+    publicList: '/demandes/public',
     show: (id: number) => `/demandes/${id}`,
     create: '/demandes',
     update: (id: number) => `/demandes/${id}`,

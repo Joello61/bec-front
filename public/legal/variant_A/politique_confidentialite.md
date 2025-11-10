@@ -8,7 +8,7 @@
 
 ## 📋 RÉSUMÉ EN LANGAGE CLAIR
 
-Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage. Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **tchindajoel61@gmail.com** pour toute question.
+Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage. Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **support@cobage.joeltech.dev** pour toute question.
 
 ---
 
@@ -39,7 +39,7 @@ Le responsable du traitement des données personnelles collectées via la Platef
 **Timothée Joël Tchinda Tchoffo**  
 **Statut** : Étudiant développeur, agissant à titre non professionnel dans le cadre d'un projet pré-commercial  
 **Adresse** : Toulouse, France  
-**E-mail** : tchindajoel61@gmail.com  
+**E-mail** : support@cobage.joeltech.dev  
 **Téléphone** : +33 7 52 89 20 73
 
 Le responsable de traitement au sens de l'article 4.7 du RGPD est **Timothée Joël Tchinda Tchoffo**, personne physique, agissant en tant qu'éditeur de la plateforme Co-Bage.
@@ -47,12 +47,13 @@ Le responsable de traitement au sens de l'article 4.7 du RGPD est **Timothée Jo
 ### 1.2 Délégué à la Protection des Données (DPO)
 
 **Co-Bage n'est pas tenu de désigner un délégué à la protection des données (DPO)** au sens de l'article 37 du RGPD, car :
+
 - Le traitement n'est pas effectué par une autorité publique
 - Les activités de base ne nécessitent pas un suivi régulier et systématique à grande échelle
 - Le projet est en phase bêta avec un nombre limité d'utilisateurs
 
 **Toute demande relative à la protection des données peut être adressée directement à :**  
-**E-mail** : tchindajoel61@gmail.com  
+**E-mail** : support@cobage.joeltech.dev  
 **Téléphone** : +33 7 52 89 20 73
 
 > **Note** : Si le projet se développe et atteint un volume de traitement important (>10 000 utilisateurs actifs mensuels), la désignation d'un DPO sera envisagée conformément aux recommandations de la CNIL.
@@ -156,16 +157,16 @@ Voir section 10 et Politique Cookies dédiée.
 
 Conformément à l'article 6 du RGPD, tout traitement doit reposer sur une base légale. Voici les traitements effectués par Co-Bage :
 
-| **Finalité** | **Données concernées** | **Base légale (art. 6 RGPD)** | **Durée de conservation** |
-|--------------|------------------------|-------------------------------|---------------------------|
-| **Création et gestion du compte utilisateur** | Nom, prénom, e-mail, mot de passe haché, date d'inscription | **Exécution du contrat** (art. 6.1.b) | Durée de vie du compte + 1 an |
-| **Fourniture du service de mise en relation** | Annonces, recherches, favoris, messagerie | **Exécution du contrat** (art. 6.1.b) | Annonces : 3 mois après expiration / Messages : 12 mois |
-| **Authentification et sécurité du compte** | E-mail, mot de passe haché, IP, logs de connexion | **Exécution du contrat** + **Intérêt légitime** (art. 6.1.b et 6.1.f) | 12 mois (logs) |
-| **Prévention de la fraude, détection d'abus, modération** | Historique de l'utilisateur, IP, messages signalés, comportement suspect | **Intérêt légitime** (art. 6.1.f) — sécurité de la plateforme et protection des autres utilisateurs | 3 ans (en cas de signalement ou suspension) |
-| **Respect des obligations légales** (réquisitions judiciaires, LCEN) | Toutes données nécessaires (IP, messages, annonces, identité) | **Obligation légale** (art. 6.1.c) | 12 mois minimum (LCEN) |
-| **Amélioration du service et statistiques** | Données de navigation anonymisées, clics, pages vues | **Intérêt légitime** (art. 6.1.f) | 13 mois max (cookies analytiques) puis anonymisation totale |
-| **Communication relative au service** (e-mails transactionnels : confirmation d'inscription, réinitialisation mot de passe, alertes de sécurité) | E-mail, nom | **Exécution du contrat** (art. 6.1.b) | Durée de vie du compte |
-| **Gestion des signalements et contentieux** | Toutes données liées au signalement (captures d'écran, messages, profil) | **Intérêt légitime** (art. 6.1.f) + **Obligation légale** (art. 6.1.c) en cas de transmission aux autorités | 3 ans à compter de la clôture du signalement |
+| **Finalité**                                                                                                                                     | **Données concernées**                                                   | **Base légale (art. 6 RGPD)**                                                                               | **Durée de conservation**                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **Création et gestion du compte utilisateur**                                                                                                    | Nom, prénom, e-mail, mot de passe haché, date d'inscription              | **Exécution du contrat** (art. 6.1.b)                                                                       | Durée de vie du compte + 1 an                               |
+| **Fourniture du service de mise en relation**                                                                                                    | Annonces, recherches, favoris, messagerie                                | **Exécution du contrat** (art. 6.1.b)                                                                       | Annonces : 3 mois après expiration / Messages : 12 mois     |
+| **Authentification et sécurité du compte**                                                                                                       | E-mail, mot de passe haché, IP, logs de connexion                        | **Exécution du contrat** + **Intérêt légitime** (art. 6.1.b et 6.1.f)                                       | 12 mois (logs)                                              |
+| **Prévention de la fraude, détection d'abus, modération**                                                                                        | Historique de l'utilisateur, IP, messages signalés, comportement suspect | **Intérêt légitime** (art. 6.1.f) — sécurité de la plateforme et protection des autres utilisateurs         | 3 ans (en cas de signalement ou suspension)                 |
+| **Respect des obligations légales** (réquisitions judiciaires, LCEN)                                                                             | Toutes données nécessaires (IP, messages, annonces, identité)            | **Obligation légale** (art. 6.1.c)                                                                          | 12 mois minimum (LCEN)                                      |
+| **Amélioration du service et statistiques**                                                                                                      | Données de navigation anonymisées, clics, pages vues                     | **Intérêt légitime** (art. 6.1.f)                                                                           | 13 mois max (cookies analytiques) puis anonymisation totale |
+| **Communication relative au service** (e-mails transactionnels : confirmation d'inscription, réinitialisation mot de passe, alertes de sécurité) | E-mail, nom                                                              | **Exécution du contrat** (art. 6.1.b)                                                                       | Durée de vie du compte                                      |
+| **Gestion des signalements et contentieux**                                                                                                      | Toutes données liées au signalement (captures d'écran, messages, profil) | **Intérêt légitime** (art. 6.1.f) + **Obligation légale** (art. 6.1.c) en cas de transmission aux autorités | 3 ans à compter de la clôture du signalement                |
 
 > **Note importante** : La base légale "intérêt légitime" (art. 6.1.f) a été retenue après un test de proportionnalité. Co-Bage justifie que son intérêt légitime (sécurité de la plateforme, protection des utilisateurs) ne porte pas atteinte excessive aux droits des utilisateurs.
 
@@ -176,6 +177,7 @@ Conformément à l'article 6 du RGPD, tout traitement doit reposer sur une base 
 ### 5.1 Destinataires internes
 
 En tant que projet étudiant individuel, l'accès aux données est limité au **responsable de traitement** (Timothée Joël Tchinda Tchoffo) pour :
+
 - Maintenance technique et développement
 - Modération des contenus signalés
 - Support utilisateur
@@ -189,9 +191,9 @@ Co-Bage fait appel à des sous-traitants pour l'hébergement et les services tec
 
 **Sous-traitants identifiés :**
 
-| **Sous-traitant** | **Finalité** | **Localisation** | **Garanties** |
-|-------------------|--------------|------------------|---------------|
-| **DigitalOcean, LLC** | Hébergement des serveurs, bases de données, sauvegardes | USA | Certification ISO 27001, Contrat art. 28 RGPD, Clauses Contractuelles Types de la Commission UE |
+| **Sous-traitant**     | **Finalité**                                            | **Localisation** | **Garanties**                                                                                   |
+| --------------------- | ------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| **DigitalOcean, LLC** | Hébergement des serveurs, bases de données, sauvegardes | USA              | Certification ISO 27001, Contrat art. 28 RGPD, Clauses Contractuelles Types de la Commission UE |
 
 **Note** : Co-Bage **ne partage AUCUNE donnée avec des régies publicitaires, brokers de données, ou réseaux sociaux** pendant la phase bêta gratuite.
 
@@ -227,6 +229,7 @@ Co-Bage privilégie des **prestataires situés dans l'Union Européenne** pour �
 **Hébergeur** : DigitalOcean, LLC (États-Unis)
 
 **Garanties appropriées mises en place** :
+
 - **Clauses Contractuelles Types (CCT)** approuvées par la Commission européenne (décision 2021/914)
 - **Certification ISO 27001** (sécurité des informations)
 - **Évaluation d'impact sur le transfert (TIA)** : Analyse des lois américaines (Cloud Act) et mesures compensatoires :
@@ -236,9 +239,9 @@ Co-Bage privilégie des **prestataires situés dans l'Union Européenne** pour �
 
 **Liste des transferts hors UE :**
 
-| **Prestataire** | **Pays** | **Finalité** | **Garantie** |
-|-----------------|----------|--------------|--------------|
-| DigitalOcean, LLC | USA | Hébergement infrastructure | Clauses Contractuelles Types + Chiffrement + Certification ISO 27001 |
+| **Prestataire**   | **Pays** | **Finalité**               | **Garantie**                                                         |
+| ----------------- | -------- | -------------------------- | -------------------------------------------------------------------- |
+| DigitalOcean, LLC | USA      | Hébergement infrastructure | Clauses Contractuelles Types + Chiffrement + Certification ISO 27001 |
 
 > **Conformité post-Schrems II** : Suite à l'arrêt Schrems II (CJUE, 16/07/2020), Co-Bage a évalué que les mesures techniques (chiffrement) et contractuelles (CCT) sont suffisantes pour garantir un niveau de protection adéquat.
 
@@ -250,15 +253,15 @@ Conformément au principe de limitation de la conservation (art. 5.1.e RGPD), le
 
 ### Tableau détaillé des durées de conservation
 
-| **Catégorie de donnée** | **Durée de conservation (base active)** | **Archivage intermédiaire** | **Suppression définitive** | **Justification légale** |
-|-------------------------|----------------------------------------|----------------------------|---------------------------|--------------------------|
-| **Compte utilisateur actif** | Tant que le compte est actif | - | - | Exécution du contrat |
-| **Compte fermé (suppression volontaire)** | Anonymisation immédiate du profil public | 12 mois (logs) | 12 mois après fermeture | LCEN (12 mois logs) |
-| **Logs de connexion (IP, timestamp)** | 12 mois | - | 12 mois | Art. 6-II LCEN (obligation légale) |
-| **Messages (messagerie interne)** | 12 mois après envoi | 6 mois supplémentaires en cas de signalement actif | 18 mois maximum (sauf contentieux) | Preuve en cas de litige |
-| **Annonces publiées** | Durée de validité + 3 mois | - | 3 mois après expiration/suppression | Archivage modération |
-| **Signalements et modération** | 3 ans à compter de la clôture | - | 3 ans | Preuve en cas de contentieux / réquisition judiciaire |
-| **Cookies analytiques** | 13 mois maximum | - | 13 mois | Recommandation CNIL |
+| **Catégorie de donnée**                   | **Durée de conservation (base active)**  | **Archivage intermédiaire**                        | **Suppression définitive**          | **Justification légale**                              |
+| ----------------------------------------- | ---------------------------------------- | -------------------------------------------------- | ----------------------------------- | ----------------------------------------------------- |
+| **Compte utilisateur actif**              | Tant que le compte est actif             | -                                                  | -                                   | Exécution du contrat                                  |
+| **Compte fermé (suppression volontaire)** | Anonymisation immédiate du profil public | 12 mois (logs)                                     | 12 mois après fermeture             | LCEN (12 mois logs)                                   |
+| **Logs de connexion (IP, timestamp)**     | 12 mois                                  | -                                                  | 12 mois                             | Art. 6-II LCEN (obligation légale)                    |
+| **Messages (messagerie interne)**         | 12 mois après envoi                      | 6 mois supplémentaires en cas de signalement actif | 18 mois maximum (sauf contentieux)  | Preuve en cas de litige                               |
+| **Annonces publiées**                     | Durée de validité + 3 mois               | -                                                  | 3 mois après expiration/suppression | Archivage modération                                  |
+| **Signalements et modération**            | 3 ans à compter de la clôture            | -                                                  | 3 ans                               | Preuve en cas de contentieux / réquisition judiciaire |
+| **Cookies analytiques**                   | 13 mois maximum                          | -                                                  | 13 mois                             | Recommandation CNIL                                   |
 
 ### 7.2 Suppression définitive et anonymisation
 
@@ -278,11 +281,12 @@ Conformément au RGPD (Chapitre III), chaque utilisateur dispose des droits suiv
 ### 8.1 Droit d'accès (art. 15 RGPD)
 
 L'utilisateur peut demander :
+
 - Confirmation que ses données sont traitées
 - Copie de toutes ses données personnelles
 - Informations sur les finalités, destinataires, durées de conservation
 
-**Modalités** : E-mail à tchindajoel61@gmail.com  
+**Modalités** : E-mail à support@cobage.joeltech.dev  
 **Délai de réponse** : 1 mois (prorogeable de 2 mois en cas de complexité)  
 **Format de remise** : Fichier JSON ou CSV téléchargeable, ou copie PDF
 
@@ -290,23 +294,26 @@ L'utilisateur peut demander :
 
 L'utilisateur peut corriger des données **inexactes ou incomplètes**.
 
-**Modalités** : Directement depuis les paramètres du compte ou demande à tchindajoel61@gmail.com  
+**Modalités** : Directement depuis les paramètres du compte ou demande à support@cobage.joeltech.dev  
 **Délai** : Rectification sous 72 heures pour les données éditables en ligne
 
 ### 8.3 Droit à l'effacement / "Droit à l'oubli" (art. 17 RGPD)
 
 L'utilisateur peut demander la **suppression de ses données** dans les cas suivants :
+
 - Les données ne sont plus nécessaires aux finalités
 - Retrait du consentement (si base légale = consentement)
 - Opposition au traitement (si base légale = intérêt légitime)
 - Données traitées illicitement
 
 **Limites (art. 17.3)** : Le droit à l'effacement ne s'applique PAS si la conservation est nécessaire :
+
 - Pour respecter une obligation légale (ex. : logs LCEN 12 mois)
 - Pour constater, exercer ou défendre des droits en justice
 
 **Procédure** :
-1. Demande via tchindajoel61@gmail.com
+
+1. Demande via support@cobage.joeltech.dev
 2. Vérification d'identité (copie de pièce d'identité si doute)
 3. Suppression sous 1 mois (sauf exception légale)
 4. Notification de la suppression par e-mail
@@ -315,19 +322,20 @@ L'utilisateur peut demander la **suppression de ses données** dans les cas suiv
 
 L'utilisateur peut demander le **gel temporaire** du traitement dans certaines circonstances.
 
-**Modalités** : Demande à tchindajoel61@gmail.com. Réponse sous 1 mois.
+**Modalités** : Demande à support@cobage.joeltech.dev. Réponse sous 1 mois.
 
 ### 8.5 Droit à la portabilité (art. 20 RGPD)
 
 L'utilisateur peut **récupérer ses données dans un format structuré, couramment utilisé et lisible par machine** (JSON, CSV).
 
 **Données concernées** :
+
 - Profil utilisateur (nom, e-mail, photo)
 - Annonces publiées
 - Messages envoyés
 - Historique de recherche et favoris
 
-**Modalités** : Demande via tchindajoel61@gmail.com. Export fourni sous 1 mois.
+**Modalités** : Demande via support@cobage.joeltech.dev. Export fourni sous 1 mois.
 
 ### 8.6 Droit d'opposition (art. 21 RGPD)
 
@@ -340,6 +348,7 @@ L'utilisateur peut **s'opposer à tout moment** à un traitement fondé sur l'**
 ### 8.7 Droit de ne pas faire l'objet d'une décision automatisée (art. 22 RGPD)
 
 **Chez Co-Bage** :
+
 - **Matching automatique** (suggestions d'annonces) : PAS de décision automatisée à effets juridiques
 - **Détection automatique de contenu illicite** : Si un message est automatiquement bloqué, l'utilisateur peut **contester** et obtenir une **révision humaine**
 
@@ -347,15 +356,16 @@ L'utilisateur peut **s'opposer à tout moment** à un traitement fondé sur l'**
 
 L'utilisateur peut définir des **directives concernant le sort de ses données après son décès**.
 
-**Modalités** : Demande à tchindajoel61@gmail.com
+**Modalités** : Demande à support@cobage.joeltech.dev
 
 ### 8.9 Modalités d'exercice des droits
 
 **Contact** :  
-E-mail : **tchindajoel61@gmail.com**  
+E-mail : **support@cobage.joeltech.dev**  
 Téléphone : +33 7 52 89 20 73
 
 **Informations à fournir** :
+
 - Objet clair : "Demande d'accès RGPD" / "Demande d'effacement" / etc.
 - Nom, prénom, adresse e-mail du compte
 - Copie de pièce d'identité (si doute sur l'identité — engagement de destruction après vérification)
@@ -423,11 +433,13 @@ Co-Bage met en œuvre des mesures techniques et organisationnelles pour garantir
 ### 9.3 Mesures organisationnelles
 
 En tant que projet étudiant individuel, le responsable de traitement :
+
 - Maintient une veille sur les meilleures pratiques de sécurité
 - Applique les recommandations de l'ANSSI et de la CNIL
 - Suit les formations en ligne sur la cybersécurité et le RGPD
 
 **Si le projet évolue avec une équipe** :
+
 - Formation du personnel
 - Clauses de confidentialité
 - Contrôle d'accès (RBAC)
@@ -449,6 +461,7 @@ En tant que projet étudiant individuel, le responsable de traitement :
 **Si risque élevé** pour les droits et libertés, notification **sans délai** aux utilisateurs concernés par e-mail.
 
 **Contenu** :
+
 - Nature de la violation (en langage clair)
 - Contact du responsable
 - Conséquences probables
@@ -465,11 +478,11 @@ En tant que projet étudiant individuel, le responsable de traitement :
 
 Ces cookies sont **essentiels au fonctionnement** et ne nécessitent **pas de consentement** :
 
-| **Nom du cookie** | **Finalité** | **Durée de vie** |
-|-------------------|--------------|------------------|
-| `session_token` | Authentification de l'utilisateur | Session |
-| `csrf_token` | Protection CSRF | Session |
-| `cookie_consent` | Mémorisation du choix cookies | 13 mois |
+| **Nom du cookie** | **Finalité**                      | **Durée de vie** |
+| ----------------- | --------------------------------- | ---------------- |
+| `session_token`   | Authentification de l'utilisateur | Session          |
+| `csrf_token`      | Protection CSRF                   | Session          |
+| `cookie_consent`  | Mémorisation du choix cookies     | 13 mois          |
 
 #### b) Cookies analytiques (consentement requis)
 
@@ -492,6 +505,7 @@ Lors de la première visite, un bandeau apparaît :
 > [J'accepte] [Personnaliser]
 
 **Exigences CNIL 2025** :
+
 - Bouton "Tout refuser" aussi visible que "Tout accepter"
 - Pas de cookies non essentiels avant consentement
 - Possibilité de retirer le consentement facilement
@@ -537,7 +551,7 @@ L'utilisateur dispose de **30 jours** pour refuser les nouvelles conditions. Le 
 
 ### 11.4 Archivage des versions antérieures
 
-Co-Bage archive toutes les versions antérieures de la Politique de confidentialité. L'utilisateur peut demander une copie d'une version antérieure à tchindajoel61@gmail.com.
+Co-Bage archive toutes les versions antérieures de la Politique de confidentialité. L'utilisateur peut demander une copie d'une version antérieure à support@cobage.joeltech.dev.
 
 ---
 
@@ -549,7 +563,7 @@ Pour toute question relative à la protection des données ou à l'exercice de v
 
 **Responsable de traitement**  
 **Timothée Joël Tchinda Tchoffo**  
-**E-mail** : tchindajoel61@gmail.com  
+**E-mail** : support@cobage.joeltech.dev  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 
@@ -644,6 +658,7 @@ Je soussigné(e) **[Nom Prénom]**, titulaire du compte Co-Bage associé à l'ad
 Ci-joint une copie de ma pièce d'identité pour vérification. Je comprends que ce document sera détruit après vérification.
 
 **Coordonnées pour la réponse** :
+
 - E-mail : [votre-email@example.com]
 - Téléphone : [optionnel]
 
@@ -655,7 +670,7 @@ Cordialement,
 
 ---
 
-**Envoi à** : tchindajoel61@gmail.com
+**Envoi à** : support@cobage.joeltech.dev
 
 ---
 
@@ -664,12 +679,14 @@ Cordialement,
 #### Étape 1 : Détection
 
 **Canaux de détection** :
+
 - Alertes automatiques du système de monitoring
 - Signalement par un utilisateur
 - Découverte lors d'un audit
 - Information par un tiers (sous-traitant, autorité)
 
 **Première action** : Consignation immédiate dans un document :
+
 - Date et heure de détection
 - Qui a détecté ?
 - Nature apparente de l'incident
@@ -677,6 +694,7 @@ Cordialement,
 #### Étape 2 : Évaluation initiale (dans les 24 premières heures)
 
 **Questions à se poser** :
+
 - ✅ Quelle est la nature de la violation ? (accès non autorisé, destruction, perte, altération, divulgation)
 - ✅ Quelles données sont concernées ? (identité, financières, sensibles, etc.)
 - ✅ Combien d'utilisateurs sont potentiellement affectés ?
@@ -702,6 +720,7 @@ Cordialement,
 **Moyen** : Formulaire en ligne sur le site de la CNIL : [https://www.cnil.fr/fr/notifier-une-violation-de-donnees-personnelles](https://www.cnil.fr/fr/notifier-une-violation-de-donnees-personnelles)
 
 **Informations à fournir** :
+
 - Nature de la violation
 - Catégories et nombre approximatif de personnes concernées
 - Catégories et nombre approximatif d'enregistrements concernés
@@ -716,6 +735,7 @@ Cordialement,
 **Critère** : Si la violation présente un **risque élevé** pour les droits et libertés.
 
 **Exemples de risque élevé** :
+
 - Mots de passe en clair compromis
 - Données bancaires exposées
 - Données de santé divulguées
@@ -724,6 +744,7 @@ Cordialement,
 **Moyen** : E-mail à tous les utilisateurs concernés (modèle en Annexe D).
 
 **Contenu** :
+
 - Nature de la violation (langage clair)
 - Coordonnées du responsable
 - Conséquences probables
@@ -731,6 +752,7 @@ Cordialement,
 - Recommandations (changer mot de passe, surveiller comptes, activer 2FA)
 
 **Exceptions à la notification** :
+
 - Données chiffrées avec clé non compromise
 - Mesures ultérieures rendant le risque improbable
 - Notification exigeant des efforts disproportionnés (→ communication publique)
@@ -738,11 +760,13 @@ Cordialement,
 #### Étape 6 : Investigation approfondie
 
 **Objectifs** :
+
 - Comprendre la cause racine (vulnérabilité exploitée, erreur humaine, attaque ciblée)
 - Identifier toutes les données affectées
 - Évaluer l'étendue réelle de la violation
 
 **Actions** :
+
 - Analyse forensique des logs
 - Revue des accès aux bases de données
 - Vérification des sauvegardes
@@ -751,22 +775,26 @@ Cordialement,
 #### Étape 7 : Remédiation
 
 **Court terme** :
+
 - Corriger la faille de sécurité
 - Réinitialiser les mots de passe compromis
 - Renforcer la surveillance
 
 **Moyen terme** :
+
 - Audit de sécurité complet
 - Formation/sensibilisation
 - Revue des procédures
 
 **Long terme** :
+
 - Amélioration continue de la sécurité
 - Tests réguliers (pentests)
 
 #### Étape 8 : Documentation et registre
 
 **Consigner dans le registre des violations** :
+
 - Date et heure de la violation
 - Circonstances de la violation
 - Effets de la violation
@@ -832,10 +860,11 @@ Si vous remarquez une activité inhabituelle sur votre compte Co-Bage, contactez
 ### 📞 BESOIN D'AIDE ?
 
 Si vous avez des questions ou des inquiétudes :  
-📧 E-mail : tchindajoel61@gmail.com  
+📧 E-mail : support@cobage.joeltech.dev  
 📱 Téléphone : +33 7 52 89 20 73
 
 **Ressources utiles** :
+
 - [Comment créer un mot de passe sécurisé](lien)
 - [Activer la double authentification](lien)
 - [Reconnaître les tentatives de phishing](lien)
@@ -863,18 +892,21 @@ Responsable Co-Bage
 #### 1. Sécurité de l'infrastructure
 
 **Serveurs** :
+
 - ✅ Système d'exploitation à jour (patches de sécurité automatiques)
 - ✅ Pare-feu (firewall) configuré (ports minimaux ouverts : 80, 443, 22 avec clé SSH uniquement)
 - ✅ Fail2ban ou équivalent (blocage automatique des IP suspectes)
 - ✅ Séparation des environnements (production / staging / développement)
 
 **Base de données** :
+
 - ✅ Utilisateur dédié avec droits minimaux (pas de compte root pour l'application)
 - ✅ Chiffrement au repos (AES-256)
 - ✅ Sauvegardes automatiques chiffrées et testées
 - ✅ Pas d'accès direct depuis Internet (uniquement via application)
 
 **Application** :
+
 - ✅ Framework à jour (Next.js, Symfony dernières versions stables)
 - ✅ Dépendances à jour (npm audit / composer audit réguliers)
 - ✅ Variables d'environnement sécurisées (fichier .env non versionné)
@@ -883,11 +915,13 @@ Responsable Co-Bage
 #### 2. Sécurité du code
 
 **Validation des entrées** :
+
 - ✅ Tous les inputs utilisateur sont validés et échappés
 - ✅ Whitelist plutôt que blacklist pour la validation
 - ✅ Longueur maximale définie pour chaque champ
 
 **Protection contre les attaques courantes** :
+
 - ✅ **SQL Injection** : requêtes préparées (PDO, Doctrine ORM)
 - ✅ **XSS** : échappement HTML, Content Security Policy
 - ✅ **CSRF** : tokens CSRF sur tous les formulaires
@@ -895,6 +929,7 @@ Responsable Co-Bage
 - ✅ **Session Fixation** : régénération de l'ID de session après login
 
 **Gestion des mots de passe** :
+
 ```php
 // Exemple de hachage sécurisé (PHP)
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
@@ -908,6 +943,7 @@ if (password_verify($inputPassword, $hashedPassword)) {
 #### 3. Sécurité des communications
 
 **HTTPS** :
+
 - ✅ Certificat SSL/TLS valide (Let's Encrypt avec renouvellement automatique)
 - ✅ TLS 1.2 minimum, TLS 1.3 recommandé
 - ✅ Protocoles faibles désactivés (SSL v2, v3, TLS 1.0, 1.1)
@@ -915,6 +951,7 @@ if (password_verify($inputPassword, $hashedPassword)) {
 - ✅ HSTS activé (max-age=31536000; includeSubDomains; preload)
 
 **En-têtes de sécurité** :
+
 ```
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'
@@ -927,6 +964,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 #### 4. Authentification et autorisation
 
 **Authentification** :
+
 - ✅ Mot de passe minimum 8 caractères (recommandation : 12+)
 - ✅ Complexité requise (majuscules, minuscules, chiffres)
 - ✅ 2FA disponible (TOTP - Google Authenticator, Authy)
@@ -935,11 +973,13 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 - ✅ Notification par e-mail en cas de connexion depuis nouveau device/IP
 
 **Autorisation** :
+
 - ✅ Principe du moindre privilège
 - ✅ Vérification systématique des droits avant chaque action
 - ✅ Pas de confiance dans les IDs passés en paramètre (vérifier propriété)
 
 **Sessions** :
+
 - ✅ Durée de vie limitée (30 minutes d'inactivité)
 - ✅ Tokens HttpOnly, Secure, SameSite=Strict
 - ✅ Régénération après login
@@ -948,6 +988,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 #### 5. Logs et monitoring
 
 **Journalisation** :
+
 - ✅ Tous les événements de sécurité loggés (connexions, échecs, modifications de données sensibles)
 - ✅ Format structuré (JSON) pour analyse facilitée
 - ✅ Horodatage précis (UTC)
@@ -955,6 +996,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 - ✅ Logs sensibles chiffrés
 
 **Monitoring** :
+
 - ✅ Alertes automatiques (tentatives de connexion multiples, accès admin, erreurs 500)
 - ✅ Dashboard de surveillance (uptime, performance, erreurs)
 - ✅ Revue hebdomadaire des logs de sécurité
@@ -962,16 +1004,19 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 #### 6. Sauvegardes
 
 **Stratégie 3-2-1** :
+
 - **3** copies des données (production + 2 sauvegardes)
 - **2** supports différents (disque local + cloud)
 - **1** copie hors site (DigitalOcean Spaces ou équivalent)
 
 **Fréquence** :
+
 - ✅ Base de données : quotidienne (conservation 30 jours)
 - ✅ Fichiers : hebdomadaire (conservation 12 semaines)
 - ✅ Snapshot complet : mensuel (conservation 12 mois)
 
 **Tests de restauration** :
+
 - ✅ Trimestriel (vérifier que les sauvegardes sont fonctionnelles)
 - ✅ Documentation de la procédure
 - ✅ Objectif de récupération : RTO < 24h, RPO < 24h
@@ -1016,6 +1061,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 **Cette Politique de confidentialité est adaptée au contexte spécifique d'un projet étudiant en phase bêta gratuite.**
 
 Elle doit être :
+
 - ✅ Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
 - ✅ Adaptée en cas d'évolution vers un modèle commercial
 - ✅ Mise à jour selon les évolutions légales et les recommandations de la CNIL

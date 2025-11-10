@@ -24,6 +24,21 @@ export interface Demande {
   updatedAt: string;
 }
 
+export interface PublicDemande {
+  id: number;
+  villeDepart: string;
+  villeArrivee: string;
+  dateLimite: string;
+  poidsEstime: string;
+  prixParKilo: string | null;
+  commissionProposeePourUnBagage: string | null;
+
+  // ==================== DEVISE ====================
+  currency: string; // ⬅️ AJOUT - Code devise (EUR, XAF, USD)
+
+  description: string;
+}
+
 export interface CreateDemandeInput {
   villeDepart: string;
   villeArrivee: string;

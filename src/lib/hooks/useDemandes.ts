@@ -35,6 +35,34 @@ export function useDemandes(page = 1, limit = 10, filters?: DemandeFilters) {
   };
 }
 
+export function usePublicDemandes(page = 1, limit = 10, filters?: DemandeFilters) {
+  const publicDemandes = useDemandeStore((state) => state.publicDemandes);
+  const pagination = useDemandeStore((state) => state.pagination);
+  const isLoading = useDemandeStore((state) => state.isLoading);
+  const error = useDemandeStore((state) => state.error);
+  const fetchPublicDemandes = useDemandeStore((state) => state.fetchPublicDemandes);
+
+  // ✅ Stabiliser filters avec useMemo
+  const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
+
+  useEffect(() => {
+    fetchPublicDemandes(page, limit, stableFilters);
+  }, [page, limit, stableFilters, fetchPublicDemandes]);
+
+  // ✅ Stabiliser refetch avec useCallback
+  const refetch = useCallback(() => {
+    fetchPublicDemandes(page, limit, stableFilters);
+  }, [page, limit, stableFilters, fetchPublicDemandes]);
+
+  return {
+    publicDemandes,
+    pagination,
+    isLoading,
+    error,
+    refetch,
+  };
+}
+
 /**
  * Hook pour une demande spécifique
  */

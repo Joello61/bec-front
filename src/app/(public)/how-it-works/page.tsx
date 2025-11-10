@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Comment ça marche – Co-Bage",
     description:
       "Guide rapide en 4 étapes pour utiliser Co-Bage et simplifier vos envois de colis.",
-    images: [`${APP_URL}/images/twitter-how-it-works.jpg`],
+    images: [`${APP_URL}/images/og-how-it-works.jpg`],
   },
 
   alternates: {

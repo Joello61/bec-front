@@ -76,6 +76,7 @@ La modération s'applique à **tous les contenus générés par les utilisateurs
 **Important** : Co-Bage est développé et exploité à titre non professionnel par **Timothée Joël Tchinda Tchoffo**, étudiant développeur, dans le cadre d'un projet pré-commercial.
 
 En tant que projet individuel en phase bêta :
+
 - La modération est assurée par le responsable de la plateforme
 - Les outils de détection automatique sont progressivement déployés
 - Les délais de traitement peuvent être plus longs pendant les périodes d'examens universitaires (notification préalable aux utilisateurs)
@@ -92,6 +93,7 @@ En tant que projet individuel en phase bêta :
 Co-Bage bénéficie du **régime de responsabilité limité des hébergeurs** prévu par l'article 6-I-2 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'Économie Numérique (LCEN).
 
 **Conséquences** :
+
 - Co-Bage **n'est pas responsable a priori** des contenus publiés par les utilisateurs
 - Co-Bage **doit agir promptement** pour retirer tout contenu manifestement illicite dès lors qu'il en a connaissance effective
 - Co-Bage **doit mettre en place un dispositif de signalement** facilement accessible
@@ -101,6 +103,7 @@ Co-Bage bénéficie du **régime de responsabilité limité des hébergeurs** pr
 Conformément à l'article 6-I-2 de la LCEN, Co-Bage s'engage à **retirer promptement** tout contenu manifestement illicite ou à en **rendre l'accès impossible**.
 
 **Délai indicatif** :
+
 - **Contenus manifestement illicites** (pédopornographie, apologie du terrorisme, incitation à la haine raciale) : **retrait sous 24 heures** maximum
 - **Contenus illicites nécessitant une analyse juridique** (diffamation, contrefaçon) : retrait sous **7 jours ouvrés** après notification qualifiée
 
@@ -113,6 +116,7 @@ Co-Bage conserve les **données d'identification des auteurs de contenus** (adre
 ### 2.4 Obligation de coopération avec les autorités
 
 Co-Bage coopère avec les autorités judiciaires et administratives :
+
 - Transmission des données sur **réquisition judiciaire**
 - Signalement spontané aux autorités compétentes des contenus relevant du **pénal** (PHAROS, TRACFIN, police, procureur)
 - Point de contact disponible pour les autorités
@@ -130,6 +134,7 @@ Le Règlement européen sur les services numériques impose des obligations aux 
 ### 2.6 Responsabilité du responsable de traitement
 
 En tant qu'éditeur personne physique, **Timothée Joël Tchinda Tchoffo** peut être tenu responsable si :
+
 - Il ne retire pas promptement un contenu manifestement illicite après en avoir eu connaissance
 - Il ne coopère pas avec les autorités judiciaires
 - Il facilite sciemment des activités illicites
@@ -143,6 +148,7 @@ En tant qu'éditeur personne physique, **Timothée Joël Tchinda Tchoffo** peut 
 #### a) Pédopornographie (art. 227-23 Code pénal)
 
 Tout contenu représentant ou évoquant des **mineurs dans un contexte sexuel** :
+
 - Photos, vidéos, dessins, descriptions textuelles
 - Liens vers des sites hébergeant de tels contenus
 - Sollicitation de mineurs à des fins sexuelles (grooming)
@@ -150,6 +156,7 @@ Tout contenu représentant ou évoquant des **mineurs dans un contexte sexuel** 
 **Sanction pénale** : Jusqu'à 7 ans d'emprisonnement + 100 000 € d'amende
 
 **Action de Co-Bage** :
+
 - 🔴 **Suppression immédiate** du contenu et du compte
 - 🔴 **Signalement à PHAROS** : [www.internet-signalement.gouv.fr](https://www.internet-signalement.gouv.fr)
 - 🔴 **Conservation de toutes les preuves** pour transmission aux autorités
@@ -164,18 +171,21 @@ Tout contenu représentant ou évoquant des **mineurs dans un contexte sexuel** 
 **Sanction pénale** : 5 ans d'emprisonnement + 75 000 € d'amende (7 ans + 100 000 € si diffusion en ligne)
 
 **Action de Co-Bage** :
+
 - 🔴 **Suppression immédiate** + signalement à **PHAROS**
 - 🔴 Conservation des preuves pour transmission à la DGSI
 
 #### c) Incitation à la haine, violence, discrimination (art. 24 Loi 1881 sur la presse)
 
 Contenus incitant à la haine ou à la violence en raison de :
+
 - L'origine, l'ethnie, la race
 - La religion, les convictions
 - Le sexe, l'orientation sexuelle, l'identité de genre
 - Le handicap
 
 **Exemples** :
+
 - "Il faut tuer tous les [groupe ethnique/religieux]"
 - "Les [groupe] sont des sous-hommes"
 - Négation de crimes contre l'humanité
@@ -183,6 +193,7 @@ Contenus incitant à la haine ou à la violence en raison de :
 **Sanction pénale** : 1 an d'emprisonnement + 45 000 € d'amende
 
 **Action de Co-Bage** :
+
 - 🔴 **Suppression immédiate** du contenu
 - 🟡 **Avertissement ou suspension** du compte (1ère fois)
 - 🔴 **Suppression définitive** en cas de récidive
@@ -191,11 +202,13 @@ Contenus incitant à la haine ou à la violence en raison de :
 #### d) Trafic de stupéfiants (art. L. 3421-1 Code de la santé publique)
 
 Toute annonce ou message proposant :
+
 - La vente, l'achat, le transport de drogues illicites
 - La fourniture d'accessoires destinés à faciliter l'usage de stupéfiants
 - Des "services de transport discret" avec termes codés
 
 **Exemples interdits** :
+
 - "Transport de marchandise spéciale Paris-Amsterdam, 500€, discrétion garantie"
 - "Cherche voyageur pour poudre blanche, bien payé"
 - "Transport d'herbe, aucune question"
@@ -203,6 +216,7 @@ Toute annonce ou message proposant :
 **Sanction pénale** : 10 ans d'emprisonnement + 7 500 000 € d'amende
 
 **Action de Co-Bage** :
+
 - 🔴 **Suppression immédiate** + **suspension définitive** du compte
 - 🔴 **Signalement à l'OCRTIS** via PHAROS
 - 🔴 **Signalement à TRACFIN** (si soupçon de blanchiment)
@@ -211,6 +225,7 @@ Toute annonce ou message proposant :
 #### e) Armes et explosifs (art. L. 2353-5 Code de la défense)
 
 Annonces proposant :
+
 - Armes à feu, armes blanches de catégorie A ou B
 - Munitions, explosifs, engins incendiaires
 - Composants d'armes, poudre, détonateurs
@@ -218,6 +233,7 @@ Annonces proposant :
 **Sanction pénale** : 5 ans d'emprisonnement + 75 000 € d'amende
 
 **Action de Co-Bage** :
+
 - 🔴 **Suppression immédiate**
 - 🔴 Signalement à PHAROS et police
 - 🔴 Suspension définitive du compte
@@ -225,6 +241,7 @@ Annonces proposant :
 #### f) Contrefaçons (art. L. 335-2 Code de la propriété intellectuelle)
 
 Annonces de transport de :
+
 - Faux produits de luxe (sacs, montres, vêtements contrefaits)
 - Logiciels piratés
 - Médicaments contrefaits
@@ -232,6 +249,7 @@ Annonces de transport de :
 **Sanction pénale** : 3 ans d'emprisonnement + 300 000 € d'amende
 
 **Action de Co-Bage** :
+
 - 🟡 **Suppression du contenu** après vérification
 - 🟡 Avertissement de l'utilisateur
 - 🔴 Suspension en cas de récidive
@@ -239,6 +257,7 @@ Annonces de transport de :
 #### g) Blanchiment d'argent (art. 324-1 Code pénal)
 
 Messages suggérant des **transferts d'argent suspects** :
+
 - Propositions de "faire passer de l'argent" sans justification
 - Montants élevés (> 10 000 €) sans contexte légitime
 - Demande de discrétion excessive
@@ -247,6 +266,7 @@ Messages suggérant des **transferts d'argent suspects** :
 **Sanction pénale** : 5 ans d'emprisonnement + 375 000 € d'amende
 
 **Action de Co-Bage** :
+
 - 🟡 **Analyse approfondie** du contexte
 - 🔴 Si suspicion avérée : **signalement à TRACFIN**
 - 🟡 Suspension du compte en attendant clarification
@@ -258,10 +278,12 @@ Messages suggérant des **transferts d'argent suspects** :
 Allégation ou imputation d'un **fait précis portant atteinte à l'honneur** d'une personne.
 
 **Exemples** :
+
 - "Cet utilisateur est un escroc, il m'a volé 500 €" (si non prouvé)
 - "Cette société ne paie pas ses employés"
 
 **Action de Co-Bage** :
+
 - 📧 **Notification qualifiée requise** (art. 6-I-5 LCEN)
 - ⏱️ **Examen sous 7 jours**
 - 🟡 Retrait si manifestement diffamatoire
@@ -270,11 +292,13 @@ Allégation ou imputation d'un **fait précis portant atteinte à l'honneur** d'
 #### b) Atteinte à la vie privée et droit à l'image (art. 9 Code civil)
 
 Publication sans consentement de :
+
 - Photos d'une personne identifiable dans un contexte privé
 - Informations personnelles sensibles
 - Données biométriques
 
 **Action de Co-Bage** :
+
 - 📧 Notification par la victime avec justificatif
 - 🟡 **Retrait sous 48-72h** après vérification
 - 🟡 Avertissement de l'auteur
@@ -286,6 +310,7 @@ Publication sans consentement de :
 - **Arnaques** : demandes d'acompte pour un service jamais rendu
 
 **Action de Co-Bage** :
+
 - 🔍 Enquête interne (vérification des informations)
 - 📧 Demande de justificatifs (billet d'avion, pièce d'identité)
 - 🟡 Suspension temporaire en attendant clarification
@@ -333,6 +358,7 @@ Publication sans consentement de :
 Chaque **annonce** et chaque **message** dispose d'un **bouton de signalement** clairement visible (icône : ⚠️ ou 🚩).
 
 **Emplacement** :
+
 - Annonces : bouton "Signaler cette annonce"
 - Messages : "Signaler ce message"
 - Profils : "Signaler cet utilisateur"
@@ -344,6 +370,7 @@ Le clic sur le bouton ouvre un **formulaire guidé** :
 **Champs obligatoires** :
 
 1. **Motif du signalement** (liste déroulante) :
+
    - Contenu illégal (préciser : drogue, arme, pédopornographie, terrorisme, autre)
    - Fraude / Arnaque
    - Harcèlement / Menaces
@@ -357,6 +384,7 @@ Le clic sur le bouton ouvre un **formulaire guidé** :
 2. **Description détaillée** (champ texte libre, minimum 100 caractères)
 
 3. **Pièces justificatives** (optionnelles mais recommandées) :
+
    - Captures d'écran
    - Copies d'e-mails ou messages externes
 
@@ -366,7 +394,7 @@ Le clic sur le bouton ouvre un **formulaire guidé** :
 
 ### 4.3 Signalement par e-mail
 
-Alternative au bouton in-app : envoi d'un e-mail à **tchindajoel61@gmail.com** avec objet "Signalement - [Motif]".
+Alternative au bouton in-app : envoi d'un e-mail à **support@cobage.joeltech.dev** avec objet "Signalement - [Motif]".
 
 ### 4.4 Accusé de réception
 
@@ -383,16 +411,19 @@ L'identité du signalant est **confidentielle** et n'est jamais divulguée à l'
 ### 5.1 Réception et tri
 
 **Étape 1 : Enregistrement automatique**
+
 - Tous les signalements sont enregistrés avec horodatage précis
 - Attribution d'un numéro de ticket unique
 
 **Étape 2 : Tri automatique**
+
 - Les signalements contenant des mots-clés critiques sont **marqués comme prioritaires**
 - Assignation par motif
 
 ### 5.2 Examen par le responsable
 
 **Délai cible** :
+
 - **Contenus manifestement illicites** : examen sous **24 heures maximum**
 - **Contenus potentiellement illicites** : examen sous **48 heures**
 - **Contenus non urgents** : examen sous **7 jours ouvrés**
@@ -400,6 +431,7 @@ L'identité du signalant est **confidentielle** et n'est jamais divulguée à l'
 **Note pendant la phase bêta** : Les délais peuvent être prolongés pendant les périodes d'examens universitaires. Une notification sera affichée sur la page d'accueil pour informer les utilisateurs.
 
 **Actions du modérateur** :
+
 1. Consulter le contenu signalé
 2. Analyser le contexte et l'historique de l'utilisateur
 3. Qualifier l'infraction
@@ -408,56 +440,67 @@ L'identité du signalant est **confidentielle** et n'est jamais divulguée à l'
 ### 5.3 Décisions possibles
 
 #### a) Classement sans suite
+
 Le contenu ne viole ni la loi ni les CGU. Aucune action prise.
 
 #### b) Avertissement
+
 Violation mineure ou première infraction non grave.
+
 - E-mail d'avertissement à l'utilisateur
 - Enregistrement dans l'historique
 
 #### c) Suppression du contenu
+
 - Suppression immédiate de l'annonce ou du message
 - Conservation d'une copie pour preuve
 - Notification à l'auteur et au signalant
 
 #### d) Suspension temporaire du compte
+
 **Durées standards** :
+
 - **7 jours** : première suspension
 - **30 jours** : deuxième suspension
 - **90 jours** : troisième suspension
 
 #### e) Suppression définitive du compte (ban)
+
 **Motifs** :
+
 - Contenu manifestement illicite
 - Fraude avérée
 - Harcèlement grave
 - Récidive après 3 suspensions
 
 #### f) Signalement aux autorités
+
 Pour les contenus relevant du pénal.
 
 ### 5.4 Délais de traitement (objectifs)
 
-| **Type de contenu** | **Délai d'examen** | **Délai de décision** |
-|---------------------|--------------------|-----------------------|
-| Pédopornographie, terrorisme | **< 24h** | Suppression immédiate + signalement |
-| Drogue, arme | **< 24h** | Suppression sous 24h max |
-| Harcèlement, fraude | **48h** | Décision sous 48h |
-| Diffamation | **7 jours** | Décision sous 15 jours |
-| Spam | **7 jours** | Décision sous 7 jours |
+| **Type de contenu**          | **Délai d'examen** | **Délai de décision**               |
+| ---------------------------- | ------------------ | ----------------------------------- |
+| Pédopornographie, terrorisme | **< 24h**          | Suppression immédiate + signalement |
+| Drogue, arme                 | **< 24h**          | Suppression sous 24h max            |
+| Harcèlement, fraude          | **48h**            | Décision sous 48h                   |
+| Diffamation                  | **7 jours**        | Décision sous 15 jours              |
+| Spam                         | **7 jours**        | Décision sous 7 jours               |
 
 ### 5.5 Notification des décisions
 
 **Au signalant** :
+
 - E-mail sous 48-72h (urgents) ou 7-15 jours (autres)
 - Information sur l'action prise
 - Remerciement pour la contribution
 
 **À l'auteur du contenu** :
+
 - E-mail dans les 24h suivant la décision
 - Motif précis et référence aux CGU
 - Droit de contestation (15 jours)
-- Contact pour recours : tchindajoel61@gmail.com
+- Contact pour recours : support@cobage.joeltech.dev
 
 ---
 
@@ -465,22 +508,23 @@ Pour les contenus relevant du pénal.
 
 ### 6.1 Barème indicatif des sanctions
 
-| **Infraction** | **1ère occurrence** | **2ème occurrence** | **3ème occurrence** | **Signalement autorités** |
-|----------------|---------------------|---------------------|---------------------|---------------------------|
-| **Pédopornographie** | Suppression définitive immédiate | - | - | **OUI (PHAROS)** |
-| **Terrorisme** | Suppression définitive immédiate | - | - | **OUI (PHAROS)** |
-| **Drogue** | Suppression définitive immédiate | - | - | **OUI (PHAROS)** |
-| **Armes** | Suppression définitive + signalement | - | - | **OUI (PHAROS)** |
-| **Blanchiment** | Suspension + enquête | Suppression définitive | - | **OUI (TRACFIN)** |
-| **Haine raciale** | Suppression + avertissement | Suspension 30 jours | Suppression définitive | Si appel violence |
-| **Diffamation** | Suppression contenu | Avertissement | Suspension 7 jours | Non (civil) |
-| **Harcèlement** | Avertissement | Suspension 7 jours | Suppression définitive | Si menaces graves |
-| **Fraude** | Suspension 30 jours | Suppression définitive | - | Si escroquerie |
-| **Spam** | Avertissement | Suspension 7j | Suppression définitive | Non |
+| **Infraction**       | **1ère occurrence**                  | **2ème occurrence**    | **3ème occurrence**    | **Signalement autorités** |
+| -------------------- | ------------------------------------ | ---------------------- | ---------------------- | ------------------------- |
+| **Pédopornographie** | Suppression définitive immédiate     | -                      | -                      | **OUI (PHAROS)**          |
+| **Terrorisme**       | Suppression définitive immédiate     | -                      | -                      | **OUI (PHAROS)**          |
+| **Drogue**           | Suppression définitive immédiate     | -                      | -                      | **OUI (PHAROS)**          |
+| **Armes**            | Suppression définitive + signalement | -                      | -                      | **OUI (PHAROS)**          |
+| **Blanchiment**      | Suspension + enquête                 | Suppression définitive | -                      | **OUI (TRACFIN)**         |
+| **Haine raciale**    | Suppression + avertissement          | Suspension 30 jours    | Suppression définitive | Si appel violence         |
+| **Diffamation**      | Suppression contenu                  | Avertissement          | Suspension 7 jours     | Non (civil)               |
+| **Harcèlement**      | Avertissement                        | Suspension 7 jours     | Suppression définitive | Si menaces graves         |
+| **Fraude**           | Suspension 30 jours                  | Suppression définitive | -                      | Si escroquerie            |
+| **Spam**             | Avertissement                        | Suspension 7j          | Suppression définitive | Non                       |
 
 ### 6.2 Circonstances aggravantes
 
 Les sanctions peuvent être **alourdies** en présence de :
+
 - Récidive rapide (< 6 mois)
 - Volume important
 - Intention manifeste de nuire
@@ -490,6 +534,7 @@ Les sanctions peuvent être **alourdies** en présence de :
 ### 6.3 Circonstances atténuantes
 
 Les sanctions peuvent être **allégées** en présence de :
+
 - Bonne foi
 - Coopération
 - Premier compte
@@ -498,12 +543,14 @@ Les sanctions peuvent être **allégées** en présence de :
 ### 6.4 Conservation des preuves
 
 **Pour chaque sanction** :
+
 - Capture d'écran du contenu (horodatée)
 - Export complet des messages/annonces (JSON/PDF)
 - Logs techniques (IP, date/heure)
 - Notes internes du modérateur
 
 **Durée de conservation** :
+
 - Avertissements : 1 an
 - Suspensions : 3 ans
 - Suppressions définitives : 3 ans minimum
@@ -518,17 +565,20 @@ Les sanctions peuvent être **allégées** en présence de :
 #### a) Filtrage par mots-clés
 
 **Fonctionnement** :
+
 - Liste de mots-clés sensibles (drogue, arme, termes terroristes, insultes raciales)
 - Scan automatique lors de la publication
 - Contenu bloqué temporairement ou signalé pour révision humaine
 
 **Exemples de mots-clés** :
+
 - Stupéfiants : cannabis, weed, coke, cocaïne, MDMA, ecstasy, héroïne, crack, meth
 - Armes : flingue, gun, pistolet, AK-47, kalachnikov, munitions, explosif, bombe
 - Terrorisme : djihad, État islamique, ISIS, Daech, kamikaze, attentat
 - Haine : insultes racistes (liste non publiée publiquement)
 
 **Limites** :
+
 - Faux positifs possibles
 - Contournement possible (termes codés)
 
@@ -545,11 +595,13 @@ Les sanctions peuvent être **allégées** en présence de :
 #### d) Détection de spam
 
 **Indicateurs** :
+
 - Publications multiples identiques
 - Envoi massif de messages
 - Vitesse de frappe anormale
 
 **Actions automatiques** :
+
 - CAPTCHA imposé
 - Rate limiting
 - Blocage temporaire
@@ -559,6 +611,7 @@ Les sanctions peuvent être **allégées** en présence de :
 **Principe fondamental** : Les outils automatisés **ne remplacent pas** la modération humaine.
 
 **Garanties** :
+
 - **Aucune sanction définitive** par système automatisé seul
 - **Révision humaine obligatoire** pour décisions impactant le compte
 - **Droit à l'explication**
@@ -567,6 +620,7 @@ Les sanctions peuvent être **allégées** en présence de :
 ### 7.3 Transparence sur l'utilisation de l'IA
 
 Co-Bage informe les utilisateurs que :
+
 - Des outils automatisés sont utilisés pour la modération
 - Une supervision humaine est garantie pour les décisions importantes
 - Toute décision automatisée peut être contestée
@@ -584,6 +638,7 @@ Co-Bage signale spontanément les contenus relevant du pénal :
 **URL** : [www.internet-signalement.gouv.fr](https://www.internet-signalement.gouv.fr)
 
 **Contenus à signaler** :
+
 - Pédopornographie
 - Apologie du terrorisme
 - Incitation à la haine raciale avec appel à la violence
@@ -594,6 +649,7 @@ Co-Bage signale spontanément les contenus relevant du pénal :
 #### b) TRACFIN
 
 **Contenus à signaler** :
+
 - Soupçon de blanchiment d'argent
 - Financement du terrorisme
 
@@ -608,23 +664,27 @@ Co-Bage signale spontanément les contenus relevant du pénal :
 Co-Bage coopère pleinement avec les autorités judiciaires.
 
 **Types de réquisitions** :
+
 - Commission rogatoire
 - Réquisition judiciaire
 - Perquisition numérique
 - Ordonnance de référé
 
 **Vérification** :
+
 - Légalité formelle
 - Proportionnalité
 - Compétence territoriale
 
 **Données transmises** (selon demande) :
+
 - Données d'identification
 - Logs de connexion
 - Contenus
 - Métadonnées
 
 **Délai de réponse** :
+
 - Urgence : 24-48h
 - Standard : 15 jours
 - Complexe : 1 mois
@@ -633,7 +693,7 @@ Co-Bage coopère pleinement avec les autorités judiciaires.
 
 **Responsable** :  
 **Timothée Joël Tchinda Tchoffo**  
-**E-mail** : tchindajoel61@gmail.com  
+**E-mail** : support@cobage.joeltech.dev  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 
@@ -648,6 +708,7 @@ Co-Bage coopère pleinement avec les autorités judiciaires.
 **Tout utilisateur ayant fait l'objet d'une décision de modération peut la contester.**
 
 **Décisions contestables** :
+
 - Suppression de contenu
 - Avertissement
 - Suspension temporaire
@@ -659,9 +720,10 @@ Co-Bage coopère pleinement avec les autorités judiciaires.
 
 **Étape 1 : Envoi de la contestation**
 
-Par e-mail à **tchindajoel61@gmail.com** avec objet "Contestation décision de modération — Ticket [NUMÉRO]"
+Par e-mail à **support@cobage.joeltech.dev** avec objet "Contestation décision de modération — Ticket [NUMÉRO]"
 
 **Contenu de la contestation** :
+
 - Références de la décision contestée (numéro de ticket, date)
 - Motifs de la contestation
 - Pièces justificatives
@@ -686,6 +748,7 @@ La contestation est examinée avec une analyse approfondie du contexte et des é
 **Étape 5 : Notification**
 
 L'utilisateur est informé par e-mail de la décision finale avec :
+
 - Motifs détaillés
 - Références légales (si applicable)
 - Voies de recours supplémentaires (médiation, justice)
@@ -696,7 +759,7 @@ L'utilisateur est informé par e-mail de la décision finale avec :
 
 **Note** : En tant que projet étudiant non professionnel, Co-Bage n'est pas actuellement tenu de désigner un médiateur. Toutefois, si le projet évolue vers une activité professionnelle, un médiateur sera désigné conformément aux articles L.611-1 et suivants du Code de la consommation.
 
-**Alternative actuelle** : Contact direct pour résolution amiable via tchindajoel61@gmail.com
+**Alternative actuelle** : Contact direct pour résolution amiable via support@cobage.joeltech.dev
 
 **Plateforme européenne de règlement en ligne** :  
 [https://ec.europa.eu/consumers/odr](https://ec.europa.eu/consumers/odr)
@@ -706,6 +769,7 @@ L'utilisateur est informé par e-mail de la décision finale avec :
 **En dernier recours**, l'utilisateur peut saisir les tribunaux compétents :
 
 **Pour les consommateurs** :
+
 - **Tribunal judiciaire** du lieu de résidence de l'utilisateur
 - Ou Tribunal du domicile du responsable (Toulouse)
 
@@ -720,6 +784,7 @@ L'utilisateur est informé par e-mail de la décision finale avec :
 Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de modération (si volume significatif atteint).
 
 **Contenu du rapport (données anonymisées et agrégées)** :
+
 - Nombre total de signalements reçus (par catégorie)
 - Nombre de contenus retirés (par catégorie)
 - Nombre de comptes suspendus
@@ -732,6 +797,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 ### 10.2 Indicateurs de performance (KPIs)
 
 **Objectifs internes** :
+
 - **Taux de traitement sous 24h** pour contenus manifestement illicites : ≥ 90%
 - **Taux de faux positifs** : ≤ 5%
 - **Délai moyen de réponse aux contestations** : ≤ 15 jours
@@ -739,6 +805,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 ### 10.3 Communication proactive
 
 **En cas d'incident majeur**, Co-Bage communique publiquement :
+
 - Annonce sur la page d'accueil
 - E-mail aux utilisateurs concernés
 - Explication de l'incident et mesures prises
@@ -752,6 +819,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 #### ✅ EXEMPLES D'ANNONCES AUTORISÉES
 
 **Exemple 1 : Voyage avec capacité bagage**
+
 > **Trajet Toulouse → Dakar (Sénégal)**  
 > **Dates** : 20-27 décembre 2025  
 > **Capacité** : 10 kg disponibles  
@@ -762,6 +830,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 ✅ **Pourquoi autorisé** : Informations claires, objet légal, conditions transparentes.
 
 **Exemple 2 : Demande de transport**
+
 > **Besoin transport Paris → Lyon**  
 > **Objet** : Carton de livres (15 kg)  
 > **Date** : Flexible entre le 1er et 10 novembre  
@@ -775,6 +844,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 #### ❌ EXEMPLES D'ANNONCES INTERDITES
 
 **Exemple 1 : Suspicion de trafic de drogue**
+
 > ❌ **Vol régulier Amsterdam → Paris**  
 > **Capacité** : 20 kg  
 > **Spécialité** : Transport discret, aucune question sur le contenu  
@@ -782,6 +852,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 > **Paiement cash uniquement, bien payé**
 
 ❌ **Pourquoi interdit** :
+
 - "Transport discret"
 - "Aucune question"
 - Trajets réguliers suspects
@@ -792,11 +863,13 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 ---
 
 **Exemple 2 : Armes**
+
 > ❌ **Transport Paris → Marseille**  
 > **Objet** : Colis métallique (5 kg), pas de questions svp  
 > **Urgent**, bien payé 500€
 
 ❌ **Pourquoi interdit** :
+
 - "Colis métallique" (possiblement arme)
 - "Pas de questions"
 - Suspicion forte
@@ -806,11 +879,13 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 ---
 
 **Exemple 3 : Contenu confidentiel suspect**
+
 > ❌ **Envoi urgent Paris → Yaoundé**  
 > **Objet** : Colis 3 kg (contenu confidentiel, ne pas ouvrir)  
 > **Paiement** : 500€ cash, discrétion totale
 
 ❌ **Pourquoi interdit** :
+
 - "Contenu confidentiel"
 - "Ne pas ouvrir"
 - "Discrétion totale"
@@ -821,11 +896,13 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 ---
 
 **Exemple 4 : Blanchiment possible**
+
 > ❌ **Cherche personne de confiance**  
 > **Mission** : Faire passer enveloppe contenant 15 000€ entre Paris et Bruxelles  
 > **Rémunération** : 2 000€, aucune déclaration, discrétion absolue
 
 ❌ **Pourquoi interdit** :
+
 - Montant élevé sans justification
 - "Aucune déclaration"
 - "Discrétion absolue"
@@ -840,28 +917,34 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 #### Pour signaler un contenu suspect
 
 **Étape 1 : Identifier le contenu**
+
 - Annonce, message, ou profil problématique
 - Noter la référence (URL, numéro d'annonce)
 
 **Étape 2 : Cliquer sur "Signaler"**
+
 - Bouton ⚠️ ou 🚩 présent sur chaque contenu
-- Ou envoyer un e-mail à tchindajoel61@gmail.com
+- Ou envoyer un e-mail à support@cobage.joeltech.dev
 
 **Étape 3 : Remplir le formulaire**
+
 - Sélectionner le motif principal
 - Décrire en détail le problème (minimum 100 caractères)
 - Joindre des preuves (captures d'écran recommandées)
 
 **Étape 4 : Valider**
+
 - Cliquer sur "Envoyer le signalement"
 - Noter le numéro de ticket généré (ex: SIG-2025-00123)
 
 **Étape 5 : Attendre la réponse**
+
 - Vous recevrez un accusé de réception immédiat
 - Traitement sous 24h-7 jours selon gravité
 - Notification par e-mail de la décision
 
 **Important** :
+
 - ✅ Signaler les vrais problèmes
 - ❌ Ne pas abuser du système
 - ❌ Les signalements abusifs répétés peuvent entraîner des sanctions
@@ -890,18 +973,20 @@ Votre contenu viole nos Conditions Générales d'Utilisation, notamment : [motif
 ⚠️ Ceci est un avertissement formel  
 📝 Cette violation est enregistrée dans votre dossier
 
-**Ce que cela signifie pour vous** :  
+**Ce que cela signifie pour vous** :
+
 - Votre compte reste actif
 - En cas de récidive, des sanctions plus lourdes seront appliquées (suspension temporaire puis définitive)
 - Nous vous encourageons à relire nos [Conditions Générales d'Utilisation](terms)
 
 **Contestation** :  
 Si vous estimez que cette décision est erronée, vous pouvez la contester dans un délai de 15 jours en répondant à cet e-mail avec :
+
 - Votre explication détaillée
 - Tout élément de preuve pertinent
 
 **Besoin d'aide ?**  
-📧 E-mail : tchindajoel61@gmail.com  
+📧 E-mail : support@cobage.joeltech.dev  
 📱 Téléphone : +33 7 52 89 20 73
 
 Nous comptons sur votre coopération pour maintenir Co-Bage comme un espace sûr et respectueux.
@@ -922,10 +1007,11 @@ Bonjour [Prénom],
 
 Nous vous informons que votre compte Co-Bage a été **suspendu temporairement**.
 
-**Détails de la suspension** :  
-- **Durée** : [7 / 30 / 90] jours  
-- **Début** : [DATE]  
-- **Fin** : [DATE]  
+**Détails de la suspension** :
+
+- **Durée** : [7 / 30 / 90] jours
+- **Début** : [DATE]
+- **Fin** : [DATE]
 - **Motif** : [Description précise de la violation]
 
 **Contenu concerné** : [Référence]
@@ -942,13 +1028,14 @@ Nous vous informons que votre compte Co-Bage a été **suspendu temporairement**
 ⚠️ Toute nouvelle violation entraînera une suspension plus longue ou une suppression définitive
 
 **Contestation** :  
-Vous pouvez contester cette décision dans un délai de 15 jours en envoyant un e-mail à tchindajoel61@gmail.com avec :
+Vous pouvez contester cette décision dans un délai de 15 jours en envoyant un e-mail à support@cobage.joeltech.dev avec :
+
 - Objet : "Contestation suspension — [Nom du compte]"
 - Explication détaillée
 - Éléments de preuve
 
 **Contact** :  
-📧 tchindajoel61@gmail.com  
+📧 support@cobage.joeltech.dev  
 📱 +33 7 52 89 20 73
 
 Nous espérons que vous comprenez la nécessité de ces mesures pour maintenir un environnement sûr sur Co-Bage.
@@ -983,30 +1070,34 @@ Nous vous informons que votre compte Co-Bage a été **supprimé définitivement
 
 **Signalement aux autorités** : [SI APPLICABLE]  
 En raison de la nature de la violation (contenu illégal : [préciser]), nous avons procédé à un signalement auprès des autorités compétentes :
+
 - [PHAROS / TRACFIN / Police / etc.]
 - Date du signalement : [DATE]
 - Référence : [Si disponible]
 
 **Contestation** :  
 Vous disposez d'un droit de contestation dans un délai de 15 jours :
-- Par e-mail : tchindajoel61@gmail.com
+
+- Par e-mail : support@cobage.joeltech.dev
 - Par courrier recommandé avec AR :  
   Timothée Joël Tchinda Tchoffo  
   Toulouse, France
 
 **Recours juridictionnel** :  
 Si vous estimez cette décision injustifiée, vous pouvez saisir les juridictions compétentes :
+
 - Tribunal judiciaire de votre lieu de résidence (consommateurs)
 - Tribunal judiciaire de Toulouse
 
 **Conservation des données** :  
 Conformément au RGPD et à la LCEN, nous conservons :
+
 - Les logs de connexion : 12 mois (obligation légale)
 - Les contenus ayant motivé la suppression : 3 ans (preuve en cas de contentieux)
 - Les données transmises aux autorités : jusqu'à clôture de l'enquête + 3 ans
 
 **Contact** :  
-📧 tchindajoel61@gmail.com  
+📧 support@cobage.joeltech.dev  
 📱 +33 7 52 89 20 73
 
 Cordialement,  
@@ -1057,24 +1148,28 @@ Donner le bénéfice du doute en cas d'ambiguïté. En cas d'incertitude, privil
 
 **2. Contextualisation**  
 Toujours analyser le contexte complet :
+
 - Historique de l'utilisateur
 - Conversation entière (si message isolé)
 - Intention apparente (bonne foi vs malveillance)
 
 **3. Proportionnalité**  
 La sanction doit être proportionnée à la gravité :
+
 - 1ère erreur mineure → Avertissement
 - Récidive → Sanctions progressives
 - Infraction grave immédiate → Suspension/suppression
 
 **4. Documentation**  
 Toujours documenter :
+
 - Captures d'écran horodatées
 - Raisonnement de la décision
 - Références légales/CGU
 
 **5. Neutralité**  
 Rester impartial, ne pas juger sur :
+
 - Opinions politiques (sauf incitation à la haine/violence)
 - Croyances religieuses (sauf prosélytisme agressif)
 - Orientation sexuelle, identité de genre
@@ -1098,21 +1193,26 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 ### ANNEXE E : PLAN D'ESCALADE ET CONTACTS D'URGENCE
 
 #### Niveau 1 : Contenu standard (spam, hors sujet)
+
 **Traitement** : Modération standard sous 7 jours  
 **Responsable** : Responsable modération
 
 #### Niveau 2 : Contenu problématique (harcèlement, fraude)
+
 **Traitement** : Sous 48 heures  
 **Responsable** : Responsable modération avec analyse approfondie
 
 #### Niveau 3 : Contenu potentiellement illicite
+
 **Traitement** : Sous 24 heures  
 **Responsable** : Responsable + consultation juridique si nécessaire  
 **Décision** : Retrait + conservation preuves
 
 #### Niveau 4 : Contenu manifestement illicite (pédopornographie, terrorisme)
+
 **Traitement** : IMMÉDIAT (< 2 heures)  
 **Actions** :
+
 1. ⚠️ **Suppression immédiate** du contenu et du compte
 2. 📸 **Capture d'écran** et conservation de toutes les preuves
 3. 🚨 **Signalement PHAROS** immédiat
@@ -1120,12 +1220,15 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 5. 📝 **Documentation complète** pour transmission judiciaire
 
 #### Niveau 5 : URGENCE ABSOLUE (menace imminente, danger de mort)
+
 **Exemples** :
+
 - Menace de mort crédible avec date/lieu précis
 - Annonce d'attentat imminent
 - Enlèvement / séquestration en cours
 
 **Actions IMMÉDIATES** :
+
 1. 📞 **Appel immédiat au 17 (Police)** ou 112 (urgences)
 2. 🚨 **Signalement PHAROS** en parallèle
 3. 📧 **E-mail au procureur** avec toutes les données
@@ -1133,6 +1236,7 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 5. 📝 **Traçabilité complète** de toutes les actions
 
 **Contacts d'urgence** :
+
 - **Police/Gendarmerie** : 17 ou 112
 - **PHAROS** : [www.internet-signalement.gouv.fr](https://www.internet-signalement.gouv.fr)
 - **Procureur de la République (Toulouse)** : [Coordonnées à ajouter]
@@ -1179,6 +1283,7 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 **Cette Politique de modération et Trust & Safety est adaptée au contexte spécifique d'un projet étudiant en phase bêta gratuite.**
 
 Elle doit être :
+
 - ✅ Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
 - ✅ Adaptée en cas d'évolution vers un modèle commercial avec équipe de modération
 - ✅ Mise à jour selon les évolutions légales et les recommandations des autorités

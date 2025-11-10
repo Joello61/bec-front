@@ -7,12 +7,14 @@ import type {
   UpdateVoyageInput, 
   VoyageFilters, 
   VoyageStatut,
-  PaginationMeta 
+  PaginationMeta, 
+  PublicVoyage
 } from '@/types';
 import { VOYAGE_STATUTS } from '../utils/constants';
 
 interface VoyageState {
   voyages: Voyage[];
+  publicVoyages: PublicVoyage[];
   mesVoyages: Voyage[];
   currentVoyage: Voyage | null;
   pagination: PaginationMeta | null;
@@ -21,6 +23,7 @@ interface VoyageState {
   
   // Actions
   fetchVoyages: (page?: number, limit?: number, filters?: VoyageFilters) => Promise<void>;
+  fetchPublicVoyages: (page?: number, limit?: number, filters?: VoyageFilters) => Promise<void>;
   fetchVoyage: (id: number) => Promise<void>;
   createVoyage: (data: CreateVoyageInput) => Promise<Voyage>;
   updateVoyage: (id: number, data: UpdateVoyageInput) => Promise<void>;
@@ -34,6 +37,7 @@ interface VoyageState {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useVoyageStore = create<VoyageState>((set, get) => ({
   voyages: [],
+  publicVoyages: [],
   mesVoyages: [],
   currentVoyage: null,
   pagination: null,
@@ -52,6 +56,23 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors du chargement des voyages', 
+        isLoading: false 
+      });
+    }
+  },
+
+  fetchPublicVoyages: async (page = 1, limit = 10, filters) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await voyagesApi.publicList(page, limit, filters);
+      set({ 
+        publicVoyages: response.data, 
+        pagination: response.pagination,
+        isLoading: false 
+      });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors du chargement des voyages publics', 
         isLoading: false 
       });
     }
@@ -164,6 +185,7 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
   
   reset: () => set({ 
     voyages: [], 
+    publicVoyages: [],
     mesVoyages: [],
     currentVoyage: null, 
     pagination: null, 

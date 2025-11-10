@@ -13,12 +13,14 @@ interface DemandeFiltersProps {
   onFilterChange: (filters: DemandeFiltersType) => void;
   initialFilters?: DemandeFiltersType;
   refetchDemandes?: () => void;
+  isPublic?: boolean;
 }
 
 export default function DemandeFilters({ 
   onFilterChange, 
   initialFilters = {}, 
-  refetchDemandes 
+  refetchDemandes,
+  isPublic = false
 }: DemandeFiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState<DemandeFiltersType>(initialFilters);
@@ -216,23 +218,25 @@ export default function DemandeFilters({
                 </div>
 
                 {/* Statut */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Statut
-                  </label>
-                  <Select
-                    options={[
-                      { value: '', label: 'Tous les statuts' },
-                      ...DEMANDE_STATUTS.map((status) => ({
-                        value: status.value,
-                        label: status.label
-                      }))
-                    ]}
-                    value={filters.statut || ''}
-                    onChange={(value) => handleFilterChange('statut', value)}
-                    searchable={false}
-                  />
-                </div>
+                {!isPublic && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Statut
+                    </label>
+                    <Select
+                      options={[
+                        { value: '', label: 'Tous les statuts' },
+                        ...DEMANDE_STATUTS.map((status) => ({
+                          value: status.value,
+                          label: status.label
+                        }))
+                      ]}
+                      value={filters.statut || ''}
+                      onChange={(value) => handleFilterChange('statut', value)}
+                      searchable={false}
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Actions au bas des filtres */}
@@ -302,24 +306,26 @@ export default function DemandeFilters({
           />
         </div>
 
-        {/* Statut */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Statut
-          </label>
-          <Select
-            options={[
-              { value: '', label: 'Tous les statuts' },
-              ...DEMANDE_STATUTS.map((status) => ({
-                value: status.value,
-                label: status.label
-              }))
-            ]}
-            value={filters.statut || ''}
-            onChange={(value) => handleFilterChange('statut', value)}
-            searchable={false}
-          />
-        </div>
+        {/* Statut - CORRECTION ICI */}
+        {!isPublic && (
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">
+              Statut
+            </label>
+            <Select
+              options={[
+                { value: '', label: 'Tous les statuts' },
+                ...DEMANDE_STATUTS.map((status) => ({
+                  value: status.value,
+                  label: status.label
+                }))
+              ]}
+              value={filters.statut || ''}
+              onChange={(value) => handleFilterChange('statut', value)}
+              searchable={false}
+            />
+          </div>
+        )}
 
         {/* Indicateur de filtres actifs - Mobile */}
         {hasActiveFilters && (

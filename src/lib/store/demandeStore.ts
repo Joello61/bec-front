@@ -7,12 +7,14 @@ import type {
   UpdateDemandeInput, 
   DemandeFilters,
   DemandeStatut,
-  PaginationMeta 
+  PaginationMeta, 
+  PublicDemande
 } from '@/types';
 import { DEMANDE_STATUTS } from '../utils/constants';
 
 interface DemandeState {
   demandes: Demande[];
+  publicDemandes: PublicDemande[];
   mesDemandes: Demande[];
   currentDemande: Demande | null;
   pagination: PaginationMeta | null;
@@ -21,6 +23,7 @@ interface DemandeState {
   
   // Actions
   fetchDemandes: (page?: number, limit?: number, filters?: DemandeFilters) => Promise<void>;
+  fetchPublicDemandes: (page?: number, limit?: number, filters?: DemandeFilters) => Promise<void>;
   fetchDemande: (id: number) => Promise<void>;
   createDemande: (data: CreateDemandeInput) => Promise<Demande>;
   updateDemande: (id: number, data: UpdateDemandeInput) => Promise<void>;
@@ -33,6 +36,7 @@ interface DemandeState {
 
 export const useDemandeStore = create<DemandeState>((set) => ({
   demandes: [],
+  publicDemandes: [],
   mesDemandes: [],
   currentDemande: null,
   pagination: null,
@@ -51,6 +55,23 @@ export const useDemandeStore = create<DemandeState>((set) => ({
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors du chargement des demandes', 
+        isLoading: false 
+      });
+    }
+  },
+
+  fetchPublicDemandes: async (page = 1, limit = 10, filters) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await demandesApi.publicList(page, limit, filters);
+      set({ 
+        publicDemandes: response.data, 
+        pagination: response.pagination,
+        isLoading: false 
+      });
+    } catch (error: any) {
+      set({ 
+        error: error.message || 'Erreur lors du chargement des demandes publiques', 
         isLoading: false 
       });
     }
@@ -163,6 +184,7 @@ export const useDemandeStore = create<DemandeState>((set) => ({
   
   reset: () => set({ 
     demandes: [], 
+    publicDemandes: [],
     mesDemandes: [],
     currentDemande: null, 
     pagination: null, 

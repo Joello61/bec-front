@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: "Co-Bage - Transport Collaboratif Cameroun-Afrique",
     description:
       "Envoyez vos colis jusqu'à 60% moins cher ou gagnez de l'argent en transportant. Inscription gratuite 🚀",
-    images: [`${APP_URL}/images/twitter-home.jpg`],
+    images: [`${APP_URL}/images/og-home.jpg`],
   },
 
   alternates: {
@@ -90,10 +90,11 @@ const organizationSchema = {
     },
   ],
   sameAs: [
-    "https://twitter.com/cobage_official",
-    "https://www.facebook.com/cobage",
-    "https://www.linkedin.com/company/cobage",
-    "https://www.instagram.com/cobage",
+    'https://x.com/cobage_officiel',
+    'https://www.facebook.com/cobageOfficiel',
+    'https://www.linkedin.com/company/cobage-officiel',
+    'https://www.instagram.com/cobage_officiel',
+    'https://www.youtube.com/@cobage_official',
   ],
 };
 
@@ -108,11 +109,6 @@ const websiteSchema = {
   publisher: {
     "@type": "Organization",
     name: "Co-Bage",
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${APP_URL}/dashboard/explore?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
   },
   inLanguage: ["fr-FR", "en-US"],
 };

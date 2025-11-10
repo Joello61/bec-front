@@ -19,6 +19,7 @@ export default function Footer() {
     platform: [
       { name: 'Accueil', href: ROUTES.HOME },
       { name: 'À propos', href: ROUTES.ABOUT },
+      { name: 'Explorer', href: ROUTES.PUBLIC_EXPLORE },
       { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS },
     ],
     legal: [
@@ -38,6 +39,7 @@ export default function Footer() {
     { name: 'X', image: '/images/social/x.svg', href: 'https://x.com/cobage_officiel' },
     { name: 'Instagram', image: '/images/social/instagram.png', href: 'https://www.instagram.com/cobage_officiel' },
     { name: 'LinkedIn', image: '/images/social/linkedin.png', href: 'https://www.linkedin.com/company/cobage-officiel' },
+    { name: 'YouTube', image: '/images/social/youtube.png', href: 'https://www.youtube.com/@cobage_official' },
   ];
 
   if (isAuthPage || isDashboardPage || isAdminPage) {
@@ -131,6 +133,21 @@ export default function Footer() {
                   width={20}
                   height={20}
                   className="w-8 h-7"
+                />
+              </a>
+              <a
+                href={socialLinks[4].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-7 transition-transform duration-200 hover:scale-110"
+                aria-label={socialLinks[4].name}
+              >
+                <Image
+                  src={socialLinks[4].image}
+                  alt={socialLinks[4].name}
+                  width={40}
+                  height={20}
+                  className="w-8 h-7 scale-175"
                 />
               </a>
             </div>

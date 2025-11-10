@@ -62,9 +62,9 @@ export default function AuthLayoutClient({
 
             {/* Bouton retour */}
             <Link href={ROUTES.HOME}>
-              <div className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-primary hover:bg-primary/5 rounded-lg transition-all border border-transparent hover:border-primary/20 hover:scale-110">
+              <div className="border-2 border-primary flex items-center gap-2 px-4 py-2 text-sm text-primary font-semibold hover:text-primary hover:bg-primary/5 rounded-lg transition-all hover:border-primary/20 hover:scale-110">
                 <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Retour</span>
+                <span className="">Accueil</span>
               </div>
             </Link>
           </div>

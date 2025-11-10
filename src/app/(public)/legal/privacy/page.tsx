@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${APP_URL}/images/og-legal-privacy.jpg`,
-        width: 1200,
-        height: 630,
+        width: 1217,
+        height: 500,
         alt: "Politique de Confidentialité Co-Bage",
       },
     ],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     creator: "@cobage_official",
     title: "Politique de Confidentialité – Co-Bage",
     description: "Protection de vos données personnelles (RGPD).",
-    images: [`${APP_URL}/images/twitter-legal-privacy.jpg`],
+    images: [`${APP_URL}/images/og-legal-privacy.jpg`],
   },
 
   alternates: {

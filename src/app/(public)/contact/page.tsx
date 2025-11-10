@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Contactez Co-Bage",
     description:
       "Notre support est disponible 24/7 pour répondre à toutes vos questions.",
-    images: [`${APP_URL}/images/twitter-contact.jpg`],
+    images: [`${APP_URL}/images/og-contact.jpg`],
   },
 
   alternates: {

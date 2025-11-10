@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: 'Co-Bage - Transport colis Cameroun-Afrique',
     description:
       'Transport collaboratif de colis économique entre Cameroun, Afrique et diaspora.',
-    images: [`${APP_URL}/images/twitter-image.jpg`],
+    images: [`${APP_URL}/images/og-image.jpg`],
   },
 
   applicationName: 'Co-Bage',
@@ -146,6 +146,7 @@ export default function RootLayout({
       'https://www.facebook.com/cobageOfficiel',
       'https://www.linkedin.com/company/cobage-officiel',
       'https://www.instagram.com/cobage_officiel',
+      'https://www.youtube.com/@cobage_official',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

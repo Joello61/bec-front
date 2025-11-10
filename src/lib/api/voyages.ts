@@ -7,12 +7,20 @@ import type {
   VoyageFilters,
   VoyageStatut,
   PaginatedResponse,
-  DemandeWithScore
+  DemandeWithScore,
+  PublicVoyage
 } from '@/types';
 
 export const voyagesApi = {
   async list(page = 1, limit = 10, filters?: VoyageFilters): Promise<PaginatedResponse<Voyage>> {
     const response = await apiClient.get<PaginatedResponse<Voyage>>(endpoints.voyages.list, {
+      params: { page, limit, ...filters },
+    });
+    return response.data;
+  },
+
+  async publicList(page = 1, limit = 10, filters?: VoyageFilters): Promise<PaginatedResponse<PublicVoyage>> {
+    const response = await apiClient.get<PaginatedResponse<PublicVoyage>>(endpoints.voyages.publicList, {
       params: { page, limit, ...filters },
     });
     return response.data;

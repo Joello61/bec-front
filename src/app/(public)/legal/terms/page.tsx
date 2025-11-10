@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "CGU – Co-Bage",
     description:
       "Conditions générales d’utilisation de la plateforme Co-Bage pour voyageurs et expéditeurs.",
-    images: [`${APP_URL}/images/twitter-legal-terms.jpg`],
+    images: [`${APP_URL}/images/og-legal-terms.jpg`],
   },
 
   alternates: {

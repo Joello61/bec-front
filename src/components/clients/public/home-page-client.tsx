@@ -57,7 +57,6 @@ export default function HomePageClient() {
     { icon: Sparkles, value: 'Notre promesse', label: 'Sécurité, simplicité, confiance' },
   ]
 
-
   return (
     <>
       {/* Hero Section */}
@@ -125,14 +124,14 @@ export default function HomePageClient() {
                   </motion.div>
                 </Link>
                 
-                <Link href={ROUTES.EXPLORE}>
+                <Link href={ROUTES.PUBLIC_EXPLORE}>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold border-2 border-white/30 hover:bg-white/20 transition-colors"
                   >
                     <Search className="w-5 h-5" />
-                    Explorer les voyages
+                    Explorer les voyages et demandes
                   </motion.div>
                 </Link>
               </motion.div>
@@ -140,22 +139,24 @@ export default function HomePageClient() {
               {/* Trust Indicators */}
               <motion.div
                 variants={fadeIn}
-                className="flex flex-wrap justify-center lg:justify-start gap-4"
+                className="flex flex-col items-center lg:items-start gap-4"
               >
-                {trustIndicators.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 text-md text-white/90"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
-                        <Icon className="w-4.5 h-4.5" />
+                <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start gap-4">
+                  {trustIndicators.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center gap-2 text-md text-white/90"
+                      >
+                        <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
+                          <Icon className="w-4.5 h-4.5" />
+                        </div>
+                        <span className="font-medium">{item.text}</span>
                       </div>
-                      <span className="font-medium">{item.text}</span>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </motion.div>
             </motion.div>
 
@@ -287,13 +288,13 @@ export default function HomePageClient() {
                 </motion.div>
               </Link>
 
-              <Link href={ROUTES.EXPLORE}>
+              <Link href={ROUTES.PUBLIC_EXPLORE}>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold border-2 border-white/30 hover:bg-white/20 transition-colors text-lg"
                 >
-                  Voir les voyages
+                  Voir les voyages et demandes
                 </motion.div>
               </Link>
             </div>

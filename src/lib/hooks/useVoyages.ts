@@ -35,6 +35,34 @@ export function useVoyages(page = 1, limit = 10, filters?: VoyageFilters) {
   };
 }
 
+export function usePublicVoyages(page = 1, limit = 10, filters?: VoyageFilters) {
+  const publicVoyages = useVoyageStore((state) => state.publicVoyages);
+  const pagination = useVoyageStore((state) => state.pagination);
+  const isLoading = useVoyageStore((state) => state.isLoading);
+  const error = useVoyageStore((state) => state.error);
+  const fetchPublicVoyages = useVoyageStore((state) => state.fetchPublicVoyages);
+
+  // ✅ Stabiliser filters avec useMemo pour éviter les re-renders inutiles
+  const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
+
+  useEffect(() => {
+    fetchPublicVoyages(page, limit, stableFilters);
+  }, [page, limit, stableFilters, fetchPublicVoyages]);
+
+  // ✅ refetch ne dépend que de variables stables
+  const refetch = useCallback(() => {
+    fetchPublicVoyages(page, limit, stableFilters);
+  }, [page, limit, stableFilters, fetchPublicVoyages]);
+
+  return {
+    publicVoyages,
+    pagination,
+    isLoading,
+    error,
+    refetch
+  };
+}
+
 /**
  * Hook pour un voyage spécifique
  */

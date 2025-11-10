@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "FAQ Co-Bage",
     description:
       "Questions fréquentes sur la plateforme de transport collaboratif de colis Co-Bage.",
-    images: [`${APP_URL}/images/twitter-faq.jpg`],
+    images: [`${APP_URL}/images/og-faq.jpg`],
   },
 
   alternates: {
