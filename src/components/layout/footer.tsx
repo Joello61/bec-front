@@ -147,7 +147,7 @@ export default function Footer() {
                   alt={socialLinks[4].name}
                   width={40}
                   height={20}
-                  className="w-8 h-7 scale-175"
+                  className="w-8 h-7 scale-145"
                 />
               </a>
             </div>
