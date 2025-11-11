@@ -35,11 +35,31 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { name: 'Facebook', image: '/images/social/facebook.png', href: 'https://www.facebook.com/cobageOfficiel' },
-    { name: 'X', image: '/images/social/x.svg', href: 'https://x.com/cobage_officiel' },
-    { name: 'Instagram', image: '/images/social/instagram.png', href: 'https://www.instagram.com/cobage_officiel' },
-    { name: 'LinkedIn', image: '/images/social/linkedin.png', href: 'https://www.linkedin.com/company/cobage-officiel' },
-    { name: 'YouTube', image: '/images/social/youtube.png', href: 'https://www.youtube.com/@cobage_official' },
+    {
+      name: 'Facebook',
+      image: '/images/social/facebook.png',
+      href: 'https://www.facebook.com/cobageOfficiel',
+    },
+    {
+      name: 'X',
+      image: '/images/social/x.svg',
+      href: 'https://x.com/cobage_officiel',
+    },
+    {
+      name: 'Instagram',
+      image: '/images/social/instagram.png',
+      href: 'https://www.instagram.com/cobage_officiel',
+    },
+    {
+      name: 'LinkedIn',
+      image: '/images/social/linkedin.png',
+      href: 'https://www.linkedin.com/company/cobage-officiel',
+    },
+    {
+      name: 'YouTube',
+      image: '/images/social/youtube.png',
+      href: 'https://www.youtube.com/@cobage_officiel',
+    },
   ];
 
   if (isAuthPage || isDashboardPage || isAdminPage) {
@@ -66,7 +86,8 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-gray-600 leading-relaxed mb-6">
-              Le monde à portée de bagages. Transport collaboratif entre le Cameroun et le monde.
+              Le monde à portée de bagages. Transport collaboratif entre le
+              Cameroun et le monde.
             </p>
 
             {/* Réseaux sociaux */}
@@ -94,14 +115,16 @@ export default function Footer() {
                 className="w-7 h-7 flex justify-center items-center rounded-md bg-black transition-transform duration-200 hover:scale-110"
                 aria-label={socialLinks[1].name}
               >
-                {// eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={socialLinks[1].image}
-                  alt={socialLinks[1].name}
-                  width={20}
-                  height={20}
-                  className="w-5 h-5"
-                />}
+                {
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={socialLinks[1].image}
+                    alt={socialLinks[1].name}
+                    width={20}
+                    height={20}
+                    className="w-5 h-5"
+                  />
+                }
               </a>
 
               <a
@@ -147,7 +170,7 @@ export default function Footer() {
                   alt={socialLinks[4].name}
                   width={40}
                   height={20}
-                  className="w-8 h-7 scale-145"
+                  className="w-8 h-7 scale-120"
                 />
               </a>
             </div>

@@ -12,7 +12,8 @@ const inter = Inter({
   preload: true,
 });
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
 
 // Configuration du viewport
 export const viewport: Viewport = {
@@ -28,15 +29,15 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
-  
+
   title: {
     default: 'Co-Bage - Transport de colis Cameroun-Afrique',
     template: '%s | Co-Bage',
   },
-  
+
   description:
-    'Transport collaboratif de colis entre le Cameroun, l\'Afrique et leur diaspora. Économique, sécurisé et humain. Envoyez moins cher.',
-  
+    "Transport collaboratif de colis entre le Cameroun, l'Afrique et leur diaspora. Économique, sécurisé et humain. Envoyez moins cher.",
+
   authors: [{ name: 'Co-Bage Team' }],
   creator: 'Co-Bage',
   publisher: 'Co-Bage',
@@ -75,8 +76,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    site: '@cobage_official',
-    creator: '@cobage_official',
+    site: '@cobage_officiel',
+    creator: '@cobage_officiel',
     title: 'Co-Bage - Transport colis Cameroun-Afrique',
     description:
       'Transport collaboratif de colis économique entre Cameroun, Afrique et diaspora.',
@@ -96,7 +97,7 @@ export const metadata: Metadata = {
   },
 
   manifest: '/manifest.webmanifest',
-  
+
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -127,7 +128,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -146,7 +146,7 @@ export default function RootLayout({
       'https://www.facebook.com/cobageOfficiel',
       'https://www.linkedin.com/company/cobage-officiel',
       'https://www.instagram.com/cobage_officiel',
-      'https://www.youtube.com/@cobage_official',
+      'https://www.youtube.com/@cobage_officiel',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -183,7 +183,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} md:scrollbar-thin no-scrollbar-mobile`}
     >
-      <body className="min-h-screen bg-gray-50 antialiased" suppressHydrationWarning>
+      <body
+        className="min-h-screen bg-gray-50 antialiased"
+        suppressHydrationWarning
+      >
         <Script
           id="ld-org"
           type="application/ld+json"
