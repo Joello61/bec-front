@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  
   output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
-  eslint: {
-    ignoreDuringBuilds: false,
-    dirs: ['src', 'types'],
-  },
 
   typescript: {
     ignoreBuildErrors: false,
@@ -35,7 +30,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 5184000, // 60 jours
+    minimumCacheTTL: 5184000,
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -46,17 +41,13 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: [
-          // Performance & sécurité
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self)' },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, stale-while-revalidate=86400',
-          },
+          { key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' },
         ],
       },
       {
@@ -73,14 +64,15 @@ const nextConfig = {
   async redirects() {
     return [];
   },
-  
+
   env: {
     NEXT_PUBLIC_APP_NAME: 'Co-Bage',
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev',
   },
 
+  reactCompiler: true,
+
   experimental: {
-    reactCompiler: true, // Active le compilateur React natif
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',

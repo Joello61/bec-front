@@ -20,7 +20,7 @@ const authRoutes = [
   '/auth/register',
 ];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
   const token = request.cookies.get('bagage_token')?.value;
@@ -74,7 +74,7 @@ export function middleware(request: NextRequest) {
     
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard/explore';
-    url.search = ''; // ✅ Nettoie tous les paramètres de recherche
+    url.search = '';
     return NextResponse.redirect(url);
   }
 

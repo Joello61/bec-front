@@ -116,34 +116,6 @@ export function formatFullName(nom: string, prenom: string): string {
 }
 
 /**
- * Capitalise la première lettre
- */
-export function capitalize(text: string): string {
-  if (!text) return '';
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-}
-
-/**
- * Formate un statut en français
- */
-export function formatStatus(status: string): string {
-  const statusMap: Record<string, string> = {
-    actif: 'Actif',
-    complet: 'Complet',
-    termine: 'Terminé',
-    annule: 'Annulé',
-    en_recherche: 'En recherche',
-    voyageur_trouve: 'Voyageur trouvé',
-    annulee: 'Annulée',
-    en_attente: 'En attente',
-    traite: 'Traité',
-    rejete: 'Rejeté',
-  };
-  
-  return statusMap[status] || capitalize(status);
-}
-
-/**
  * Calcule le nombre de jours restants
  */
 export function getDaysRemaining(date: string | Date): number {
@@ -151,72 +123,6 @@ export function getDaysRemaining(date: string | Date): number {
   const now = new Date();
   const diffInMs = dateObj.getTime() - now.getTime();
   return Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-}
-
-/**
- * Vérifie si une date est passée
- */
-export function isPastDate(date: string | Date): boolean {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return dateObj < new Date();
-}
-
-/**
- * Génère une couleur aléatoire pour les avatars
- */
-export function getAvatarColor(seed: string): string {
-  const colors = [
-    '#00695c', // primary
-    '#004d40', // primary-dark
-    '#26a69a', // primary-light
-    '#0d47a1', // info
-    '#1976d2', // info-light
-    '#616161', // gray-600
-  ];
-  
-  let hash = 0;
-  for (let i = 0; i < seed.length; i++) {
-    hash = seed.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  
-  return colors[Math.abs(hash) % colors.length];
-}
-
-/**
- * Formate un montant selon une devise avec Intl.NumberFormat
- */
-export function formatCurrency(
-  amount: number | string,
-  currencyCode: string,
-  decimals?: number
-): string {
-  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
-  
-  if (isNaN(numAmount)) return '—';
-
-  // Cas spécial pour le FCFA (XAF, XOF) - pas de décimales
-  if (currencyCode === 'XAF' || currencyCode === 'XOF') {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'decimal',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(numAmount) + ' FCFA';
-  }
-
-  // Pour les autres devises, utiliser Intl.NumberFormat
-  try {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: currencyCode,
-      minimumFractionDigits: decimals ?? 2,
-      maximumFractionDigits: decimals ?? 2,
-    }).format(numAmount);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (error) {
-    // Si la devise n'est pas reconnue par Intl
-    const symbol = getCurrencySymbol(currencyCode);
-    return `${numAmount.toFixed(decimals ?? 2)} ${symbol}`;
-  }
 }
 
 /**
@@ -273,53 +179,6 @@ export function formatPrice(
   }
 
   return `${numAmount.toFixed(decimals)} ${symbol}`;
-}
-
-/**
- * Vérifie si deux devises sont identiques (insensible à la casse)
- */
-export function isSameCurrency(currency1: string, currency2: string): boolean {
-  return currency1.toUpperCase() === currency2.toUpperCase();
-}
-
-/**
- * Parse un montant depuis une string (gère les séparateurs français et anglais)
- */
-export function parseAmount(value: string): number | null {
-  if (!value) return null;
-  
-  // Remplacer les espaces et virgules par des points
-  const normalized = value
-    .replace(/\s/g, '')
-    .replace(',', '.');
-  
-  const parsed = parseFloat(normalized);
-  return isNaN(parsed) ? null : parsed;
-}
-
-/**
- * Formate un taux de change
- */
-export function formatExchangeRate(rate: string | number): string {
-  const numRate = typeof rate === 'string' ? parseFloat(rate) : rate;
-  
-  if (isNaN(numRate)) return '—';
-  
-  // Afficher 4 décimales pour les taux
-  return numRate.toFixed(4);
-}
-
-/**
- * Calcule le montant converti (utilitaire local si besoin)
- */
-export function calculateConversion(
-  amount: number,
-  fromRate: number,
-  toRate: number
-): number {
-  // Conversion via EUR comme base
-  // Ex: XAF vers USD = (montant / rateXAF) * rateUSD
-  return (amount / fromRate) * toRate;
 }
 
 export function formatImageUrl(imagePath?: string | null): string | null {
