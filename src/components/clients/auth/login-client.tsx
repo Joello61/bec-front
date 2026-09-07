@@ -11,7 +11,7 @@ import type { LoginFormData } from '@/lib/validations';
 import { LoadingSpinner, useToast } from '@/components/common';
 import OAuthButtons from '@/components/auth/OAuthButtons';
 import { getSafeRedirect } from '@/lib/utils/redirect';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -31,13 +31,13 @@ export default function LoginPageClient() {
   const searchParams = useSearchParams();
   const redirectTo = getSafeRedirect(searchParams.get('redirect'), ROUTES.EXPLORE);
 
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  // Derive directement de 'user' : pas besoin d'un state separe, la navigation
+  // (effet ci-dessous) est le seul effet de bord reel a synchroniser.
+  const isRedirecting = !!user;
 
   useEffect(() => {
     // Si le 'user' est chargé (donc connexion réussie)
     if (user) {
-      // Indiquer qu'on va rediriger
-      setIsRedirecting(true); 
       // Déterminer la destination
       const destination = !user.isProfileComplete
         ? ROUTES.COMPLETE_PROFILE
