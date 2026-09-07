@@ -10,22 +10,22 @@ export interface ShowProfileModalProps {
   user: User | null;
 }
 
+function InfoRow({ label, value }: { label: string; value?: string | null }) {
+  if (!value) return null;
+  return (
+    <div className="flex flex-col space-y-1">
+      <span className="text-sm font-medium text-gray-500">{label}</span>
+      <span className="text-base text-gray-900">{value}</span>
+    </div>
+  );
+}
+
 export default function ShowProfileModal({
   isOpen,
   onClose,
   user
 }: ShowProfileModalProps) {
   if (!user) return null;
-
-  const InfoRow = ({ label, value }: { label: string; value?: string | null }) => {
-    if (!value) return null;
-    return (
-      <div className="flex flex-col space-y-1">
-        <span className="text-sm font-medium text-gray-500">{label}</span>
-        <span className="text-base text-gray-900">{value}</span>
-      </div>
-    );
-  };
 
   return (
     <Modal
