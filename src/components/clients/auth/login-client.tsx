@@ -10,7 +10,7 @@ import { ROUTES } from '@/lib/utils/constants';
 import type { LoginFormData } from '@/lib/validations';
 import { LoadingSpinner, useToast } from '@/components/common';
 import OAuthButtons from '@/components/auth/OAuthButtons';
-import { Route } from 'next';
+import { getSafeRedirect } from '@/lib/utils/redirect';
 import { useEffect, useState } from 'react';
 
 const fadeIn: Variants = {
@@ -29,7 +29,7 @@ export default function LoginPageClient() {
   const { login, user } = useAuth();
   const toast = useToast();
   const searchParams = useSearchParams();
-  const redirectTo = (searchParams.get('redirect')) as Route || ROUTES.EXPLORE;
+  const redirectTo = getSafeRedirect(searchParams.get('redirect'), ROUTES.EXPLORE);
 
   const [isRedirecting, setIsRedirecting] = useState(false);
 
