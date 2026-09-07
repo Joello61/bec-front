@@ -57,18 +57,28 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
-    useEffect(() => {
+    // Synchronise selectedValue avec la prop value (composant controle) : ajuste
+    // le state pendant le rendu (pattern React officiel) plutot que dans un effet.
+    const [prevValue, setPrevValue] = useState(value);
+    if (value !== prevValue) {
+      setPrevValue(value);
       if (value !== undefined) {
         setSelectedValue(value);
       }
-    }, [value]);
+    }
+
+    // Reinitialise la recherche a la fermeture : meme pattern.
+    const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+    if (isOpen !== prevIsOpen) {
+      setPrevIsOpen(isOpen);
+      if (!isOpen) {
+        setSearchQuery('');
+      }
+    }
 
     useEffect(() => {
       if (isOpen && searchable && searchInputRef.current) {
         searchInputRef.current.focus();
-      }
-      if (!isOpen) {
-        setSearchQuery('');
       }
     }, [isOpen, searchable]);
 
