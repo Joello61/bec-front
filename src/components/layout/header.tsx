@@ -51,6 +51,15 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
 
+  // Ferme le menu mobile au changement de route : ajuste le state pendant le
+  // rendu (pattern React officiel) plutot que dans un effet, pour eviter un
+  // aller-retour de rendu supplementaire.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMobileMenuOpen(false);
+  }
+
   const { unreadCount: notifCount } = useUnreadNotificationCount(isAuthenticated);
   const { unreadCount: messageCount } = useUnreadMessages(isAuthenticated);
 
@@ -61,10 +70,6 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
 
   const handleLogout = async () => {
     try {

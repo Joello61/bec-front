@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import {
   registerServiceWorker,
   getServiceWorkerVersion,
@@ -9,22 +9,37 @@ import {
   onConnectionChange,
 } from '@/lib/utils/pwa/registerSW';
 
+// Etat externe (navigator.onLine, display-mode) : useSyncExternalStore evite
+// tout setState synchrone dans un effet et reste coherent avec l'hydratation SSR.
+function subscribeToOnlineStatus(onChange: () => void): () => void {
+  return onConnectionChange(() => onChange());
+}
+
+function useOnlineStatus(): boolean {
+  return useSyncExternalStore(subscribeToOnlineStatus, isOnline, () => true);
+}
+
+function subscribeToDisplayModeChange(onChange: () => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+  const mql = window.matchMedia('(display-mode: standalone)');
+  mql.addEventListener('change', onChange);
+  return () => mql.removeEventListener('change', onChange);
+}
+
+function useIsPWAInstalled(): boolean {
+  return useSyncExternalStore(subscribeToDisplayModeChange, isPWAInstalled, () => false);
+}
+
 export default function PWAProvider({ children }: { children: React.ReactNode }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- ecrit pour le log de debug ci-dessous, pas encore expose aux enfants
   const [swVersion, setSwVersion] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isAppOnline, setIsAppOnline] = useState(true);
-  const [isPWA, setIsPWA] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- idem, scaffolding pour un futur contexte PWA
+  const isAppOnline = useOnlineStatus();
+  const isPWA = useIsPWAInstalled();
 
   useEffect(() => {
     // Enregistrer le Service Worker
     registerServiceWorker();
-
-    // Vérifier si installé en PWA
-    setIsPWA(isPWAInstalled());
-
-    // Vérifier le statut de connexion initial
-    setIsAppOnline(isOnline());
 
     // Récupérer la version du SW
     getServiceWorkerVersion().then((version) => {
@@ -33,14 +48,6 @@ export default function PWAProvider({ children }: { children: React.ReactNode })
         console.log('[PWA] Version actuelle:', version);
       }
     });
-
-    // Écouter les changements de connexion
-    const cleanup = onConnectionChange((online) => {
-      setIsAppOnline(online);
-      console.log('[PWA] État connexion:', online ? '✅ En ligne' : '⚠️ Hors ligne');
-    });
-
-    return cleanup;
   }, []);
 
   // Logs pour le développement
@@ -63,17 +70,11 @@ export default function PWAProvider({ children }: { children: React.ReactNode })
  */
 export function usePWA() {
   const [version, setVersion] = useState<string | null>(null);
-  const [installed, setInstalled] = useState(false);
-  const [online, setOnline] = useState(true);
+  const installed = useIsPWAInstalled();
+  const online = useOnlineStatus();
 
   useEffect(() => {
-    setInstalled(isPWAInstalled());
-    setOnline(isOnline());
-
     getServiceWorkerVersion().then(setVersion);
-
-    const cleanup = onConnectionChange(setOnline);
-    return cleanup;
   }, []);
 
   return {
@@ -121,10 +122,18 @@ export function ConnectionIndicator() {
   const { isOnline } = usePWA();
   const [showIndicator, setShowIndicator] = useState(false);
 
-  useEffect(() => {
+  // Afficher immediatement au passage hors-ligne : ajuste le state pendant le
+  // rendu (pattern React officiel) plutot que dans un effet.
+  const [prevIsOnline, setPrevIsOnline] = useState(isOnline);
+  if (isOnline !== prevIsOnline) {
+    setPrevIsOnline(isOnline);
     if (!isOnline) {
       setShowIndicator(true);
-    } else {
+    }
+  }
+
+  useEffect(() => {
+    if (isOnline) {
       // Masquer après 2 secondes quand revient en ligne
       const timer = setTimeout(() => setShowIndicator(false), 2000);
       return () => clearTimeout(timer);

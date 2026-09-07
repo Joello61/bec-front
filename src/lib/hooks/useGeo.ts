@@ -63,6 +63,10 @@ export function useCities(countryName: string | null) {
     }
 
     lastFetchedRef.current = countryName;
+    // Fetch de donnees declenche par un changement de prop (countryName) : cas
+    // d'effet legitime au sens de la doc React elle-meme. Le flag de chargement
+    // ne peut pas etre derive au rendu, il doit demarrer au declenchement du fetch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsFetching(true);
     st.fetchCities(countryName).finally(() => {
       setIsFetching(false);
