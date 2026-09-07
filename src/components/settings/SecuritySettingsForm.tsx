@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, Bell, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui';
@@ -18,7 +18,7 @@ export default function SecuritySettingsForm({
   onSubmit, 
   isLoading 
 }: SecuritySettingsFormProps) {
-  const { register, handleSubmit, formState: { isDirty }, watch } = useForm<SecuritySettingsFormData>({
+  const { register, handleSubmit, formState: { isDirty }, control } = useForm<SecuritySettingsFormData>({
     resolver: zodResolver(securitySettingsSchema),
     defaultValues: {
       twoFactorEnabled: settings.twoFactorEnabled,
@@ -26,7 +26,9 @@ export default function SecuritySettingsForm({
     },
   });
 
-  const twoFactorEnabled = watch('twoFactorEnabled');
+  // useWatch (souscription) plutot que watch() (fonction imperative non
+  // memoizable par le React Compiler, cf. react-hooks/incompatible-library).
+  const twoFactorEnabled = useWatch({ control, name: 'twoFactorEnabled' });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

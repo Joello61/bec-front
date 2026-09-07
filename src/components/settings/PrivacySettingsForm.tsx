@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Shield, Eye, Phone, Mail, BarChart } from 'lucide-react';
 import { Button } from '@/components/ui';
@@ -18,7 +18,7 @@ export default function PrivacySettingsForm({
   onSubmit, 
   isLoading 
 }: PrivacySettingsFormProps) {
-  const { register, handleSubmit, formState: { isDirty }, watch } = useForm<PrivacySettingsFormData>({
+  const { register, handleSubmit, formState: { isDirty }, control } = useForm<PrivacySettingsFormData>({
     resolver: zodResolver(privacySettingsSchema),
     defaultValues: {
       profileVisibility: settings.profileVisibility,
@@ -31,7 +31,9 @@ export default function PrivacySettingsForm({
     },
   });
 
-  const profileVisibility = watch('profileVisibility');
+  // useWatch (souscription) plutot que watch() (fonction imperative non
+  // memoizable par le React Compiler, cf. react-hooks/incompatible-library).
+  const profileVisibility = useWatch({ control, name: 'profileVisibility' });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
