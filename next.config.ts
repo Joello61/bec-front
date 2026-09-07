@@ -1,3 +1,26 @@
+const apiOrigin = new URL(
+  process.env.NEXT_PUBLIC_API_DOMAIN || 'http://localhost:8000'
+).origin;
+const mercureOrigin = new URL(
+  process.env.NEXT_PUBLIC_MERCURE_HUB_URL || 'http://localhost:3001/.well-known/mercure'
+).origin;
+
+// Seuls tiers identifies dans le code (CookiesConsent.tsx, HomeBannerAd.tsx) : Google Analytics + AdSense.
+const cspHeader = `
+  default-src 'self';
+  script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' data: blob: https://www.google-analytics.com https://*.googlesyndication.com https://*.g.doubleclick.net;
+  font-src 'self';
+  connect-src 'self' https://www.google-analytics.com ${apiOrigin} ${mercureOrigin};
+  frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'self';
+  upgrade-insecure-requests;
+`.replace(/\s{2,}/g, ' ').trim();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -48,6 +71,7 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self)' },
           { key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' },
+          { key: 'Content-Security-Policy', value: cspHeader },
         ],
       },
       {
