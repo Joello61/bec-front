@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { decodeJwtRoles } from '@/lib/utils/jwt';
 
 const protectedRoutes = [
   '/dashboard',
@@ -61,8 +62,14 @@ export function proxy(request: NextRequest) {
   }
 
   if (isAdminRoute && hasToken) {
-    // TODO: Décoder le JWT pour vérifier ROLE_ADMIN
-    // Pour l'instant on laisse passer, le backend bloquera si pas admin
+    const roles = decodeJwtRoles(token!);
+
+    if (!roles.includes('ROLE_ADMIN')) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/dashboard/explore';
+      url.search = '';
+      return NextResponse.redirect(url);
+    }
   }
 
   // ==================== REDIRECTION SI DÉJÀ CONNECTÉ ====================
