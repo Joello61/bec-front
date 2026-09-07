@@ -82,6 +82,16 @@ const nextConfig = {
         source: '/fonts/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
+      // Places apres le bloc generique /:path* : Next.js applique le dernier header
+      // correspondant en cas de cle dupliquee sur un meme chemin (Cache-Control ici).
+      {
+        source: '/dashboard/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-store' }],
+      },
+      {
+        source: '/admin/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-store' }],
+      },
     ];
   },
 
