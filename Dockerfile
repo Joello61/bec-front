@@ -1,10 +1,46 @@
-# ================================
-# Étape 1 : Build de l'application
-# ================================
-FROM node:22-alpine AS build
+# syntax=docker/dockerfile:1
+#
+# Image Docker du frontend Next.js 16 (Node 22, LTS active - Next.js 16 exige au
+# minimum Node 20.9). Patron repris de factu_sentinel/frontend/Dockerfile (stack
+# identique), adapté aux variables NEXT_PUBLIC_* déjà utilisées par Cobage.
+#
+# Quatre cibles ("--target") :
+#   dev     - utilisée par bec-infra/docker-compose.yml, code source monté en volume
+#   builder - construit le build de production ("next build", sortie standalone)
+#   prod    - image finale minimale ("node server.js"), utilisateur non-root
+
+FROM node:22-alpine AS base
 WORKDIR /app
 
-# Arguments de build envoyés par CapRover
+# ---------------------------------------------------------------------------
+FROM base AS deps
+
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# ---------------------------------------------------------------------------
+FROM deps AS dev
+
+ENV NODE_ENV=development
+
+# Le code source réel est monté en volume par bec-infra/docker-compose.yml en
+# développement (avec les variables NEXT_PUBLIC_* lues depuis .env.local, déjà
+# présent) ; cette copie garantit néanmoins que l'image reste utilisable seule.
+COPY . .
+
+COPY docker/entrypoint-dev.sh /usr/local/bin/docker-entrypoint-dev.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint-dev.sh
+
+ENTRYPOINT ["docker-entrypoint-dev.sh"]
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
+
+# ---------------------------------------------------------------------------
+FROM deps AS builder
+
+# Arguments de build (NEXT_PUBLIC_* est inliné dans le bundle client au moment de
+# "next build", donc nécessaire ici en ARG/ENV - jamais lu au runtime contrairement
+# aux variables serveur-only).
 ARG NEXT_PUBLIC_API_URL
 ARG NEXT_PUBLIC_APP_NAME
 ARG NEXT_PUBLIC_APP_SHORT_NAME
@@ -16,55 +52,47 @@ ARG NEXT_PUBLIC_BACKEND_URL
 ARG NEXT_PUBLIC_GA_ID
 ARG NEXT_PUBLIC_ADSENSE_ID
 
-# Rendre ces variables disponibles pendant le build Next.js
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
-ENV NEXT_PUBLIC_ADSENSE_ID=$NEXT_PUBLIC_ADSENSE_ID
-ENV NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME
-ENV NEXT_PUBLIC_APP_SHORT_NAME=$NEXT_PUBLIC_APP_SHORT_NAME
-ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
-ENV NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV
-ENV NEXT_PUBLIC_API_DOMAIN=$NEXT_PUBLIC_API_DOMAIN
-ENV NEXT_PUBLIC_MERCURE_HUB_URL=$NEXT_PUBLIC_MERCURE_HUB_URL
-ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
-ENV NODE_ENV=production
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
+    NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID \
+    NEXT_PUBLIC_ADSENSE_ID=$NEXT_PUBLIC_ADSENSE_ID \
+    NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME \
+    NEXT_PUBLIC_APP_SHORT_NAME=$NEXT_PUBLIC_APP_SHORT_NAME \
+    NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
+    NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV \
+    NEXT_PUBLIC_API_DOMAIN=$NEXT_PUBLIC_API_DOMAIN \
+    NEXT_PUBLIC_MERCURE_HUB_URL=$NEXT_PUBLIC_MERCURE_HUB_URL \
+    NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL \
+    NODE_ENV=production
 
-# Copier les fichiers de dépendances et installer
-COPY package*.json ./
-RUN npm ci
-
-# Copier le reste du code source
 COPY . .
 
-# Build Next.js
 RUN npm run build
 
-# ================================
-# Étape 2 : Serveur léger
-# ================================
-FROM node:22-alpine AS runner
-WORKDIR /app
+# ---------------------------------------------------------------------------
+FROM base AS prod
 
-# Créer un utilisateur non-root
+ENV NODE_ENV=production \
+    PORT=3000 \
+    HOSTNAME=0.0.0.0
+
 RUN addgroup --system --gid 1001 nodejs \
     && adduser --system --uid 1001 nextjs
 
-# Copier les fichiers nécessaires depuis le build
-COPY --from=build /app/public ./public
-COPY --from=build --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=build --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=build /app/package.json ./package.json
+# Sortie "standalone" (next.config.ts, output: "standalone") : ne copie que le
+# strict nécessaire à l'exécution, sans node_modules complet - contrairement à
+# la version précédente de ce Dockerfile, qui déclarait déjà "standalone" dans
+# next.config.ts sans jamais l'exploiter (copiait node_modules en entier,
+# lançait "next start" plutôt que le serveur autonome).
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Variables d'environnement pour la prod
-ENV NODE_ENV=production
-ENV PORT=3010
-ENV HOSTNAME=0.0.0.0
-
-# Utilisateur non-root
 USER nextjs
 
-# Exposer le port de l'app
-EXPOSE 3010
+EXPOSE 3000
 
-# Lancer l'application
-CMD ["node", "node_modules/next/dist/bin/next", "start"]
+# node -e plutôt que curl/wget : l'image "alpine" ne les installe pas par défaut.
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD node -e "require('http').get('http://127.0.0.1:3000/',r=>process.exit(r.statusCode<500?0:1)).on('error',()=>process.exit(1))"
+
+CMD ["node", "server.js"]
