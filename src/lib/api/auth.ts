@@ -35,6 +35,15 @@ export const authApi = {
 
   async logout(): Promise<void> {
     await apiClient.post(endpoints.auth.logout);
+
+    try {
+      if (typeof window !== 'undefined' && 'caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((key) => caches.delete(key)));
+      }
+    } catch {
+      // Purge best-effort : ne doit jamais faire echouer la deconnexion
+    }
   },
 
   async me(): Promise<User> {
