@@ -1,11 +1,11 @@
 import { useAuth } from "@/lib/hooks";
 import { ROUTES } from "@/lib/utils/constants";
+import { getSafeRedirect } from "@/lib/utils/redirect";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect } from "react";
 import { useToast } from "../common";
-import { Route } from "next";
 
 export default function OAuthCallbackContent() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function OAuthCallbackContent() {
   const { fetchMeAndGet } = useAuth();
   const toast = useToast();
   const hasRun = useRef(false);
-  const redirectTo = (searchParams.get('redirect') || ROUTES.EXPLORE) as Route;
+  const redirectTo = getSafeRedirect(searchParams.get('redirect'), ROUTES.EXPLORE);
 
   useEffect(() => {
     if (hasRun.current) return;
