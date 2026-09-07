@@ -306,10 +306,12 @@ export default function DemandeDetails({
 
               {/* Coordonnées */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 pt-4 border-t border-gray-200">
-                <div className="flex items-center gap-3 text-sm">
-                  <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                  <span className="text-gray-600 truncate">{demande.client.email}</span>
-                </div>
+                {demande.client.email && (
+                  <div className="flex items-center gap-3 text-sm">
+                    <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                    <span className="text-gray-600 truncate">{demande.client.email}</span>
+                  </div>
+                )}
                 {demande.client.telephone && (
                   <div className="flex items-center gap-3 text-sm">
                     <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
@@ -643,10 +645,12 @@ export default function DemandeDetails({
 
                     {/* Contact */}
                     <div className="space-y-2 pt-4 border-t border-gray-200">
-                      <div className="flex items-center gap-2 text-sm">
-                        <Mail className="w-4 h-4 text-gray-400" />
-                        <span className="text-gray-600 truncate">{demande.client.email}</span>
-                      </div>
+                      {demande.client.email && (
+                        <div className="flex items-center gap-2 text-sm">
+                          <Mail className="w-4 h-4 text-gray-400" />
+                          <span className="text-gray-600 truncate">{demande.client.email}</span>
+                        </div>
+                      )}
                       {demande.client.telephone && (
                         <div className="flex items-center gap-2 text-sm">
                           <Phone className="w-4 h-4 text-gray-400" />
