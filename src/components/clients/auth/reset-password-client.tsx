@@ -29,20 +29,17 @@ function ResetPasswordContent() {
   const searchParams = useSearchParams();
   const toast = useToast();
   
-  const [token, setToken] = useState<string | null>(null);
+  // Derive directement de searchParams (deja disponible de facon synchrone,
+  // ce composant est rendu sous Suspense) : pas besoin d'un state separe.
+  const token = searchParams.get('token');
   const [passwordReset, setPasswordReset] = useState(false);
   const [tokenValid, setTokenValid] = useState(true);
 
   useEffect(() => {
-    const tokenParam = searchParams.get('token');
-    
-    if (!tokenParam) {
-      setTokenValid(false);
+    if (!token) {
       toast.error('Token manquant dans l\'URL');
-    } else {
-      setToken(tokenParam);
     }
-  }, [searchParams, toast]);
+  }, [token, toast]);
 
   const handleResetPassword = async (data: ResetPasswordFormData) => {
     try {
