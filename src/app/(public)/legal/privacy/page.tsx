@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PrivacyPageClient from '@/components/clients/public/privacy-client';
+import PrivacyContent from '@/components/legal/PrivacyContent';
 import Script from 'next/script';
 
 const APP_URL =
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyPageSchema) }}
       />
-      <PrivacyPageClient />
+      <PrivacyContent />
     </>
   );
 }
