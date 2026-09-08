@@ -42,12 +42,32 @@ export async function registerAndLogin(page: Page, user: TestUser): Promise<void
   expect(loginResponse.ok(), `Echec connexion API: ${loginResponse.status()}`).toBeTruthy();
 }
 
+/**
+ * User.isProfileComplete() (backend, src/Entity/User.php) exige emailVerifie +
+ * telephoneVerifie + telephone + une adresse valide - sans profil complet, la
+ * creation de voyage/demande/avis/message reste bloquee cote UI ("Profil incomplet").
+ * SMS_VERIFICATION_ENABLED=false dans cet environnement : UserController::completeProfile
+ * auto-verifie le telephone (skip SMS), sur le meme modele que EMAIL_VERIFICATION_ENABLED.
+ */
+export async function completeProfile(page: Page): Promise<void> {
+  const response = await page.request.post('/api/users/me/complete-profile', {
+    data: {
+      telephone: `+2376${Math.floor(10000000 + Math.random() * 89999999)}`,
+      pays: 'Cameroun',
+      ville: 'Douala',
+      quartier: 'Akwa',
+    },
+  });
+  expect(response.ok(), `Echec completion profil API: ${response.status()}`).toBeTruthy();
+}
+
 export const test = base.extend<{ testUser: TestUser; authenticatedPage: Page }>({
   testUser: async ({}, use) => {
     await use(makeTestUser());
   },
   authenticatedPage: async ({ page, testUser }, use) => {
     await registerAndLogin(page, testUser);
+    await completeProfile(page);
     await use(page);
   },
 });
