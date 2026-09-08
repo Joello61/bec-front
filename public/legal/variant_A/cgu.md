@@ -728,7 +728,7 @@ Co-Bage se réserve le droit de modifier les présentes CGU à tout moment pour 
 
 - Notification par e-mail
 - Bannière sur la Plateforme
-- ⏰ **Délai de 30 jours** avant entrée en vigueur
+- **Délai de 30 jours** avant entrée en vigueur
 
 (Sauf modifications mineures ou imposées par la loi)
 

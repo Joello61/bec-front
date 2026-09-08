@@ -433,7 +433,7 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 
    - Cookies essentiels (toujours actifs)
    - Cookies analytiques (statistiques anonymes)
-   - ⏱Durée du consentement : 6 mois
+   - Durée du consentement : 6 mois
 
 2. **Tout refuser** :
 
@@ -1007,7 +1007,7 @@ Si Co-Bage collabore avec des annonceurs (moins probable) :
 **Engagement de Co-Bage** :
 
 - **Communication transparente** avant tout changement
-- ⏰ **Préavis minimum de 30 jours** (60 jours pour changements majeurs)
+- **Préavis minimum de 30 jours** (60 jours pour changements majeurs)
 - **Jamais de wall cookie** (accès toujours possible en refusant)
 - **Mise à jour de cette politique** avec historique des versions
 
