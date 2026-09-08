@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/lib/utils/constants';
 import { Modal } from '@/components/ui';
 import ExploreTabs from '@/components/explore/ExploreTabs';
+import { logger } from '@/lib/utils/logger';
 
 type TabType = 'sent' | 'received';
 
@@ -75,7 +76,7 @@ export default function PropositionsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors de l\'acceptation');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }
@@ -97,7 +98,7 @@ export default function PropositionsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors du refus');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }

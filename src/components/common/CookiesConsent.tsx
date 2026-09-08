@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { logger } from '@/lib/utils/logger';
 
 // Types pour le consentement
 interface ConsentState {
@@ -75,7 +76,7 @@ const CookieConsentBanner: React.FC = () => {
           }
         }
       } catch (error) {
-        console.error("Erreur lors de la lecture du consentement:", error);
+        logger.error("Erreur lors de la lecture du consentement:", error);
         setShowBanner(true);
       } finally {
         setIsLoading(false);
@@ -166,7 +167,7 @@ const CookieConsentBanner: React.FC = () => {
       updateGoogleConsent(consent.consent);
       setShowBanner(false);
     } catch (error) {
-      console.error("Erreur lors de la sauvegarde du consentement:", error);
+      logger.error("Erreur lors de la sauvegarde du consentement:", error);
     }
   };
 
@@ -193,7 +194,7 @@ const CookieConsentBanner: React.FC = () => {
       updateGoogleConsent(consent.consent);
       setShowBanner(false);
     } catch (error) {
-      console.error("Erreur lors de la sauvegarde du consentement:", error);
+      logger.error("Erreur lors de la sauvegarde du consentement:", error);
     }
   };
 
@@ -281,7 +282,7 @@ export const CookiePreferencesButton: React.FC = () => {
       // Recharger la page pour réafficher la bannière
       window.location.reload();
     } catch (error) {
-      console.error("Erreur lors de la réinitialisation du consentement:", error);
+      logger.error("Erreur lors de la réinitialisation du consentement:", error);
     }
   };
 

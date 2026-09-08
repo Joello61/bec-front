@@ -10,6 +10,7 @@ import { useAuth, usePropositionActions } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import { useProposition } from '@/lib/hooks/usePropositions';
 import PropositionDetails from '@/components/propositions/PropositionDetails';
+import { logger } from '@/lib/utils/logger';
 
 export default function PropositionDetailsPageClient() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function PropositionDetailsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors de l\'acceptation');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }
@@ -62,7 +63,7 @@ export default function PropositionDetailsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors du refus');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }

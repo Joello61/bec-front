@@ -11,6 +11,7 @@ import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/c
 import type { VoyageFilters as VoyageFiltersType, Voyage } from '@/types';
 import { CreateVoyageFormData } from '@/lib/validations/voyage.schema';
 import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
+import { logger } from '@/lib/utils/logger';
 
 export default function VoyagesPageClient() {
   const [filters, setFilters] = useState<VoyageFiltersType>({});
@@ -75,7 +76,7 @@ export default function VoyagesPageClient() {
       toast.success("Voyage créé avec succès !");
     } catch (error) {
       toast.error("Erreur lors de la création du voyage");
-      console.error(error);
+      logger.error(error);
     }
   };
 

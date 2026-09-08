@@ -8,6 +8,7 @@ import {
   isOnline,
   onConnectionChange,
 } from '@/lib/utils/pwa/registerSW';
+import { logger } from '@/lib/utils/logger';
 
 // Etat externe (navigator.onLine, display-mode) : useSyncExternalStore evite
 // tout setState synchrone dans un effet et reste coherent avec l'hydratation SSR.
@@ -45,7 +46,7 @@ export default function PWAProvider({ children }: { children: React.ReactNode })
     getServiceWorkerVersion().then((version) => {
       if (version) {
         setSwVersion(version);
-        console.log('[PWA] Version actuelle:', version);
+        logger.log('[PWA] Version actuelle:', version);
       }
     });
   }, []);
@@ -53,12 +54,12 @@ export default function PWAProvider({ children }: { children: React.ReactNode })
   // Logs pour le développement
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
-      console.log('[PWA] Mode développement - SW désactivé');
-      console.log('[PWA] Pour tester le SW : npm run build && npm start');
+      logger.log('[PWA] Mode développement - SW désactivé');
+      logger.log('[PWA] Pour tester le SW : npm run build && npm start');
     }
 
     if (isPWA) {
-      console.log('[PWA] Application installée en mode standalone');
+      logger.log('[PWA] Application installée en mode standalone');
     }
   }, [isPWA]);
 

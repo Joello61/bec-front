@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { AlertTriangle, RefreshCw, Home, ArrowLeft } from 'lucide-react'
+import { logger } from '@/lib/utils/logger'
 
 export default function Error({
   error,
@@ -13,7 +14,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log l'erreur pour le monitoring
-    console.error('Error caught by error boundary:', error)
+    logger.error('Error caught by error boundary:', error)
   }, [error])
 
   return (
