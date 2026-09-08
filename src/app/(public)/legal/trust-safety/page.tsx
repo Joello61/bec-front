@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import TrustSafetyPageClient from '@/components/clients/public/trust-safety-client';
+import TrustSafetyContent from '@/components/legal/TrustSafetyContent';
 import Script from 'next/script';
 
 const APP_URL =
@@ -174,7 +174,7 @@ export default function TrustSafetyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(trustSafetySchema) }}
       />
-      <TrustSafetyPageClient />
+      <TrustSafetyContent />
     </>
   );
 }

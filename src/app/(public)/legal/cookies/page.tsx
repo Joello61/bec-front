@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import CookiePolicyPageClient from '@/components/clients/public/cookies-page-client';
+import CookiesContent from '@/components/legal/CookiesContent';
 import Script from 'next/script';
 
 const APP_URL =
@@ -115,7 +115,7 @@ export default function CookiePolicyPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(cookiesPageSchema) }}
       />
-      <CookiePolicyPageClient />
+      <CookiesContent />
     </>
   );
 }

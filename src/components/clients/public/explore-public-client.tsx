@@ -1,17 +1,18 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { VoyageFilters as VoyageFiltersType, DemandeFilters as DemandeFiltersType } from '@/types';
 import { usePublicVoyages } from "@/lib/hooks/useVoyages";
 import { usePublicDemandes } from "@/lib/hooks/useDemandes";
-import { Package, Plane, SlidersHorizontal, X } from "lucide-react";
-import { cn } from "@/lib/utils/cn";
+import { Package, Plane, SlidersHorizontal } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { VoyageFilters } from "@/components/voyage";
 import { DemandeFilters } from "@/components/demande";
 import { EmptyState, LoadingSpinner } from "@/components/common";
 import PublicVoyageList from "@/components/voyage/PublicVoyageList";
 import PublicDemandeList from "@/components/demande/PublicDemandeList";
+import ExploreTabs from "@/components/explore/ExploreTabs";
+import ExploreFiltersDrawer from "@/components/explore/ExploreFiltersDrawer";
 
 type TabType = 'voyages' | 'demandes';
 
@@ -75,25 +76,21 @@ export default function RechercherPublicPageClient() {
         key => demandeFilters[key as keyof DemandeFiltersType]
     ).length;
 
-    const activeFiltersCount = activeTab === 'voyages' 
-    ? activeVoyageFiltersCount 
+    const activeFiltersCount = activeTab === 'voyages'
+    ? activeVoyageFiltersCount
     : activeDemandeFiltersCount;
 
     // Vérifier si filtres existent
     const hasVoyageFilters = Object.keys(voyageFilters).some(key => voyageFilters[key as keyof VoyageFiltersType]);
     const hasDemandeFilters = Object.keys(demandeFilters).some(key => demandeFilters[key as keyof DemandeFiltersType]);
 
-    // Empêcher le scroll du body quand le drawer est ouvert
-    useEffect(() => {
-        if (showFiltersDrawer) {
-        document.body.style.overflow = 'hidden';
+    const handleResetFilters = () => {
+        if (activeTab === 'voyages') {
+            setVoyageFilters({});
         } else {
-        document.body.style.overflow = '';
+            setDemandeFilters({});
         }
-        return () => {
-        document.body.style.overflow = '';
-        };
-    }, [showFiltersDrawer]);
+    };
 
     return (
     <div className="min-h-screen bg-gray-50">
@@ -108,101 +105,7 @@ export default function RechercherPublicPageClient() {
           </p>
         </div>
 
-        {/* Tabs Navigation - Version Mobile Simplifiée */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 mb-4 md:mb-8">
-          {/* Mobile: Segmented Control Style */}
-          <div className="md:hidden p-1.5">
-            <div className="flex gap-1.5 bg-gray-100 rounded-xl p-1">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.id;
-
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={cn(
-                      'flex-1 relative px-3 py-2.5 rounded-lg font-medium text-sm transition-all duration-200',
-                      isActive
-                        ? 'bg-white text-primary shadow-sm'
-                        : 'text-gray-600'
-                    )}
-                  >
-                    <div className="flex items-center justify-center gap-2">
-                      <Icon className="w-4 h-4" />
-                      <span>{tab.label}</span>
-                      <span className={cn(
-                        'text-xs px-1.5 py-0.5 rounded-full',
-                        isActive 
-                          ? 'bg-primary/10 text-primary' 
-                          : 'bg-gray-200 text-gray-600'
-                      )}>
-                        {tab.count}
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Desktop: Original Design */}
-          <div className="hidden md:block p-2">
-            <div className="grid grid-cols-2 gap-2">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.id;
-
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className="cursor-pointer relative"
-                  >
-                    <div
-                      className={cn(
-                        'relative flex items-center justify-center gap-3 px-4 py-4 rounded-xl font-medium transition-colors',
-                        isActive
-                          ? 'text-white'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      )}
-                    >
-                      {isActive && (
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary to-primary-dark shadow-lg" />
-                      )}
-
-                      <div className="relative flex items-center gap-3">
-                        <div className={cn(
-                          'w-10 h-10 rounded-lg items-center justify-center transition-all flex',
-                          isActive ? 'bg-white/20' : 'bg-gray-100'
-                        )}>
-                          <Icon className={cn(
-                            'w-5 h-5',
-                            isActive ? 'text-white' : 'text-gray-600'
-                          )} />
-                        </div>
-
-                        <div className="flex flex-col items-start">
-                          <span className="text-sm font-semibold">
-                            {tab.label}
-                          </span>
-                          <span
-                            className={cn(
-                              'text-xs',
-                              isActive ? 'text-white/80' : 'text-gray-500'
-                            )}
-                          >
-                            {tab.count} disponible{tab.count > 1 ? 's' : ''}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        <ExploreTabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
         {/* Filter Button (Mobile) + Desktop Filters */}
         <div className="mb-6 md:mb-8">
@@ -324,94 +227,28 @@ export default function RechercherPublicPageClient() {
         </AnimatePresence>
       </div>
 
-      {/* Mobile: Filters Drawer (Bottom Sheet) */}
-      <AnimatePresence>
-        {showFiltersDrawer && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowFiltersDrawer(false)}
-              className="md:hidden fixed inset-0 bg-black/50 z-40"
-            />
-
-            {/* Drawer */}
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="md:hidden fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col"
-            >
-              {/* Header du drawer */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                <div className="flex items-center gap-3">
-                  <SlidersHorizontal className="w-5 h-5 text-primary" />
-                  <h2 className="text-lg font-bold text-gray-900">
-                    Filtres
-                  </h2>
-                  {activeFiltersCount > 0 && (
-                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs font-bold rounded-full">
-                      {activeFiltersCount}
-                    </span>
-                  )}
-                </div>
-                <button
-                  onClick={() => setShowFiltersDrawer(false)}
-                  className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                >
-                  <X className="w-5 h-5 text-gray-600" />
-                </button>
-              </div>
-
-              {/* Contenu scrollable */}
-              <div className="flex-1 overflow-y-auto px-6 py-4">
-                {activeTab === 'voyages' ? (
-                  <VoyageFilters
-                    onFilterChange={handleVoyageFilterChange}
-                    initialFilters={voyageFilters}
-                    refetchVoyages={refetchVoyages}
-                    isPublic={true}
-                  />
-                ) : (
-                  <DemandeFilters
-                    onFilterChange={handleDemandeFilterChange}
-                    initialFilters={demandeFilters}
-                    refetchDemandes={refetchDemandes}
-                    isPublic={true}
-                  />
-                )}
-              </div>
-
-              {/* Footer avec actions */}
-              <div className="px-6 py-4 border-t border-gray-200 bg-white">
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => {
-                      if (activeTab === 'voyages') {
-                        setVoyageFilters({});
-                      } else {
-                        setDemandeFilters({});
-                      }
-                    }}
-                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Réinitialiser
-                  </button>
-                  <button
-                    onClick={() => setShowFiltersDrawer(false)}
-                    className="flex-1 px-4 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary-dark transition-colors shadow-sm"
-                  >
-                    Voir les résultats
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </>
+      <ExploreFiltersDrawer
+        isOpen={showFiltersDrawer}
+        onClose={() => setShowFiltersDrawer(false)}
+        activeFiltersCount={activeFiltersCount}
+        onReset={handleResetFilters}
+      >
+        {activeTab === 'voyages' ? (
+          <VoyageFilters
+            onFilterChange={handleVoyageFilterChange}
+            initialFilters={voyageFilters}
+            refetchVoyages={refetchVoyages}
+            isPublic={true}
+          />
+        ) : (
+          <DemandeFilters
+            onFilterChange={handleDemandeFilterChange}
+            initialFilters={demandeFilters}
+            refetchDemandes={refetchDemandes}
+            isPublic={true}
+          />
         )}
-      </AnimatePresence>
+      </ExploreFiltersDrawer>
     </div>
   );
 }

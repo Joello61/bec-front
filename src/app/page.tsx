@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import HomePageClient from '../components/clients/public/home-page-client';
+import HomePageContent from '../components/home/HomePageContent';
 import Script from 'next/script';
 
 const APP_URL =
@@ -163,7 +163,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <HomePageClient />
+      <HomePageContent />
     </>
   );
 }
