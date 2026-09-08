@@ -20,6 +20,16 @@ export const usersApi = {
     return response.data;
   },
 
+  /**
+   * Supprime son propre compte (soft-delete/anonymisation RGPD).
+   * currentPassword est requis pour un compte local, omis pour un compte OAuth pur.
+   */
+  async deleteAccount(currentPassword?: string): Promise<void> {
+    await apiClient.delete(endpoints.users.deleteMe, {
+      data: currentPassword ? { currentPassword } : {},
+    });
+  },
+
   async search(query: string): Promise<User[]> {
     const response = await apiClient.get<User[]>(endpoints.users.search, {
       params: { q: query },
