@@ -1,5 +1,6 @@
 import { useAdminStore } from '@/lib/store/adminStore';
 import { useCallback } from 'react';
+import { logger } from '@/lib/utils/logger';
 
 /**
  * Hook personnalisé pour simplifier l'utilisation du store admin
@@ -20,9 +21,9 @@ export function useAdmin() {
         store.fetchActivityStats(),
         store.fetchEngagementStats(),
       ]);
-      console.log('[Admin] Statistiques rechargées avec succès');
+      logger.log('[Admin] Statistiques rechargées avec succès');
     } catch (err) {
-      console.error('[Admin] Erreur lors du refetch des stats', err);
+      logger.error('[Admin] Erreur lors du refetch des stats', err);
     }
   }, [store]);
 

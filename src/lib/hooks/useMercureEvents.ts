@@ -21,6 +21,7 @@ import {
 import { useInAppNotification } from './useInAppNotification';
 import { useContacts } from './useContacts';
 import { useGlobalMercureSubscription } from './useMercureSubscription';
+import { logger } from '@/lib/utils/logger';
 
 export function useMercureEvents() {
   const router = useRouter();
@@ -96,6 +97,6 @@ export function useMercureEvents() {
 
   // Simple log d’état
   useEffect(() => {
-    console.log('[Mercure] Prêt à dispatcher les événements via handlers...');
+    logger.log('[Mercure] Prêt à dispatcher les événements via handlers...');
   }, []);
 }

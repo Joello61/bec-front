@@ -4,6 +4,7 @@ import { mercureService } from '@/lib/services/mercureService';
 import type { StableContext } from '@/types/realtime';
 import { EventType, EventTypeValue } from '@/lib/utils/eventType';
 import { dispatchMercureEvent } from '../handlers';
+import { logger } from '@/lib/utils/logger';
 
 /**
  * Hook global React pour initialiser la connexion Mercure
@@ -29,7 +30,7 @@ export function useGlobalMercureSubscription(stable: StableContext) {
   topics.forEach((topic) => mercureService.addTopic(topic));
   mercureService.connect();
 
-  console.log('[Mercure] Connecté aux topics globaux:', topics);
+  logger.log('[Mercure] Connecté aux topics globaux:', topics);
 
   const eventTypes = Object.values(EventType) as EventTypeValue[];
   const unsubscribers = eventTypes.map((eventType) =>
@@ -39,7 +40,7 @@ export function useGlobalMercureSubscription(stable: StableContext) {
   );
 
   return () => {
-    console.log('[Mercure] Déconnexion et nettoyage des listeners');
+    logger.log('[Mercure] Déconnexion et nettoyage des listeners');
     unsubscribers.forEach((unsub) => unsub());
     mercureService.disconnect();
   };
