@@ -39,6 +39,16 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
+  // bec-infra/docker/nginx/dev.conf fait pont vers ce serveur `next dev` (conteneur
+  // "frontend", port interne 3000) sous l'origine http://127.0.0.1:8000 - sans cette
+  // liste, Next.js bloque par defaut toute requete cross-origin vers ses ressources de
+  // dev (HMR notamment) des lors que l'origine du navigateur differe de l'hote de
+  // demarrage du serveur (doc officielle Next.js, allowedDevOrigins). Constate : le
+  // websocket HMR echouait silencieusement (ERR_INVALID_HTTP_RESPONSE) et l'hydratation
+  // React ne se terminait jamais en passant par le pont nginx - reproductible avec
+  // n'importe quelle interaction cote client (formulaires, bouton oeil mot de passe).
+  allowedDevOrigins: ['127.0.0.1', 'localhost'],
+
   typescript: {
     ignoreBuildErrors: false,
   },
