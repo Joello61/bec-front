@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { adminApi } from '@/lib/api/admin';
+import { createAsyncAction } from './createAsyncAction';
 import type {
   AdminDashboardData,
   AdminVoyagesStats,
@@ -108,357 +108,160 @@ export const useAdminStore = create<AdminState>((set) => ({
   error: null,
 
   // ==================== DASHBOARD ====================
-  fetchDashboard: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchDashboard: () =>
+    createAsyncAction(set, async () => {
       const dashboardData = await adminApi.getDashboard();
       set({ dashboardData, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement du dashboard',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement du dashboard' }),
 
-  fetchUsersStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUsersStats: () =>
+    createAsyncAction(set, async () => {
       const usersStats = await adminApi.getUsersStats();
       set({ usersStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des stats utilisateurs',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des stats utilisateurs' }),
 
-  fetchVoyagesStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchVoyagesStats: () =>
+    createAsyncAction(set, async () => {
       const voyagesStats = await adminApi.getVoyagesStats();
       set({ voyagesStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des stats voyages',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des stats voyages' }),
 
-  fetchDemandesStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchDemandesStats: () =>
+    createAsyncAction(set, async () => {
       const demandesStats = await adminApi.getDemandesStats();
       set({ demandesStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des stats demandes',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des stats demandes' }),
 
-  fetchSignalementsStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchSignalementsStats: () =>
+    createAsyncAction(set, async () => {
       const signalementsStats = await adminApi.getSignalementsStats();
       set({ signalementsStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des stats signalements',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des stats signalements' }),
 
-  fetchActivityStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchActivityStats: () =>
+    createAsyncAction(set, async () => {
       const activityStats = await adminApi.getActivityStats();
       set({ activityStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors du chargement des stats d'activité",
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: "Erreur lors du chargement des stats d'activité" }),
 
-  fetchEngagementStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchEngagementStats: () =>
+    createAsyncAction(set, async () => {
       const engagementStats = await adminApi.getEngagementStats();
       set({ engagementStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors du chargement des stats d'engagement",
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: "Erreur lors du chargement des stats d'engagement" }),
 
   // ==================== USERS ====================
-  fetchUsers: async (page = 1, limit = 20, filters) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUsers: (page = 1, limit = 20, filters) =>
+    createAsyncAction(set, async () => {
       const response = await adminApi.getUsers(page, limit, filters);
-      set({
-        users: response.data,
-        usersPagination: response.pagination,
-        isLoading: false,
-      });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des utilisateurs',
-        isLoading: false,
-      });
-    }
-  },
+      set({ users: response.data, usersPagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des utilisateurs' }),
 
-  fetchUserDetails: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUserDetails: (id) =>
+    createAsyncAction(set, async () => {
       const currentUser = await adminApi.getUserDetails(id);
       set({ currentUser, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors du chargement des détails de l'utilisateur",
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: "Erreur lors du chargement des détails de l'utilisateur" }),
 
-  fetchUserActivity: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUserActivity: (id) =>
+    createAsyncAction(set, async () => {
       const userActivity = await adminApi.getUserActivity(id);
       set({ userActivity, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors du chargement de l'activité",
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: "Erreur lors du chargement de l'activité" }),
 
-  fetchUserAdminLogs: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUserAdminLogs: (id) =>
+    createAsyncAction(set, async () => {
       const userAdminLogs = await adminApi.getUserAdminLogs(id);
       set({ userAdminLogs, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des logs',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des logs' }),
 
-  searchUsers: async (query) => {
-    set({ isLoading: true, error: null });
-    try {
+  searchUsers: (query) =>
+    createAsyncAction(set, async () => {
       const users = await adminApi.searchUsers(query);
       set({ users, isLoading: false });
       return users;
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors de la recherche',
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la recherche', rethrow: true }),
 
-  banUser: async (id, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  banUser: (id, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.banUser(id, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors du bannissement de l'utilisateur",
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors du bannissement de l'utilisateur", rethrow: true }),
 
-  unbanUser: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  unbanUser: (id) =>
+    createAsyncAction(set, async () => {
       await adminApi.unbanUser(id);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors du débannissement de l'utilisateur",
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors du débannissement de l'utilisateur", rethrow: true }),
 
-  updateUserRoles: async (id, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateUserRoles: (id, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.updateUserRoles(id, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors de la mise à jour des rôles',
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la mise à jour des rôles', rethrow: true }),
 
-  deleteUser: async (id, reason) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteUser: (id, reason) =>
+    createAsyncAction(set, async () => {
       await adminApi.deleteUser(id, reason);
-      set((state) => ({
-        users: state.users.filter((u) => u.id !== id),
-        isLoading: false,
-      }));
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors de la suppression de l'utilisateur",
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+      set((state) => ({ users: state.users.filter((u) => u.id !== id), isLoading: false }));
+    }, { fallbackError: "Erreur lors de la suppression de l'utilisateur", rethrow: true }),
 
   // ==================== MODÉRATION ====================
-  deleteVoyage: async (id, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteVoyage: (id, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.deleteVoyage(id, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors de la suppression du voyage',
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression du voyage', rethrow: true }),
 
-  deleteDemande: async (id, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteDemande: (id, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.deleteDemande(id, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors de la suppression de la demande',
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression de la demande', rethrow: true }),
 
-  deleteAvis: async (id, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteAvis: (id, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.deleteAvis(id, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors de la suppression de l'avis",
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de la suppression de l'avis", rethrow: true }),
 
-  deleteMessage: async (id, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteMessage: (id, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.deleteMessage(id, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors de la suppression du message',
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression du message', rethrow: true }),
 
-  deleteAllUserContent: async (userId, input) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteAllUserContent: (userId, input) =>
+    createAsyncAction(set, async () => {
       await adminApi.deleteAllUserContent(userId, input);
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors de la suppression des contenus',
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression des contenus', rethrow: true }),
 
   // ==================== LOGS ====================
-  fetchLogs: async (page = 1, limit = 20, filters) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchLogs: (page = 1, limit = 20, filters) =>
+    createAsyncAction(set, async () => {
       const response = await adminApi.getLogs(page, limit, filters);
-      set({
-        logs: response.data,
-        logsPagination: response.pagination,
-        isLoading: false,
-      });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des logs',
-        isLoading: false,
-      });
-    }
-  },
+      set({ logs: response.data, logsPagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des logs' }),
 
-  fetchLogsByAdmin: async (adminId) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchLogsByAdmin: (adminId) =>
+    createAsyncAction(set, async () => {
       const logs = await adminApi.getLogsByAdmin(adminId);
       set({ logs, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des logs',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des logs' }),
 
-  fetchLogsStats: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchLogsStats: () =>
+    createAsyncAction(set, async () => {
       const logsStats = await adminApi.getLogsStats();
       set({ logsStats, isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du chargement des stats logs',
-        isLoading: false,
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des stats logs' }),
 
-  exportLogs: async (filters) => {
-    set({ isLoading: true, error: null });
-    try {
+  exportLogs: (filters) =>
+    createAsyncAction(set, async () => {
       const blob = await adminApi.exportLogs(filters);
       set({ isLoading: false });
       return blob;
-    } catch (error: any) {
-      set({
-        error: error.message || "Erreur lors de l'export des logs",
-        isLoading: false,
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de l'export des logs", rethrow: true }),
 
   // ==================== UTILS ====================
   clearError: () => set({ error: null }),
