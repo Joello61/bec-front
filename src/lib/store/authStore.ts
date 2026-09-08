@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { authApi } from '@/lib/api/auth';
+import { usersApi } from '@/lib/api/users';
 import type { 
   User, 
   LoginInput, 
@@ -36,7 +37,10 @@ interface AuthState {
   
   // Actions de mot de passe
   changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
-  
+
+  // Suppression de compte (self-service, RGPD)
+  deleteAccount: (currentPassword?: string) => Promise<void>;
+
   // Utilitaires
   clearError: () => void;
   setPendingEmail: (email: string) => void;
@@ -235,9 +239,32 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       await authApi.changePassword({ currentPassword, newPassword });
       set({ isLoading: false });
     } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du changement de mot de passe', 
-        isLoading: false 
+      set({
+        error: error.message || 'Erreur lors du changement de mot de passe',
+        isLoading: false
+      });
+      throw error;
+    }
+  },
+
+  deleteAccount: async (currentPassword?: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      await usersApi.deleteAccount(currentPassword);
+      set({
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+        isInitialized: true,
+        error: null,
+        pendingEmail: null,
+      });
+    } catch (error: any) {
+      // Echec (mot de passe incorrect, compte admin...) : l'utilisateur reste connecte,
+      // contrairement a logout() dont l'echec ne peut de toute facon plus etre annule cote API.
+      set({
+        isLoading: false,
+        error: error.message || 'Erreur lors de la suppression du compte',
       });
       throw error;
     }
