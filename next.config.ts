@@ -5,6 +5,18 @@ const mercureOrigin = new URL(
   process.env.NEXT_PUBLIC_MERCURE_HUB_URL || 'http://localhost:3001/.well-known/mercure'
 ).origin;
 
+// next dev --turbopack (bec-infra/docker-compose.yml, service "frontend", target: dev)
+// injecte ses propres scripts inline (runtime Fast Refresh/HMR, overlay d'erreurs) en plus
+// du payload RSC standard (self.__next_f) que Next.js injecte aussi en production - la CSP
+// ci-dessous avait ete verifiee uniquement via `npm run build && npm run start` (voir le
+// commit qui l'a introduite), jamais via `next dev`. Sans 'unsafe-inline'/nonce, TOUS ces
+// scripts inline sont bloques par le navigateur y compris celui qui hydrate React, d'ou des
+// pages entierement blanches en developpement (constate : erreurs CSP "script-src" dans la
+// console + `InvariantError: Expected a request ID... self.__next_r`, symptome classique du
+// payload RSC bloque). Pas de regression en production : cette CSP ne s'applique qu'a ce
+// mode (voir son usage conditionnel dans headers() ci-dessous).
+const isProd = process.env.NODE_ENV === 'production';
+
 // Seuls tiers identifies dans le code (CookiesConsent.tsx, HomeBannerAd.tsx) : Google Analytics + AdSense.
 const cspHeader = `
   default-src 'self';
@@ -71,7 +83,7 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(self)' },
           { key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' },
-          { key: 'Content-Security-Policy', value: cspHeader },
+          ...(isProd ? [{ key: 'Content-Security-Policy', value: cspHeader }] : []),
         ],
       },
       {
