@@ -48,7 +48,7 @@ export const useRealTimeNotificationStore = create<RealTimeNotificationState>((s
     })),
 
   clear: () => {
-    console.log('[Store] clear() → purge totale des notifications');
+    console.log('[Store] clear() -> purge totale des notifications');
     set({ realTimeNotifications: [] });
   },
 }));

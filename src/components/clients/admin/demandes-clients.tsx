@@ -22,7 +22,7 @@ export default function AdminModerationDemandesPageClient() {
 
   const router = useRouter();
 
-  // ✅ Utiliser useMemo pour stabiliser l'objet filters
+  // Utiliser useMemo pour stabiliser l'objet filters
   const filters = useMemo<DemandeFilters | undefined>(() => {
     return statusFilter ? { statut: statusFilter as DemandeStatut } : undefined;
   }, [statusFilter]);

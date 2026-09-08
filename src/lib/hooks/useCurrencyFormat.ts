@@ -41,7 +41,7 @@ export function useCurrencyFormat() {
   ): string => {
     const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
     
-    if (isNaN(numAmount)) return '—';
+    if (isNaN(numAmount)) return '-';
 
     // Cas spécial pour le FCFA (pas de décimales)
     if (currencyCode === 'XAF' || currencyCode === 'XOF') {

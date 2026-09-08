@@ -107,7 +107,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       onBlur?.();
     };
 
-    // ✅ Gestion de la recherche avec debounce
+    // Gestion de la recherche avec debounce
     const handleSearchChange = (query: string) => {
       setSearchQuery(query);
 
@@ -125,7 +125,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
             option.label.toLowerCase().includes(query.toLowerCase())
           );
 
-          // ✅ N'appeler l'API QUE si aucun résultat local trouvé
+          // N'appeler l'API QUE si aucun résultat local trouvé
           if (localResults.length === 0) {
             onSearch(query);
           }
@@ -133,7 +133,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       }
     };
 
-    // ✅ Nettoyage du timeout
+    // Nettoyage du timeout
     useEffect(() => {
       return () => {
         if (searchTimeoutRef.current) {
@@ -142,7 +142,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
       };
     }, []);
 
-    // ✅ TOUJOURS filtrer localement d'abord (pour résultats instantanés)
+    // TOUJOURS filtrer localement d'abord (pour résultats instantanés)
     const filteredOptions = searchable && searchQuery
       ? options.filter((option) =>
           option.label.toLowerCase().includes(searchQuery.toLowerCase())

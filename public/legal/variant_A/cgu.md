@@ -6,16 +6,16 @@
 
 ---
 
-## ⚡ RÉSUMÉ EN LANGAGE CLAIR
+## RÉSUMÉ EN LANGAGE CLAIR
 
 **Co-Bage** est une plateforme gratuite (en phase bêta test) qui met en relation voyageurs et expéditeurs.
 
-🎯 **Ce que nous faisons** : Faciliter les contacts entre utilisateurs  
-❌ **Ce que nous NE faisons PAS** : Gérer l'argent, organiser les transports, garantir les échanges
+**Ce que nous faisons** : Faciliter les contacts entre utilisateurs  
+**Ce que nous NE faisons PAS** : Gérer l'argent, organiser les transports, garantir les échanges
 
-⚠️ **Important** : Vous êtes seuls responsables de vos arrangements. Vérifiez toujours le contenu des objets transportés. Le transport d'objets illégaux (drogues, armes, contrefaçons) entraîne un signalement immédiat aux autorités.
+**Important** : Vous êtes seuls responsables de vos arrangements. Vérifiez toujours le contenu des objets transportés. Le transport d'objets illégaux (drogues, armes, contrefaçons) entraîne un signalement immédiat aux autorités.
 
-📱 **Phase bêta gratuite** : Le service est actuellement gratuit pour tous les utilisateurs pendant la phase de test. Des fonctionnalités payantes pourront être introduites ultérieurement, moyennant information préalable de 30 jours minimum.
+**Phase bêta gratuite** : Le service est actuellement gratuit pour tous les utilisateurs pendant la phase de test. Des fonctionnalités payantes pourront être introduites ultérieurement, moyennant information préalable de 30 jours minimum.
 
 ---
 
@@ -181,7 +181,7 @@ Bouton présent sur chaque annonce et message pour alerter la modération.
 
 ### 5.2 Gratuité / Tarification
 
-**Phase bêta (Variante A — SAFE)** :
+**Phase bêta (Variante A - SAFE)** :
 
 L'utilisation de la Plateforme est actuellement **gratuite** dans le cadre d'une **phase de test ("bêta publique")** destinée à évaluer et améliorer le Service.
 
@@ -229,12 +229,12 @@ Co-Bage se réserve le droit de modérer les contenus pour faire respecter les C
 
 Mesures de sécurité mises en œuvre (état de l'art 2025) :
 
-- ✅ Chiffrement TLS 1.3 (HTTPS)
-- ✅ Hachage des mots de passe (bcrypt)
-- ✅ Double authentification (2FA) disponible
-- ✅ Pare-feu et protection DDoS
-- ✅ Sauvegardes régulières
-- ✅ Surveillance des accès
+- Chiffrement TLS 1.3 (HTTPS)
+- Hachage des mots de passe (bcrypt)
+- Double authentification (2FA) disponible
+- Pare-feu et protection DDoS
+- Sauvegardes régulières
+- Surveillance des accès
 
 ### 6.5 Pas de vérification d'identité
 
@@ -256,12 +256,12 @@ Co-Bage ne participe pas aux :
 
 **Interdictions** :
 
-- ❌ Usurpation d'identité
-- ❌ Publication de contenus illicites
-- ❌ Diffusion de malware
-- ❌ Scraping automatisé
-- ❌ Spam publicitaire
-- ❌ Harcèlement, injures, discrimination
+- Usurpation d'identité
+- Publication de contenus illicites
+- Diffusion de malware
+- Scraping automatisé
+- Spam publicitaire
+- Harcèlement, injures, discrimination
 
 ### 7.2 Véracité des annonces
 
@@ -276,7 +276,7 @@ Les Utilisateurs doivent respecter :
 - Franchises fiscales
 - Assurance RC personnelle
 
-⚠️ **Responsabilité personnelle** : En tant que voyageur, vous êtes responsable des objets que vous transportez. **Vérifiez TOUJOURS le contenu** avant de partir.
+**Responsabilité personnelle** : En tant que voyageur, vous êtes responsable des objets que vous transportez. **Vérifiez TOUJOURS le contenu** avant de partir.
 
 ### 7.4 Protection de la vie privée d'autrui
 
@@ -303,19 +303,19 @@ Tout contenu ou comportement illicite doit être signalé via le bouton de signa
 
 ### 8.1 Objets autorisés (exemples)
 
-✅ Vêtements, chaussures, accessoires  
-✅ Livres, documents non confidentiels  
-✅ Produits alimentaires non périssables emballés  
-✅ Électronique grand public (usage personnel)  
-✅ Cadeaux, souvenirs, décoration  
-✅ Matériel médical non réglementé  
-✅ Médicaments sur ordonnance avec justificatifs
+Vêtements, chaussures, accessoires  
+Livres, documents non confidentiels  
+Produits alimentaires non périssables emballés  
+Électronique grand public (usage personnel)  
+Cadeaux, souvenirs, décoration  
+Matériel médical non réglementé  
+Médicaments sur ordonnance avec justificatifs
 
 **Vérifiez toujours les restrictions douanières du pays de destination.**
 
 ### 8.2 Objets strictement interdits
 
-#### 🚫 Interdictions absolues :
+#### Interdictions absolues :
 
 **a) Armes et munitions**
 
@@ -365,14 +365,14 @@ Tout contenu ou comportement illicite doit être signalé via le bouton de signa
 
 **Sanctions immédiates** :
 
-- 🔴 Suppression de l'annonce
-- 🔴 Suspension/résiliation du compte
-- 🔴 **Signalement aux autorités** : police, douanes, TRACFIN
-- 🔴 Conservation des preuves (3 ans minimum)
+- Suppression de l'annonce
+- Suspension/résiliation du compte
+- **Signalement aux autorités** : police, douanes, TRACFIN
+- Conservation des preuves (3 ans minimum)
 
 **Exemple d'annonce INTERDITE** :
 
-> ❌ « Cherche voyageur pour transporter paquet discret entre Paris et Abidjan. 500€ cash, aucune question. »
+> « Cherche voyageur pour transporter paquet discret entre Paris et Abidjan. 500€ cash, aucune question. »
 
 **Action** : Suppression + signalement TRACFIN + OCRTIS + blocage IP + conservation données.
 
@@ -384,7 +384,7 @@ Tout contenu ou comportement illicite doit être signalé via le bouton de signa
 
 Les Utilisateurs se contactent via la messagerie interne. Les coordonnées personnelles peuvent être échangées **dans la messagerie** pour finaliser les arrangements.
 
-**⚠️ Ne jamais échanger** : numéros de carte bancaire, mots de passe, documents d'identité complets.
+**Ne jamais échanger** : numéros de carte bancaire, mots de passe, documents d'identité complets.
 
 ### 9.2 Règles de la messagerie
 
@@ -405,7 +405,7 @@ Les Utilisateurs se contactent via la messagerie interne. Les coordonnées perso
 
 **Exemple d'avertissement** :
 
-> ⚠️ **Attention** : Votre message contient des termes susceptibles de violer nos CGU. Le transport de substances illicites est strictement interdit et sera signalé aux autorités. Voulez-vous continuer ?
+> **Attention** : Votre message contient des termes susceptibles de violer nos CGU. Le transport de substances illicites est strictement interdit et sera signalé aux autorités. Voulez-vous continuer ?
 
 ### 9.4 Conservation des messages
 
@@ -433,11 +433,11 @@ Tous les arrangements financiers sont **hors plateforme**, directement entre Uti
 
 Recommandations :
 
-- ✅ Paiement en main propre (espèces)
-- ✅ Virement bancaire SEPA
-- ✅ Plateformes tierces (PayPal, Lydia) entre vous
+- Paiement en main propre (espèces)
+- Virement bancaire SEPA
+- Plateformes tierces (PayPal, Lydia) entre vous
 
-**⚠️ Vigilance arnaques** :
+**Vigilance arnaques** :
 
 - Pas de paiement d'avance sans garantie
 - Pas de virement vers comptes inconnus à l'étranger
@@ -537,13 +537,13 @@ Toute demande relative à la protection des données peut être adressée à cet
 
 Vous disposez des droits suivants :
 
-- ✅ **Droit d'accès** (art. 15) : obtenir une copie de vos données
-- ✅ **Droit de rectification** (art. 16) : corriger vos données
-- ✅ **Droit à l'effacement** (art. 17) : demander la suppression
-- ✅ **Droit à la limitation** (art. 18) : geler temporairement le traitement
-- ✅ **Droit à la portabilité** (art. 20) : récupérer vos données (JSON/CSV)
-- ✅ **Droit d'opposition** (art. 21) : s'opposer au traitement
-- ✅ **Droit de retirer le consentement** : à tout moment
+- **Droit d'accès** (art. 15) : obtenir une copie de vos données
+- **Droit de rectification** (art. 16) : corriger vos données
+- **Droit à l'effacement** (art. 17) : demander la suppression
+- **Droit à la limitation** (art. 18) : geler temporairement le traitement
+- **Droit à la portabilité** (art. 20) : récupérer vos données (JSON/CSV)
+- **Droit d'opposition** (art. 21) : s'opposer au traitement
+- **Droit de retirer le consentement** : à tout moment
 
 **Exercice** : Envoyez un e-mail à support@cobage.joeltech.dev avec copie de pièce d'identité. Réponse sous **1 mois**.
 
@@ -553,11 +553,11 @@ Vous disposez des droits suivants :
 
 Mesures techniques (conformité RGPD 2025) :
 
-- 🔒 Chiffrement TLS 1.3
-- 🔒 Hachage bcrypt (facteur ≥ 12)
-- 🔒 Sauvegardes chiffrées
-- 🔒 Journalisation des accès
-- 🔒 Notification CNIL sous 72h en cas de violation
+- Chiffrement TLS 1.3
+- Hachage bcrypt (facteur ≥ 12)
+- Sauvegardes chiffrées
+- Journalisation des accès
+- Notification CNIL sous 72h en cas de violation
 
 ### 12.7 Transferts hors UE
 
@@ -655,22 +655,22 @@ L'Utilisateur peut contester une décision en écrivant à support@cobage.joelte
 
 **Co-Bage décline toute responsabilité pour** :
 
-- ❌ Dommages liés à l'utilisation ou l'indisponibilité de la Plateforme
-- ❌ Perte de données
-- ❌ Agissements des Utilisateurs (escroquerie, vol, non-paiement)
-- ❌ Fiabilité ou honnêteté des Utilisateurs
-- ❌ Litiges entre Utilisateurs
-- ❌ Virus, cyberattaques
-- ❌ Erreurs dans les contenus publiés
+- Dommages liés à l'utilisation ou l'indisponibilité de la Plateforme
+- Perte de données
+- Agissements des Utilisateurs (escroquerie, vol, non-paiement)
+- Fiabilité ou honnêteté des Utilisateurs
+- Litiges entre Utilisateurs
+- Virus, cyberattaques
+- Erreurs dans les contenus publiés
 
 ### 15.2 Absence de garantie
 
 Co-Bage **ne garantit pas** :
 
-- ❌ La bonne exécution du transport
-- ❌ Le paiement effectif
-- ❌ L'authenticité des objets
-- ❌ L'exactitude des informations
+- La bonne exécution du transport
+- Le paiement effectif
+- L'authenticité des objets
+- L'exactitude des informations
 
 **Les Utilisateurs échangent ENTIÈREMENT À LEURS PROPRES RISQUES.**
 
@@ -726,9 +726,9 @@ Co-Bage se réserve le droit de modifier les présentes CGU à tout moment pour 
 
 **En cas de modification substantielle** :
 
-- 📧 Notification par e-mail
-- 📱 Bannière sur la Plateforme
-- ⏰ **Délai de 30 jours** avant entrée en vigueur
+- Notification par e-mail
+- Bannière sur la Plateforme
+- **Délai de 30 jours** avant entrée en vigueur
 
 (Sauf modifications mineures ou imposées par la loi)
 
@@ -736,8 +736,8 @@ Co-Bage se réserve le droit de modifier les présentes CGU à tout moment pour 
 
 **Vous disposez de 30 jours pour** :
 
-- ✅ Accepter les nouvelles CGU (utilisation continue = acceptation tacite)
-- ❌ Refuser et fermer votre compte (aucun frais)
+- Accepter les nouvelles CGU (utilisation continue = acceptation tacite)
+- Refuser et fermer votre compte (aucun frais)
 
 ### 16.4 Archivage
 
@@ -820,53 +820,53 @@ En cas de traduction, seule la version française fait foi.
 
 ## ANNEXE A : EXEMPLES D'ANNONCES
 
-### ✅ Exemple d'annonce CONFORME (Voyageur)
+### Exemple d'annonce CONFORME (Voyageur)
 
-> **Trajet Toulouse → Douala (Cameroun)**  
+> **Trajet Toulouse -> Douala (Cameroun)**  
 > **Dates** : 15-20 décembre 2025  
 > **Capacité disponible** : 8 kg  
 > **Objets acceptés** : Vêtements, livres, petits cadeaux (pas de liquides, pas de produits alimentaires périssables)  
 > **Conditions** : Remise en main propre à l'aéroport ou en ville (Bonapriso). Contribution transport : 40€ négociable. Paiement espèces ou virement avant départ.  
 > **Contact** : Via messagerie Co-Bage
 
-**✅ Pourquoi conforme** : Informations claires, objet légal, transparence sur les conditions.
+**Pourquoi conforme** : Informations claires, objet légal, transparence sur les conditions.
 
 ---
 
-### ❌ Exemple d'annonce INTERDITE (Expéditeur)
+### Exemple d'annonce INTERDITE (Expéditeur)
 
-> **Envoi urgent Paris → Yaoundé**  
+> **Envoi urgent Paris -> Yaoundé**  
 > **Objet** : Colis 3 kg (contenu confidentiel, ne pas ouvrir)  
 > **Paiement** : 500€ en cash, discrétion totale, aucune question.
 
-**❌ Pourquoi interdite** : « Contenu confidentiel », « aucune question », « discrétion totale » = suspicion de contrebande.
+**Pourquoi interdite** : « Contenu confidentiel », « aucune question », « discrétion totale » = suspicion de contrebande.
 
 **Action automatique** : Suppression immédiate + enquête + signalement possible aux autorités + conservation des preuves.
 
 ---
 
-### ✅ Exemple d'annonce CONFORME (Expéditeur)
+### Exemple d'annonce CONFORME (Expéditeur)
 
-> **Besoin d'aide Paris → Lyon**  
+> **Besoin d'aide Paris -> Lyon**  
 > **Objet** : Livre rare (édition originale 1950) - "Les Misérables" de Victor Hugo  
 > **Dimensions** : 25x20x5 cm, environ 2 kg  
 > **Date souhaitée** : Entre le 1er et le 10 novembre 2025  
 > **Conditions** : Remise en main propre à Paris, réception Lyon centre. Contribution frais : 25€. Objet emballé et protégé.  
 > **Contact** : Via messagerie Co-Bage
 
-**✅ Pourquoi conforme** : Description précise, objet légal, conditions claires.
+**Pourquoi conforme** : Description précise, objet légal, conditions claires.
 
 ---
 
-### ❌ Exemple d'annonce INTERDITE (Voyageur)
+### Exemple d'annonce INTERDITE (Voyageur)
 
-> **Vol régulier Amsterdam → Paris chaque semaine**  
+> **Vol régulier Amsterdam -> Paris chaque semaine**  
 > **Capacité** : 15 kg disponibles  
 > **Spécialité** : Transport discret, pas de questions sur le contenu  
 > **Tarif** : À négocier selon nature du colis  
 > **Paiement cash uniquement**
 
-**❌ Pourquoi interdite** : « Transport discret », « pas de questions », trajets réguliers suspects = configuration typique de contrebande.
+**Pourquoi interdite** : « Transport discret », « pas de questions », trajets réguliers suspects = configuration typique de contrebande.
 
 **Action automatique** : Suppression + signalement TRACFIN + enquête approfondie + blocage compte.
 
@@ -874,7 +874,7 @@ En cas de traduction, seule la version française fait foi.
 
 ## ANNEXE B : CHECKLIST DE CONFORMITÉ
 
-### ✅ Conformité juridique
+### Conformité juridique
 
 - [x] CGU rédigées et adaptées au statut étudiant
 - [x] Mentions légales complètes (éditeur personne physique)
@@ -885,7 +885,7 @@ En cas de traduction, seule la version française fait foi.
 - [x] Formulaire de contact accessible
 - [x] Information sur l'absence de médiation (non professionnel)
 
-### ✅ RGPD / Protection des données
+### RGPD / Protection des données
 
 - [x] Responsable de traitement identifié (personne physique)
 - [x] Bases légales identifiées pour chaque traitement
@@ -897,7 +897,7 @@ En cas de traduction, seule la version française fait foi.
 - [ ] DPO : Non obligatoire pour projet étudiant sans traitement à grande échelle
 - [ ] DPIA : Recommandée si messagerie + géolocalisation (à réaliser si déploiement large)
 
-### ✅ Sécurité technique
+### Sécurité technique
 
 - [x] HTTPS (TLS 1.3) activé
 - [x] Mots de passe hachés (bcrypt, facteur ≥ 12)
@@ -907,7 +907,7 @@ En cas de traduction, seule la version française fait foi.
 - [x] Sauvegardes automatiques
 - [x] Plan de réponse aux incidents documenté
 
-### ✅ Modération
+### Modération
 
 - [x] Bouton de signalement visible
 - [x] Procédure de modération documentée
@@ -921,26 +921,26 @@ En cas de traduction, seule la version française fait foi.
 
 ## ANNEXE C : PLAN D'ACTION AVANT LANCEMENT
 
-### 🔴 PRIORITÉ 1 (BLOQUANT - À FAIRE AVANT LANCEMENT)
+### PRIORITÉ 1 (BLOQUANT - À FAIRE AVANT LANCEMENT)
 
 **À faire AVANT le lancement public** :
 
-1. ✅ **Publication CGU** : Publier CGU, Politique confidentialité, Mentions légales sur le site (liens footer + page dédiée)
-2. ✅ **Checkbox acceptation** : Case à cocher obligatoire lors de l'inscription avec lien vers CGU
-3. ✅ **HTTPS activé** : Certificat SSL/TLS installé et HTTPS forcé sur toute la plateforme
-4. ✅ **Hachage mots de passe** : Bcrypt/Argon2 implémenté (facteur ≥ 12, JAMAIS en clair)
-5. ✅ **Hébergement conforme** : Contrat avec DigitalOcean vérifié (clauses RGPD art. 28)
-6. ✅ **Contact fonctionnel** : Adresse e-mail support@cobage.joeltech.dev active et surveillée
+1. **Publication CGU** : Publier CGU, Politique confidentialité, Mentions légales sur le site (liens footer + page dédiée)
+2. **Checkbox acceptation** : Case à cocher obligatoire lors de l'inscription avec lien vers CGU
+3. **HTTPS activé** : Certificat SSL/TLS installé et HTTPS forcé sur toute la plateforme
+4. **Hachage mots de passe** : Bcrypt/Argon2 implémenté (facteur ≥ 12, JAMAIS en clair)
+5. **Hébergement conforme** : Contrat avec DigitalOcean vérifié (clauses RGPD art. 28)
+6. **Contact fonctionnel** : Adresse e-mail support@cobage.joeltech.dev active et surveillée
 
-### 🟠 PRIORITÉ 2 (CRITIQUE - 7 JOURS POST-LANCEMENT)
+### PRIORITÉ 2 (CRITIQUE - 7 JOURS POST-LANCEMENT)
 
-7. ✅ **Bouton de signalement** : Implémenté sur toutes les annonces et tous les messages
-8. ✅ **Logs de connexion** : Journalisation activée (IP, timestamp, actions) - conservation 12 mois
-9. ✅ **Bandeau cookies** : Bandeau de consentement CNIL 2025 (distinction essentiels/analytiques/marketing)
+7. **Bouton de signalement** : Implémenté sur toutes les annonces et tous les messages
+8. **Logs de connexion** : Journalisation activée (IP, timestamp, actions) - conservation 12 mois
+9. **Bandeau cookies** : Bandeau de consentement CNIL 2025 (distinction essentiels/analytiques/marketing)
 10. [ ] **Registre RGPD** : Créer et tenir à jour le registre des traitements (modèle CNIL disponible)
 11. [ ] **Procédure signalement** : Documentation interne pour traiter les signalements PHAROS/TRACFIN
 
-### 🟡 PRIORITÉ 3 (IMPORTANT - 1 MOIS)
+### PRIORITÉ 3 (IMPORTANT - 1 MOIS)
 
 12. [ ] **Tests de sécurité** : Tests de pénétration basiques ou scan de vulnérabilités
 13. [ ] **Documentation utilisateur** : FAQ, guide d'utilisation sécurisée, bonnes pratiques
@@ -948,7 +948,7 @@ En cas de traduction, seule la version française fait foi.
 15. [ ] **Sauvegarde testée** : Vérifier que les sauvegardes fonctionnent et peuvent être restaurées
 16. [ ] **Plan de crise** : Procédure en cas de violation de données ou d'incident majeur
 
-### 🟢 PRIORITÉ 4 (RECOMMANDÉ - 3 MOIS)
+### PRIORITÉ 4 (RECOMMANDÉ - 3 MOIS)
 
 17. [ ] **2FA encouragé** : Campagne pour inciter les utilisateurs à activer la 2FA
 18. [ ] **Analyse d'impact** : DPIA si déploiement à grande échelle ou fonctionnalités sensibles
@@ -956,7 +956,7 @@ En cas de traduction, seule la version française fait foi.
 20. [ ] **Support structuré** : Système de tickets ou FAQ enrichie
 21. [ ] **Statistiques anonymisées** : Tableaux de bord pour suivre l'usage (sans données perso)
 
-### 🔵 PRIORITÉ 5 (ÉVOLUTION - SI PROFESSIONNALISATION)
+### PRIORITÉ 5 (ÉVOLUTION - SI PROFESSIONNALISATION)
 
 22. [ ] **Création structure juridique** : Auto-entrepreneur minimum, puis SASU/SARL
 23. [ ] **Assurance RC professionnelle** : Si activité commerciale lancée
@@ -968,44 +968,44 @@ En cas de traduction, seule la version française fait foi.
 
 ## ANNEXE D : ÉVOLUTION VERS UN STATUT PROFESSIONNEL
 
-### 📈 Quand professionnaliser ?
+### Quand professionnaliser ?
 
 **Vous devez envisager la professionnalisation dès que vous atteignez UN de ces seuils** :
 
 #### Seuils quantitatifs
 
-- ✅ **1 000+ utilisateurs actifs mensuels**
-- ✅ **100+ annonces publiées par mois**
-- ✅ **10 000+ messages échangés par mois**
+- **1 000+ utilisateurs actifs mensuels**
+- **100+ annonces publiées par mois**
+- **10 000+ messages échangés par mois**
 
 #### Seuils financiers
 
-- ✅ **Génération de revenus** (même faibles)
-- ✅ **Collecte de fonds** (dons, crowdfunding)
-- ✅ **Monétisation** (publicité, premium)
+- **Génération de revenus** (même faibles)
+- **Collecte de fonds** (dons, crowdfunding)
+- **Monétisation** (publicité, premium)
 
 #### Seuils opérationnels
 
-- ✅ **Recrutement** (collaborateurs, stagiaires)
-- ✅ **Partenariats commerciaux**
-- ✅ **Investissement externe** (business angels, VC)
+- **Recrutement** (collaborateurs, stagiaires)
+- **Partenariats commerciaux**
+- **Investissement externe** (business angels, VC)
 
-### 🏢 Étapes de professionnalisation
+### Étapes de professionnalisation
 
 #### 1. Phase initiale : Micro-entrepreneur (Auto-entrepreneur)
 
 **Avantages** :
 
-- ✅ Simple et rapide (inscription gratuite en ligne)
-- ✅ Comptabilité simplifiée
-- ✅ Charges sociales proportionnelles au CA
-- ✅ Pas de TVA jusqu'à 36 800€ CA
+- Simple et rapide (inscription gratuite en ligne)
+- Comptabilité simplifiée
+- Charges sociales proportionnelles au CA
+- Pas de TVA jusqu'à 36 800€ CA
 
 **Limites** :
 
-- ❌ Plafond CA : 77 700€/an (services BIC) ou 188 700€ (commerce)
-- ❌ Responsabilité illimitée (patrimoine personnel engagé)
-- ❌ Difficile de lever des fonds
+- Plafond CA : 77 700€/an (services BIC) ou 188 700€ (commerce)
+- Responsabilité illimitée (patrimoine personnel engagé)
+- Difficile de lever des fonds
 
 **Quand** : Dès les premiers revenus ou 500+ utilisateurs
 
@@ -1013,16 +1013,16 @@ En cas de traduction, seule la version française fait foi.
 
 **Avantages** :
 
-- ✅ Responsabilité limitée (patrimoine protégé)
-- ✅ Crédibilité accrue (clients, partenaires, investisseurs)
-- ✅ Facilite la levée de fonds
-- ✅ Possibilité de s'associer ultérieurement
+- Responsabilité limitée (patrimoine protégé)
+- Crédibilité accrue (clients, partenaires, investisseurs)
+- Facilite la levée de fonds
+- Possibilité de s'associer ultérieurement
 
 **Inconvénients** :
 
-- ❌ Coût de création : 200-500€
-- ❌ Comptabilité plus complexe (expert-comptable recommandé)
-- ❌ Charges sociales élevées
+- Coût de création : 200-500€
+- Comptabilité plus complexe (expert-comptable recommandé)
+- Charges sociales élevées
 
 **Quand** : CA > 30 000€/an ou levée de fonds envisagée
 
@@ -1030,13 +1030,13 @@ En cas de traduction, seule la version française fait foi.
 
 **Avantages** :
 
-- ✅ Tous les avantages de la SASU
-- ✅ Répartition des responsabilités
-- ✅ Attractivité pour les investisseurs
+- Tous les avantages de la SASU
+- Répartition des responsabilités
+- Attractivité pour les investisseurs
 
 **Quand** : Besoin d'associés ou CA > 100 000€/an
 
-### 📋 Checklist de professionnalisation
+### Checklist de professionnalisation
 
 **Administrative** :
 
@@ -1080,7 +1080,7 @@ En cas de traduction, seule la version française fait foi.
 
 ## ANNEXE E : RESSOURCES UTILES
 
-### 📚 Ressources juridiques
+### Ressources juridiques
 
 **CNIL (Protection des données)**
 
@@ -1100,7 +1100,7 @@ En cas de traduction, seule la version française fait foi.
 
 - Site : [www.economie.gouv.fr/tracfin](https://www.economie.gouv.fr/tracfin)
 
-### 🛠️ Outils techniques
+### Outils techniques
 
 **Sécurité**
 
@@ -1120,7 +1120,7 @@ En cas de traduction, seule la version française fait foi.
 - Sentry : Monitoring erreurs
 - Google Analytics : Statistiques (avec consentement)
 
-### 👨‍💼 Accompagnement
+###‍Accompagnement
 
 **Création entreprise**
 
@@ -1144,15 +1144,15 @@ En cas de traduction, seule la version française fait foi.
 
 ## DÉCLARATION FINALE
 
-### ⚖️ Avertissement juridique
+### Avertissement juridique
 
 **Ce document est adapté au contexte spécifique d'un projet étudiant en phase bêta gratuite.**
 
 Il doit être :
 
-- ✅ Validé par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
-- ✅ Adapté en cas d'évolution vers un modèle commercial
-- ✅ Mis à jour selon les évolutions légales et jurisprudentielles
+- Validé par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
+- Adapté en cas d'évolution vers un modèle commercial
+- Mis à jour selon les évolutions légales et jurisprudentielles
 
 **Timothée Joël Tchinda Tchoffo** reste seul responsable de la conformité légale de la plateforme Co-Bage et de ses pratiques.
 
@@ -1160,31 +1160,31 @@ Il doit être :
 
 ---
 
-### 🎓 Spécificités du statut étudiant pré-commercial
+### Spécificités du statut étudiant pré-commercial
 
 **Points clés adaptés** :
 
-1. ✅ **Personne physique** (non société) : Mentions légales simplifiées
-2. ✅ **Statut pré-commercial** : Transparence sur la future professionnalisation
-3. ✅ **Gratuité bêta** : Clause de transparence sur l'évolution future (30 jours préavis)
-4. ✅ **Ressources limitées** : Contextualisation des attentes utilisateurs
-5. ✅ **Pas de SIRET/RCS** : Non obligatoire pour projet étudiant non commercial
-6. ✅ **Pas de médiation** : Dispositif réservé aux professionnels
-7. ✅ **Responsabilité proportionnée** : Plafonnement adapté au contexte (100€)
+1. **Personne physique** (non société) : Mentions légales simplifiées
+2. **Statut pré-commercial** : Transparence sur la future professionnalisation
+3. **Gratuité bêta** : Clause de transparence sur l'évolution future (30 jours préavis)
+4. **Ressources limitées** : Contextualisation des attentes utilisateurs
+5. **Pas de SIRET/RCS** : Non obligatoire pour projet étudiant non commercial
+6. **Pas de médiation** : Dispositif réservé aux professionnels
+7. **Responsabilité proportionnée** : Plafonnement adapté au contexte (100€)
 
 **Obligations maintenues (AUCUNE EXEMPTION)** :
 
-- ✅ RGPD complet et respect strict
-- ✅ Sécurité des données (état de l'art)
-- ✅ Modération des contenus (LCEN)
-- ✅ Signalement des contenus illicites (PHAROS, TRACFIN)
-- ✅ Conservation des logs (12 mois LCEN)
-- ✅ Statut hébergeur (responsabilité limitée mais réactive)
-- ✅ Notification violations données (72h CNIL)
+- RGPD complet et respect strict
+- Sécurité des données (état de l'art)
+- Modération des contenus (LCEN)
+- Signalement des contenus illicites (PHAROS, TRACFIN)
+- Conservation des logs (12 mois LCEN)
+- Statut hébergeur (responsabilité limitée mais réactive)
+- Notification violations données (72h CNIL)
 
 ---
 
-## 📅 DATES IMPORTANTES
+## DATES IMPORTANTES
 
 **Version actuelle** : 2.1  
 **Date d'entrée en vigueur** : 18 Octobre 2025  
@@ -1199,7 +1199,7 @@ Il doit être :
 
 ---
 
-## ✅ ACCEPTATION
+## ACCEPTATION
 
 En cochant la case « J'accepte les Conditions Générales d'Utilisation » lors de votre inscription, vous reconnaissez avoir lu, compris et accepté l'intégralité des présentes CGU.
 
@@ -1207,17 +1207,17 @@ En cochant la case « J'accepte les Conditions Générales d'Utilisation » lors
 
 ---
 
-## 🔐 ENGAGEMENT DE TRANSPARENCE
+## ENGAGEMENT DE TRANSPARENCE
 
 **Co-Bage s'engage à** :
 
-- ✅ Respecter scrupuleusement le RGPD et la vie privée des utilisateurs
-- ✅ Modérer activement les contenus illicites
-- ✅ Signaler aux autorités toute activité criminelle
-- ✅ Informer 30 jours à l'avance de toute évolution tarifaire
-- ✅ Maintenir un service gratuit de base même après professionnalisation
-- ✅ Conserver la transparence sur le statut et l'évolution du projet
-- ✅ Répondre aux demandes utilisateurs sous 72h maximum
+- Respecter scrupuleusement le RGPD et la vie privée des utilisateurs
+- Modérer activement les contenus illicites
+- Signaler aux autorités toute activité criminelle
+- Informer 30 jours à l'avance de toute évolution tarifaire
+- Maintenir un service gratuit de base même après professionnalisation
+- Conserver la transparence sur le statut et l'évolution du projet
+- Répondre aux demandes utilisateurs sous 72h maximum
 
 ---
 
@@ -1230,14 +1230,14 @@ En cochant la case « J'accepte les Conditions Générales d'Utilisation » lors
 
 ---
 
-## 🔗 DOCUMENTS COMPLÉMENTAIRES
+## DOCUMENTS COMPLÉMENTAIRES
 
 Pour une conformité complète, consultez également :
 
-- 📄 **Politique de Confidentialité (RGPD)** - À venir
-- 🍪 **Politique de Cookies** - À venir
-- 🛡️ **Politique de Modération / Trust & Safety** - À venir
-- ⚖️ **Mentions Légales** - Intégrées dans les CGU
+- **Politique de Confidentialité (RGPD)** - À venir
+- **Politique de Cookies** - À venir
+- **Politique de Modération / Trust & Safety** - À venir
+- **Mentions Légales** - Intégrées dans les CGU
 
 ---
 

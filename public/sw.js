@@ -1,5 +1,5 @@
 /**
- * Service Worker CoBage – v4.0.0
+ * Service Worker CoBage - v4.0.0
  * Fonctionnalités :
  * - Mise en cache robuste avec gestion d'erreur individuelle
  * - Stratégies de cache par type de ressource (Request.destination)
@@ -26,39 +26,39 @@ const STATIC_ASSETS = [
 
 // Installation : Cache les assets critiques
 self.addEventListener('install', (event) => {
-  console.log('[SW v4] 🚀 Installation en cours...');
+  console.log('[SW v4] Installation en cours...');
 
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('[SW v4] 📦 Ouverture du cache statique');
+        console.log('[SW v4] Ouverture du cache statique');
         
         // Méthode robuste : cache individuellement avec gestion d'erreur
         return Promise.allSettled(
           STATIC_ASSETS.map((url) => {
             return cache.add(url)
               .then(() => {
-                console.log(`[SW v4] ✅ Cached: ${url}`);
+                console.log(`[SW v4] Cached: ${url}`);
               })
               .catch((error) => {
-                console.warn(`[SW v4] ⚠️ Failed to cache ${url}:`, error.message);
+                console.warn(`[SW v4] Failed to cache ${url}:`, error.message);
               });
           })
         );
       })
       .then(() => {
-        console.log('[SW v4] ✅ Installation terminée');
+        console.log('[SW v4] Installation terminée');
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error('[SW v4] ❌ Erreur installation:', error);
+        console.error('[SW v4] Erreur installation:', error);
       })
   );
 });
 
 // Activation : Nettoyage des anciens caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW v4] 🔄 Activation en cours...');
+  console.log('[SW v4] Activation en cours...');
 
   event.waitUntil(
     caches.keys()
@@ -70,13 +70,13 @@ self.addEventListener('activate', (event) => {
               return name !== STATIC_CACHE && name !== DYNAMIC_CACHE;
             })
             .map((name) => {
-              console.log(`[SW v4] 🗑️ Suppression ancien cache: ${name}`);
+              console.log(`[SW v4] Suppression ancien cache: ${name}`);
               return caches.delete(name);
             })
         );
       })
       .then(() => {
-        console.log('[SW v4] ✅ Activation terminée');
+        console.log('[SW v4] Activation terminée');
         return self.clients.claim();
       })
   );
@@ -164,7 +164,7 @@ async function networkFirst(request) {
     
     return networkResponse;
   } catch (error) {
-    console.log(`[SW v4] 📡 Network failed for ${request.url}, trying cache...`);
+    console.log(`[SW v4] Network failed for ${request.url}, trying cache...`);
     
     const cachedResponse = await caches.match(request);
     
@@ -202,7 +202,7 @@ async function cacheFirst(request, cacheName) {
     
     return networkResponse;
   } catch (error) {
-    console.warn(`[SW v4] ⚠️ Failed to fetch ${request.url}:`, error.message);
+    console.warn(`[SW v4] Failed to fetch ${request.url}:`, error.message);
     throw error;
   }
 }
@@ -224,7 +224,7 @@ async function staleWhileRevalidate(request, cacheName) {
     })
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .catch((error) => {
-      console.warn(`[SW v4] ⚠️ Background fetch failed for ${request.url}`);
+      console.warn(`[SW v4] Background fetch failed for ${request.url}`);
       return null;
     });
   
@@ -260,12 +260,12 @@ self.addEventListener('message', (event) => {
 
   switch (type) {
     case 'SKIP_WAITING':
-      console.log('[SW v4] ⚡ Force update (skipWaiting)');
+      console.log('[SW v4] Force update (skipWaiting)');
       self.skipWaiting();
       break;
 
     case 'CLEAR_CACHE':
-      console.log('[SW v4] 🗑️ Nettoyage manuel des caches');
+      console.log('[SW v4] Nettoyage manuel des caches');
       event.waitUntil(
         caches.keys().then((keys) => 
           Promise.all(keys.map((key) => caches.delete(key)))
@@ -278,14 +278,14 @@ self.addEventListener('message', (event) => {
       break;
 
     default:
-      console.log('[SW v4] 📨 Message inconnu:', type);
+      console.log('[SW v4] Message inconnu:', type);
   }
 });
 
 // === BACKGROUND SYNC (Futur) ===
 
 self.addEventListener('sync', (event) => {
-  console.log('[SW v4] 🔄 Background Sync:', event.tag);
+  console.log('[SW v4] Background Sync:', event.tag);
 
   if (event.tag === 'sync-messages') {
     event.waitUntil(syncMessages());
@@ -297,17 +297,17 @@ self.addEventListener('sync', (event) => {
  */
 async function syncMessages() {
   try {
-    console.log('[SW v4] 💬 (TODO) Sync messages hors ligne...');
+    console.log('[SW v4] (TODO) Sync messages hors ligne...');
     // Implémenter avec IndexedDB
   } catch (error) {
-    console.error('[SW v4] ❌ Erreur sync messages:', error);
+    console.error('[SW v4] Erreur sync messages:', error);
   }
 }
 
 // === NOTIFICATIONS PUSH (Futur) ===
 
 self.addEventListener('push', (event) => {
-  console.log('[SW v4] 🔔 Push notification reçue');
+  console.log('[SW v4] Push notification reçue');
 
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'CoBage';
@@ -324,7 +324,7 @@ self.addEventListener('push', (event) => {
 });
 
 self.addEventListener('notificationclick', (event) => {
-  console.log('[SW v4] 👆 Notification cliquée');
+  console.log('[SW v4] Notification cliquée');
   event.notification.close();
 
   event.waitUntil(

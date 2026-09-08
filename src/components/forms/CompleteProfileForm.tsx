@@ -25,7 +25,7 @@ export default function CompleteProfileForm({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const lastContinentRef = useRef<string>('');
 
-  // ✅ Hook pour l'avatar
+  // Hook pour l'avatar
   const { 
     uploadAvatar, 
     deleteAvatar,
@@ -35,11 +35,11 @@ export default function CompleteProfileForm({
     currentAvatar 
   } = useAvatar();
 
-  // ✅ Données géographiques
+  // Données géographiques
   const { countries, isLoading: isLoadingCountries } = useCountries();
   const { cities, isLoading: isLoadingCities } = useCities(selectedCountry);
   
-  // ✅ Recherche de villes (autocomplete)
+  // Recherche de villes (autocomplete)
   const { searchResults, isSearching, search } = useCitySearch(selectedCountry);
 
   // ==================== PRÉ-REMPLISSAGE AVEC user.address ====================
@@ -77,14 +77,14 @@ export default function CompleteProfileForm({
   const selectedCountryData = countries.find((c) => c.label === watchPays);
   const continent = selectedCountryData?.continent || '';
 
-  // ✅ Initialiser le pays sélectionné au chargement
+  // Initialiser le pays sélectionné au chargement
   useEffect(() => {
     if (defaultValues.pays && !selectedCountry) {
       setSelectedCountry(defaultValues.pays);
     }
   }, [defaultValues.pays, selectedCountry]);
 
-  // ✅ Détecter le type d'adresse initial depuis user.address
+  // Détecter le type d'adresse initial depuis user.address
   useEffect(() => {
     if (user?.address) {
       const hasQuartier = !!user.address.quartier;
@@ -98,7 +98,7 @@ export default function CompleteProfileForm({
     }
   }, [user?.address]);
 
-  // ✅ Mise à jour du type d'adresse selon continent
+  // Mise à jour du type d'adresse selon continent
   useEffect(() => {
     if (!continent || continent === lastContinentRef.current) return;
 
@@ -123,7 +123,7 @@ export default function CompleteProfileForm({
     }
   }, [watchPays]);
 
-  // ✅ Options pays
+  // Options pays
   const countryOptions = useMemo<SelectOption[]>(() => {
     return countries.map((c) => ({
       value: c.label,
@@ -131,7 +131,7 @@ export default function CompleteProfileForm({
     }));
   }, [countries]);
 
-  // ✅ Options villes : TOP 100 + Résultats de recherche combinés
+  // Options villes : TOP 100 + Résultats de recherche combinés
   const cityOptions = useMemo<SelectOption[]>(() => {
     // Si on a des résultats de recherche, les afficher en priorité
     if (searchResults.length > 0) {
@@ -148,7 +148,7 @@ export default function CompleteProfileForm({
     }));
   }, [cities, searchResults]);
 
-  // ✅ Handler de recherche avec debounce
+  // Handler de recherche avec debounce
   const handleCitySearch = useCallback(
     (query: string) => {
       if (query.length >= 2) {
@@ -271,7 +271,7 @@ export default function CompleteProfileForm({
       />
       {user?.telephone && user?.telephoneVerifie && (
         <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
-          ✓ Téléphone déjà vérifié
+          Téléphone déjà vérifié
         </p>
       )}
 

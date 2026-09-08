@@ -58,7 +58,7 @@ export default function PWAProvider({ children }: { children: React.ReactNode })
     }
 
     if (isPWA) {
-      console.log('[PWA] 📱 Application installée en mode standalone');
+      console.log('[PWA] Application installée en mode standalone');
     }
   }, [isPWA]);
 
@@ -103,12 +103,12 @@ export function PWAVersionBadge() {
       )}
       {isInstalled && (
         <div className="px-3 py-1.5 bg-green-600 text-white text-xs rounded-full font-mono shadow-lg">
-          📱 PWA
+          PWA
         </div>
       )}
       {!isOnline && (
         <div className="px-3 py-1.5 bg-orange-600 text-white text-xs rounded-full font-mono shadow-lg">
-          ⚠️ Offline
+          Offline
         </div>
       )}
     </div>

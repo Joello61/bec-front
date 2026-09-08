@@ -14,14 +14,14 @@ export function useVoyages(page = 1, limit = 10, filters?: VoyageFilters) {
   const error = useVoyageStore((state) => state.error);
   const fetchVoyages = useVoyageStore((state) => state.fetchVoyages);
 
-  // ✅ Stabiliser filters avec useMemo pour éviter les re-renders inutiles
+  // Stabiliser filters avec useMemo pour éviter les re-renders inutiles
   const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
 
   useEffect(() => {
     fetchVoyages(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchVoyages]);
 
-  // ✅ refetch ne dépend que de variables stables
+  // refetch ne dépend que de variables stables
   const refetch = useCallback(() => {
     fetchVoyages(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchVoyages]);
@@ -42,14 +42,14 @@ export function usePublicVoyages(page = 1, limit = 10, filters?: VoyageFilters) 
   const error = useVoyageStore((state) => state.error);
   const fetchPublicVoyages = useVoyageStore((state) => state.fetchPublicVoyages);
 
-  // ✅ Stabiliser filters avec useMemo pour éviter les re-renders inutiles
+  // Stabiliser filters avec useMemo pour éviter les re-renders inutiles
   const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
 
   useEffect(() => {
     fetchPublicVoyages(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchPublicVoyages]);
 
-  // ✅ refetch ne dépend que de variables stables
+  // refetch ne dépend que de variables stables
   const refetch = useCallback(() => {
     fetchPublicVoyages(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchPublicVoyages]);
@@ -78,7 +78,7 @@ export function useVoyage(id: number) {
     }
   }, [id, fetchVoyage]);
 
-  // ✅ Stabiliser refetch avec useCallback
+  // Stabiliser refetch avec useCallback
   const refetch = useCallback(() => {
     fetchVoyage(id);
   }, [id, fetchVoyage]);
@@ -129,7 +129,7 @@ export function useUserVoyages(userId?: number) {
     }
   }, [userId, fetchUserVoyages]);
 
-  // ✅ Stabiliser refetch avec useCallback
+  // Stabiliser refetch avec useCallback
   const refetch = useCallback(() => {
     if (userId != null) {
       fetchUserVoyages(userId);
@@ -152,7 +152,7 @@ export function useMatchingDemandes(voyageId?: number) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ✅ Stabiliser fetchMatchingDemandes avec useCallback
+  // Stabiliser fetchMatchingDemandes avec useCallback
   const fetchMatchingDemandes = useCallback(async () => {
     if (voyageId == null) return;
     
@@ -166,11 +166,11 @@ export function useMatchingDemandes(voyageId?: number) {
     } finally {
       setIsLoading(false);
     }
-  }, [voyageId]); // ✅ Ne dépend que de voyageId
+  }, [voyageId]); // Ne dépend que de voyageId
 
   useEffect(() => {
     fetchMatchingDemandes();
-  }, [fetchMatchingDemandes]); // ✅ Maintenant stable grâce à useCallback
+  }, [fetchMatchingDemandes]); // Maintenant stable grâce à useCallback
 
   return {
     demandes,

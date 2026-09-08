@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: '@cobage_officiel',
     title: 'Co-Bage - Transport Collaboratif Cameroun-Afrique',
     description:
-      "Envoyez vos colis jusqu'à 60% moins cher ou gagnez de l'argent en transportant. Inscription gratuite 🚀",
+      "Envoyez vos colis jusqu'à 60% moins cher ou gagnez de l'argent en transportant. Inscription gratuite",
     images: [`${APP_URL}/images/og-home.jpg`],
   },
 

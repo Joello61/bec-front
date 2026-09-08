@@ -5,13 +5,13 @@
 export function registerServiceWorker(): void {
   // Vérifier le support
   if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
-    console.log('[PWA] ⚠️ Service Worker non supporté');
+    console.log('[PWA] Service Worker non supporté');
     return;
   }
 
   // Désactiver en développement
   if (process.env.NODE_ENV !== 'production') {
-    console.log('[PWA] 🔧 Mode dev : Service Worker désactivé');
+    console.log('[PWA] Mode dev : Service Worker désactivé');
     console.log('[PWA] Pour tester : npm run build && npm start');
     return;
   }
@@ -25,24 +25,24 @@ export function registerServiceWorker(): void {
         updateViaCache: 'none', // Toujours vérifier les mises à jour
       });
 
-      console.log('[PWA] ✅ Service Worker enregistré:', registration.scope);
+      console.log('[PWA] Service Worker enregistré:', registration.scope);
 
       // Gérer les mises à jour
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         if (!newWorker) return;
 
-        console.log('[PWA] 🔄 Nouvelle version détectée...');
+        console.log('[PWA] Nouvelle version détectée...');
 
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // Nouvelle version disponible
-              console.log('[PWA] 🆕 Mise à jour disponible');
+              console.log('[PWA] Mise à jour disponible');
               handleUpdate(newWorker);
             } else {
               // Première installation
-              console.log('[PWA] 🎉 Application installée et prête');
+              console.log('[PWA] Application installée et prête');
             }
           }
         });
@@ -50,7 +50,7 @@ export function registerServiceWorker(): void {
 
       // Vérifier les mises à jour périodiquement (toutes les heures)
       setInterval(() => {
-        console.log('[PWA] 🔍 Vérification des mises à jour...');
+        console.log('[PWA] Vérification des mises à jour...');
         registration.update();
       }, 60 * 60 * 1000);
 
@@ -61,7 +61,7 @@ export function registerServiceWorker(): void {
         }
       });
     } catch (error) {
-      console.error('[PWA] ❌ Erreur enregistrement:', error);
+      console.error('[PWA] Erreur enregistrement:', error);
     }
   });
 }
@@ -80,7 +80,7 @@ function handleUpdate(worker: ServiceWorker): void {
  */
 function showUpdatePrompt(worker?: ServiceWorker): void {
   const shouldUpdate = confirm(
-    '🎉 Une nouvelle version de CoBage est disponible !\n\nVoulez-vous mettre à jour maintenant ?'
+    'Une nouvelle version de CoBage est disponible !\n\nVoulez-vous mettre à jour maintenant ?'
   );
 
   if (shouldUpdate) {
@@ -90,7 +90,7 @@ function showUpdatePrompt(worker?: ServiceWorker): void {
 
       // Recharger après activation
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('[PWA] 🔄 Rechargement de l\'application...');
+        console.log('[PWA] Rechargement de l\'application...');
         window.location.reload();
       });
     } else {
@@ -159,15 +159,15 @@ export async function unregisterServiceWorker(): Promise<void> {
 
     for (const registration of registrations) {
       const success = await registration.unregister();
-      console.log('[PWA] 🗑️ Service Worker désinstallé:', success);
+      console.log('[PWA] Service Worker désinstallé:', success);
     }
 
     // Nettoyer les caches
     const cacheNames = await caches.keys();
     await Promise.all(cacheNames.map((name) => caches.delete(name)));
-    console.log('[PWA] 🗑️ Caches supprimés');
+    console.log('[PWA] Caches supprimés');
   } catch (error) {
-    console.error('[PWA] ❌ Erreur désinstallation:', error);
+    console.error('[PWA] Erreur désinstallation:', error);
   }
 }
 
@@ -206,7 +206,7 @@ export function onConnectionChange(
 export async function requestNotificationPermission(): Promise<NotificationPermission | null> {
   if (typeof window === 'undefined') return null;
   if (!('Notification' in window)) {
-    console.log('[PWA] ⚠️ Notifications non supportées');
+    console.log('[PWA] Notifications non supportées');
     return null;
   }
 
@@ -215,16 +215,16 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
   }
 
   if (Notification.permission === 'denied') {
-    console.log('[PWA] ⚠️ Notifications refusées par l\'utilisateur');
+    console.log('[PWA] Notifications refusées par l\'utilisateur');
     return 'denied';
   }
 
   try {
     const permission = await Notification.requestPermission();
-    console.log('[PWA] 📢 Permission notifications:', permission);
+    console.log('[PWA] Permission notifications:', permission);
     return permission;
   } catch (error) {
-    console.error('[PWA] ❌ Erreur permission notifications:', error);
+    console.error('[PWA] Erreur permission notifications:', error);
     return null;
   }
 }

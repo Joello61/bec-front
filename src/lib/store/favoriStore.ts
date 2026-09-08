@@ -69,13 +69,13 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
     }
   },
 
-  // ✅ CORRECTION : Recharger après ajout au lieu de merger
+  // CORRECTION : Recharger après ajout au lieu de merger
   addVoyageToFavoris: async (voyageId) => {
     set({ isLoading: true, error: null });
     try {
       await favorisApi.addVoyage(voyageId);
       
-      // ✅ Recharger la liste complète avec toutes les données
+      // Recharger la liste complète avec toutes les données
       const favorisVoyages = await favorisApi.getVoyages();
       
       set({
@@ -91,13 +91,13 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
     }
   },
 
-  // ✅ CORRECTION : Recharger après ajout au lieu de merger
+  // CORRECTION : Recharger après ajout au lieu de merger
   addDemandeToFavoris: async (demandeId) => {
     set({ isLoading: true, error: null });
     try {
       await favorisApi.addDemande(demandeId);
       
-      // ✅ Recharger la liste complète avec toutes les données
+      // Recharger la liste complète avec toutes les données
       const favorisDemandes = await favorisApi.getDemandes();
       
       set({
@@ -113,13 +113,13 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
     }
   },
 
-  // ✅ CORRECTION : Recharger après suppression
+  // CORRECTION : Recharger après suppression
   removeFavori: async (id, type) => {
     set({ isLoading: true, error: null });
     try {
       await favorisApi.remove(id, type);
       
-      // ✅ Recharger les listes pour avoir les données à jour
+      // Recharger les listes pour avoir les données à jour
       if (type === 'voyage') {
         const favorisVoyages = await favorisApi.getVoyages();
         set({ favorisVoyages, isLoading: false });

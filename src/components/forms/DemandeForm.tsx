@@ -25,10 +25,10 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
   const {userCurrency} = useUserCurrency();
   const currencySymbol = getCurrencySymbol(userCurrency);
 
-  // ✅ Top 100 villes mondiales
+  // Top 100 villes mondiales
   const { topCitiesGlobal, isLoading: isLoadingTopCities } = useTopCitiesGlobal();
 
-  // ✅ Recherche globale pour chaque champ
+  // Recherche globale pour chaque champ
   const { 
     searchResults: searchResultsDepart, 
     search: searchDepart 
@@ -62,11 +62,11 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
       : undefined,
   });
 
-  // ✅ Surveiller les villes pour détecter doublons
+  // Surveiller les villes pour détecter doublons
   const watchVilleDepart = watch('villeDepart');
   const watchVilleArrivee = watch('villeArrivee');
 
-  // ✅ Options ville départ
+  // Options ville départ
   const optionsDepart = useMemo<SelectOption[]>(() => {
     if (searchResultsDepart.length > 0) {
       return searchResultsDepart.map((city) => ({
@@ -81,7 +81,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
     }));
   }, [topCitiesGlobal, searchResultsDepart]);
 
-  // ✅ Options ville arrivée
+  // Options ville arrivée
   const optionsArrivee = useMemo<SelectOption[]>(() => {
     if (searchResultsArrivee.length > 0) {
       return searchResultsArrivee.map((city) => ({
@@ -96,7 +96,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
     }));
   }, [topCitiesGlobal, searchResultsArrivee]);
 
-  // ✅ Recherche handlers
+  // Recherche handlers
   const handleSearchDepart = useCallback((query: string) => {
     if (query.length >= 2) {
       searchDepart(query, 50);
@@ -118,13 +118,13 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
     }
   };
 
-  // ✅ Warning villes identiques
+  // Warning villes identiques
   const showCityWarning = watchVilleDepart && watchVilleArrivee && 
     watchVilleDepart.trim().toLowerCase() === watchVilleArrivee.trim().toLowerCase();
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
-      {/* ✅ Warning villes identiques */}
+      {/* Warning villes identiques */}
       {showCityWarning && (
         <div className="bg-warning/10 border border-warning rounded-lg p-4">
           <div className="flex gap-3">
@@ -142,7 +142,7 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
         </div>
       )}
 
-      {/* ✅ Sélection des villes avec recherche globale */}
+      {/* Sélection des villes avec recherche globale */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Controller
           name="villeDepart"

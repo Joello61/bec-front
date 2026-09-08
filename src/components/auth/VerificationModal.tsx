@@ -12,7 +12,7 @@ interface VerificationModalProps {
   onClose: () => void;
   type: 'email' | 'phone';
   contactInfo?: string;
-  onSuccess?: () => void; // ⬅️ NOUVEAU : callback après vérification réussie
+  onSuccess?: () => void; // <- NOUVEAU : callback après vérification réussie
 }
 
 export default function VerificationModal({
@@ -109,7 +109,7 @@ export default function VerificationModal({
         toast.success('Téléphone vérifié avec succès !');
       }
       
-      // ⬅️ NOUVEAU : Appeler le callback de succès
+      // <- NOUVEAU : Appeler le callback de succès
       if (onSuccess) {
         onSuccess();
       }

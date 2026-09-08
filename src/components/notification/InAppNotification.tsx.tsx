@@ -23,7 +23,7 @@ export function InAppNotification({
   onClose,
 }: InAppNotificationProps) {
   useEffect(() => {
-    console.log('[Notif] affichée →', id);
+    console.log('[Notif] affichée ->', id);
 
     if (duration > 0) {
       const timer = setTimeout(() => {

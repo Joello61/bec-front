@@ -94,7 +94,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         error: null,
         pendingEmail: data.email,
       });
-      return response; // ⬅️ Retourne la réponse pour accéder à emailVerificationEnabled
+      return response; // <- Retourne la réponse pour accéder à emailVerificationEnabled
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de l\'inscription', 
@@ -206,10 +206,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   completeProfile: async (data: CompleteProfileInput): Promise<CompleteProfileResponse> => {
     set({ isLoading: true, error: null });
     try {
-      const response = await authApi.completeProfile(data); // ⬅️ Récupère la réponse complète
+      const response = await authApi.completeProfile(data); // <- Récupère la réponse complète
       await get().fetchMe(); // Rafraîchir le user
       set({ isLoading: false });
-      return response; // ⬅️ Retourne la réponse pour accéder à smsVerificationRequired
+      return response; // <- Retourne la réponse pour accéder à smsVerificationRequired
     } catch (error: any) {
       set({ 
         error: error.message || 'Erreur lors de la complétion du profil', 

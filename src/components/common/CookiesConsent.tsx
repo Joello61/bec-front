@@ -157,7 +157,7 @@ const CookieConsentBanner: React.FC = () => {
     try {
       localStorage.setItem("cookieConsent", JSON.stringify(consent));
       
-      // 🚀 Déclencher un événement personnalisé pour notifier les autres composants
+      // Déclencher un événement personnalisé pour notifier les autres composants
       window.dispatchEvent(new CustomEvent('cookieConsentChange', { 
         detail: consent 
       }));
@@ -185,7 +185,7 @@ const CookieConsentBanner: React.FC = () => {
     try {
       localStorage.setItem("cookieConsent", JSON.stringify(consent));
       
-      // 🚀 Déclencher un événement personnalisé pour notifier les autres composants
+      // Déclencher un événement personnalisé pour notifier les autres composants
       window.dispatchEvent(new CustomEvent('cookieConsentChange', { 
         detail: consent 
       }));
@@ -221,7 +221,7 @@ const CookieConsentBanner: React.FC = () => {
                   id="cookie-consent-title"
                   className="text-lg font-semibold text-gray-900 mb-2"
                 >
-                  🍪 Respect de votre vie privée
+                  Respect de votre vie privée
                 </h3>
                 <p
                   id="cookie-consent-description"
