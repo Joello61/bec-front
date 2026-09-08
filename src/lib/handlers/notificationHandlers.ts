@@ -2,6 +2,7 @@ import { EventType } from '@/lib/utils/eventType';
 import { displayNotification } from '@/lib/utils/displayNotification';
 import type { StableContext } from '@/types/realtime';
 import { ROUTES } from '../utils/constants';
+import { logger } from '@/lib/utils/logger';
 
 /**
  * Gère les événements liés aux notifications système
@@ -26,7 +27,7 @@ export const handleNotificationEvents = (eventType: string, data: any, stable: S
       stable.refetchNotif?.();
       stable.refetchNotifCount?.();
 
-      console.log('[Realtime] Notification(s) marquée(s) comme lue(s).');
+      logger.log('[Realtime] Notification(s) marquée(s) comme lue(s).');
       break;
 
     case EventType.NOTIFICATION_DELETED:

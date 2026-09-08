@@ -2,6 +2,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/lib/store'; // 1. Importer le store Auth
 import { ROUTES } from '@/lib/utils/constants'; // Pour la redirection
 import type { ApiError } from '@/types'; // Garder si utilisé
+import { logger } from '@/lib/utils/logger';
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api', // Assurez-vous que /api est inclus si nécessaire
@@ -48,16 +49,16 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        console.log('[API Interceptor] Token JWT expiré. Tentative de rafraîchissement...');
+        logger.log('[API Interceptor] Token JWT expiré. Tentative de rafraîchissement...');
         await apiClient.post('/token/refresh');
 
-        console.log('[API Interceptor] Token rafraîchi avec succès. Reprise des requêtes...');
+        logger.log('[API Interceptor] Token rafraîchi avec succès. Reprise des requêtes...');
         processQueue(null); // Libérer les requêtes en attente (sans erreur)
         return apiClient(originalRequest); // Réessayer la requête originale avec le nouveau cookie bagage_token
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (refreshError: any) {
-        console.error('[API Interceptor] Échec du rafraîchissement du token:', refreshError);
+        logger.error('[API Interceptor] Échec du rafraîchissement du token:', refreshError);
         processQueue(refreshError);
 
         useAuthStore.getState().logout();
