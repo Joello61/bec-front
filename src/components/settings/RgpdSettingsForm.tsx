@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Shield, Download, Info } from 'lucide-react';
 import { Button } from '@/components/ui';
+import DeleteAccountModal from './DeleteAccountModal';
 import { rgpdSettingsSchema, type RgpdSettingsFormData } from '@/lib/validations';
 import type { UserSettings } from '@/types';
 import { formatDate } from '@/lib/utils/format';
@@ -23,6 +25,7 @@ export default function RgpdSettingsForm({
   isLoading,
   isExporting
 }: RgpdSettingsFormProps) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { register, handleSubmit, formState: { isDirty } } = useForm<RgpdSettingsFormData>({
     resolver: zodResolver(rgpdSettingsSchema),
     defaultValues: {
@@ -161,16 +164,16 @@ export default function RgpdSettingsForm({
           <Button
             type="button"
             variant="danger"
-            onClick={() => {
-              if (confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')) {
-                alert('Fonctionnalité de suppression à implémenter');
-              }
-            }}
+            onClick={() => setShowDeleteModal(true)}
           >
             Supprimer mon compte
           </Button>
         </div>
       </div>
+
+      {showDeleteModal && (
+        <DeleteAccountModal onClose={() => setShowDeleteModal(false)} />
+      )}
     </div>
   );
 }

@@ -22,6 +22,7 @@ export const endpoints = {
     list: '/users',
     show: (id: number) => `/users/${id}`,
     updateMe: '/users/me',
+    deleteMe: '/users/me',
     search: '/users/search',
     dashboard: '/users/me/dashboard',
     profileStatus: '/users/me/profile-status',
