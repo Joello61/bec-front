@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useMemo, useCallback } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Package, Info, MapPin, AlertCircle } from 'lucide-react';
-import { Button, Input, Select } from '@/components/ui';
+import { Package, Info, AlertCircle } from 'lucide-react';
+import { Button, Input } from '@/components/ui';
 import { createDemandeSchema, type CreateDemandeFormData } from '@/lib/validations';
 import { useTopCitiesGlobal, useCitySearchGlobal } from '@/lib/hooks/useGeo';
 import { useUserCurrency } from '@/lib/hooks/useCurrency';
 import { getCurrencySymbol } from '@/lib/utils/format';
 import type { Demande } from '@/types';
 import type { SelectOption } from '@/components/ui/select';
+import CityRouteFields from './CityRouteFields';
 
 interface DemandeFormProps {
   demande?: Demande;
@@ -143,51 +144,17 @@ export default function DemandeForm({ demande, onSubmit, onCancel }: DemandeForm
       )}
 
       {/* Sélection des villes avec recherche globale */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Controller
-          name="villeDepart"
-          control={control}
-          render={({ field }) => (
-            <Select
-              label="Ville de départ"
-              required
-              leftIcon={<MapPin className="w-5 h-5" />}
-              options={optionsDepart}
-              placeholder={isLoadingTopCities ? 'Chargement...' : 'Sélectionnez ou recherchez une ville'}
-              disabled={isLoadingTopCities}
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={errors.villeDepart?.message}
-              searchable
-              onSearch={handleSearchDepart}
-              helperText={'Ville de départ du colis'}
-            />
-          )}
-        />
-
-        <Controller
-          name="villeArrivee"
-          control={control}
-          render={({ field }) => (
-            <Select
-              label="Ville d'arrivée"
-              required
-              leftIcon={<MapPin className="w-5 h-5" />}
-              options={optionsArrivee}
-              placeholder={isLoadingTopCities ? 'Chargement...' : 'Sélectionnez ou recherchez une ville'}
-              disabled={isLoadingTopCities}
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={errors.villeArrivee?.message}
-              searchable
-              onSearch={handleSearchArrivee}
-              helperText={'Ville d\'arrivée du colis'}
-            />
-          )}
-        />
-      </div>
+      <CityRouteFields
+        control={control}
+        errors={errors}
+        optionsDepart={optionsDepart}
+        optionsArrivee={optionsArrivee}
+        isLoadingTopCities={isLoadingTopCities}
+        onSearchDepart={handleSearchDepart}
+        onSearchArrivee={handleSearchArrivee}
+        helperDepart="Ville de départ du colis"
+        helperArrivee="Ville d'arrivée du colis"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
