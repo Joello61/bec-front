@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import AuthLayoutClient from '../../components/clients/auth/auth-layout-client';
+import AuthLayoutContent from '../../components/layout/AuthLayoutContent';
 
 // Metadata pour toutes les pages d'authentification
 export const metadata: Metadata = {
@@ -50,5 +50,5 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthLayoutClient>{children}</AuthLayoutClient>;
+  return <AuthLayoutContent>{children}</AuthLayoutContent>;
 }
