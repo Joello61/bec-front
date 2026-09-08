@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, SlidersHorizontal, X } from 'lucide-react';
+import { Plus, SlidersHorizontal } from 'lucide-react';
 import { Button, Modal } from '@/components/ui';
 import { DemandeList, DemandeFilters } from '@/components/demande';
 import { DemandeForm } from '@/components/forms';
@@ -10,6 +10,7 @@ import { useDemandeActions, useAuth, useUserDemandes } from '@/lib/hooks';
 import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import type { DemandeFilters as DemandeFiltersType, Demande } from '@/types';
 import { CreateDemandeFormData } from '@/lib/validations';
+import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
 
 export default function DemandesPageClient() {
   const [filters, setFilters] = useState<DemandeFiltersType>({});
@@ -53,18 +54,6 @@ export default function DemandesPageClient() {
 
   // Vérifier si filtres existent
   const hasFilters = Object.keys(filters).some(key => filters[key as keyof DemandeFiltersType]);
-
-  // Empêcher le scroll du body quand le drawer est ouvert
-  useEffect(() => {
-    if (showFiltersDrawer) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [showFiltersDrawer]);
 
   if (!user) {
     return null;
@@ -203,77 +192,18 @@ export default function DemandesPageClient() {
       </div>
 
       {/* Mobile: Filters Drawer (Bottom Sheet) */}
-      <AnimatePresence>
-        {showFiltersDrawer && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowFiltersDrawer(false)}
-              className="md:hidden fixed inset-0 bg-black/50 z-40"
-            />
-
-            {/* Drawer */}
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="md:hidden fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col"
-            >
-              {/* Header du drawer */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                <div className="flex items-center gap-3">
-                  <SlidersHorizontal className="w-5 h-5 text-primary" />
-                  <h2 className="text-lg font-bold text-gray-900">
-                    Filtres
-                  </h2>
-                  {activeFiltersCount > 0 && (
-                    <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs font-bold rounded-full">
-                      {activeFiltersCount}
-                    </span>
-                  )}
-                </div>
-                <button
-                  onClick={() => setShowFiltersDrawer(false)}
-                  className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                >
-                  <X className="w-5 h-5 text-gray-600" />
-                </button>
-              </div>
-
-              {/* Contenu scrollable */}
-              <div className="flex-1 overflow-y-auto px-6 py-4">
-                <DemandeFilters
-                  onFilterChange={setFilters}
-                  initialFilters={filters}
-                  refetchDemandes={refetch}
-                />
-              </div>
-
-              {/* Footer avec actions */}
-              <div className="px-6 py-4 border-t border-gray-200 bg-white">
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => setFilters({})}
-                    className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
-                    Réinitialiser
-                  </button>
-                  <button
-                    onClick={() => setShowFiltersDrawer(false)}
-                    className="flex-1 px-4 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary-dark transition-colors shadow-sm"
-                  >
-                    Voir les résultats
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <ExploreFiltersDrawer
+        isOpen={showFiltersDrawer}
+        onClose={() => setShowFiltersDrawer(false)}
+        activeFiltersCount={activeFiltersCount}
+        onReset={() => setFilters({})}
+      >
+        <DemandeFilters
+          onFilterChange={setFilters}
+          initialFilters={filters}
+          refetchDemandes={refetch}
+        />
+      </ExploreFiltersDrawer>
 
       {/* Create Modal */}
       <Modal
