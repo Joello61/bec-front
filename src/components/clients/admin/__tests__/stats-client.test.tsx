@@ -21,6 +21,11 @@ function makeUsersStats(): AdminUsersDetailedStats {
       tauxVerificationEmail: 71.4, tauxVerificationTelephone: 47.6,
     },
     detailed: [],
+    authProviders: {
+      local: { count: 30, percentage: 71.4 },
+      google: { count: 10, percentage: 23.8 },
+      facebook: { count: 2, percentage: 4.8 },
+    },
   };
 }
 
