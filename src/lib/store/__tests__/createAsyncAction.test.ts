@@ -5,10 +5,11 @@ import type { ApiError } from '@/types';
 interface TestState extends AsyncActionState {
   data: string | null;
   user: string | null;
+  isUploadingAvatar: boolean;
 }
 
 function makeSet() {
-  let state: TestState = { isLoading: false, error: null, data: null, user: null };
+  let state: TestState = { isLoading: false, error: null, data: null, user: null, isUploadingAvatar: false };
   const set = vi.fn((partial: Partial<TestState> | ((s: TestState) => Partial<TestState>)) => {
     state = { ...state, ...(typeof partial === 'function' ? partial(state) : partial) };
   });
@@ -104,5 +105,17 @@ describe('createAsyncAction', () => {
 
     expect(result).toBeUndefined();
     expect(getState()).toMatchObject({ isLoading: false, error: null, user: null });
+  });
+
+  it('pilote un champ de chargement dedie via loadingKey (ex. isUploadingAvatar) sans toucher isLoading', async () => {
+    const { set, getState } = makeSet();
+
+    await createAsyncAction(set, async () => {
+      set({ data: 'photo.jpg', isUploadingAvatar: false });
+      return 'photo.jpg';
+    }, { fallbackError: 'Erreur avatar', loadingKey: 'isUploadingAvatar' });
+
+    expect(set).toHaveBeenNthCalledWith(1, { isUploadingAvatar: true, error: null });
+    expect(getState()).toMatchObject({ isLoading: false, isUploadingAvatar: false, data: 'photo.jpg' });
   });
 });
