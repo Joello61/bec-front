@@ -8,6 +8,7 @@ import { useCreateContact } from '@/lib/hooks/useContacts';
 import { useEffect } from 'react';
 import { CreateContactFormData, createContactSchema } from "@/lib/validations/contact.schema";
 import { CONTACT } from "@/lib/utils/constants";
+import { logger } from '@/lib/utils/logger';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -52,7 +53,7 @@ export function ContactSection() {
       clearError();
       await createContact(data);
     } catch (err) {
-      console.error('Erreur lors de l\'envoi:', err);
+      logger.error('Erreur lors de l\'envoi:', err);
     }
   };
 

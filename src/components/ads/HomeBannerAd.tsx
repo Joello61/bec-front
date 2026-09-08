@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { logger } from '@/lib/utils/logger';
 
 declare global {
   interface Window {
@@ -63,7 +64,7 @@ export default function HomeBannerAd({
           setHasConsent(false);
         }
       } catch (error) {
-        console.error("Erreur lors de la vérification du consentement:", error);
+        logger.error("Erreur lors de la vérification du consentement:", error);
         setHasConsent(false);
       } finally {
         setIsLoading(false);
@@ -131,7 +132,7 @@ export default function HomeBannerAd({
           setTimeout(() => clearInterval(checkScript), 5000);
         }
       } catch (error) {
-        console.error("Erreur chargement pub:", error);
+        logger.error("Erreur chargement pub:", error);
       }
     };
 

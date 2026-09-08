@@ -10,6 +10,7 @@ import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { Address } from '@/types/address';
 import type { SelectOption } from '@/components/ui/select';
 import AddressTypeFields from './AddressTypeFields';
+import { logger } from '@/lib/utils/logger';
 
 interface AddressFormProps {
   address: Address;
@@ -134,7 +135,7 @@ export default function AddressForm({
       const cleanedData = cleanFormData(data);
       await onSubmit(cleanedData);
     } catch (error) {
-      console.error('Form submission error:', error);
+      logger.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
     }

@@ -11,6 +11,7 @@ import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/c
 import type { DemandeFilters as DemandeFiltersType, Demande } from '@/types';
 import { CreateDemandeFormData } from '@/lib/validations';
 import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
+import { logger } from '@/lib/utils/logger';
 
 export default function DemandesPageClient() {
   const [filters, setFilters] = useState<DemandeFiltersType>({});
@@ -66,7 +67,7 @@ export default function DemandesPageClient() {
       toast.success('Demande créée avec succès !');
     } catch (error) {
       toast.error('Erreur lors de la création de la demande');
-      console.error(error);
+      logger.error(error);
     }
   };
 

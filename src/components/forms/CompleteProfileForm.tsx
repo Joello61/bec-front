@@ -13,6 +13,7 @@ import type { SelectOption } from '@/components/ui/select';
 import { useAvatar } from '@/lib/hooks/useUsers';
 import AvatarUploadField from './AvatarUploadField';
 import AddressTypeFields from './AddressTypeFields';
+import { logger } from '@/lib/utils/logger';
 
 export default function CompleteProfileForm({
   onSubmit,
@@ -185,7 +186,7 @@ export default function CompleteProfileForm({
       await deleteAvatar();
       setSelectedFile(null);
     } catch (error) {
-      console.error('Erreur lors de la suppression de l\'avatar:', error);
+      logger.error('Erreur lors de la suppression de l\'avatar:', error);
     }
   };
 
@@ -199,7 +200,7 @@ export default function CompleteProfileForm({
           await uploadAvatar(selectedFile);
           // L'avatar est maintenant uploadé et le store est mis à jour
         } catch (error) {
-          console.error('Erreur lors de l\'upload de l\'avatar:', error);
+          logger.error('Erreur lors de l\'upload de l\'avatar:', error);
           // On continue quand même avec la complétion du profil
         }
       }
@@ -211,7 +212,7 @@ export default function CompleteProfileForm({
       // Réinitialiser le fichier sélectionné après succès
       setSelectedFile(null);
     } catch (error) {
-      console.error('Form submission error:', error);
+      logger.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
     }
