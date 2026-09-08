@@ -145,4 +145,11 @@ const nextConfig = {
   typedRoutes: true,
 } satisfies import('next').NextConfig;
 
-export default nextConfig;
+// @next/bundle-analyzer s'appuie sur webpack-bundle-analyzer, incompatible avec
+// Turbopack (avertissement explicite du package a l'execution) - `npm run analyze`
+// lance donc `next build --webpack` plutot que le build Turbopack par defaut.
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+export default withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})(nextConfig);
