@@ -182,15 +182,15 @@
       <strong>Le saviez-vous ?</strong>
       <div class="features">
         <div class="feature">
-          <div class="feature-icon">✓</div>
+          <div class="feature-icon"></div>
           <span>Vos données sont sauvegardées localement</span>
         </div>
         <div class="feature">
-          <div class="feature-icon">✓</div>
+          <div class="feature-icon"></div>
           <span>Les pages visitées restent accessibles</span>
         </div>
         <div class="feature">
-          <div class="feature-icon">✓</div>
+          <div class="feature-icon"></div>
           <span>La synchronisation reprendra automatiquement</span>
         </div>
       </div>
@@ -201,14 +201,14 @@
     // Vérifier automatiquement la connexion toutes les 5 secondes
     setInterval(() => {
       if (navigator.onLine) {
-        console.log('✅ Connexion rétablie, rechargement...');
+        console.log('Connexion rétablie, rechargement...');
         window.location.reload();
       }
     }, 5000);
 
     // Écouter les événements de connexion
     window.addEventListener('online', () => {
-      console.log('✅ Connexion détectée, rechargement...');
+      console.log('Connexion détectée, rechargement...');
       setTimeout(() => {
         window.location.reload();
       }, 1000);

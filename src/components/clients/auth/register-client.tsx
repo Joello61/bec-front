@@ -106,9 +106,9 @@ export default function RegisterPageClient() {
         </svg>
         <p className="text-sm font-medium">
           Les emails de vérification sont actuellement retardés à cause d’un incident
-          chez notre fournisseur. ⚠️
+          chez notre fournisseur.
           <br />
-          👉 Nous vous recommandons d’utiliser l’inscription via{' '}
+          Nous vous recommandons d’utiliser l’inscription via{' '}
           <span className="font-semibold text-primary">Google</span> pour le moment.
         </p>
       </motion.div>*/}

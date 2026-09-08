@@ -47,7 +47,7 @@ export const createDemandeSchema = z.object({
     .min(10, 'La description doit contenir au moins 10 caractères')
     .max(1000, 'La description ne peut pas dépasser 1000 caractères'),
 })
-// ✅ NOUVEAU - Validation ville départ ≠ ville arrivée
+// NOUVEAU - Validation ville départ ≠ ville arrivée
 .refine((data) => {
   return data.villeDepart.trim().toLowerCase() !== data.villeArrivee.trim().toLowerCase();
 }, {
@@ -100,7 +100,7 @@ export const updateDemandeSchema = z.object({
     .max(1000, 'La description ne peut pas dépasser 1000 caractères')
     .optional(),
 })
-// ✅ NOUVEAU - Validation ville départ ≠ ville arrivée pour update
+// NOUVEAU - Validation ville départ ≠ ville arrivée pour update
 .refine((data) => {
   if (data.villeDepart && data.villeArrivee) {
     return data.villeDepart.trim().toLowerCase() !== data.villeArrivee.trim().toLowerCase();

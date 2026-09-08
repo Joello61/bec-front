@@ -20,9 +20,9 @@ export function useAdmin() {
         store.fetchActivityStats(),
         store.fetchEngagementStats(),
       ]);
-      console.log('[Admin] Statistiques rechargées avec succès ✅');
+      console.log('[Admin] Statistiques rechargées avec succès');
     } catch (err) {
-      console.error('[Admin] Erreur lors du refetch des stats ❌', err);
+      console.error('[Admin] Erreur lors du refetch des stats', err);
     }
   }, [store]);
 

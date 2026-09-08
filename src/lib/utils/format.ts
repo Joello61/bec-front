@@ -169,7 +169,7 @@ export function formatPrice(
 ): string {
   const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
   
-  if (isNaN(numAmount)) return '—';
+  if (isNaN(numAmount)) return '-';
 
   const decimals = getCurrencyDecimals(currencyCode);
   const symbol = getCurrencySymbol(currencyCode);

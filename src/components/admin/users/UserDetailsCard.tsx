@@ -255,7 +255,7 @@ function InfoItem({
                 verified ? 'text-success' : 'text-gray-400'
               )}
             >
-              {verified ? '✓ Vérifié' : '✗ Non vérifié'}
+              {verified ? 'Vérifié' : 'Non vérifié'}
             </span>
           )}
         </div>

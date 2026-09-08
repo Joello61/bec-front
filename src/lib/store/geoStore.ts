@@ -51,7 +51,7 @@ export const useGeoStore = create<GeoState>((set, get) => ({
   fetchCountries: async () => {
     const state = get();
     
-    // ✅ Triple protection
+    // Triple protection
     if (state.countries.length > 0) return;
     if (state.isLoadingCountries) return;
 
@@ -77,7 +77,7 @@ export const useGeoStore = create<GeoState>((set, get) => ({
   fetchCities: async (countryName: string) => {
     const state = get();
     
-    // ✅ Protection contre les appels multiples
+    // Protection contre les appels multiples
     if (state.cities[countryName]) return; // Déjà en cache
     if (state.isLoadingCities) return; // Déjà en cours
 
@@ -86,7 +86,7 @@ export const useGeoStore = create<GeoState>((set, get) => ({
     try {
       const cities = await geoApi.getCities(countryName);
       
-      // ✅ Mise à jour atomique
+      // Mise à jour atomique
       set((currentState) => ({ 
         cities: {
           ...currentState.cities,
@@ -112,7 +112,7 @@ export const useGeoStore = create<GeoState>((set, get) => ({
 
     const state = get();
     
-    // ✅ Ne pas bloquer si recherche en cours
+    // Ne pas bloquer si recherche en cours
     if (state.isLoadingCities) {
       return [];
     }

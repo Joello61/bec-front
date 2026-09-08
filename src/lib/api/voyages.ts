@@ -57,7 +57,7 @@ export const voyagesApi = {
 
   /**
    * Récupérer les demandes correspondantes à un voyage (avec scoring)
-   * ⚠️ Les montants sont automatiquement convertis dans la devise de l'utilisateur
+   * Les montants sont automatiquement convertis dans la devise de l'utilisateur
    */
   async getMatchingDemandes(id: number): Promise<DemandeWithScore[]> {
     const response = await apiClient.get<DemandeWithScore[]>(endpoints.voyages.matchingDemandes(id));

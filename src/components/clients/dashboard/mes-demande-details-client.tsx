@@ -30,7 +30,7 @@ export default function DemandeDetailsPageClient() {
   const { demande, isLoading, error, refetch } = useDemande(demandeId);
   const { updateDemande, deleteDemande } = useDemandeActions();
   
-  // ✅ Utilisation de vos hooks existants
+  // Utilisation de vos hooks existants
   const { propositions: allSentPropositions } = useMyPropositionsSent();
   const { voyages: matchingVoyages, isLoading: isLoadingMatching } = useMatchingVoyages(demandeId);
 

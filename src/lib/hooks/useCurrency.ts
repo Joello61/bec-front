@@ -64,14 +64,14 @@ export function useUserCurrency() {
 
   const isLoading = useSettingsStore((state) => state.isLoading);
 
-  // 🔹 Charger les settings si absents
+  // Charger les settings si absents
   useEffect(() => {
     if (!userSettings && !isLoading) {
       fetchSettings(); // appel API une seule fois
     }
   }, [userSettings, isLoading, fetchSettings]);
 
-  // 🔹 Déterminer la devise finale
+  // Déterminer la devise finale
   const userCurrency = userSettings?.devise ?? defaultCurrency;
 
   return { userCurrency, isLoading };

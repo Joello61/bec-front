@@ -17,7 +17,7 @@ export const propositionsApi = {
 
   /**
    * Créer une proposition sur un voyage
-   * ⚠️ La devise est automatiquement celle de la demande du client
+   * La devise est automatiquement celle de la demande du client
    */
   async create(voyageId: number, data: CreatePropositionInput): Promise<Proposition> {
     const response = await apiClient.post<Proposition>(
@@ -49,7 +49,7 @@ export const propositionsApi = {
 
   /**
    * Récupérer toutes les propositions pour un voyage
-   * ⚠️ Les montants sont automatiquement convertis dans la devise de l'utilisateur
+   * Les montants sont automatiquement convertis dans la devise de l'utilisateur
    */
   async getByVoyage(voyageId: number): Promise<Proposition[]> {
     const response = await apiClient.get<Proposition[]>(
@@ -60,7 +60,7 @@ export const propositionsApi = {
 
   /**
    * Récupérer les propositions acceptées pour un voyage
-   * ⚠️ Les montants sont automatiquement convertis dans la devise de l'utilisateur
+   * Les montants sont automatiquement convertis dans la devise de l'utilisateur
    */
   async getAcceptedByVoyage(voyageId: number): Promise<Proposition[]> {
     const response = await apiClient.get<Proposition[]>(
@@ -71,7 +71,7 @@ export const propositionsApi = {
 
   /**
    * Récupérer mes propositions envoyées
-   * ⚠️ Les montants sont dans la devise de mes demandes
+   * Les montants sont dans la devise de mes demandes
    */
   async getMySent(): Promise<Proposition[]> {
     const response = await apiClient.get<Proposition[]>(
@@ -82,7 +82,7 @@ export const propositionsApi = {
 
   /**
    * Récupérer mes propositions reçues
-   * ⚠️ Les montants sont automatiquement convertis dans ma devise
+   * Les montants sont automatiquement convertis dans ma devise
    */
   async getMyReceived(): Promise<Proposition[]> {
     const response = await apiClient.get<Proposition[]>(

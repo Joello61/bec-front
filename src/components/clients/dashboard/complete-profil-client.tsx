@@ -95,7 +95,7 @@ export default function CompleteProfilePageClient() {
           <div className="flex items-center justify-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">
-                ✓
+                
               </div>
               <span className="text-sm font-medium text-gray-700">Email vérifié</span>
             </div>

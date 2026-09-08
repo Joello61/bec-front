@@ -23,7 +23,7 @@ export default function VoyageDetailsPageClient() {
   const { createProposition } = usePropositionActions();
   const toast = useToast();
 
-  // ✅ Conversation avec le voyageur
+  // Conversation avec le voyageur
   const { conversation } = useConversationWithUser(voyage?.voyageur.id);
 
   const [isPropositionModalOpen, setIsPropositionModalOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function VoyageDetailsPageClient() {
   const isOwner = user?.id === voyage?.voyageur.id;
   const canPropose = !isOwner && voyage?.statut === 'actif';
 
-  // ✅ FILTRAGE INTELLIGENT : Demandes qui correspondent au voyage
+  // FILTRAGE INTELLIGENT : Demandes qui correspondent au voyage
   const relevantDemandes = useMemo(() => {
     if (!voyage || !userDemandes.length) return [];
 

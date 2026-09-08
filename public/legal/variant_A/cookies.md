@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 RÉSUMÉ EN LANGAGE CLAIR
+## RÉSUMÉ EN LANGAGE CLAIR
 
 Les cookies sont de petits fichiers texte stockés sur votre appareil lorsque vous visitez Co-Bage. Nous utilisons des **cookies essentiels** (nécessaires au fonctionnement, pas de consentement requis) pour vous permettre de vous connecter et naviguer en sécurité. Nous n'utilisons **PAS de cookies publicitaires** pendant la phase bêta. Si vous acceptez les cookies analytiques (optionnels), nous collectons des statistiques anonymes pour améliorer le site. Vous pouvez modifier vos préférences à tout moment via le lien "Gérer mes cookies" en bas de page. Les cookies sont conservés maximum 13 mois. Aucune donnée personnelle n'est vendue à des tiers.
 
@@ -78,21 +78,21 @@ Co-Bage utilise des cookies pour :
 
 ### 2.2 Ce que nous NE faisons PAS avec les cookies
 
-❌ Vendre vos données à des tiers  
-❌ Afficher de la publicité ciblée (phase bêta)  
-❌ Partager vos données avec des réseaux sociaux  
-❌ Traquer votre navigation sur d'autres sites  
-❌ Créer des profils publicitaires
+Vendre vos données à des tiers  
+Afficher de la publicité ciblée (phase bêta)  
+Partager vos données avec des réseaux sociaux  
+Traquer votre navigation sur d'autres sites  
+Créer des profils publicitaires
 
 ### 2.3 Engagement de transparence
 
 En tant que projet étudiant pré-commercial, Co-Bage s'engage à :
 
-- ✅ Utiliser le minimum de cookies nécessaires
-- ✅ Respecter strictement votre consentement
-- ✅ Vous permettre de refuser facilement
-- ✅ Ne jamais vendre vos données
-- ✅ Anonymiser les statistiques
+- Utiliser le minimum de cookies nécessaires
+- Respecter strictement votre consentement
+- Vous permettre de refuser facilement
+- Ne jamais vendre vos données
+- Anonymiser les statistiques
 
 ---
 
@@ -104,10 +104,10 @@ Co-Bage utilise **2 types de cookies** :
 
 | Type                                | Description                          | Consentement requis     | Utilisé sur Co-Bage     |
 | ----------------------------------- | ------------------------------------ | ----------------------- | ----------------------- |
-| **Cookies strictement nécessaires** | Essentiels au fonctionnement du site | ❌ Non (exemption CNIL) | ✅ Oui                  |
-| **Cookies analytiques**             | Mesure d'audience et statistiques    | ✅ Oui                  | ✅ Oui (si acceptation) |
-| **Cookies marketing/publicitaires** | Publicité ciblée, tracking tiers     | ✅ Oui                  | ❌ Non (phase bêta)     |
-| **Cookies de réseaux sociaux**      | Boutons de partage, like, etc.       | ✅ Oui                  | ❌ Non                  |
+| **Cookies strictement nécessaires** | Essentiels au fonctionnement du site | Non (exemption CNIL) | Oui                  |
+| **Cookies analytiques**             | Mesure d'audience et statistiques    | Oui                  | Oui (si acceptation) |
+| **Cookies marketing/publicitaires** | Publicité ciblée, tracking tiers     | Oui                  | Non (phase bêta)     |
+| **Cookies de réseaux sociaux**      | Boutons de partage, like, etc.       | Oui                  | Non                  |
 
 ### 3.2 Classification selon l'origine
 
@@ -115,13 +115,13 @@ Co-Bage utilise **2 types de cookies** :
 
 - Créés et gérés par Co-Bage uniquement
 - Domaine : `cobage.com` ou `*.cobage.com`
-- ✅ Utilisés pour les fonctionnalités essentielles
+- Utilisés pour les fonctionnalités essentielles
 
 **Cookies tiers (third-party)** :
 
 - Créés par des domaines externes (Google, Facebook, etc.)
-- ❌ **Non utilisés pendant la phase bêta** pour la publicité
-- ⚠️ Potentiellement utilisés pour CDN (Cloudflare) — technique uniquement
+- **Non utilisés pendant la phase bêta** pour la publicité
+- Potentiellement utilisés pour CDN (Cloudflare) - technique uniquement
 
 ### 3.3 Classification selon la durée
 
@@ -146,9 +146,9 @@ Les cookies strictement nécessaires sont **indispensables au fonctionnement** d
 
 **Critères d'exemption (CNIL)** :
 
-- ✅ Finalité exclusive : permettre ou faciliter la communication électronique
-- ✅ Strictement nécessaire à la fourniture d'un service expressément demandé par l'utilisateur
-- ✅ Pas d'autre finalité (notamment pas de traçage publicitaire)
+- Finalité exclusive : permettre ou faciliter la communication électronique
+- Strictement nécessaire à la fourniture d'un service expressément demandé par l'utilisateur
+- Pas d'autre finalité (notamment pas de traçage publicitaire)
 
 ### 4.2 Liste des cookies essentiels
 
@@ -174,9 +174,9 @@ Les cookies strictement nécessaires sont **indispensables au fonctionnement** d
 
 **Sécurité** :
 
-- ✅ **HttpOnly** : JavaScript ne peut pas y accéder (protection XSS)
-- ✅ **Secure** : Transmis uniquement en HTTPS
-- ✅ **SameSite=Strict** : Non envoyé lors de requêtes cross-site (protection CSRF)
+- **HttpOnly** : JavaScript ne peut pas y accéder (protection XSS)
+- **Secure** : Transmis uniquement en HTTPS
+- **SameSite=Strict** : Non envoyé lors de requêtes cross-site (protection CSRF)
 
 #### `csrf_token`
 
@@ -202,16 +202,16 @@ Les cookies strictement nécessaires sont **indispensables au fonctionnement** d
 - `essential` : Vous avez refusé les cookies non essentiels
 - `custom` : Vous avez personnalisé vos préférences
 
-**Durée** : 6 mois maximum (conformité CNIL 2025 — avant c'était 13 mois).
+**Durée** : 6 mois maximum (conformité CNIL 2025 - avant c'était 13 mois).
 
 ### 4.4 Pourquoi vous ne pouvez pas refuser ces cookies
 
 Si vous refusez les cookies strictement nécessaires :
 
-- ❌ Vous ne pourrez pas vous connecter à votre compte
-- ❌ Vos actions ne seront pas sécurisées (risque CSRF)
-- ❌ Le site ne pourra pas mémoriser votre langue préférée
-- ❌ Le bandeau de consentement réapparaîtra à chaque visite
+- Vous ne pourrez pas vous connecter à votre compte
+- Vos actions ne seront pas sécurisées (risque CSRF)
+- Le site ne pourra pas mémoriser votre langue préférée
+- Le bandeau de consentement réapparaîtra à chaque visite
 
 **Solution** : Si vous souhaitez absolument naviguer sans cookies, vous pouvez consulter Co-Bage en mode déconnecté (consultation des annonces publiques uniquement, sans créer de compte).
 
@@ -223,7 +223,7 @@ Si vous refusez les cookies strictement nécessaires :
 
 Les cookies analytiques permettent de **mesurer l'audience** du site et de comprendre comment les utilisateurs l'utilisent. Ces données sont **anonymisées** et servent uniquement à améliorer l'expérience utilisateur.
 
-**Consentement** : **OUI, requis** (sauf exemption CNIL stricte — voir 5.3).
+**Consentement** : **OUI, requis** (sauf exemption CNIL stricte - voir 5.3).
 
 ### 5.2 Solution utilisée pendant la phase bêta
 
@@ -244,12 +244,12 @@ Si Co-Bage évolue vers Matomo auto-hébergé avec **configuration stricte** :
 
 **Conditions d'exemption de consentement (CNIL)** :
 
-- ✅ Outil auto-hébergé (pas de transfert vers tiers)
-- ✅ Anonymisation stricte de l'IP (suppression des 2 derniers octets)
-- ✅ Pas de croisement avec d'autres traitements
-- ✅ Pas de réidentification des personnes
-- ✅ Durée de conservation ≤ 13 mois
-- ✅ Information claire des utilisateurs (dans cette politique)
+- Outil auto-hébergé (pas de transfert vers tiers)
+- Anonymisation stricte de l'IP (suppression des 2 derniers octets)
+- Pas de croisement avec d'autres traitements
+- Pas de réidentification des personnes
+- Durée de conservation ≤ 13 mois
+- Information claire des utilisateurs (dans cette politique)
 
 **Cookie Matomo (si utilisé)** :
 
@@ -269,13 +269,13 @@ Si Co-Bage évolue vers Matomo auto-hébergé avec **configuration stricte** :
 
 **Données NON collectées** :
 
-- ❌ Adresse IP complète (anonymisée)
-- ❌ Identité de l'utilisateur connecté (dissociation)
-- ❌ Données personnelles (nom, email)
+- Adresse IP complète (anonymisée)
+- Identité de l'utilisateur connecté (dissociation)
+- Données personnelles (nom, email)
 
 **Option 3 : Google Analytics (si déploiement futur)**
 
-**⚠️ Si Google Analytics est utilisé à l'avenir** :
+**Si Google Analytics est utilisé à l'avenir** :
 
 - **Consentement OBLIGATOIRE** (pas d'exemption)
 - Configuration avec anonymisation IP
@@ -286,8 +286,8 @@ Si Co-Bage évolue vers Matomo auto-hébergé avec **configuration stricte** :
 
 | Nom     | Finalité                        | Durée                                | Consentement   |
 | ------- | ------------------------------- | ------------------------------------ | -------------- |
-| `_ga`   | Identifiant anonyme de visiteur | 2 ans (réduit à 13 mois par Co-Bage) | ✅ Oui, requis |
-| `_ga_*` | Session et mesure d'audience    | 2 ans (réduit à 13 mois)             | ✅ Oui, requis |
+| `_ga`   | Identifiant anonyme de visiteur | 2 ans (réduit à 13 mois par Co-Bage) | Oui, requis |
+| `_ga_*` | Session et mesure d'audience    | 2 ans (réduit à 13 mois)             | Oui, requis |
 
 **Uniquement activé si vous acceptez les cookies analytiques.**
 
@@ -295,11 +295,11 @@ Si Co-Bage évolue vers Matomo auto-hébergé avec **configuration stricte** :
 
 Les statistiques anonymes nous aident à :
 
-- 📊 Comprendre quelles pages sont les plus visitées
-- 🔧 Identifier les problèmes techniques (pages qui plantent, temps de chargement lents)
-- 🎨 Améliorer l'ergonomie et le design
-- 📱 Adapter le site aux appareils les plus utilisés (mobile vs desktop)
-- 🌍 Savoir quels pays/régions utilisent le plus Co-Bage
+- Comprendre quelles pages sont les plus visitées
+- Identifier les problèmes techniques (pages qui plantent, temps de chargement lents)
+- Améliorer l'ergonomie et le design
+- Adapter le site aux appareils les plus utilisés (mobile vs desktop)
+- Savoir quels pays/régions utilisent le plus Co-Bage
 
 **Exemple concret** :
 
@@ -309,9 +309,9 @@ Les statistiques anonymes nous aident à :
 
 Vous pouvez **refuser les cookies analytiques** sans impact sur votre utilisation du site :
 
-- ✅ Toutes les fonctionnalités restent accessibles
-- ✅ Aucune pénalité ni limitation
-- ✅ Vous contribuez simplement moins aux statistiques d'amélioration
+- Toutes les fonctionnalités restent accessibles
+- Aucune pénalité ni limitation
+- Vous contribuez simplement moins aux statistiques d'amélioration
 
 **Nous respectons votre choix, quel qu'il soit.**
 
@@ -321,7 +321,7 @@ Vous pouvez **refuser les cookies analytiques** sans impact sur votre utilisatio
 
 ### 6.1 Cookies publicitaires / marketing
 
-❌ **Co-Bage n'utilise PAS de cookies publicitaires pendant la phase bêta gratuite.**
+**Co-Bage n'utilise PAS de cookies publicitaires pendant la phase bêta gratuite.**
 
 **Ce que cela signifie** :
 
@@ -338,7 +338,7 @@ Vous pouvez **refuser les cookies analytiques** sans impact sur votre utilisatio
 
 ### 6.2 Cookies de réseaux sociaux
 
-❌ **Co-Bage n'intègre PAS de boutons de réseaux sociaux** (Facebook Like, Twitter Share, etc.) qui déposeraient des cookies tiers.
+**Co-Bage n'intègre PAS de boutons de réseaux sociaux** (Facebook Like, Twitter Share, etc.) qui déposeraient des cookies tiers.
 
 **Raison** : Ces boutons permettent aux réseaux sociaux de traquer votre navigation même si vous ne cliquez pas dessus.
 
@@ -346,7 +346,7 @@ Vous pouvez **refuser les cookies analytiques** sans impact sur votre utilisatio
 
 ### 6.3 Cookies de géolocalisation précise
 
-❌ **Co-Bage ne collecte PAS votre position GPS précise.**
+**Co-Bage ne collecte PAS votre position GPS précise.**
 
 **Géolocalisation approximative uniquement** :
 
@@ -361,7 +361,7 @@ Vous pouvez **refuser les cookies analytiques** sans impact sur votre utilisatio
 
 ### 6.4 Cookies de profilage comportemental
 
-❌ **Co-Bage ne crée PAS de profil comportemental** pour vous cibler avec des contenus personnalisés invasifs.
+**Co-Bage ne crée PAS de profil comportemental** pour vous cibler avec des contenus personnalisés invasifs.
 
 **Ce que nous NE faisons PAS** :
 
@@ -380,7 +380,7 @@ Vous pouvez **refuser les cookies analytiques** sans impact sur votre utilisatio
 | ------------------------ | ------------------------------------- | ----------------- |
 | **Cookies de session**   | Jusqu'à fermeture du navigateur       | Session           |
 | **Cookies persistants**  | 13 mois maximum (recommandation CNIL) | 13 mois max       |
-| **Consentement cookies** | 6 mois maximum (CNIL 2025 — nouveau)  | 6 mois            |
+| **Consentement cookies** | 6 mois maximum (CNIL 2025 - nouveau)  | 6 mois            |
 | **Cookies analytiques**  | 13 mois maximum                       | 13 mois           |
 
 ### 7.2 Rechargement du bandeau de consentement
@@ -417,7 +417,7 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 
 **Exemple de bandeau (conforme CNIL 2025)** :
 
-> 🍪 **Nous utilisons des cookies**
+> **Nous utilisons des cookies**
 >
 > Co-Bage utilise des cookies pour assurer le bon fonctionnement du site et, avec votre accord, pour mesurer l'audience de manière anonyme. Vos données ne sont jamais vendues.
 >
@@ -431,14 +431,14 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 
 1. **Tout accepter** :
 
-   - ✅ Cookies essentiels (toujours actifs)
-   - ✅ Cookies analytiques (statistiques anonymes)
-   - ⏱️ Durée du consentement : 6 mois
+   - Cookies essentiels (toujours actifs)
+   - Cookies analytiques (statistiques anonymes)
+   - ⏱Durée du consentement : 6 mois
 
 2. **Tout refuser** :
 
-   - ✅ Cookies essentiels uniquement
-   - ❌ Pas de cookies analytiques
+   - Cookies essentiels uniquement
+   - Pas de cookies analytiques
    - Navigation totalement fonctionnelle
 
 3. **Personnaliser** :
@@ -447,10 +447,10 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 
 **Exigences CNIL 2025 respectées** :
 
-- ✅ Bouton "Tout refuser" **aussi visible** que "Tout accepter"
-- ✅ Pas de cookies non essentiels déposés avant votre choix
-- ✅ Poursuite de la navigation = consentement uniquement si clic explicite
-- ✅ Accès facile à la gestion ultérieure (lien en footer)
+- Bouton "Tout refuser" **aussi visible** que "Tout accepter"
+- Pas de cookies non essentiels déposés avant votre choix
+- Poursuite de la navigation = consentement uniquement si clic explicite
+- Accès facile à la gestion ultérieure (lien en footer)
 
 ### 8.2 Panneau de personnalisation
 
@@ -460,11 +460,11 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 
 **Exemple de panneau** :
 
-> ### 🍪 Gestion des cookies
+> ### Gestion des cookies
 >
 > #### Cookies strictement nécessaires
 >
-> **Toujours actifs** — Ces cookies sont indispensables au fonctionnement du site.
+> **Toujours actifs** - Ces cookies sont indispensables au fonctionnement du site.
 >
 > Détails : Authentification, sécurité, mémorisation de vos préférences
 >
@@ -472,7 +472,7 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 >
 > #### Cookies analytiques et de performance
 >
-> **[Toggle ON/OFF]** — Nous aident à améliorer le site grâce à des statistiques anonymes.
+> **[Toggle ON/OFF]** - Nous aident à améliorer le site grâce à des statistiques anonymes.
 >
 > Détails : Mesure d'audience, analyse des pages visitées, temps de chargement. Vos données sont anonymisées et jamais vendues.
 >
@@ -511,31 +511,31 @@ Lors de votre première visite sur Co-Bage, un bandeau apparaît en bas ou en ha
 
 #### Google Chrome / Chromium / Edge
 
-1. Paramètres → Confidentialité et sécurité → Cookies et autres données de site
+1. Paramètres -> Confidentialité et sécurité -> Cookies et autres données de site
 2. Options :
-   - "Bloquer tous les cookies" (⚠️ casse beaucoup de sites)
+   - "Bloquer tous les cookies" (casse beaucoup de sites)
    - "Bloquer les cookies tiers" (recommandé)
    - "Supprimer les cookies à la fermeture"
-3. "Voir tous les cookies et données de site" → Rechercher `cobage.com` → Supprimer
+3. "Voir tous les cookies et données de site" -> Rechercher `cobage.com` -> Supprimer
 
 #### Firefox
 
-1. Paramètres → Vie privée et sécurité → Cookies et données de sites
+1. Paramètres -> Vie privée et sécurité -> Cookies et données de sites
 2. Options :
    - "Strict" : Bloque les traceurs tiers
    - "Personnalisé" : Configurer finement
-3. "Gérer les données" → Rechercher `cobage.com` → Supprimer
+3. "Gérer les données" -> Rechercher `cobage.com` -> Supprimer
 
 #### Safari (Mac/iOS)
 
-1. Préférences → Confidentialité → Gérer les données de sites web
-2. Rechercher `cobage.com` → Supprimer
-3. Option : "Bloquer tous les cookies" (⚠️ très restrictif)
+1. Préférences -> Confidentialité -> Gérer les données de sites web
+2. Rechercher `cobage.com` -> Supprimer
+3. Option : "Bloquer tous les cookies" (très restrictif)
 
 #### Navigation privée / Incognito
 
 - Les cookies sont automatiquement supprimés à la fermeture de la fenêtre
-- ⚠️ Vous devrez vous reconnecter à chaque session
+- Vous devrez vous reconnecter à chaque session
 
 ### 8.5 Extensions de blocage des cookies
 
@@ -545,7 +545,7 @@ Vous pouvez utiliser des extensions navigateur :
 - **uBlock Origin** : Bloque les traceurs et cookies tiers
 - **Privacy Badger** (EFF) : Apprend et bloque les traceurs
 
-**⚠️ Attention** : Ces extensions peuvent bloquer les cookies essentiels et casser la connexion sur Co-Bage.
+**Attention** : Ces extensions peuvent bloquer les cookies essentiels et casser la connexion sur Co-Bage.
 
 ---
 
@@ -565,17 +565,17 @@ Vous pouvez utiliser des extensions navigateur :
 
 ### 9.2 Principes CNIL respectés
 
-✅ **Consentement libre** : Possibilité de refuser sans conséquence  
-✅ **Consentement éclairé** : Information claire sur les finalités  
-✅ **Consentement spécifique** : Par catégorie de cookies  
-✅ **Consentement univoque** : Action positive (pas de case pré-cochée)  
-✅ **Consentement révocable** : Modification facile à tout moment
+**Consentement libre** : Possibilité de refuser sans conséquence  
+**Consentement éclairé** : Information claire sur les finalités  
+**Consentement spécifique** : Par catégorie de cookies  
+**Consentement univoque** : Action positive (pas de case pré-cochée)  
+**Consentement révocable** : Modification facile à tout moment
 
-✅ **Preuve du consentement** : Conservation du choix dans `cookie_consent`  
-✅ **Refus facile** : Bouton "Tout refuser" aussi visible que "Tout accepter"  
-✅ **Pas de wall cookie** : Accès au site sans accepter les cookies non essentiels  
-✅ **Durée limitée** : Rechargement du consentement tous les 6 mois (CNIL 2025)  
-✅ **Information préalable** : Cette politique accessible avant acceptation
+**Preuve du consentement** : Conservation du choix dans `cookie_consent`  
+**Refus facile** : Bouton "Tout refuser" aussi visible que "Tout accepter"  
+**Pas de wall cookie** : Accès au site sans accepter les cookies non essentiels  
+**Durée limitée** : Rechargement du consentement tous les 6 mois (CNIL 2025)  
+**Information préalable** : Cette politique accessible avant acceptation
 
 ### 9.3 Sanctions en cas de non-conformité
 
@@ -601,11 +601,11 @@ La CNIL peut sanctionner en cas de :
 
 **Conformément aux articles 21 et 7.3 du RGPD** :
 
-- ✅ Vous pouvez **retirer votre consentement** à tout moment
-- ✅ Aussi facilement que vous l'avez donné
-- ✅ Sans justification
-- ✅ Sans frais
-- ✅ Sans impact sur votre utilisation du site
+- Vous pouvez **retirer votre consentement** à tout moment
+- Aussi facilement que vous l'avez donné
+- Sans justification
+- Sans frais
+- Sans impact sur votre utilisation du site
 
 **Modalités** : Lien "Gérer mes cookies" dans le footer (voir section 8).
 
@@ -631,10 +631,10 @@ Co-Bage se réserve le droit de modifier cette Politique Cookies à tout moment 
 
 **Notification** :
 
-- 📧 E-mail à tous les utilisateurs inscrits (30 jours avant)
-- 📢 Bannière sur le site avec lien vers la nouvelle politique
-- 🔔 Notification in-app à la connexion
-- 🍪 Rechargement du bandeau de consentement (nouveaux choix à faire)
+- E-mail à tous les utilisateurs inscrits (30 jours avant)
+- Bannière sur le site avec lien vers la nouvelle politique
+- Notification in-app à la connexion
+- Rechargement du bandeau de consentement (nouveaux choix à faire)
 
 **Modifications mineures** (corrections, clarifications) :
 
@@ -739,19 +739,19 @@ Outil de gestion du consentement aux cookies (ex. : Axeptio, Didomi). Co-Bage ut
 
 | Nom du cookie            | Type       | Finalité                     | Durée   | Consentement                            | Sécurité                          |
 | ------------------------ | ---------- | ---------------------------- | ------- | --------------------------------------- | --------------------------------- |
-| `session_token`          | Essentiel  | Authentification utilisateur | Session | ❌ Non requis (exemption)               | HttpOnly, Secure, SameSite=Strict |
-| `csrf_token`             | Essentiel  | Protection CSRF              | Session | ❌ Non requis (exemption)               | HttpOnly, Secure, SameSite=Strict |
-| `cookie_consent`         | Essentiel  | Mémorisation du consentement | 6 mois  | ❌ Non requis (exemption)               | Secure, SameSite=Lax              |
-| `lang`                   | Essentiel  | Langue préférée              | 12 mois | ❌ Non requis (exemption)               | Secure, SameSite=Lax              |
-| `_pk_id` (Matomo)        | Analytique | Identifiant visiteur anonyme | 13 mois | ⚠️ Exemption possible si config stricte | Secure, SameSite=Lax              |
-| `_pk_ses` (Matomo)       | Analytique | Session analytique           | 30 min  | ⚠️ Exemption possible si config stricte | Secure, SameSite=Lax              |
-| `_ga` (Google Analytics) | Analytique | Identifiant visiteur anonyme | 13 mois | ✅ Oui, requis                          | Secure, SameSite=Lax              |
+| `session_token`          | Essentiel  | Authentification utilisateur | Session | Non requis (exemption)               | HttpOnly, Secure, SameSite=Strict |
+| `csrf_token`             | Essentiel  | Protection CSRF              | Session | Non requis (exemption)               | HttpOnly, Secure, SameSite=Strict |
+| `cookie_consent`         | Essentiel  | Mémorisation du consentement | 6 mois  | Non requis (exemption)               | Secure, SameSite=Lax              |
+| `lang`                   | Essentiel  | Langue préférée              | 12 mois | Non requis (exemption)               | Secure, SameSite=Lax              |
+| `_pk_id` (Matomo)        | Analytique | Identifiant visiteur anonyme | 13 mois | Exemption possible si config stricte | Secure, SameSite=Lax              |
+| `_pk_ses` (Matomo)       | Analytique | Session analytique           | 30 min  | Exemption possible si config stricte | Secure, SameSite=Lax              |
+| `_ga` (Google Analytics) | Analytique | Identifiant visiteur anonyme | 13 mois | Oui, requis                          | Secure, SameSite=Lax              |
 
 **Légende** :
 
-- ❌ **Non requis** : Cookie strictement nécessaire, exemption CNIL
-- ⚠️ **Exemption possible** : Si conditions strictes respectées (auto-hébergement, anonymisation)
-- ✅ **Requis** : Consentement obligatoire avant dépôt du cookie
+- **Non requis** : Cookie strictement nécessaire, exemption CNIL
+- **Exemption possible** : Si conditions strictes respectées (auto-hébergement, anonymisation)
+- **Requis** : Consentement obligatoire avant dépôt du cookie
 
 ---
 
@@ -764,24 +764,24 @@ Outil de gestion du consentement aux cookies (ex. : Axeptio, Didomi). Co-Bage ut
 **Chrome/Edge** :
 
 ```
-Paramètres → Confidentialité et sécurité
-→ Cookies et autres données de site
-→ Sélectionner "Bloquer les cookies tiers"
+Paramètres -> Confidentialité et sécurité
+-> Cookies et autres données de site
+-> Sélectionner "Bloquer les cookies tiers"
 ```
 
 **Firefox** :
 
 ```
-Paramètres → Vie privée et sécurité
-→ Protection renforcée contre le pistage
-→ Sélectionner "Strict"
+Paramètres -> Vie privée et sécurité
+-> Protection renforcée contre le pistage
+-> Sélectionner "Strict"
 ```
 
 **Safari** :
 
 ```
-Préférences → Confidentialité
-→ Cocher "Empêcher le suivi sur plusieurs domaines"
+Préférences -> Confidentialité
+-> Cocher "Empêcher le suivi sur plusieurs domaines"
 ```
 
 **2. Supprimer les cookies à la fermeture du navigateur**
@@ -789,42 +789,42 @@ Préférences → Confidentialité
 **Chrome/Edge** :
 
 ```
-Paramètres → Confidentialité et sécurité
-→ Cookies et autres données de site
-→ Activer "Effacer les cookies et les données de site à la fermeture du navigateur"
+Paramètres -> Confidentialité et sécurité
+-> Cookies et autres données de site
+-> Activer "Effacer les cookies et les données de site à la fermeture du navigateur"
 ```
 
-⚠️ **Inconvénient** : Vous devrez vous reconnecter à tous les sites à chaque ouverture du navigateur.
+**Inconvénient** : Vous devrez vous reconnecter à tous les sites à chaque ouverture du navigateur.
 
 **3. Autoriser les cookies uniquement pour certains sites (liste blanche)**
 
 **Chrome/Edge** :
 
 ```
-Paramètres → Confidentialité et sécurité
-→ Cookies et autres données de site
-→ Bloquer tous les cookies
-→ Ajouter des exceptions : cobage.com (Autorisé)
+Paramètres -> Confidentialité et sécurité
+-> Cookies et autres données de site
+-> Bloquer tous les cookies
+-> Ajouter des exceptions : cobage.com (Autorisé)
 ```
 
 #### Configuration pour bloquer TOUS les cookies (déconseillé)
 
-⚠️ **Attention** : Cela cassera la plupart des sites web, y compris Co-Bage (impossible de se connecter).
+**Attention** : Cela cassera la plupart des sites web, y compris Co-Bage (impossible de se connecter).
 
 **Chrome/Edge** :
 
 ```
-Paramètres → Confidentialité et sécurité
-→ Cookies et autres données de site
-→ Sélectionner "Bloquer tous les cookies"
+Paramètres -> Confidentialité et sécurité
+-> Cookies et autres données de site
+-> Sélectionner "Bloquer tous les cookies"
 ```
 
 **Firefox** :
 
 ```
-Paramètres → Vie privée et sécurité
-→ Historique → Règles de conservation
-→ Sélectionner "Ne jamais conserver l'historique"
+Paramètres -> Vie privée et sécurité
+-> Historique -> Règles de conservation
+-> Sélectionner "Ne jamais conserver l'historique"
 ```
 
 ---
@@ -835,8 +835,8 @@ Paramètres → Vie privée et sécurité
 
 **Oui, partiellement.**
 
-- ✅ Vous pouvez **consulter les annonces publiques** sans cookies
-- ❌ Vous ne pouvez **pas créer de compte ni vous connecter** sans les cookies essentiels (authentification, sécurité)
+- Vous pouvez **consulter les annonces publiques** sans cookies
+- Vous ne pouvez **pas créer de compte ni vous connecter** sans les cookies essentiels (authentification, sécurité)
 
 **Solution** : Acceptez uniquement les cookies essentiels (refusez les cookies analytiques). Vous aurez accès à toutes les fonctionnalités.
 
@@ -866,9 +866,9 @@ Paramètres → Vie privée et sécurité
 
 **Bonnes pratiques** :
 
-- ✅ Utilisez uniquement des réseaux WiFi sécurisés (ou un VPN sur WiFi public)
-- ✅ Déconnectez-vous toujours sur ordinateurs publics/partagés
-- ✅ Gardez votre navigateur et système à jour
+- Utilisez uniquement des réseaux WiFi sécurisés (ou un VPN sur WiFi public)
+- Déconnectez-vous toujours sur ordinateurs publics/partagés
+- Gardez votre navigateur et système à jour
 
 #### 4. Pourquoi le bandeau de cookies réapparaît tous les 6 mois ?
 
@@ -889,16 +889,16 @@ Co-Bage s'engage à **ne jamais vendre, louer ou partager** vos données personn
 
 **Ce qui est fait avec vos données** :
 
-- ✅ Fournir le service (mise en relation)
-- ✅ Améliorer la plateforme (statistiques anonymes)
-- ✅ Respecter les obligations légales (réquisitions judiciaires)
+- Fournir le service (mise en relation)
+- Améliorer la plateforme (statistiques anonymes)
+- Respecter les obligations légales (réquisitions judiciaires)
 
 **Ce qui n'est PAS fait** :
 
-- ❌ Vente à des data brokers
-- ❌ Partage avec des annonceurs
-- ❌ Profilage publicitaire
-- ❌ Enrichissement de bases de données marketing
+- Vente à des data brokers
+- Partage avec des annonceurs
+- Profilage publicitaire
+- Enrichissement de bases de données marketing
 
 #### 6. Quelle est la différence entre cookies et autres traceurs ?
 
@@ -908,9 +908,9 @@ Co-Bage s'engage à **ne jamais vendre, louer ou partager** vos données personn
 
 - **LocalStorage / SessionStorage** : Stockage côté navigateur (plus grande capacité que les cookies)
 - **IndexedDB** : Base de données côté navigateur
-- **Fingerprinting** : Identification par empreinte numérique (caractéristiques de l'appareil) — **Non utilisé par Co-Bage**
-- **Pixels invisibles** : Images 1x1 pixel pour traçage — **Non utilisé par Co-Bage**
-- **Web beacons** : Balises de suivi intégrées dans emails — **Non utilisé par Co-Bage**
+- **Fingerprinting** : Identification par empreinte numérique (caractéristiques de l'appareil) - **Non utilisé par Co-Bage**
+- **Pixels invisibles** : Images 1x1 pixel pour traçage - **Non utilisé par Co-Bage**
+- **Web beacons** : Balises de suivi intégrées dans emails - **Non utilisé par Co-Bage**
 
 **Tous ces traceurs sont soumis aux mêmes règles de consentement que les cookies.**
 
@@ -920,10 +920,10 @@ Co-Bage s'engage à **ne jamais vendre, louer ou partager** vos données personn
 
 **Mesures d'anonymisation** :
 
-- ✅ Suppression des 2 derniers octets de l'IP (ex. : `192.168.XXX.XXX`)
-- ✅ Pas de croisement avec les comptes utilisateurs (dissociation)
-- ✅ Agrégation des données (pas d'analyse individuelle)
-- ✅ Pas de ré-identification possible
+- Suppression des 2 derniers octets de l'IP (ex. : `192.168.XXX.XXX`)
+- Pas de croisement avec les comptes utilisateurs (dissociation)
+- Agrégation des données (pas d'analyse individuelle)
+- Pas de ré-identification possible
 
 **Limite technique** : Une anonymisation parfaite à 100% est techniquement impossible (empreinte digitale), mais Co-Bage applique les meilleures pratiques recommandées par la CNIL.
 
@@ -933,7 +933,7 @@ Co-Bage s'engage à **ne jamais vendre, louer ou partager** vos données personn
 
 **Procédure** :
 
-1. Envoyez un e-mail à support@cobage.joeltech.dev avec objet "Demande d'accès RGPD — Cookies"
+1. Envoyez un e-mail à support@cobage.joeltech.dev avec objet "Demande d'accès RGPD - Cookies"
 2. Indiquez votre nom, prénom, adresse e-mail du compte
 3. Joignez une copie de votre pièce d'identité (pour vérification)
 
@@ -957,15 +957,15 @@ Co-Bage ne pratique PAS de retargeting. Vous ne verrez **jamais** de publicité 
 
 **Effets immédiats** :
 
-- ❌ Vous serez déconnecté de votre compte
-- ❌ Vos préférences (langue, consentement cookies) seront oubliées
-- ❌ Le bandeau de cookies réapparaîtra à votre prochaine visite
+- Vous serez déconnecté de votre compte
+- Vos préférences (langue, consentement cookies) seront oubliées
+- Le bandeau de cookies réapparaîtra à votre prochaine visite
 
 **Vos données sur les serveurs Co-Bage restent intactes** :
 
-- ✅ Votre compte existe toujours
-- ✅ Vos annonces et messages sont conservés
-- ✅ Vous pouvez vous reconnecter normalement
+- Votre compte existe toujours
+- Vos annonces et messages sont conservés
+- Vous pouvez vous reconnecter normalement
 
 **Suppression des cookies ≠ Suppression du compte.**
 
@@ -979,7 +979,7 @@ Co-Bage ne pratique PAS de retargeting. Vous ne verrez **jamais** de publicité 
 
 Si Co-Bage reste gratuit avec options premium :
 
-- ✅ **Pas de changement majeur** sur les cookies
+- **Pas de changement majeur** sur les cookies
 - Possibilité d'ajouter des cookies de personnalisation (préférences utilisateur avancées)
 - Consentement facile maintenu
 
@@ -987,29 +987,29 @@ Si Co-Bage reste gratuit avec options premium :
 
 Si Co-Bage introduit de la publicité contextuelle (basée sur le contenu consulté, pas sur le profilage) :
 
-- ⚠️ Ajout de cookies publicitaires contextuels
-- ✅ **Notification 30 jours à l'avance**
-- ✅ Consentement explicite requis
-- ❌ **Pas de vente de données** (engagement)
+- Ajout de cookies publicitaires contextuels
+- **Notification 30 jours à l'avance**
+- Consentement explicite requis
+- **Pas de vente de données** (engagement)
 - Possibilité d'un abonnement premium sans publicité
 
 **Scénario 3 : Partenariats avec annonceurs**
 
 Si Co-Bage collabore avec des annonceurs (moins probable) :
 
-- ⚠️ Cookies tiers publicitaires
-- ✅ **Notification 60 jours à l'avance**
-- ✅ Consentement explicite avec cases pré-décochées
-- ✅ Liste complète des partenaires publicitaires
-- ✅ Option de refus total sans limitation d'accès
+- Cookies tiers publicitaires
+- **Notification 60 jours à l'avance**
+- Consentement explicite avec cases pré-décochées
+- Liste complète des partenaires publicitaires
+- Option de refus total sans limitation d'accès
 - Possibilité d'un abonnement sans publicité
 
 **Engagement de Co-Bage** :
 
-- 📢 **Communication transparente** avant tout changement
+- **Communication transparente** avant tout changement
 - ⏰ **Préavis minimum de 30 jours** (60 jours pour changements majeurs)
-- 🚫 **Jamais de wall cookie** (accès toujours possible en refusant)
-- 📝 **Mise à jour de cette politique** avec historique des versions
+- **Jamais de wall cookie** (accès toujours possible en refusant)
+- **Mise à jour de cette politique** avec historique des versions
 
 ---
 
@@ -1104,9 +1104,9 @@ Supprime automatiquement les cookies à la fermeture d'un onglet
 
 Elle doit être :
 
-- ✅ Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
-- ✅ Adaptée en cas d'introduction de publicité ou de nouveaux outils analytiques
-- ✅ Mise à jour selon les évolutions légales et les recommandations de la CNIL
+- Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
+- Adaptée en cas d'introduction de publicité ou de nouveaux outils analytiques
+- Mise à jour selon les évolutions légales et les recommandations de la CNIL
 
 **Timothée Joël Tchinda Tchoffo** reste seul responsable de la conformité de la gestion des cookies sur la plateforme Co-Bage.
 
@@ -1118,7 +1118,7 @@ Elle doit être :
 
 **Dernière mise à jour : 18 Octobre 2025**
 
-**© Co-Bage 2025 — Tous droits réservés**
+**© Co-Bage 2025 - Tous droits réservés**
 
 **Projet étudiant pré-commercial développé par Timothée Joël Tchinda Tchoffo**
 
@@ -1146,10 +1146,10 @@ Section dédiée aux cookies : [www.cnil.fr/fr/cookies-et-autres-traceurs](https
 
 ### Documents complémentaires
 
-- 📄 [Conditions Générales d'Utilisation](terms)
-- 🔒 [Politique de Confidentialité (RGPD)](privacy)
-- 🛡️ [Politique de Modération et Trust & Safety](trust-safety)
-- ⚖️ [Mentions Légales](terms)
+- [Conditions Générales d'Utilisation](terms)
+- [Politique de Confidentialité (RGPD)](privacy)
+- [Politique de Modération et Trust & Safety](trust-safety)
+- [Mentions Légales](terms)
 
 ---
 
@@ -1157,4 +1157,4 @@ Section dédiée aux cookies : [www.cnil.fr/fr/cookies-et-autres-traceurs](https
 
 **Merci d'avoir pris le temps de lire cette politique. Votre vie privée est importante pour nous.**
 
-**Bonne navigation sur Co-Bage ! 🚀**
+**Bonne navigation sur Co-Bage !**

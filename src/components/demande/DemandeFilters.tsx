@@ -25,10 +25,10 @@ export default function DemandeFilters({
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState<DemandeFiltersType>(initialFilters);
 
-  // ✅ Top 100 villes mondiales (chargé une seule fois)
+  // Top 100 villes mondiales (chargé une seule fois)
   const { topCitiesGlobal, isLoading: isLoadingTopCities } = useTopCitiesGlobal();
 
-  // ✅ Recherche globale pour départ et arrivée
+  // Recherche globale pour départ et arrivée
   const { 
     searchResults: searchResultsDepart, 
     search: searchDepart 
@@ -39,7 +39,7 @@ export default function DemandeFilters({
     search: searchArrivee 
   } = useCitySearchGlobal();
 
-  // ✅ Options ville départ : Top 100 + Résultats recherche
+  // Options ville départ : Top 100 + Résultats recherche
   const optionsDepart = useMemo<SelectOption[]>(() => {
     const baseOptions: SelectOption[] = [
       { value: '', label: 'Toutes les villes' }
@@ -64,7 +64,7 @@ export default function DemandeFilters({
     ];
   }, [topCitiesGlobal, searchResultsDepart]);
 
-  // ✅ Options ville arrivée : Top 100 + Résultats recherche
+  // Options ville arrivée : Top 100 + Résultats recherche
   const optionsArrivee = useMemo<SelectOption[]>(() => {
     const baseOptions: SelectOption[] = [
       { value: '', label: 'Toutes les villes' }
@@ -89,14 +89,14 @@ export default function DemandeFilters({
     ];
   }, [topCitiesGlobal, searchResultsArrivee]);
 
-  // ✅ Recherche départ
+  // Recherche départ
   const handleSearchDepart = useCallback((query: string) => {
     if (query.length >= 2) {
       searchDepart(query, 50);
     }
   }, [searchDepart]);
 
-  // ✅ Recherche arrivée
+  // Recherche arrivée
   const handleSearchArrivee = useCallback((query: string) => {
     if (query.length >= 2) {
       searchArrivee(query, 50);

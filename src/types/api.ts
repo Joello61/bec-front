@@ -79,7 +79,7 @@ export interface VerifyEmailResponse {
 export interface CompleteProfileResponse {
   success: boolean;
   message: string;
-  smsVerificationRequired: boolean; // ⬅️ NOUVEAU CHAMP CRUCIAL
+  smsVerificationRequired: boolean; // <- NOUVEAU CHAMP CRUCIAL
   user: {
     id: number;
     telephone: string;

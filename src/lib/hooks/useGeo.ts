@@ -2,9 +2,9 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { useAuthStore, useGeoStore } from '@/lib/store';
 import type { City, CityGlobal } from '@/types/geo';
 
-/* ———————————————————————————————— */
+/* -------------------------------- */
 /* Hook pour charger et accéder aux pays */
-/* ———————————————————————————————— */
+/* -------------------------------- */
 export function useCountries() {
   const countries = useGeoStore((state) => state.countries);
 
@@ -29,9 +29,9 @@ export function useCountries() {
   };
 }
 
-/* ———————————————————————————————— */
+/* -------------------------------- */
 /* Hook pour charger les villes d’un pays */
-/* ———————————————————————————————— */
+/* -------------------------------- */
 const EMPTY_CITIES: ReadonlyArray<City> = Object.freeze([]);
 
 export function useCities(countryName: string | null) {
@@ -78,9 +78,9 @@ export function useCities(countryName: string | null) {
   return { cities, isLoading };
 }
 
-/* ———————————————————————————————— */
+/* -------------------------------- */
 /* Hook recherche (autocomplete) des villes */
-/* ———————————————————————————————— */
+/* -------------------------------- */
 export function useCitySearch(countryName: string | null) {
   const [searchResults, setSearchResults] = useState<City[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -118,9 +118,9 @@ export function useCitySearch(countryName: string | null) {
   };
 }
 
-/* ———————————————————————————————— */
-/* ✅ NOUVEAU - Hook top 100 mondial */
-/* ———————————————————————————————— */
+/* -------------------------------- */
+/* NOUVEAU - Hook top 100 mondial */
+/* -------------------------------- */
 export function useTopCitiesGlobal() {
   const topCitiesGlobal = useGeoStore((state) => state.topCitiesGlobal);
   const hasFetchedRef = useRef(false);
@@ -144,9 +144,9 @@ export function useTopCitiesGlobal() {
   };
 }
 
-/* ———————————————————————————————— */
-/* ✅ NOUVEAU - Hook recherche globale */
-/* ———————————————————————————————— */
+/* -------------------------------- */
+/* NOUVEAU - Hook recherche globale */
+/* -------------------------------- */
 export function useCitySearchGlobal() {
   const [searchResults, setSearchResults] = useState<CityGlobal[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -180,9 +180,9 @@ export function useCitySearchGlobal() {
   };
 }
 
-/* ———————————————————————————————— */
+/* -------------------------------- */
 /* Hook combiné pour gérer pays + villes */
-/* ———————————————————————————————— */
+/* -------------------------------- */
 export function useGeoData() {
   const { countries, isLoading: isLoadingCountries } = useCountries();
 

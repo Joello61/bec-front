@@ -8,7 +8,7 @@ const APP_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 
-  title: 'Comment ça marche ? – Utiliser Co-Bage en 4 étapes simples',
+  title: 'Comment ça marche ? - Utiliser Co-Bage en 4 étapes simples',
   description:
     'Découvrez en 4 étapes simples comment utiliser Co-Bage pour envoyer ou transporter vos colis entre le Cameroun, l’Afrique et la diaspora. Une solution économique et sécurisée.',
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${APP_URL}/how-it-works`,
     siteName: 'Co-Bage',
-    title: 'Comment fonctionne Co-Bage ? – Guide Complet',
+    title: 'Comment fonctionne Co-Bage ? - Guide Complet',
     description:
       'Apprenez à utiliser Co-Bage étape par étape pour transporter ou envoyer vos colis facilement et à moindre coût.',
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@cobage_officiel',
     creator: '@cobage_officiel',
-    title: 'Comment ça marche – Co-Bage',
+    title: 'Comment ça marche - Co-Bage',
     description:
       'Guide rapide en 4 étapes pour utiliser Co-Bage et simplifier vos envois de colis.',
     images: [`${APP_URL}/images/og-how-it-works.jpg`],

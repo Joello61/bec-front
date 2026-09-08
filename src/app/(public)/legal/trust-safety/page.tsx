@@ -8,7 +8,7 @@ const APP_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 
-  title: 'Confiance et Sécurité – Co-Bage',
+  title: 'Confiance et Sécurité - Co-Bage',
   description:
     'Découvrez nos mesures de sécurité et nos conseils pour un transport de colis en toute confiance. Vérification d’identité, objets interdits, signalement et bonnes pratiques sur Co-Bage.',
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${APP_URL}/legal/trust-safety`,
     siteName: 'Co-Bage',
-    title: 'Confiance et Sécurité – Co-Bage',
+    title: 'Confiance et Sécurité - Co-Bage',
     description:
       'Guide complet sur la sécurité et la confiance chez Co-Bage : vérification d’identité, signalement, règles de transport et évaluation des utilisateurs.',
     images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@cobage_officiel',
     creator: '@cobage_officiel',
-    title: 'Confiance et Sécurité – Co-Bage',
+    title: 'Confiance et Sécurité - Co-Bage',
     description:
       'Conseils pratiques et règles de sécurité pour utiliser Co-Bage en toute confiance.',
     images: [`${APP_URL}/images/og-legal-trust-safety.jpg`],
@@ -54,7 +54,7 @@ const trustSafetySchema = {
   '@graph': [
     {
       '@type': ['WebPage', 'Guide'],
-      name: 'Confiance et Sécurité – Co-Bage',
+      name: 'Confiance et Sécurité - Co-Bage',
       description:
         "Guide de sécurité et bonnes pratiques pour utiliser Co-Bage en toute confiance. Vérification d'identité, objets interdits, signalement, évaluations et assistance.",
       url: `${APP_URL}/legal/trust-safety`,

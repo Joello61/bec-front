@@ -19,7 +19,7 @@ export default function AdminModerationVoyagesPageClient() {
 
   const router = useRouter();
 
-  // ✅ Utiliser useMemo pour stabiliser l'objet filters
+  // Utiliser useMemo pour stabiliser l'objet filters
   const filters = useMemo<VoyageFilters | undefined>(() => {
     return statusFilter ? { statut: statusFilter as VoyageStatut } : undefined;
   }, [statusFilter]);
