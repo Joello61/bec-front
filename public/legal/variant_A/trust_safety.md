@@ -285,7 +285,7 @@ Allégation ou imputation d'un **fait précis portant atteinte à l'honneur** d'
 **Action de Co-Bage** :
 
 - **Notification qualifiée requise** (art. 6-I-5 LCEN)
-- ⏱**Examen sous 7 jours**
+- **Examen sous 7 jours**
 - Retrait si manifestement diffamatoire
 - Avertissement de l'auteur
 
