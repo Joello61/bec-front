@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { authApi } from '@/lib/api/auth';
 import { usersApi } from '@/lib/api/users';
-import type { 
-  User, 
-  LoginInput, 
+import { createAsyncAction } from './createAsyncAction';
+import type {
+  User,
+  LoginInput,
   RegisterInput,
-  CompleteProfileInput, 
+  CompleteProfileInput,
   CompleteProfileResponse,
   RegisterResponse
 } from '@/types';
@@ -19,22 +18,22 @@ interface AuthState {
   isInitialized: boolean;
   error: string | null;
   pendingEmail: string | null;
-  
+
   // Actions principales
   login: (credentials: LoginInput) => Promise<void>;
   register: (data: RegisterInput) => Promise<RegisterResponse>;
   logout: () => Promise<void>;
   fetchMe: () => Promise<User | null>;
-  
+
   // Actions de vérification
   verifyEmail: (code: string, email: string) => Promise<void>;
   verifyPhone: (code: string) => Promise<void>;
   resendVerification: (type: 'email' | 'phone', email?: string) => Promise<void>;
-  
+
   // Actions profil
   completeProfile: (data: CompleteProfileInput) => Promise<CompleteProfileResponse>;
   checkProfileStatus: () => Promise<boolean>;
-  
+
   // Actions de mot de passe
   changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
 
@@ -54,202 +53,136 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   error: null,
   pendingEmail: null,
 
-  login: async (credentials) => {
-    set({ isLoading: true, error: null });
-    try {
+  login: (credentials) =>
+    createAsyncAction<AuthState, void>(set, async () => {
       await authApi.login(credentials);
       const user = await authApi.me();
-      set({ 
-        user, 
-        isAuthenticated: true, 
-        isLoading: false,
-        isInitialized: true
-      });
-    } catch (error: any) {
-      if (error.message?.includes('vérifier') || error.message?.includes('verify')) {
-        set({ 
-          error: 'EMAIL_NOT_VERIFIED',
+      set({ user, isAuthenticated: true, isLoading: false, isInitialized: true });
+    }, {
+      fallbackError: 'Erreur de connexion',
+      rethrow: true,
+      onError: (error) => {
+        if (error.message?.includes('vérifier') || error.message?.includes('verify')) {
+          // Normalise vers un message stable independant du texte backend :
+          // login-client.tsx/useAuth.ts comparent error.message === 'EMAIL_NOT_VERIFIED'.
+          set({
+            error: 'EMAIL_NOT_VERIFIED',
+            isLoading: false,
+            isInitialized: true,
+            user: null,
+            isAuthenticated: false,
+            pendingEmail: credentials.email,
+          });
+          throw new Error('EMAIL_NOT_VERIFIED');
+        }
+        return {
+          error: error.message || 'Erreur de connexion',
           isLoading: false,
           isInitialized: true,
           user: null,
           isAuthenticated: false,
-          pendingEmail: credentials.email,
-        });
-        throw new Error('EMAIL_NOT_VERIFIED');
-      }
-      
-      set({ 
-        error: error.message || 'Erreur de connexion', 
-        isLoading: false,
-        isInitialized: true,
-        user: null,
-        isAuthenticated: false
-      });
-      throw error;
-    }
-  },
+        };
+      },
+    }),
 
-  register: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  register: (data) =>
+    createAsyncAction(set, async () => {
       const response = await authApi.register(data);
-      set({ 
-        isLoading: false,
-        error: null,
-        pendingEmail: data.email,
-      });
-      return response; // <- Retourne la réponse pour accéder à emailVerificationEnabled
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de l\'inscription', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+      set({ isLoading: false, error: null, pendingEmail: data.email });
+      return response;
+    }, { fallbackError: "Erreur lors de l'inscription", rethrow: true }),
 
-  logout: async () => {
-    set({ isLoading: true });
-    try {
+  logout: () =>
+    createAsyncAction(set, async () => {
       await authApi.logout();
-      set({ 
-        user: null, 
-        isAuthenticated: false, 
+      set({
+        user: null,
+        isAuthenticated: false,
         isLoading: false,
         isInitialized: true,
         error: null,
         pendingEmail: null,
       });
-    } catch (error: any) {
-      set({ 
+    }, {
+      fallbackError: 'Erreur lors de la déconnexion',
+      onError: (error) => ({
         user: null,
         isAuthenticated: false,
         isLoading: false,
         isInitialized: true,
-        error: error.message || 'Erreur lors de la déconnexion'
-      });
-    }
-  },
+        error: error.message || 'Erreur lors de la déconnexion',
+      }),
+    }),
 
   fetchMe: async () => {
-    set({ isLoading: true, error: null });
-    try {
+    const user = await createAsyncAction<AuthState, User>(set, async () => {
       const user = await authApi.me();
-      set({ 
-        user, 
-        isAuthenticated: true, 
-        isLoading: false,
-        isInitialized: true
-      });
+      set({ user, isAuthenticated: true, isLoading: false, isInitialized: true });
       return user;
-    } catch (error: any) {
-      set({ 
+    }, {
+      fallbackError: 'Erreur lors de la récupération du profil',
+      onError: () => ({
         user: null,
         isAuthenticated: false,
         isLoading: false,
         isInitialized: true,
-        error: null
-      });
-      return null;
-    }
+        error: null,
+      }),
+    });
+    return user ?? null;
   },
 
-  verifyEmail: async (code: string, email: string) => {
-    set({ isLoading: true, error: null });
-    try {
+  verifyEmail: (code, email) =>
+    createAsyncAction(set, async () => {
       await authApi.verifyEmail({ code, email });
       const user = await authApi.me();
-      
-      set({ 
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-        pendingEmail: null,
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Code invalide ou expiré', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+      set({ user, isAuthenticated: true, isLoading: false, pendingEmail: null });
+    }, { fallbackError: 'Code invalide ou expiré', rethrow: true }),
 
-  verifyPhone: async (code: string) => {
-    set({ isLoading: true, error: null });
-    try {
+  verifyPhone: (code) =>
+    createAsyncAction(set, async () => {
       await authApi.verifyPhone({ code });
       await get().fetchMe();
       set({ isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Code invalide ou expiré', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Code invalide ou expiré', rethrow: true }),
 
-  resendVerification: async (type: 'email' | 'phone', email?: string) => {
-    set({ isLoading: true, error: null });
-    try {
-      await authApi.resendVerification({ 
+  resendVerification: (type, email) =>
+    createAsyncAction(set, async () => {
+      await authApi.resendVerification({
         type,
-        email: type === 'email' ? (email || get().pendingEmail || '') : undefined
+        email: type === 'email' ? (email || get().pendingEmail || '') : undefined,
       });
       set({ isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du renvoi du code', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors du renvoi du code', rethrow: true }),
 
-  completeProfile: async (data: CompleteProfileInput): Promise<CompleteProfileResponse> => {
-    set({ isLoading: true, error: null });
-    try {
-      const response = await authApi.completeProfile(data); // <- Récupère la réponse complète
-      await get().fetchMe(); // Rafraîchir le user
+  completeProfile: (data) =>
+    createAsyncAction(set, async () => {
+      const response = await authApi.completeProfile(data);
+      await get().fetchMe();
       set({ isLoading: false });
-      return response; // <- Retourne la réponse pour accéder à smsVerificationRequired
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la complétion du profil', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+      return response;
+    }, { fallbackError: 'Erreur lors de la complétion du profil', rethrow: true }),
 
+  // Verification silencieuse (pas de spinner global) : ne passe pas par createAsyncAction,
+  // qui piloterait isLoading/error sans que cette action l'ait jamais fait auparavant.
   checkProfileStatus: async () => {
     try {
       const status = await authApi.getProfileStatus();
       return status.isComplete;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Erreur vérification profil:', error);
       return false;
     }
   },
 
-  changePassword: async (currentPassword: string, newPassword: string) => {
-    set({ isLoading: true, error: null });
-    try {
+  changePassword: (currentPassword, newPassword) =>
+    createAsyncAction(set, async () => {
       await authApi.changePassword({ currentPassword, newPassword });
       set({ isLoading: false });
-    } catch (error: any) {
-      set({
-        error: error.message || 'Erreur lors du changement de mot de passe',
-        isLoading: false
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors du changement de mot de passe', rethrow: true }),
 
-  deleteAccount: async (currentPassword?: string) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteAccount: (currentPassword) =>
+    createAsyncAction(set, async () => {
       await usersApi.deleteAccount(currentPassword);
       set({
         user: null,
@@ -259,18 +192,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         error: null,
         pendingEmail: null,
       });
-    } catch (error: any) {
+    }, {
       // Echec (mot de passe incorrect, compte admin...) : l'utilisateur reste connecte,
       // contrairement a logout() dont l'echec ne peut de toute facon plus etre annule cote API.
-      set({
-        isLoading: false,
-        error: error.message || 'Erreur lors de la suppression du compte',
-      });
-      throw error;
-    }
-  },
+      fallbackError: 'Erreur lors de la suppression du compte',
+      rethrow: true,
+    }),
 
   clearError: () => set({ error: null }),
-  
+
   setPendingEmail: (email: string) => set({ pendingEmail: email }),
 }));
