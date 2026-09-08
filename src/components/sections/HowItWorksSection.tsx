@@ -1,17 +1,16 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { 
-  Search, 
+  ArrowRight, 
+  ArrowRightCircle,
+  CheckCircle, 
   MessageCircle, 
   Package, 
-  Star, 
-  CheckCircle, 
-  ArrowRight, 
-  ArrowRightCircle
-} from 'lucide-react';
+  Search, 
+  Star} from 'lucide-react';
 import { Route } from 'next';
+import Link from 'next/link';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import VerifyEmailPageClient from "../../../../components/clients/auth/verify-email-client";
 
 export const metadata: Metadata = {

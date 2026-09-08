@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, Voyage } from '@/types';
 
 vi.mock('@/lib/api/voyages', () => ({
@@ -9,6 +10,7 @@ vi.mock('@/lib/api/voyages', () => ({
 }));
 
 import { voyagesApi } from '@/lib/api/voyages';
+
 import { useVoyageStore } from '../voyageStore';
 
 const initialState = useVoyageStore.getState();

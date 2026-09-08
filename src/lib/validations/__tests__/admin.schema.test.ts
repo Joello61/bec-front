@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { banUserSchema, updateRolesSchema, deleteContentSchema, logFiltersSchema, userFiltersSchema } from '../admin.schema';
+
+import { banUserSchema, deleteContentSchema, logFiltersSchema, updateRolesSchema, userFiltersSchema } from '../admin.schema';
 
 describe('banUserSchema', () => {
   const base = { reason: 'Comportement abusif repete envers plusieurs utilisateurs.', notifyUser: true, deleteContent: false };

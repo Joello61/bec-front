@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AdminLogsPageClient from '../logs-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { AdminLogStats } from '@/types';
+
+import AdminLogsPageClient from '../logs-client';
 
 const mockFetchLogs = vi.fn();
 const mockFetchLogsStats = vi.fn();

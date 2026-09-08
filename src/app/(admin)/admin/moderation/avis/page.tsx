@@ -1,5 +1,6 @@
-import AdminModerationAvisPageClient from "../../../../../components/clients/admin/avis-client";
 import { Metadata } from "next";
+
+import AdminModerationAvisPageClient from "../../../../../components/clients/admin/avis-client";
 
 export const metadata: Metadata = {
   title: 'Modération des avis',

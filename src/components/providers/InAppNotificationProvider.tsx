@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+
 import { InAppNotificationContainer } from '@/components/notification/InAppNotificationContainer';
 import { useRealTimeNotificationStore } from '@/lib/store/realTimeNotificationStore';
 import { logger } from '@/lib/utils/logger';

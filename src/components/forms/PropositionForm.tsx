@@ -1,17 +1,18 @@
 'use client';
 
-import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MessageSquare, Info } from 'lucide-react';
+import { Info, MessageSquare } from 'lucide-react';
+import { Controller, useForm } from 'react-hook-form';
+
 import { Button, Input, Select } from '@/components/ui';
-import {
-  createPropositionSchema,
-  type CreatePropositionFormData,
-} from '@/lib/validations';
 import { useUserCurrency } from '@/lib/hooks/useCurrency';
-import { formatDateShort, getCurrencySymbol } from '@/lib/utils/format';
-import type { Voyage } from '@/types';
 import { useUserContinent } from '@/lib/hooks/useGeo';
+import { formatDateShort, getCurrencySymbol } from '@/lib/utils/format';
+import {
+  type CreatePropositionFormData,
+  createPropositionSchema,
+} from '@/lib/validations';
+import type { Voyage } from '@/types';
 
 interface PropositionFormProps {
   voyage: Voyage;

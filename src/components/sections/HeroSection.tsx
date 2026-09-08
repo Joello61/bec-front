@@ -1,19 +1,19 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
 import {
   ArrowRight,
-  Search,
-  Shield,
   Clock,
   HeadphonesIcon,
+  Plane,
+  Search,
+  Shield,
   Sparkles,
   TrendingUp,
-  Users,
-  Plane
-} from 'lucide-react';
+  Users} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+
 import { ROUTES } from '@/lib/utils/constants';
 
 const fadeIn: Variants = {

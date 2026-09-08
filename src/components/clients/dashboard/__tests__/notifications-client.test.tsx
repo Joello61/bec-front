@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NotificationsPageClient from '../notifications-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { AppNotification } from '@/types';
+
+import NotificationsPageClient from '../notifications-client';
 
 const mockUseNotifications = vi.fn();
 const mockMarkAsRead = vi.fn();

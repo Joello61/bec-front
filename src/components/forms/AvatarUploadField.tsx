@@ -1,5 +1,6 @@
 import { Trash2 } from 'lucide-react';
-import { Button, Avatar } from '@/components/ui';
+
+import { Avatar, Button } from '@/components/ui';
 import InputFile from '@/components/ui/InputFile';
 
 interface AvatarUploadFieldProps {

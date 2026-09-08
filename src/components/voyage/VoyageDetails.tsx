@@ -1,21 +1,23 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+
 import AvisForm from '@/components/forms/AvisForm';
+import { useAuth } from '@/lib/hooks/useAuth';
 import { useFavoriActions } from '@/lib/hooks/useFavoris';
 import { useSignalementActions } from '@/lib/hooks/useSignalement';
 import { useAvisStore } from '@/lib/store';
-import { useAuth } from '@/lib/hooks/useAuth';
-import type { Voyage } from '@/types';
 import type {
-  CreateSignalementFormData,
   CreateAvisFormData,
+  CreateSignalementFormData,
 } from '@/lib/validations';
-import SignalementForm from '../forms/SignalementForm';
+import type { Voyage } from '@/types';
+
 import { useToast } from '../common';
-import VoyageDetailsMobile from './VoyageDetailsMobile';
+import SignalementForm from '../forms/SignalementForm';
 import VoyageDetailsDesktop from './VoyageDetailsDesktop';
+import VoyageDetailsMobile from './VoyageDetailsMobile';
 
 interface VoyageDetailsProps {
   voyage: Voyage;

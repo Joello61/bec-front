@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState, useMemo } from 'react';
-import { useDemandeStore } from '@/lib/store';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { demandesApi } from '@/lib/api/demandes';
+import { useDemandeStore } from '@/lib/store';
 import type { DemandeFilters, VoyageWithScore } from '@/types';
 
 /**

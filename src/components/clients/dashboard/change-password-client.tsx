@@ -1,15 +1,16 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Shield, ArrowLeft } from 'lucide-react';
-import { ChangePasswordForm } from '@/components/forms';
-import { useAuth } from '@/lib/hooks';
-import type { ChangePasswordFormData } from '@/lib/validations';
-import { useToast } from '@/components/common';
-import { ROUTES } from '@/lib/utils/constants';
-import { Button } from '@/components/ui';
+import { ArrowLeft, Shield } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { useToast } from '@/components/common';
+import { ChangePasswordForm } from '@/components/forms';
+import { Button } from '@/components/ui';
+import { useAuth } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
+import type { ChangePasswordFormData } from '@/lib/validations';
 
 export default function ChangePasswordPageClient() {
   const router = useRouter();

@@ -1,10 +1,11 @@
 'use client';
 
-import { NotificationList } from '@/components/notification';
-import { useNotifications } from '@/lib/hooks';
-import { Button } from '@/components/ui';
+import { Bell, CheckCheck } from 'lucide-react';
+
 import { EmptyState, ErrorState, LoadingSpinner } from '@/components/common';
-import { CheckCheck, Bell } from 'lucide-react';
+import { NotificationList } from '@/components/notification';
+import { Button } from '@/components/ui';
+import { useNotifications } from '@/lib/hooks';
 
 export default function NotificationsPageClient() {
   const { notifications, isLoading, error, markAsRead, markAllAsRead, deleteNotification, refetch } =

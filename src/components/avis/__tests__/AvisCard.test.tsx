@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import AvisCard from '../AvisCard';
+import { describe, expect, it } from 'vitest';
+
 import type { Avis, User, Voyage } from '@/types';
+
+import AvisCard from '../AvisCard';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

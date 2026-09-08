@@ -1,5 +1,6 @@
-import ChangePasswordPageClient from "../../../../../components/clients/dashboard/change-password-client";
 import { Metadata } from "next";
+
+import ChangePasswordPageClient from "../../../../../components/clients/dashboard/change-password-client";
 
 export const metadata: Metadata = {
   title: 'Changer mon mot de passe',

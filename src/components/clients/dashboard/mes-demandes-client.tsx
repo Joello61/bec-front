@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Plus, SlidersHorizontal } from 'lucide-react';
-import { Button, Modal } from '@/components/ui';
-import { DemandeList, DemandeFilters } from '@/components/demande';
-import { DemandeForm } from '@/components/forms';
-import { useDemandeActions, useAuth, useUserDemandes } from '@/lib/hooks';
+import { useMemo, useState } from 'react';
+
 import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
-import type { DemandeFilters as DemandeFiltersType, Demande } from '@/types';
-import { CreateDemandeFormData } from '@/lib/validations';
+import { DemandeFilters, DemandeList } from '@/components/demande';
 import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
+import { DemandeForm } from '@/components/forms';
+import { Button, Modal } from '@/components/ui';
+import { useAuth, useDemandeActions, useUserDemandes } from '@/lib/hooks';
 import { logger } from '@/lib/utils/logger';
+import { CreateDemandeFormData } from '@/lib/validations';
+import type { Demande, DemandeFilters as DemandeFiltersType } from '@/types';
 
 export default function DemandesPageClient() {
   const [filters, setFilters] = useState<DemandeFiltersType>({});

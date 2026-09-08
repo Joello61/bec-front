@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageCircle, Star, Package, FileText, X, Lightbulb } from 'lucide-react';
-import { formatDateRelative } from '@/lib/utils/format';
+import { FileText, Lightbulb, MessageCircle, Package, Star, X } from 'lucide-react';
+
 import { cn } from '@/lib/utils/cn';
+import { formatDateRelative } from '@/lib/utils/format';
 import type { AppNotification, AppNotificationType } from '@/types';
 
 interface NotificationItemProps {

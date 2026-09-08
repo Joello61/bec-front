@@ -1,5 +1,6 @@
-import AdminUserDetailsPageClient from "./user-details-client";
 import { Metadata } from "next";
+
+import AdminUserDetailsPageClient from "./user-details-client";
 
 export const metadata: Metadata = {
   title: 'Détails utilisateur',

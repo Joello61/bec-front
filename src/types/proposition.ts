@@ -1,7 +1,7 @@
-import type { User } from './user';
-import type { Demande } from './demande';
-import type { Voyage } from './voyage';
 import type { ConvertedAmount } from './currency';
+import type { Demande } from './demande';
+import type { User } from './user';
+import type { Voyage } from './voyage';
 
 export type PropositionStatut = 'en_attente' | 'acceptee' | 'refusee' | 'annulee';
 

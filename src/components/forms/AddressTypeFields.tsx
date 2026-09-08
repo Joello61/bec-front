@@ -1,6 +1,7 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { Home, Building2, Mail as MailIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Building2, Home, Mail as MailIcon } from 'lucide-react';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+
 import { Input } from '@/components/ui';
 
 interface AddressTypeFormValues {

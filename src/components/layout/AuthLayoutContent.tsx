@@ -1,5 +1,5 @@
-import AuthHeader from './AuthHeader';
 import AuthFooter from './AuthFooter';
+import AuthHeader from './AuthHeader';
 
 export default function AuthLayoutContent({
   children,

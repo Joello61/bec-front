@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect } from 'react';
+
 import { useSignalementStore } from '@/lib/store';
+
 import { useAuth } from './useAuth';
 
 /**

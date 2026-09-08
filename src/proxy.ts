@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+
 import { decodeJwtRoles } from '@/lib/utils/jwt';
 
 const protectedRoutes = [

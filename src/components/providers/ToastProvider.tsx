@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { ToastContainer } from '@/components/common';
 import type { ToastType } from '@/components/common/Toast';
 

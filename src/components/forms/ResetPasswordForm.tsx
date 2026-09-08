@@ -1,12 +1,13 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { Eye, EyeOff, Lock } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, Lock } from 'lucide-react';
-import { motion } from 'framer-motion';
+
 import { Button, Input } from '@/components/ui';
-import { resetPasswordSchema, type ResetPasswordFormData } from '@/lib/validations';
+import { type ResetPasswordFormData, resetPasswordSchema } from '@/lib/validations';
 
 interface ResetPasswordFormProps {
   token: string;

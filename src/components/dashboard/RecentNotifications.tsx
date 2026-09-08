@@ -1,14 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Bell, ArrowRight } from 'lucide-react';
+import { ArrowRight, Bell } from 'lucide-react';
 import Link from 'next/link';
+
+import { EmptyState } from '@/components/common';
+import { NotificationItem } from '@/components/notification';
 import { Card, CardContent } from '@/components/ui';
 import { Button } from '@/components/ui';
-import { NotificationItem } from '@/components/notification';
 import { ROUTES } from '@/lib/utils/constants';
-import type { DashboardNotification, AppNotificationType } from '@/types';
-import { EmptyState } from '@/components/common';
+import type { AppNotificationType, DashboardNotification } from '@/types';
 
 interface RecentNotificationsProps {
   notifications: DashboardNotification[];

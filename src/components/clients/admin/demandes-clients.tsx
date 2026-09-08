@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useDemandes } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
-import { Search, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/lib/utils/constants';
-import type { Demande, DemandeStatut, DemandeFilters } from '@/types';
+import { useMemo, useState } from 'react';
+
 import {
-  ModerationDemandesTable,
   DeleteContentModal,
+  ModerationDemandesTable,
 } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
 import { Select } from '@/components/ui';
+import { useDemandes } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
+import type { Demande, DemandeFilters, DemandeStatut } from '@/types';
 
 export default function AdminModerationDemandesPageClient() {
   const [page, setPage] = useState(1);

@@ -1,22 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft, Send, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { Modal } from '@/components/ui';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { ConfirmDialog, EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { DemandeDetails } from '@/components/demande';
 import { DemandeForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
+import { Modal } from '@/components/ui';
 import { VoyageCard } from '@/components/voyage';
-import { ConfirmDialog, EmptyState, LoadingSpinner, ErrorState, useToast } from '@/components/common';
 import { 
+  useAuth,
   useDemande, 
   useDemandeActions, 
-  useAuth,
-  useMyPropositionsSent,
-  useMatchingVoyages 
-} from '@/lib/hooks';
+  useMatchingVoyages, 
+  useMyPropositionsSent} from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import { UpdateDemandeFormData } from '@/lib/validations';
 

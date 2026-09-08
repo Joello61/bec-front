@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MapPin, Building2, AlertCircle } from 'lucide-react';
+import { AlertCircle, Building2, MapPin } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
 import { Button, Select } from '@/components/ui';
-import { updateAddressSchema, type UpdateAddressFormData } from '@/lib/validations/address.schema';
-import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
-import type { Address } from '@/types/address';
 import type { SelectOption } from '@/components/ui/select';
-import AddressTypeFields from './AddressTypeFields';
+import { useCities, useCitySearch, useCountries } from '@/lib/hooks/useGeo';
 import { logger } from '@/lib/utils/logger';
+import { type UpdateAddressFormData, updateAddressSchema } from '@/lib/validations/address.schema';
+import type { Address } from '@/types/address';
+
+import AddressTypeFields from './AddressTypeFields';
 
 interface AddressFormProps {
   address: Address;

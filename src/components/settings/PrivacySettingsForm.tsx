@@ -1,10 +1,11 @@
 'use client';
 
-import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Shield, Eye, Phone, Mail, BarChart } from 'lucide-react';
+import { BarChart, Eye, Mail, Phone, Shield } from 'lucide-react';
+import { useForm, useWatch } from 'react-hook-form';
+
 import { Button } from '@/components/ui';
-import { privacySettingsSchema, type PrivacySettingsFormData } from '@/lib/validations';
+import { type PrivacySettingsFormData, privacySettingsSchema } from '@/lib/validations';
 import type { UserSettings } from '@/types';
 
 interface PrivacySettingsFormProps {

@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SettingsPageClient from '../settings-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { UserSettings } from '@/types';
+
+import SettingsPageClient from '../settings-client';
 
 const mockUseSettings = vi.fn();
 const mockUpdateSettings = vi.fn();

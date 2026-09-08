@@ -1,9 +1,11 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import NotificationItem from './NotificationItem';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { Button } from '@/components/ui';
 import type { AppNotification } from '@/types';
+
+import NotificationItem from './NotificationItem';
 
 interface NotificationListProps {
   notifications: AppNotification[];

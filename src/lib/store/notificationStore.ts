@@ -1,8 +1,10 @@
 import { create } from 'zustand';
+
 import { notificationsApi } from '@/lib/api/notifications';
-import { createAsyncAction } from './createAsyncAction';
-import type { ApiError, AppNotification } from '@/types';
 import { logger } from '@/lib/utils/logger';
+import type { ApiError, AppNotification } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface NotificationState {
   notifications: AppNotification[];

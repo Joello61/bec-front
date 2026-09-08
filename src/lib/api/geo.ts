@@ -1,6 +1,7 @@
+import type { City, CityGlobal, ContinentResponse, Country } from '@/types/geo';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Country, City, CityGlobal, ContinentResponse } from '@/types/geo';
 
 export const geoApi = {
   /**

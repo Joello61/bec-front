@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import AdminModerationDemandesPageClient from "../../../../../components/clients/admin/demandes-clients";
 
 export const metadata: Metadata = {

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import ForgotPasswordPageClient from "../../../../components/clients/auth/forgot-password-client";
 
 export const metadata: Metadata = {

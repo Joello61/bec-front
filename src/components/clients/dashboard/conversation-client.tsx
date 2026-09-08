@@ -1,11 +1,12 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+import { ErrorState, LoadingSpinner } from '@/components/common';
 import { ChatBox } from '@/components/message';
 import { useAuth, useConversation } from '@/lib/hooks';
-import { ErrorState, LoadingSpinner } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function ConversationPageClient() {

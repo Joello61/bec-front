@@ -1,5 +1,5 @@
-import type { User } from './user';
 import type { ConvertedAmount } from './currency'; // <- AJOUT
+import type { User } from './user';
 
 export type DemandeStatut = 'en_recherche' | 'voyageur_trouve' | 'annulee' | 'expiree';
 

@@ -1,10 +1,12 @@
-import { useAuth } from "@/lib/hooks";
-import { ROUTES } from "@/lib/utils/constants";
-import { getSafeRedirect } from "@/lib/utils/redirect";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
+
+import { useAuth } from "@/lib/hooks";
+import { ROUTES } from "@/lib/utils/constants";
+import { getSafeRedirect } from "@/lib/utils/redirect";
+
 import { useToast } from "../common";
 
 export default function OAuthCallbackContent() {

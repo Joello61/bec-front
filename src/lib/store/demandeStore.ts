@@ -1,16 +1,17 @@
 import { create } from 'zustand';
+
 import { demandesApi } from '@/lib/api/demandes';
-import { createAsyncAction } from './createAsyncAction';
 import type {
-  Demande,
   CreateDemandeInput,
-  UpdateDemandeInput,
+  Demande,
   DemandeFilters,
   DemandeStatut,
   PaginationMeta,
-  PublicDemande
-} from '@/types';
+  PublicDemande,
+  UpdateDemandeInput} from '@/types';
+
 import { DEMANDE_STATUTS } from '../utils/constants';
+import { createAsyncAction } from './createAsyncAction';
 
 interface DemandeState {
   demandes: Demande[];

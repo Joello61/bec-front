@@ -1,10 +1,11 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Bell, Mail, MessageSquare, Smartphone } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+
 import { Button } from '@/components/ui';
-import { notificationSettingsSchema, type NotificationSettingsFormData } from '@/lib/validations';
+import { type NotificationSettingsFormData, notificationSettingsSchema } from '@/lib/validations';
 import type { UserSettings } from '@/types';
 
 interface NotificationSettingsFormProps {

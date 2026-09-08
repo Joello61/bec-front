@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
+
 import {
+  changePasswordSchema,
+  completeProfileSchema,
+  forgotPasswordSchema,
   loginSchema,
   registerSchema,
-  completeProfileSchema,
-  changePasswordSchema,
-  forgotPasswordSchema,
   resetPasswordSchema,
   verifyEmailSchema,
   verifyPhoneSchema,

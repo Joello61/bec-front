@@ -1,8 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Bell } from 'lucide-react';
 import Link from 'next/link';
+
 import { ROUTES } from '@/lib/utils/constants';
 
 interface NotificationBellProps {

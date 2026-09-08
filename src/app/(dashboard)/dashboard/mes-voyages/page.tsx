@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import VoyagesPageClient from "../../../../components/clients/dashboard/mes-voyages-client";
 
 export const metadata: Metadata = {

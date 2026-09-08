@@ -1,6 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
+
 import { logger } from '@/lib/utils/logger';
 
 export interface RealTimeNotificationData {

@@ -1,8 +1,9 @@
-import { MapPin, Calendar } from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
+
 import { Input, Select } from '@/components/ui';
+import type { SelectOption } from '@/components/ui/select';
 import { DEMANDE_STATUTS } from '@/lib/utils/constants';
 import type { DemandeFilters as DemandeFiltersType } from '@/types';
-import type { SelectOption } from '@/components/ui/select';
 
 interface DemandeFilterFieldsProps {
   filters: DemandeFiltersType;

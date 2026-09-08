@@ -1,16 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { motion, Variants } from 'framer-motion';
+import { CheckCircle, Globe, TrendingUp, Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, Variants } from 'framer-motion';
-import { CheckCircle, Users, Globe, TrendingUp } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import OAuthButtons from '@/components/auth/OAuthButtons';
+import { useToast } from '@/components/common';
 import { RegisterForm } from '@/components/forms';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { RegisterFormData } from '@/lib/validations';
-import { useToast } from '@/components/common';
-import OAuthButtons from '@/components/auth/OAuthButtons';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },

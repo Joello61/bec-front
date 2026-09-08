@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, User } from '@/types';
 
 vi.mock('@/lib/api/auth', () => ({
@@ -24,6 +25,7 @@ vi.mock('@/lib/api/users', () => ({
 
 import { authApi } from '@/lib/api/auth';
 import { usersApi } from '@/lib/api/users';
+
 import { useAuthStore } from '../authStore';
 
 const mockUser: User = {

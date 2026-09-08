@@ -1,6 +1,7 @@
+import type { ExportedUserData, UpdateSettingsInput, UserSettings } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { UserSettings, UpdateSettingsInput, ExportedUserData } from '@/types';
 
 export const settingsApi = {
   /**

@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AdminStatsPageClient from '../stats-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { AdminUsersDetailedStats, AdminVoyagesStats } from '@/types';
+
+import AdminStatsPageClient from '../stats-client';
 
 const mockFetchUsersStats = vi.fn();
 const mockFetchVoyagesStats = vi.fn();

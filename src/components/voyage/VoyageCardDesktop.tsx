@@ -1,13 +1,15 @@
-import { Calendar, Package, ArrowRight, Verified, Plane, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, Calendar, MapPin, Package, Plane, Verified } from 'lucide-react';
 import type { Route } from 'next';
+import Link from 'next/link';
+
 import { Card, CardContent } from '@/components/ui';
-import VoyageStatusBadge from './VoyageStatusBadge';
 import { formatDateShort, formatWeight } from '@/lib/utils/format';
-import { FavoriteButton } from '../favori';
-import { PriceDisplay } from '../common';
-import AvatarWithButton from '../ui/AvatarWithButton';
 import type { Voyage } from '@/types';
+
+import { PriceDisplay } from '../common';
+import { FavoriteButton } from '../favori';
+import AvatarWithButton from '../ui/AvatarWithButton';
+import VoyageStatusBadge from './VoyageStatusBadge';
 
 interface VoyageCardDesktopProps {
   voyage: Voyage;

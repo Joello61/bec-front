@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
-import { useUserCurrency } from './useCurrency';
+
 import type { ConvertedAmount } from '@/types';
+
+import { useUserCurrency } from './useCurrency';
 
 /**
  * Hook pour formater les montants avec gestion de la conversion

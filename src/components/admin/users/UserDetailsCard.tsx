@@ -3,24 +3,25 @@
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import {
-  Mail,
-  Phone,
+  Ban,
   Calendar,
+  Mail,
+  MessageSquare,
+  Package,
+  Phone,
+  Plane,
+  Settings,
   Shield,
   ShieldAlert,
   ShieldCheck,
-  Trash2,
-  Ban,
   ShieldOff,
-  Settings,
-  Plane,
-  Package,
-  MessageSquare,
   Star,
+  Trash2,
 } from 'lucide-react';
+
 import { Badge } from '@/components/ui';
-import type { User, AdminUserActivity, AdminLog } from '@/types';
 import { cn } from '@/lib/utils/cn';
+import type { AdminLog, AdminUserActivity, User } from '@/types';
 
 interface UserDetailsCardProps {
   user: User;

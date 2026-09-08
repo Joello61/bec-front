@@ -1,5 +1,5 @@
-import { StableContext } from '@/types/realtime';
 import { logger } from '@/lib/utils/logger';
+import { StableContext } from '@/types/realtime';
 
 export function displayNotification(
   stable: StableContext,

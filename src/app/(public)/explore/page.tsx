@@ -1,5 +1,6 @@
-import RechercherPublicPageClient from "@/components/clients/public/explore-public-client";
 import type { Metadata } from "next";
+
+import RechercherPublicPageClient from "@/components/clients/public/explore-public-client";
 
 export const metadata: Metadata = {
   title: "Explorer les voyages et demandes | Co-Bage Cameroun-Afrique",

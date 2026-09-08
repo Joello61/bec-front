@@ -1,7 +1,9 @@
 'use client';
 
-import { useAvatar } from '@/lib/hooks/useUsers';
 import { useState } from 'react';
+
+import { useAvatar } from '@/lib/hooks/useUsers';
+
 import { useToast } from '../common';
 import { Avatar, Button, Modal, ModalFooter } from '../ui';
 import InputFile from '../ui/InputFile';

@@ -1,5 +1,6 @@
-import AdminDashboardPageClient from "../../../components/clients/admin/dashboard-client";
 import { Metadata } from "next";
+
+import AdminDashboardPageClient from "../../../components/clients/admin/dashboard-client";
 
 export const metadata: Metadata = {
   title: 'Administration',

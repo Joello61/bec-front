@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { geoApi } from '@/lib/api/geo';
+import type { City, CityGlobal, Country } from '@/types/geo';
+
 import { createAsyncAction } from './createAsyncAction';
-import type { Country, City, CityGlobal } from '@/types/geo';
 
 interface GeoState {
   // Données

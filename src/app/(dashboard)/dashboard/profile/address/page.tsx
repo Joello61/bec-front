@@ -1,5 +1,6 @@
-import AddressPageClient from "../../../../../components/clients/dashboard/address-client";
 import { Metadata } from "next";
+
+import AddressPageClient from "../../../../../components/clients/dashboard/address-client";
 
 export const metadata: Metadata = {
   title: 'Mes adresses',

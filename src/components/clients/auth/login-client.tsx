@@ -1,17 +1,18 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
-import { Shield, Zap, Users } from 'lucide-react';
+import { Shield, Users, Zap } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+
+import OAuthButtons from '@/components/auth/OAuthButtons';
+import { LoadingSpinner, useToast } from '@/components/common';
 import { LoginForm } from '@/components/forms';
 import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
-import type { LoginFormData } from '@/lib/validations';
-import { LoadingSpinner, useToast } from '@/components/common';
-import OAuthButtons from '@/components/auth/OAuthButtons';
 import { getSafeRedirect } from '@/lib/utils/redirect';
-import { useEffect } from 'react';
+import type { LoginFormData } from '@/lib/validations';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },

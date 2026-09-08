@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest';
-import { afterEach } from 'vitest';
+
 import { cleanup } from '@testing-library/react';
+import { afterEach } from 'vitest';
 
 // RTL n'enregistre son cleanup automatique que si `afterEach` est un global
 // (voir doc officielle) - ce projet n'active pas `test.globals` dans

@@ -1,6 +1,7 @@
+import type { Message, SendMessageInput } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Message, SendMessageInput } from '@/types';
 
 export const messagesApi = {
   /**

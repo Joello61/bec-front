@@ -1,5 +1,5 @@
-import { test, expect } from './support/fixtures';
-import { selectSearchableCity, isoDateInDays, gotoAndWaitReady, labelExact } from './support/helpers';
+import { expect, test } from './support/fixtures';
+import { gotoAndWaitReady, isoDateInDays, labelExact, selectSearchableCity } from './support/helpers';
 
 /**
  * Zone "Details voyage & reservation" (Lot 2 de la Phase 8, le plus complexe :

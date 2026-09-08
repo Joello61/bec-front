@@ -3,22 +3,24 @@
 import { motion } from 'framer-motion';
 import {
   Calendar,
-  Package,
-  MapPin,
-  Weight,
-  DollarSign,
-  MessageSquare,
-  Plane,
-  MessageCircle,
   CheckCircle2,
-  XCircle,
+  DollarSign,
+  MapPin,
+  MessageCircle,
+  MessageSquare,
+  Package,
+  Plane,
   Trash2,
+  Weight,
+  XCircle,
 } from 'lucide-react';
-import { Card, CardHeader, CardContent, Avatar, Button, CardFooter } from '@/components/ui';
-import { PropositionStatusBadge } from './PropositionStatusBadge';
+
 import { CurrencyDisplay } from '@/components/common';
-import { formatDate, formatWeight, formatFullName } from '@/lib/utils/format';
+import { Avatar, Button, Card, CardContent, CardFooter, CardHeader } from '@/components/ui';
+import { formatDate, formatFullName, formatWeight } from '@/lib/utils/format';
 import type { Proposition } from '@/types';
+
+import { PropositionStatusBadge } from './PropositionStatusBadge';
 
 interface PropositionDetailsProps {
   proposition: Proposition;

@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import type { Conversation, User } from '@/types';
+
 import MessagesPageClient from '../messages-client';
-import type { User, Conversation } from '@/types';
 
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({

@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ChatBox from '../ChatBox';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { Message, User } from '@/types';
+
+import ChatBox from '../ChatBox';
 
 const mockCreateSignalement = vi.fn();
 vi.mock('@/lib/hooks/useSignalement', () => ({

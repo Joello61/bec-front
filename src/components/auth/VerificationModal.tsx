@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { Mail, Smartphone, RefreshCw } from 'lucide-react';
-import { Modal, ModalFooter, Button } from '@/components/ui';
-import { useAuth } from '@/lib/hooks';
+import { Mail, RefreshCw, Smartphone } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+
 import { useToast } from '@/components/common';
+import { Button, Modal, ModalFooter } from '@/components/ui';
+import { useAuth } from '@/lib/hooks';
 
 interface VerificationModalProps {
   isOpen: boolean;

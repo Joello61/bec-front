@@ -1,8 +1,9 @@
 import { MapPin } from 'lucide-react';
+
 import { Input, Select } from '@/components/ui';
+import type { SelectOption } from '@/components/ui/select';
 import { VOYAGE_STATUTS } from '@/lib/utils/constants';
 import type { VoyageFilters as VoyageFiltersType } from '@/types';
-import type { SelectOption } from '@/components/ui/select';
 
 interface VoyageFilterFieldsProps {
   filters: VoyageFiltersType;

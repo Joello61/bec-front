@@ -1,8 +1,10 @@
 'use client';
 
 import { DollarSign, Package } from 'lucide-react';
-import CurrencyDisplay from './CurrencyDisplay';
+
 import type { ConvertedAmount } from '@/types';
+
+import CurrencyDisplay from './CurrencyDisplay';
 
 interface PriceDisplayProps {
   prixParKilo?: string | null;

@@ -1,11 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Package, Clock, Plane, MapPin, DollarSign, Eye } from 'lucide-react';
+import { Clock, DollarSign, Eye, MapPin, Package, Plane } from 'lucide-react';
+import { useState } from 'react';
+
 import { Card, CardContent } from '@/components/ui';
 import { formatWeight, getDaysRemaining } from '@/lib/utils/format';
 import type { PublicDemande } from '@/types';
-import { useState } from 'react';
+
 import AuthRequiredModal from '../common/AuthRequiredModal';
 
 interface PublicDemandeCardProps {

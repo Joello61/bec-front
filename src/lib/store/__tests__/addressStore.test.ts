@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Address, AddressModificationInfo } from '@/types/address';
+
 import type { ApiError } from '@/types';
+import type { Address, AddressModificationInfo } from '@/types/address';
 
 vi.mock('@/lib/api/address', () => ({
   addressApi: {
@@ -10,6 +11,7 @@ vi.mock('@/lib/api/address', () => ({
 }));
 
 import { addressApi } from '@/lib/api/address';
+
 import { useAddressStore } from '../addressStore';
 
 const initialState = useAddressStore.getState();

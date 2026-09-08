@@ -1,27 +1,28 @@
-import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import type { StableContext } from '@/types/realtime';
+import { useEffect, useMemo } from 'react';
 
 import {
   useAdmin,
   useAuth,
-  useUserAvis,
   useConversations,
-  useUnreadMessages,
   useDemandes,
-  useUserDemandes,
   useFavoris,
   useNotifications,
-  useUnreadNotificationCount,
-  useVoyagePropositions,
   useSignalements,
-  useVoyages,
+  useUnreadMessages,
+  useUnreadNotificationCount,
+  useUserAvis,
+  useUserDemandes,
   useUserVoyages,
+  useVoyagePropositions,
+  useVoyages,
 } from '@/lib/hooks';
-import { useInAppNotification } from './useInAppNotification';
-import { useContacts } from './useContacts';
-import { useGlobalMercureSubscription } from './useMercureSubscription';
 import { logger } from '@/lib/utils/logger';
+import type { StableContext } from '@/types/realtime';
+
+import { useContacts } from './useContacts';
+import { useInAppNotification } from './useInAppNotification';
+import { useGlobalMercureSubscription } from './useMercureSubscription';
 
 export function useMercureEvents() {
   const router = useRouter();

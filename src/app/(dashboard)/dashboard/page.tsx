@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import DashboardPageClient from "../../../components/clients/dashboard/dashboard-page-client";
 
 export const metadata: Metadata = {

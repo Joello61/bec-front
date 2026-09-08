@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, Currency } from '@/types';
 
 vi.mock('@/lib/api/currencies', () => ({
@@ -9,6 +10,7 @@ vi.mock('@/lib/api/currencies', () => ({
 }));
 
 import { currenciesApi } from '@/lib/api/currencies';
+
 import { useCurrencyStore } from '../currencyStore';
 
 const initialState = useCurrencyStore.getState();

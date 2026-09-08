@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from 'react';
+
 import { mercureService } from '@/lib/services/mercureService';
-import type { StableContext } from '@/types/realtime';
 import { EventType, EventTypeValue } from '@/lib/utils/eventType';
-import { dispatchMercureEvent } from '../handlers';
 import { logger } from '@/lib/utils/logger';
+import type { StableContext } from '@/types/realtime';
+
+import { dispatchMercureEvent } from '../handlers';
 
 /**
  * Hook global React pour initialiser la connexion Mercure

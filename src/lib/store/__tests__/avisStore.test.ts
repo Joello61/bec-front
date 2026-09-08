@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, Avis, AvisWithStats } from '@/types';
 
 vi.mock('@/lib/api/avis', () => ({
@@ -8,6 +9,7 @@ vi.mock('@/lib/api/avis', () => ({
 }));
 
 import { avisApi } from '@/lib/api/avis';
+
 import { useAvisStore } from '../avisStore';
 
 const initialState = useAvisStore.getState();

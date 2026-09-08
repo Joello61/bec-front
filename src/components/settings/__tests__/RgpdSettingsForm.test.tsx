@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import type { User, UserSettings } from '@/types';
+
 import RgpdSettingsForm from '../RgpdSettingsForm';
-import type { UserSettings, User } from '@/types';
 
 const mockUseAuth = vi.fn();
 vi.mock('@/lib/hooks', () => ({

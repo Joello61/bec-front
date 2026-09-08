@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { Package } from 'lucide-react';
+
 import type { PaginationMeta, PublicDemande } from '@/types';
+
 import { Pagination } from '../common';
 import PublicDemandeCard from './PublicDemandeCard';
 

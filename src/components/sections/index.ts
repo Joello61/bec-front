@@ -1,6 +1,6 @@
 export { AboutSection } from './AboutSection';
-export { HowItWorksSection } from './HowItWorksSection';
 export { ContactSection } from './ContactSection';
+export { CtaSection } from './CtaSection';
 export { FaqSection } from './FaqSection';
 export { HeroSection } from './HeroSection';
-export { CtaSection } from './CtaSection';
+export { HowItWorksSection } from './HowItWorksSection';

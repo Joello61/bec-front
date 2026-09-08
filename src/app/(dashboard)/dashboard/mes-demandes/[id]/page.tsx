@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import DemandeDetailsPageClient from "../../../../../components/clients/dashboard/mes-demande-details-client";
 
 export const metadata: Metadata = {

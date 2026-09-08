@@ -1,6 +1,7 @@
+import type { AvatarResponse, DashboardData, PaginatedResponse, UpdateUserInput, User } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { User, UpdateUserInput, PaginatedResponse, DashboardData, AvatarResponse } from '@/types';
 
 export const usersApi = {
   async list(page = 1, limit = 10): Promise<PaginatedResponse<User>> {

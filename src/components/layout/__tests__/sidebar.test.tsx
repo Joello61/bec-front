@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Sidebar from '../sidebar';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { ROUTES } from '@/lib/utils/constants';
 import type { User } from '@/types';
+
+import Sidebar from '../sidebar';
 
 const mockUsePathname = vi.fn();
 vi.mock('next/navigation', () => ({

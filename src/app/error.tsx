@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { AlertTriangle, RefreshCw, Home, ArrowLeft } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, Home, RefreshCw } from 'lucide-react'
+import { useEffect } from 'react'
+
 import { logger } from '@/lib/utils/logger'
 
 export default function Error({

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function AdminModerationAvisPageClient() {

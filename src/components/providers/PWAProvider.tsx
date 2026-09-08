@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect, useState, useSyncExternalStore } from 'react';
-import {
-  registerServiceWorker,
-  getServiceWorkerVersion,
-  isPWAInstalled,
-  isOnline,
-  onConnectionChange,
-} from '@/lib/utils/pwa/registerSW';
+
 import { logger } from '@/lib/utils/logger';
+import {
+  getServiceWorkerVersion,
+  isOnline,
+  isPWAInstalled,
+  onConnectionChange,
+  registerServiceWorker,
+} from '@/lib/utils/pwa/registerSW';
 
 // Etat externe (navigator.onLine, display-mode) : useSyncExternalStore evite
 // tout setState synchrone dans un effet et reste coherent avec l'hydratation SSR.

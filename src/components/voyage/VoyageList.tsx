@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { Plane } from 'lucide-react';
-import VoyageCard from './VoyageCard';
-import type { Voyage, PaginationMeta } from '@/types';
+
+import type { PaginationMeta, Voyage } from '@/types';
+
 import { Pagination } from '../common';
+import VoyageCard from './VoyageCard';
 
 interface VoyageListProps {
   voyages: Voyage[];

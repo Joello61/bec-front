@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Plane, Package, MessageCircle, Zap } from 'lucide-react';
+import { MessageCircle, Package, Plane, Zap } from 'lucide-react';
 import Link from 'next/link';
+
 import { Card, CardContent } from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
 

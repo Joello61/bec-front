@@ -2,18 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
-import { useAuth } from '@/lib/hooks';
-import { LoadingSpinner, ErrorState } from '@/components/common';
-import { Button } from '@/components/ui';
+
+import { ErrorState, LoadingSpinner } from '@/components/common';
 import {
-  DashboardSummary,
-  RecentVoyages,
-  RecentDemandes,
   DashboardStatsCard,
-  RecentNotifications,
-  RecentMessages,
+  DashboardSummary,
   QuickActions,
+  RecentDemandes,
+  RecentMessages,
+  RecentNotifications,
+  RecentVoyages,
 } from '@/components/dashboard';
+import { Button } from '@/components/ui';
+import { useAuth } from '@/lib/hooks';
 import { useDashboard } from '@/lib/hooks/useDashboard';
 
 export default function DashboardPageClient() {

@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils/cn';
-import Avatar, { AvatarProps } from './avatar';
 import { Camera, Info } from 'lucide-react';
+import { useState } from 'react';
+
+import { cn } from '@/lib/utils/cn';
+
+import Avatar, { AvatarProps } from './avatar';
 
 export interface AvatarWithButtonProps extends AvatarProps {
   buttonType?: 'camera' | 'info';

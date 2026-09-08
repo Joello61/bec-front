@@ -1,17 +1,19 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { getDaysRemaining } from '@/lib/utils/format';
-import { ROUTES } from '@/lib/utils/constants';
-import { useFavoriActions } from '@/lib/hooks/useFavoris';
-import { useAuth } from '@/lib/hooks/useAuth';
-import type { Demande } from '@/types';
-import { usePathname } from 'next/navigation';
 import { Route } from 'next';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+
+import { useAuth } from '@/lib/hooks/useAuth';
+import { useFavoriActions } from '@/lib/hooks/useFavoris';
+import { ROUTES } from '@/lib/utils/constants';
+import { getDaysRemaining } from '@/lib/utils/format';
+import type { Demande } from '@/types';
+
 import ShowProfileModal from '../user/ShowProfileModal';
-import DemandeCardMobile from './DemandeCardMobile';
 import DemandeCardDesktop from './DemandeCardDesktop';
+import DemandeCardMobile from './DemandeCardMobile';
 
 interface DemandeCardProps {
   demande: Demande;

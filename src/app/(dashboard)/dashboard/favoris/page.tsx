@@ -1,5 +1,6 @@
-import FavorisPageClient from "../../../../components/clients/dashboard/favoris-client";
 import { Metadata } from "next";
+
+import FavorisPageClient from "../../../../components/clients/dashboard/favoris-client";
 
 export const metadata: Metadata = {
   title: 'Mes favoris',
