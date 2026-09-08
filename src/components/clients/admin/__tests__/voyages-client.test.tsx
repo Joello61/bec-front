@@ -1,0 +1,93 @@
+import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import AdminModerationVoyagesPageClient from '../voyages-client';
+import type { Voyage, User, PaginationMeta } from '@/types';
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}));
+
+const mockUseVoyages = vi.fn();
+const mockRefetch = vi.fn();
+const mockDeleteVoyage = vi.fn();
+vi.mock('@/lib/hooks', () => ({
+  useVoyages: (...args: unknown[]) => mockUseVoyages(...args),
+  useAdmin: () => ({
+    deleteVoyage: mockDeleteVoyage,
+    deleteDemande: vi.fn(),
+    deleteAvis: vi.fn(),
+    deleteMessage: vi.fn(),
+  }),
+}));
+
+function makeVoyageur(overrides: Partial<User> = {}): User {
+  return {
+    id: 1, email: 'voyageur@example.com', nom: 'Doe', prenom: 'John', telephone: null,
+    photo: null, bio: null, emailVerifie: true, telephoneVerifie: false, roles: ['ROLE_USER'],
+    createdAt: '2025-01-01T00:00:00.000Z', isBanned: false, noteAvisMoyen: null, address: null,
+    isProfileComplete: true, ...overrides,
+  };
+}
+
+function makeVoyage(overrides: Partial<Voyage> = {}): Voyage {
+  return {
+    id: 10, voyageur: makeVoyageur(), villeDepart: 'Yaoundé', villeArrivee: 'Douala',
+    dateDepart: '2026-01-10T00:00:00.000Z', dateArrivee: '2026-01-11T00:00:00.000Z',
+    poidsDisponible: '20', poidsDisponibleRestant: '20', prixParKilo: '1000',
+    commissionProposeePourUnBagage: null, currency: 'XAF', description: null,
+    statut: 'actif', createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
+    ...overrides,
+  };
+}
+
+describe('clients/admin/voyages-client - logique metier', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockUseVoyages.mockReturnValue({
+      voyages: [makeVoyage()],
+      pagination: { page: 1, pages: 1, total: 1, limit: 10 } as PaginationMeta,
+      isLoading: false,
+      error: null,
+      refetch: mockRefetch,
+    });
+  });
+
+  it('affiche une erreur si le chargement echoue', () => {
+    mockUseVoyages.mockReturnValue({ voyages: [], pagination: null, isLoading: false, error: 'Erreur reseau', refetch: mockRefetch });
+    render(<AdminModerationVoyagesPageClient />);
+    expect(screen.getByText('Erreur reseau')).toBeInTheDocument();
+  });
+
+  it('reinterroge avec le statut selectionne et reinitialise la page', async () => {
+    const user = userEvent.setup();
+    render(<AdminModerationVoyagesPageClient />);
+
+    // Selectionne le statut via le composant Select (ouverture + choix de l'option).
+    const selectTrigger = screen.getByText(/tous les statuts/i);
+    await user.click(selectTrigger);
+    await user.click(await screen.findByRole('button', { name: 'Actif' }));
+
+    await waitFor(() => expect(mockUseVoyages).toHaveBeenLastCalledWith(1, 10, { statut: 'actif' }));
+  });
+
+  it('ouvre la modale de suppression et rafraichit la liste apres succes', async () => {
+    const user = userEvent.setup();
+    render(<AdminModerationVoyagesPageClient />);
+
+    await user.click(screen.getByRole('button', { name: /supprimer/i }));
+    expect(screen.getByText(/action irréversible|supprimer le voyage/i)).toBeInTheDocument();
+  });
+
+  it('reinitialise le filtre de statut au clic sur Reinitialiser', async () => {
+    const user = userEvent.setup();
+    render(<AdminModerationVoyagesPageClient />);
+
+    const selectTrigger = screen.getByText(/tous les statuts/i);
+    await user.click(selectTrigger);
+    await user.click(await screen.findByRole('button', { name: 'Actif' }));
+
+    await user.click(screen.getByRole('button', { name: /réinitialiser/i }));
+    await waitFor(() => expect(mockUseVoyages).toHaveBeenLastCalledWith(1, 10, undefined));
+  });
+});
