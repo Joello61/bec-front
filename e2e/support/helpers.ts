@@ -44,7 +44,10 @@ export async function gotoAndWaitReady(page: Page, path: string): Promise<void> 
  * tolere l'asterisque optionnel, pour ne jamais dependre de la presence de required.
  */
 export function labelExact(text: string): RegExp {
-  return new RegExp(`^${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\*?$`);
+  // L'asterisque "requis" est tantot colle au libelle ("Nom*", input.tsx/select.tsx),
+  // tantot separe par un espace ("Description *", DemandeForm.tsx/VoyageForm.tsx en
+  // <label> manuel) - tolerer les deux plutot que de dependre du composant utilise.
+  return new RegExp(`^${text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\*?$`);
 }
 
 /**
