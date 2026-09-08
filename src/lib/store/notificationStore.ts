@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { notificationsApi } from '@/lib/api/notifications';
 import { createAsyncAction } from './createAsyncAction';
 import type { ApiError, AppNotification } from '@/types';
+import { logger } from '@/lib/utils/logger';
 
 interface NotificationState {
   notifications: AppNotification[];
@@ -44,7 +45,7 @@ export const useNotificationStore = create<NotificationState>((set) => ({
       const unreadCount = await notificationsApi.getUnreadCount();
       set({ unreadCount });
     } catch (error) {
-      console.log('Erreur lors du chargement du compteur de notifications non lues', error);
+      logger.log('Erreur lors du chargement du compteur de notifications non lues', error);
     }
   },
 

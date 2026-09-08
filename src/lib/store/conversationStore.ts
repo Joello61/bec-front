@@ -3,6 +3,7 @@ import { conversationsApi } from '@/lib/api/conversations';
 import { messagesApi } from '@/lib/api/messages';
 import { createAsyncAction } from './createAsyncAction';
 import type { ApiError, Conversation, ConversationDetail, SendMessageInput } from '@/types';
+import { logger } from '@/lib/utils/logger';
 
 interface ConversationState {
   conversations: Conversation[];
@@ -102,7 +103,7 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
       const unreadCount = await conversationsApi.getUnreadCount();
       set({ unreadCount });
     } catch (error) {
-      console.log('Erreur compteur messages non lus:', error);
+      logger.log('Erreur compteur messages non lus:', error);
     }
   },
 

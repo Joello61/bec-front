@@ -7,6 +7,7 @@ import type {
   TraiterSignalementInput,
   PaginationMeta,
 } from '@/types';
+import { logger } from '@/lib/utils/logger';
 
 interface SignalementState {
   signalements: Signalement[];
@@ -80,7 +81,7 @@ export const useSignalementStore = create<SignalementState>((set) => ({
       const pendingCount = await signalementsApi.getPendingCount();
       set({ pendingCount });
     } catch (error) {
-      console.error('Erreur compteur signalements:', error);
+      logger.error('Erreur compteur signalements:', error);
     }
   },
 

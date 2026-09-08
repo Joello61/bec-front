@@ -10,6 +10,7 @@ import type {
   CompleteProfileResponse,
   RegisterResponse
 } from '@/types';
+import { logger } from '@/lib/utils/logger';
 
 interface AuthState {
   user: User | null;
@@ -170,7 +171,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const status = await authApi.getProfileStatus();
       return status.isComplete;
     } catch (error) {
-      console.error('Erreur vérification profil:', error);
+      logger.error('Erreur vérification profil:', error);
       return false;
     }
   },
