@@ -2,12 +2,12 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Filter, RefreshCw, X, ChevronDown, ChevronUp, MapPin, Calendar } from 'lucide-react';
-import { Button, Input, Select } from '@/components/ui';
-import { DEMANDE_STATUTS } from '@/lib/utils/constants';
+import { Filter, RefreshCw, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from '@/components/ui';
 import { useTopCitiesGlobal, useCitySearchGlobal } from '@/lib/hooks/useGeo';
 import type { DemandeFilters as DemandeFiltersType } from '@/types';
 import type { SelectOption } from '@/components/ui/select';
+import DemandeFilterFields from './DemandeFilterFields';
 
 interface DemandeFiltersProps {
   onFilterChange: (filters: DemandeFiltersType) => void;
@@ -16,9 +16,9 @@ interface DemandeFiltersProps {
   isPublic?: boolean;
 }
 
-export default function DemandeFilters({ 
-  onFilterChange, 
-  initialFilters = {}, 
+export default function DemandeFilters({
+  onFilterChange,
+  initialFilters = {},
   refetchDemandes,
   isPublic = false
 }: DemandeFiltersProps) {
@@ -29,14 +29,14 @@ export default function DemandeFilters({
   const { topCitiesGlobal, isLoading: isLoadingTopCities } = useTopCitiesGlobal();
 
   // Recherche globale pour départ et arrivée
-  const { 
-    searchResults: searchResultsDepart, 
-    search: searchDepart 
+  const {
+    searchResults: searchResultsDepart,
+    search: searchDepart
   } = useCitySearchGlobal();
 
-  const { 
-    searchResults: searchResultsArrivee, 
-    search: searchArrivee 
+  const {
+    searchResults: searchResultsArrivee,
+    search: searchArrivee
   } = useCitySearchGlobal();
 
   // Options ville départ : Top 100 + Résultats recherche
@@ -54,7 +54,7 @@ export default function DemandeFilters({
         }))
       ];
     }
-    
+
     return [
       ...baseOptions,
       ...topCitiesGlobal.map((city) => ({
@@ -79,7 +79,7 @@ export default function DemandeFilters({
         }))
       ];
     }
-    
+
     return [
       ...baseOptions,
       ...topCitiesGlobal.map((city) => ({
@@ -137,8 +137,8 @@ export default function DemandeFilters({
             )}
           </Button>
 
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={refetchDemandes}
             leftIcon={<RefreshCw className="w-4 h-4" />}
           >
@@ -170,73 +170,17 @@ export default function DemandeFilters({
             <div className="card p-6 space-y-6">
               {/* Section principale */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* Ville de départ avec recherche */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Ville de départ
-                  </label>
-                  <Select
-                    leftIcon={<MapPin className="w-5 h-5" />}
-                    options={optionsDepart}
-                    value={filters.villeDepart || ''}
-                    onChange={(value) => handleFilterChange('villeDepart', value)}
-                    placeholder={isLoadingTopCities ? 'Chargement...' : 'Toutes les villes'}
-                    disabled={isLoadingTopCities}
-                    searchable
-                    onSearch={handleSearchDepart}
-                  />
-                </div>
-
-                {/* Ville d'arrivée avec recherche */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Ville d&apos;arrivée
-                  </label>
-                  <Select
-                    leftIcon={<MapPin className="w-5 h-5" />}
-                    options={optionsArrivee}
-                    value={filters.villeArrivee || ''}
-                    onChange={(value) => handleFilterChange('villeArrivee', value)}
-                    placeholder={isLoadingTopCities ? 'Chargement...' : 'Toutes les villes'}
-                    disabled={isLoadingTopCities}
-                    searchable
-                    onSearch={handleSearchArrivee}
-                  />
-                </div>
-
-                {/* Date limite */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Date limite
-                  </label>
-                  <Input
-                    type="date"
-                    value={filters.dateLimite || ''}
-                    onChange={(e) => handleFilterChange('dateLimite', e.target.value)}
-                    leftIcon={<Calendar className="w-5 h-5" />}
-                  />
-                </div>
-
-                {/* Statut */}
-                {!isPublic && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Statut
-                    </label>
-                    <Select
-                      options={[
-                        { value: '', label: 'Tous les statuts' },
-                        ...DEMANDE_STATUTS.map((status) => ({
-                          value: status.value,
-                          label: status.label
-                        }))
-                      ]}
-                      value={filters.statut || ''}
-                      onChange={(value) => handleFilterChange('statut', value)}
-                      searchable={false}
-                    />
-                  </div>
-                )}
+                <DemandeFilterFields
+                  filters={filters}
+                  onFilterChange={handleFilterChange}
+                  optionsDepart={optionsDepart}
+                  optionsArrivee={optionsArrivee}
+                  isLoadingTopCities={isLoadingTopCities}
+                  onSearchDepart={handleSearchDepart}
+                  onSearchArrivee={handleSearchArrivee}
+                  isPublic={isPublic}
+                  labelClassName="block text-sm font-medium text-gray-700 mb-2"
+                />
               </div>
 
               {/* Actions au bas des filtres */}
@@ -258,74 +202,17 @@ export default function DemandeFilters({
 
       {/* Filters Content - Mobile (toujours visible dans le drawer parent) */}
       <div className="md:hidden space-y-4">
-        {/* Ville de départ avec recherche */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Ville de départ
-          </label>
-          <Select
-            leftIcon={<MapPin className="w-5 h-5" />}
-            options={optionsDepart}
-            value={filters.villeDepart || ''}
-            onChange={(value) => handleFilterChange('villeDepart', value)}
-            placeholder={isLoadingTopCities ? 'Chargement...' : 'Toutes les villes'}
-            disabled={isLoadingTopCities}
-            searchable
-            onSearch={handleSearchDepart}
-          />
-        </div>
-
-        {/* Ville d'arrivée avec recherche */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Ville d&apos;arrivée
-          </label>
-          <Select
-            leftIcon={<MapPin className="w-5 h-5" />}
-            options={optionsArrivee}
-            value={filters.villeArrivee || ''}
-            onChange={(value) => handleFilterChange('villeArrivee', value)}
-            placeholder={isLoadingTopCities ? 'Chargement...' : 'Toutes les villes'}
-            disabled={isLoadingTopCities}
-            searchable
-            onSearch={handleSearchArrivee}
-          />
-        </div>
-
-        {/* Date limite */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Date limite
-          </label>
-          <Input
-            type="date"
-            value={filters.dateLimite || ''}
-            onChange={(e) => handleFilterChange('dateLimite', e.target.value)}
-            leftIcon={<Calendar className="w-5 h-5" />}
-            className="w-full"
-          />
-        </div>
-
-        {/* Statut - CORRECTION ICI */}
-        {!isPublic && (
-          <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">
-              Statut
-            </label>
-            <Select
-              options={[
-                { value: '', label: 'Tous les statuts' },
-                ...DEMANDE_STATUTS.map((status) => ({
-                  value: status.value,
-                  label: status.label
-                }))
-              ]}
-              value={filters.statut || ''}
-              onChange={(value) => handleFilterChange('statut', value)}
-              searchable={false}
-            />
-          </div>
-        )}
+        <DemandeFilterFields
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          optionsDepart={optionsDepart}
+          optionsArrivee={optionsArrivee}
+          isLoadingTopCities={isLoadingTopCities}
+          onSearchDepart={handleSearchDepart}
+          onSearchArrivee={handleSearchArrivee}
+          isPublic={isPublic}
+          labelClassName="block text-sm font-semibold text-gray-900 mb-2"
+        />
 
         {/* Indicateur de filtres actifs - Mobile */}
         {hasActiveFilters && (
