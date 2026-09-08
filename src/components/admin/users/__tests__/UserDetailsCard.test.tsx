@@ -100,7 +100,7 @@ describe('UserDetailsCard - logique metier', () => {
   });
 
   it("n'affiche que les 5 premiers logs administratifs", () => {
-    const logs = Array.from({ length: 8 }, (_, i) => makeLog({ id: i + 1, action: `action_${i + 1}` }));
+    const logs = Array.from({ length: 8 }, (_, i) => makeLog({ id: i + 1, action: `action_${i + 1}` as AdminLog['action'] }));
     render(<UserDetailsCard user={makeUser()} activity={null} adminLogs={logs} onBan={vi.fn()} onUpdateRoles={vi.fn()} onDelete={vi.fn()} />);
 
     expect(screen.getByText(/historique administratif \(8\)/i)).toBeInTheDocument();

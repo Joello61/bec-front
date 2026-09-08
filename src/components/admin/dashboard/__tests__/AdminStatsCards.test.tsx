@@ -11,7 +11,8 @@ function makeProps(overrides: {
 } = {}) {
   const users: AdminUsersStats = {
     total: 100, actifs: 90, bannis: 2, nouveauxCeMois: 5, nouveauxAujourdhui: 0,
-    emailVerifies: 80, telephoneVerifies: 60, admins: 3, ...overrides.users,
+    emailVerifies: 80, telephoneVerifies: 60, admins: 3, moderators: 1,
+    tauxVerificationEmail: 0.8, tauxVerificationTelephone: 0.6, ...overrides.users,
   };
   const voyages: AdminVoyagesStats = {
     total: 50, actifs: 20, complets: 20, termines: 5, annules: 5,
