@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { conversationsApi } from '@/lib/api/conversations';
 import { messagesApi } from '@/lib/api/messages';
-import type { Conversation, ConversationDetail, SendMessageInput } from '@/types';
+import { createAsyncAction } from './createAsyncAction';
+import type { ApiError, Conversation, ConversationDetail, SendMessageInput } from '@/types';
 
 interface ConversationState {
   conversations: Conversation[];
@@ -10,7 +10,7 @@ interface ConversationState {
   unreadCount: number;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchConversations: () => Promise<void>;
   fetchConversation: (conversationId: number) => Promise<void>;
@@ -31,56 +31,31 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
   isLoading: false,
   error: null,
 
-  fetchConversations: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchConversations: () =>
+    createAsyncAction(set, async () => {
       const conversations = await conversationsApi.list();
       set({ conversations, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des conversations', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des conversations' }),
 
-  fetchConversation: async (conversationId) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchConversation: (conversationId) =>
+    createAsyncAction(set, async () => {
       const conversation = await conversationsApi.show(conversationId);
       set({ currentConversation: conversation, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement de la conversation', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement de la conversation' }),
 
-  getOrCreateConversationWithUser: async (userId) => {
-    set({ isLoading: true, error: null });
-    try {
+  getOrCreateConversationWithUser: (userId) =>
+    createAsyncAction(set, async () => {
       const conversation = await conversationsApi.withUser(userId);
       set({ currentConversation: conversation, isLoading: false });
       return conversation;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la récupération de la conversation', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la récupération de la conversation', rethrow: true }),
 
-  sendMessage: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  sendMessage: (data) =>
+    createAsyncAction(set, async () => {
       const message = await messagesApi.send(data);
-      
-      // Ajouter le message à la conversation actuelle
+
       set((state) => {
         if (!state.currentConversation) return state;
-        
         return {
           currentConversation: {
             ...state.currentConversation,
@@ -90,27 +65,19 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
         };
       });
 
-      // Rafraîchir la liste des conversations
+      // Rafraichissement fire-and-forget, comme dans le code d'origine
       get().fetchConversations();
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de l\'envoi du message', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de l'envoi du message", rethrow: true }),
 
+  // Ne pilote pas isLoading (comportement d'origine) - hors du helper.
   markAsRead: async (conversationId) => {
     try {
       await conversationsApi.markAsRead(conversationId);
-      
-      // Mettre à jour les messages dans la conversation actuelle
+
       set((state) => {
         if (!state.currentConversation || state.currentConversation.id !== conversationId) {
           return state;
         }
-        
         return {
           currentConversation: {
             ...state.currentConversation,
@@ -122,54 +89,40 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
         };
       });
 
-      // Rafraîchir le compteur
       await get().fetchUnreadCount();
-      
-      // Rafraîchir la liste des conversations
       await get().fetchConversations();
-    } catch (error: any) {
-      set({ error: error.message });
+    } catch (error) {
+      set({ error: (error as ApiError).message });
     }
   },
 
+  // Compteur silencieux : ne pilote pas isLoading/error, comme authStore.checkProfileStatus.
   fetchUnreadCount: async () => {
     try {
       const unreadCount = await conversationsApi.getUnreadCount();
       set({ unreadCount });
-    } catch (error: any) {
+    } catch (error) {
       console.log('Erreur compteur messages non lus:', error);
     }
   },
 
-  deleteConversation: async (conversationId) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteConversation: (conversationId) =>
+    createAsyncAction(set, async () => {
       await conversationsApi.delete(conversationId);
-      
       set((state) => ({
         conversations: state.conversations.filter((conv) => conv.id !== conversationId),
-        currentConversation: state.currentConversation?.id === conversationId 
-          ? null 
+        currentConversation: state.currentConversation?.id === conversationId
+          ? null
           : state.currentConversation,
         isLoading: false
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la suppression de la conversation', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression de la conversation', rethrow: true }),
 
-  deleteMessage: async (messageId) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteMessage: (messageId) =>
+    createAsyncAction(set, async () => {
       await messagesApi.delete(messageId);
-      
       set((state) => {
         if (!state.currentConversation) return { isLoading: false };
-        
         return {
           currentConversation: {
             ...state.currentConversation,
@@ -178,21 +131,14 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
           isLoading: false
         };
       });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la suppression du message', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression du message', rethrow: true }),
 
   clearError: () => set({ error: null }),
-  
-  reset: () => set({ 
-    conversations: [], 
-    currentConversation: null, 
+
+  reset: () => set({
+    conversations: [],
+    currentConversation: null,
     unreadCount: 0,
-    error: null 
+    error: null
   }),
 }));
