@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence } from 'framer-motion';
-import { InAppNotification } from './InAppNotification.tsx';
+import { InAppNotification } from './InAppNotification';
 
 interface NotificationData {
   id: string;
