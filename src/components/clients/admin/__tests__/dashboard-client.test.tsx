@@ -16,8 +16,8 @@ function makeDashboardData(): AdminDashboardData {
     demandes: { total: 4, enRecherche: 2, voyageurTrouve: 1, annulees: 1, nouvellesCeMois: 1, nouvellesAujourdhui: 0, tauxReussite: 0.6 },
     signalements: { total: 1, enAttente: 1, traites: 0, rejetes: 0, nouveauxCeMois: 1, tauxTraitement: 0 },
     activity: { derniers7Jours: [], tendance: { direction: 'stable', percentage: 0 } },
-    engagement: { totalAvis: 3, totalMessages: 20, totalConversations: 6, engagementRate: 0.4, avgMessagesPerConversation: 3.3, avgReviewRating: 4.2 },
-  } as AdminDashboardData;
+    engagement: { totalAvis: 3, totalMessages: 20, totalConversations: 6, moyenneAvisParUtilisateur: 1.2, utilisateursAvecAvis: 2 },
+  };
 }
 
 describe('admin/dashboard-client - logique metier', () => {
