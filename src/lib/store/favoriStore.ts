@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { favorisApi } from '@/lib/api/favoris';
+import { createAsyncAction } from './createAsyncAction';
 import type { Favori } from '@/types';
 
 interface FavoriState {
@@ -9,7 +9,7 @@ interface FavoriState {
   favorisDemandes: Favori[];
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchFavoris: () => Promise<void>;
   fetchFavorisVoyages: () => Promise<void>;
@@ -30,96 +30,42 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
   isLoading: false,
   error: null,
 
-  fetchFavoris: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchFavoris: () =>
+    createAsyncAction(set, async () => {
       const favoris = await favorisApi.list();
       set({ favoris, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des favoris', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des favoris' }),
 
-  fetchFavorisVoyages: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchFavorisVoyages: () =>
+    createAsyncAction(set, async () => {
       const favorisVoyages = await favorisApi.getVoyages();
       set({ favorisVoyages, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des voyages favoris', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des voyages favoris' }),
 
-  fetchFavorisDemandes: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchFavorisDemandes: () =>
+    createAsyncAction(set, async () => {
       const favorisDemandes = await favorisApi.getDemandes();
       set({ favorisDemandes, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des demandes favorites', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des demandes favorites' }),
 
-  // CORRECTION : Recharger après ajout au lieu de merger
-  addVoyageToFavoris: async (voyageId) => {
-    set({ isLoading: true, error: null });
-    try {
+  // Recharge la liste complete apres ajout plutot que de merger localement
+  addVoyageToFavoris: (voyageId) =>
+    createAsyncAction(set, async () => {
       await favorisApi.addVoyage(voyageId);
-      
-      // Recharger la liste complète avec toutes les données
       const favorisVoyages = await favorisApi.getVoyages();
-      
-      set({
-        favorisVoyages,
-        isLoading: false
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de l\'ajout aux favoris', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+      set({ favorisVoyages, isLoading: false });
+    }, { fallbackError: "Erreur lors de l'ajout aux favoris", rethrow: true }),
 
-  // CORRECTION : Recharger après ajout au lieu de merger
-  addDemandeToFavoris: async (demandeId) => {
-    set({ isLoading: true, error: null });
-    try {
+  addDemandeToFavoris: (demandeId) =>
+    createAsyncAction(set, async () => {
       await favorisApi.addDemande(demandeId);
-      
-      // Recharger la liste complète avec toutes les données
       const favorisDemandes = await favorisApi.getDemandes();
-      
-      set({
-        favorisDemandes,
-        isLoading: false
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de l\'ajout aux favoris', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+      set({ favorisDemandes, isLoading: false });
+    }, { fallbackError: "Erreur lors de l'ajout aux favoris", rethrow: true }),
 
-  // CORRECTION : Recharger après suppression
-  removeFavori: async (id, type) => {
-    set({ isLoading: true, error: null });
-    try {
+  removeFavori: (id, type) =>
+    createAsyncAction(set, async () => {
       await favorisApi.remove(id, type);
-      
-      // Recharger les listes pour avoir les données à jour
       if (type === 'voyage') {
         const favorisVoyages = await favorisApi.getVoyages();
         set({ favorisVoyages, isLoading: false });
@@ -127,14 +73,7 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
         const favorisDemandes = await favorisApi.getDemandes();
         set({ favorisDemandes, isLoading: false });
       }
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la suppression du favori', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression du favori', rethrow: true }),
 
   isFavoriVoyage: (voyageId) => {
     const { favorisVoyages } = get();
@@ -147,11 +86,11 @@ export const useFavoriStore = create<FavoriState>((set, get) => ({
   },
 
   clearError: () => set({ error: null }),
-  
-  reset: () => set({ 
+
+  reset: () => set({
     favoris: [],
     favorisVoyages: [],
     favorisDemandes: [],
-    error: null 
+    error: null
   }),
 }));

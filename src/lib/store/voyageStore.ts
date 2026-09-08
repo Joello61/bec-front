@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { voyagesApi } from '@/lib/api/voyages';
-import type { 
-  Voyage, 
-  CreateVoyageInput, 
-  UpdateVoyageInput, 
-  VoyageFilters, 
+import { createAsyncAction } from './createAsyncAction';
+import type {
+  Voyage,
+  CreateVoyageInput,
+  UpdateVoyageInput,
+  VoyageFilters,
   VoyageStatut,
-  PaginationMeta, 
+  PaginationMeta,
   PublicVoyage
 } from '@/types';
 import { VOYAGE_STATUTS } from '../utils/constants';
@@ -20,7 +20,7 @@ interface VoyageState {
   pagination: PaginationMeta | null;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchVoyages: (page?: number, limit?: number, filters?: VoyageFilters) => Promise<void>;
   fetchPublicVoyages: (page?: number, limit?: number, filters?: VoyageFilters) => Promise<void>;
@@ -34,8 +34,7 @@ interface VoyageState {
   reset: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const useVoyageStore = create<VoyageState>((set, get) => ({
+export const useVoyageStore = create<VoyageState>((set) => ({
   voyages: [],
   publicVoyages: [],
   mesVoyages: [],
@@ -44,151 +43,80 @@ export const useVoyageStore = create<VoyageState>((set, get) => ({
   isLoading: false,
   error: null,
 
-  fetchVoyages: async (page = 1, limit = 10, filters) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchVoyages: (page = 1, limit = 10, filters) =>
+    createAsyncAction(set, async () => {
       const response = await voyagesApi.list(page, limit, filters);
-      set({ 
-        voyages: response.data, 
-        pagination: response.pagination,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des voyages', 
-        isLoading: false 
-      });
-    }
-  },
+      set({ voyages: response.data, pagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des voyages' }),
 
-  fetchPublicVoyages: async (page = 1, limit = 10, filters) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchPublicVoyages: (page = 1, limit = 10, filters) =>
+    createAsyncAction(set, async () => {
       const response = await voyagesApi.publicList(page, limit, filters);
-      set({ 
-        publicVoyages: response.data, 
-        pagination: response.pagination,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des voyages publics', 
-        isLoading: false 
-      });
-    }
-  },
+      set({ publicVoyages: response.data, pagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des voyages publics' }),
 
-  fetchVoyage: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchVoyage: (id) =>
+    createAsyncAction(set, async () => {
       const voyage = await voyagesApi.show(id);
       set({ currentVoyage: voyage, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement du voyage', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement du voyage' }),
 
-  createVoyage: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  createVoyage: (data) =>
+    createAsyncAction(set, async () => {
       const voyage = await voyagesApi.create(data);
-      set((state) => ({ 
-        mesVoyages: [voyage, ...state.mesVoyages],
-        isLoading: false 
-      }));
+      set((state) => ({ mesVoyages: [voyage, ...state.mesVoyages], isLoading: false }));
       return voyage;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la création du voyage', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la création du voyage', rethrow: true }),
 
-  updateVoyage: async (id, data) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateVoyage: (id, data) =>
+    createAsyncAction(set, async () => {
       const updatedVoyage = await voyagesApi.update(id, data);
       set((state) => ({
         mesVoyages: state.mesVoyages.map((v) => v.id === id ? updatedVoyage : v),
         currentVoyage: state.currentVoyage?.id === id ? updatedVoyage : state.currentVoyage,
         isLoading: false
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour du voyage', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la mise à jour du voyage', rethrow: true }),
 
-  updateStatus: async (id, statut) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateStatus: (id, statut) =>
+    createAsyncAction(set, async () => {
       const updatedVoyage = await voyagesApi.updateStatus(id, statut);
       set((state) => ({
         mesVoyages: state.mesVoyages.map((v) => v.id === id ? updatedVoyage : v),
         currentVoyage: state.currentVoyage?.id === id ? updatedVoyage : state.currentVoyage,
         isLoading: false
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour du statut', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la mise à jour du statut', rethrow: true }),
 
-  deleteVoyage: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteVoyage: (id) =>
+    createAsyncAction(set, async () => {
       await voyagesApi.delete(id);
       set((state) => ({
-         mesVoyages: state.mesVoyages.map((v) =>
-        v.id === id ? { ...v, status: VOYAGE_STATUTS[3]} : v
-      ),
-      currentVoyage:
-        state.currentVoyage?.id === id
-          ? { ...state.currentVoyage, status: VOYAGE_STATUTS[3] }
-          : state.currentVoyage,
+        mesVoyages: state.mesVoyages.map((v) =>
+          v.id === id ? { ...v, status: VOYAGE_STATUTS[3] } : v
+        ),
+        currentVoyage:
+          state.currentVoyage?.id === id
+            ? { ...state.currentVoyage, status: VOYAGE_STATUTS[3] }
+            : state.currentVoyage,
         isLoading: false
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la suppression du voyage', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression du voyage', rethrow: true }),
 
-  fetchUserVoyages: async (userId) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUserVoyages: (userId) =>
+    createAsyncAction(set, async () => {
       const voyages = await voyagesApi.byUser(userId);
       set({ mesVoyages: voyages, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des voyages', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des voyages' }),
 
   clearError: () => set({ error: null }),
-  
-  reset: () => set({ 
-    voyages: [], 
+
+  reset: () => set({
+    voyages: [],
     publicVoyages: [],
     mesVoyages: [],
-    currentVoyage: null, 
-    pagination: null, 
-    error: null 
+    currentVoyage: null,
+    pagination: null,
+    error: null
   }),
 }));
