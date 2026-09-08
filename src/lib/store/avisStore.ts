@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { avisApi } from '@/lib/api/avis';
+import { createAsyncAction } from './createAsyncAction';
 import type { Avis, CreateAvisInput, AvisWithStats } from '@/types';
 
 interface AvisState {
   avisWithStats: AvisWithStats | null;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchUserAvis: (userId: number) => Promise<void>;
   createAvis: (data: CreateAvisInput) => Promise<Avis>;
@@ -22,26 +22,17 @@ export const useAvisStore = create<AvisState>((set) => ({
   isLoading: false,
   error: null,
 
-  fetchUserAvis: async (userId) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUserAvis: (userId) =>
+    createAsyncAction(set, async () => {
       const avisWithStats = await avisApi.byUser(userId);
       set({ avisWithStats, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des avis', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des avis' }),
 
-  createAvis: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  createAvis: (data) =>
+    createAsyncAction(set, async () => {
       const avis = await avisApi.create(data);
       set((state) => {
         if (!state.avisWithStats) return { isLoading: false };
-        
         return {
           avisWithStats: {
             ...state.avisWithStats,
@@ -55,48 +46,30 @@ export const useAvisStore = create<AvisState>((set) => ({
         };
       });
       return avis;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la création de l\'avis', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de la création de l'avis", rethrow: true }),
 
-  updateAvis: async (id, data) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateAvis: (id, data) =>
+    createAsyncAction(set, async () => {
       const updatedAvis = await avisApi.update(id, data);
       set((state) => {
         if (!state.avisWithStats) return { isLoading: false };
-        
         return {
           avisWithStats: {
             ...state.avisWithStats,
-            avis: state.avisWithStats.avis.map((a) => 
+            avis: state.avisWithStats.avis.map((a) =>
               a.id === id ? updatedAvis : a
             )
           },
           isLoading: false
         };
       });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour de l\'avis', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de la mise à jour de l'avis", rethrow: true }),
 
-  deleteAvis: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteAvis: (id) =>
+    createAsyncAction(set, async () => {
       await avisApi.delete(id);
       set((state) => {
         if (!state.avisWithStats) return { isLoading: false };
-        
         return {
           avisWithStats: {
             ...state.avisWithStats,
@@ -109,19 +82,12 @@ export const useAvisStore = create<AvisState>((set) => ({
           isLoading: false
         };
       });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la suppression de l\'avis', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de la suppression de l'avis", rethrow: true }),
 
   clearError: () => set({ error: null }),
-  
-  reset: () => set({ 
+
+  reset: () => set({
     avisWithStats: null,
-    error: null 
+    error: null
   }),
 }));

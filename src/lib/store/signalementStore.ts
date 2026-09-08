@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { signalementsApi } from '@/lib/api/signalement';
-import type { 
-  Signalement, 
-  CreateSignalementInput, 
+import { createAsyncAction } from './createAsyncAction';
+import type {
+  Signalement,
+  CreateSignalementInput,
   TraiterSignalementInput,
-  PaginationMeta, 
+  PaginationMeta,
 } from '@/types';
 
 interface SignalementState {
@@ -16,7 +16,7 @@ interface SignalementState {
   pendingCount: number;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchSignalements: (page?: number, limit?: number, statut?: string) => Promise<void>;
   fetchMesSignalements: (page?: number, limit?: number, statut?: string) => Promise<void>;
@@ -36,43 +36,20 @@ export const useSignalementStore = create<SignalementState>((set) => ({
   isLoading: false,
   error: null,
 
-  fetchSignalements: async (page = 1, limit = 10, statut) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchSignalements: (page = 1, limit = 10, statut) =>
+    createAsyncAction(set, async () => {
       const response = await signalementsApi.list(page, limit, statut);
-      set({ 
-        signalements: response.data, 
-        pagination: response.pagination,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des signalements', 
-        isLoading: false 
-      });
-    }
-  },
+      set({ signalements: response.data, pagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des signalements' }),
 
-  fetchMesSignalements: async (page = 1, limit = 10, statut) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchMesSignalements: (page = 1, limit = 10, statut) =>
+    createAsyncAction(set, async () => {
       const response = await signalementsApi.me(page, limit, statut);
-      set({ 
-        mesSignalements: response.data, 
-        pagination: response.pagination,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des signalements', 
-        isLoading: false 
-      });
-    }
-  },
+      set({ mesSignalements: response.data, pagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des signalements' }),
 
-  createSignalement: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  createSignalement: (data) =>
+    createAsyncAction(set, async () => {
       const signalement = await signalementsApi.create(data);
       set((state) => ({
         signalements: [signalement, ...state.signalements],
@@ -80,54 +57,40 @@ export const useSignalementStore = create<SignalementState>((set) => ({
         isLoading: false
       }));
       return signalement;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la création du signalement', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la création du signalement', rethrow: true }),
 
-  processSignalement: async (id, data) => {
-    set({ isLoading: true, error: null });
-    try {
+  processSignalement: (id, data) =>
+    createAsyncAction(set, async () => {
       const updatedSignalement = await signalementsApi.process(id, data);
       set((state) => ({
-        signalements: state.signalements.map((s) => 
+        signalements: state.signalements.map((s) =>
           s.id === id ? updatedSignalement : s
         ),
-        currentSignalement: state.currentSignalement?.id === id 
-          ? updatedSignalement 
+        currentSignalement: state.currentSignalement?.id === id
+          ? updatedSignalement
           : state.currentSignalement,
         pendingCount: Math.max(0, state.pendingCount - 1),
         isLoading: false
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du traitement du signalement', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors du traitement du signalement', rethrow: true }),
 
+  // Compteur silencieux : ne pilote pas isLoading/error, comme authStore.checkProfileStatus.
   fetchPendingCount: async () => {
     try {
       const pendingCount = await signalementsApi.getPendingCount();
       set({ pendingCount });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Erreur compteur signalements:', error);
     }
   },
 
   clearError: () => set({ error: null }),
-  
-  reset: () => set({ 
+
+  reset: () => set({
     signalements: [],
     currentSignalement: null,
     pagination: null,
     pendingCount: 0,
-    error: null 
+    error: null
   }),
 }));
