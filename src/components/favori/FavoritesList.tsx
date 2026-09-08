@@ -90,7 +90,7 @@ export default function FavoritesList({
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {currentItems.map((favori) => {
-            // ✅ On s'assure que les relations existent avant de rendre
+            // On s'assure que les relations existent avant de rendre
             if (activeTab === 'voyages') {
               if (!favori.voyage) return null;
               return <VoyageCard key={favori.id} voyage={favori.voyage} />;

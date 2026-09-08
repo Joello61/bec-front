@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 RÉSUMÉ EN LANGAGE CLAIR
+## RÉSUMÉ EN LANGAGE CLAIR
 
 Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage. Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **support@cobage.joeltech.dev** pour toute question.
 
@@ -120,7 +120,7 @@ Co-Bage tient un registre des traitements et peut démontrer sa conformité à t
 - **Date et heure de connexion / déconnexion**
 - **Type de navigateur et version** (User-Agent)
 - **Système d'exploitation**
-- **Provenance géographique approximative** (pays, région — déduite de l'IP)
+- **Provenance géographique approximative** (pays, région - déduite de l'IP)
 - **Pages consultées**, temps passé, clics
 - **Identifiants de session** (tokens)
 
@@ -162,7 +162,7 @@ Conformément à l'article 6 du RGPD, tout traitement doit reposer sur une base 
 | **Création et gestion du compte utilisateur**                                                                                                    | Nom, prénom, e-mail, mot de passe haché, date d'inscription              | **Exécution du contrat** (art. 6.1.b)                                                                       | Durée de vie du compte + 1 an                               |
 | **Fourniture du service de mise en relation**                                                                                                    | Annonces, recherches, favoris, messagerie                                | **Exécution du contrat** (art. 6.1.b)                                                                       | Annonces : 3 mois après expiration / Messages : 12 mois     |
 | **Authentification et sécurité du compte**                                                                                                       | E-mail, mot de passe haché, IP, logs de connexion                        | **Exécution du contrat** + **Intérêt légitime** (art. 6.1.b et 6.1.f)                                       | 12 mois (logs)                                              |
-| **Prévention de la fraude, détection d'abus, modération**                                                                                        | Historique de l'utilisateur, IP, messages signalés, comportement suspect | **Intérêt légitime** (art. 6.1.f) — sécurité de la plateforme et protection des autres utilisateurs         | 3 ans (en cas de signalement ou suspension)                 |
+| **Prévention de la fraude, détection d'abus, modération**                                                                                        | Historique de l'utilisateur, IP, messages signalés, comportement suspect | **Intérêt légitime** (art. 6.1.f) - sécurité de la plateforme et protection des autres utilisateurs         | 3 ans (en cas de signalement ou suspension)                 |
 | **Respect des obligations légales** (réquisitions judiciaires, LCEN)                                                                             | Toutes données nécessaires (IP, messages, annonces, identité)            | **Obligation légale** (art. 6.1.c)                                                                          | 12 mois minimum (LCEN)                                      |
 | **Amélioration du service et statistiques**                                                                                                      | Données de navigation anonymisées, clics, pages vues                     | **Intérêt légitime** (art. 6.1.f)                                                                           | 13 mois max (cookies analytiques) puis anonymisation totale |
 | **Communication relative au service** (e-mails transactionnels : confirmation d'inscription, réinitialisation mot de passe, alertes de sécurité) | E-mail, nom                                                              | **Exécution du contrat** (art. 6.1.b)                                                                       | Durée de vie du compte                                      |
@@ -202,7 +202,7 @@ Co-Bage fait appel à des sous-traitants pour l'hébergement et les services tec
 Certaines données sont **publiques** et visibles par les autres utilisateurs :
 
 - **Profil public** : Pseudonyme/Nom affiché, photo de profil, date d'inscription, nombre d'annonces publiées
-- **Annonces** : Ville de départ, destination, dates, capacité, description — mais PAS l'adresse e-mail ni le numéro de téléphone (échange via messagerie interne uniquement)
+- **Annonces** : Ville de départ, destination, dates, capacité, description - mais PAS l'adresse e-mail ni le numéro de téléphone (échange via messagerie interne uniquement)
 
 **Messagerie interne** : Les messages sont **privés** et ne sont visibles que par les deux utilisateurs concernés (et par le responsable en cas de signalement ou analyse automatique pour détection de contenus illicites).
 
@@ -368,7 +368,7 @@ Téléphone : +33 7 52 89 20 73
 
 - Objet clair : "Demande d'accès RGPD" / "Demande d'effacement" / etc.
 - Nom, prénom, adresse e-mail du compte
-- Copie de pièce d'identité (si doute sur l'identité — engagement de destruction après vérification)
+- Copie de pièce d'identité (si doute sur l'identité - engagement de destruction après vérification)
 
 **Délai de réponse** : 1 mois à compter de la réception de la demande complète. Prorogeable de 2 mois en cas de complexité (notification à l'utilisateur avec justification).
 
@@ -386,49 +386,49 @@ Co-Bage met en œuvre des mesures techniques et organisationnelles pour garantir
 
 #### a) Chiffrement en transit (TLS)
 
-- ✅ **HTTPS obligatoire** sur toute la plateforme (TLS 1.3 ou TLS 1.2 minimum)
-- ✅ Certificat SSL/TLS valide (Let's Encrypt ou équivalent)
-- ✅ HSTS (HTTP Strict Transport Security) activé
+- **HTTPS obligatoire** sur toute la plateforme (TLS 1.3 ou TLS 1.2 minimum)
+- Certificat SSL/TLS valide (Let's Encrypt ou équivalent)
+- HSTS (HTTP Strict Transport Security) activé
 
 #### b) Chiffrement au repos
 
-- ✅ **Base de données chiffrée** : AES-256 pour les données sensibles
-- ✅ **Sauvegardes chiffrées**
+- **Base de données chiffrée** : AES-256 pour les données sensibles
+- **Sauvegardes chiffrées**
 
 #### c) Hachage des mots de passe
 
-- ✅ Algorithme : **bcrypt** (facteur de coût ≥ 12) ou **Argon2**
-- ✅ **Jamais de stockage en clair** ni de chiffrement réversible
+- Algorithme : **bcrypt** (facteur de coût ≥ 12) ou **Argon2**
+- **Jamais de stockage en clair** ni de chiffrement réversible
 
 #### d) Protection contre les injections
 
-- ✅ **Requêtes préparées** (prepared statements) - prévention SQL injection
-- ✅ **Validation et échappement** des entrées - prévention XSS
-- ✅ **CSP (Content Security Policy)** activée
+- **Requêtes préparées** (prepared statements) - prévention SQL injection
+- **Validation et échappement** des entrées - prévention XSS
+- **CSP (Content Security Policy)** activée
 
 #### e) Authentification renforcée
 
-- ✅ **Double authentification (2FA)** disponible
-- ✅ **Limitation des tentatives de connexion** : 5 tentatives = blocage temporaire + CAPTCHA
-- ✅ **Déconnexion automatique** après 30 minutes d'inactivité
-- ✅ **Tokens de session sécurisés** : HttpOnly + Secure + SameSite=Strict
+- **Double authentification (2FA)** disponible
+- **Limitation des tentatives de connexion** : 5 tentatives = blocage temporaire + CAPTCHA
+- **Déconnexion automatique** après 30 minutes d'inactivité
+- **Tokens de session sécurisés** : HttpOnly + Secure + SameSite=Strict
 
 #### f) Journalisation et surveillance
 
-- ✅ **Logs d'accès** : connexions, modifications de données sensibles
-- ✅ **Alertes automatiques** : détection d'activités suspectes
-- ✅ **Monitoring** : surveillance des serveurs
+- **Logs d'accès** : connexions, modifications de données sensibles
+- **Alertes automatiques** : détection d'activités suspectes
+- **Monitoring** : surveillance des serveurs
 
 #### g) Pare-feu et protection DDoS
 
-- ✅ **WAF (Web Application Firewall)**
-- ✅ **Protection DDoS** : limitation du taux de requêtes
+- **WAF (Web Application Firewall)**
+- **Protection DDoS** : limitation du taux de requêtes
 
 #### h) Sauvegardes et plan de continuité
 
-- ✅ **Sauvegardes automatiques** : quotidiennes (base de données) + hebdomadaires (système)
-- ✅ **Rétention** : 30 jours de sauvegardes quotidiennes
-- ✅ **Tests de restauration** : trimestriels
+- **Sauvegardes automatiques** : quotidiennes (base de données) + hebdomadaires (système)
+- **Rétention** : 30 jours de sauvegardes quotidiennes
+- **Tests de restauration** : trimestriels
 
 ### 9.3 Mesures organisationnelles
 
@@ -500,7 +500,7 @@ Ces cookies sont **essentiels au fonctionnement** et ne nécessitent **pas de co
 
 Lors de la première visite, un bandeau apparaît :
 
-> 🍪 **Nous utilisons des cookies**  
+> **Nous utilisons des cookies**  
 > Ce site utilise des cookies nécessaires à son fonctionnement. Vous pouvez consulter notre politique cookies pour plus d'informations.  
 > [J'accepte] [Personnaliser]
 
@@ -695,21 +695,21 @@ Cordialement,
 
 **Questions à se poser** :
 
-- ✅ Quelle est la nature de la violation ? (accès non autorisé, destruction, perte, altération, divulgation)
-- ✅ Quelles données sont concernées ? (identité, financières, sensibles, etc.)
-- ✅ Combien d'utilisateurs sont potentiellement affectés ?
-- ✅ Les données étaient-elles chiffrées ? La clé a-t-elle été compromise ?
-- ✅ Quel est le risque pour les droits et libertés des personnes ?
+- Quelle est la nature de la violation ? (accès non autorisé, destruction, perte, altération, divulgation)
+- Quelles données sont concernées ? (identité, financières, sensibles, etc.)
+- Combien d'utilisateurs sont potentiellement affectés ?
+- Les données étaient-elles chiffrées ? La clé a-t-elle été compromise ?
+- Quel est le risque pour les droits et libertés des personnes ?
   - **Risque faible** : données publiques, données chiffrées avec clé non compromise
   - **Risque modéré** : données non sensibles, nombre limité de personnes
   - **Risque élevé** : données sensibles, financières, mots de passe en clair, grand nombre de personnes
 
 #### Étape 3 : Mesures immédiates de containment
 
-- 🚨 **Bloquer l'accès malveillant** (changer mots de passe admin, fermer faille, bloquer IP)
-- 🚨 **Isoler les systèmes compromis**
-- 🚨 **Préserver les preuves** (logs, captures d'écran, dumps mémoire si possible)
-- 🚨 **Ne PAS éteindre les serveurs** tant que les preuves ne sont pas sauvegardées
+- **Bloquer l'accès malveillant** (changer mots de passe admin, fermer faille, bloquer IP)
+- **Isoler les systèmes compromis**
+- **Préserver les preuves** (logs, captures d'écran, dumps mémoire si possible)
+- **Ne PAS éteindre les serveurs** tant que les preuves ne sont pas sauvegardées
 
 #### Étape 4 : Notification à la CNIL (si nécessaire)
 
@@ -755,7 +755,7 @@ Cordialement,
 
 - Données chiffrées avec clé non compromise
 - Mesures ultérieures rendant le risque improbable
-- Notification exigeant des efforts disproportionnés (→ communication publique)
+- Notification exigeant des efforts disproportionnés (-> communication publique)
 
 #### Étape 6 : Investigation approfondie
 
@@ -808,7 +808,7 @@ Cordialement,
 
 ### ANNEXE D : MODÈLE D'E-MAIL DE NOTIFICATION AUX UTILISATEURS
 
-**Objet** : 🔒 Alerte de sécurité Co-Bage – Action requise
+**Objet** : Alerte de sécurité Co-Bage - Action requise
 
 ---
 
@@ -827,17 +827,17 @@ Nous vous informons qu'un incident de sécurité a été détecté sur notre pla
 
 ---
 
-### ⚠️ MESURES PRISES PAR CO-BAGE
+### MESURES PRISES PAR CO-BAGE
 
-✅ L'accès malveillant a été bloqué immédiatement  
-✅ La faille de sécurité a été corrigée  
-✅ Une enquête approfondie est en cours  
-✅ Les autorités compétentes ont été informées  
-[Si applicable : ✅ Vos mots de passe ont été réinitialisés par précaution]
+L'accès malveillant a été bloqué immédiatement  
+La faille de sécurité a été corrigée  
+Une enquête approfondie est en cours  
+Les autorités compétentes ont été informées  
+[Si applicable : Vos mots de passe ont été réinitialisés par précaution]
 
 ---
 
-### 🔐 ACTIONS REQUISES DE VOTRE PART
+### ACTIONS REQUISES DE VOTRE PART
 
 **1. Réinitialisez votre mot de passe**  
 Cliquez sur ce lien sécurisé : [LIEN UNIQUE DE RÉINITIALISATION]  
@@ -857,11 +857,11 @@ Si vous remarquez une activité inhabituelle sur votre compte Co-Bage, contactez
 
 ---
 
-### 📞 BESOIN D'AIDE ?
+### BESOIN D'AIDE ?
 
 Si vous avez des questions ou des inquiétudes :  
-📧 E-mail : support@cobage.joeltech.dev  
-📱 Téléphone : +33 7 52 89 20 73
+E-mail : support@cobage.joeltech.dev  
+Téléphone : +33 7 52 89 20 73
 
 **Ressources utiles** :
 
@@ -871,7 +871,7 @@ Si vous avez des questions ou des inquiétudes :
 
 ---
 
-### 🙏 NOS EXCUSES
+### NOS EXCUSES
 
 Nous sommes profondément désolés pour cet incident. La sécurité de vos données est notre priorité absolue. Nous avons renforcé nos mesures de sécurité pour éviter qu'un tel incident ne se reproduise.
 
@@ -893,40 +893,40 @@ Responsable Co-Bage
 
 **Serveurs** :
 
-- ✅ Système d'exploitation à jour (patches de sécurité automatiques)
-- ✅ Pare-feu (firewall) configuré (ports minimaux ouverts : 80, 443, 22 avec clé SSH uniquement)
-- ✅ Fail2ban ou équivalent (blocage automatique des IP suspectes)
-- ✅ Séparation des environnements (production / staging / développement)
+- Système d'exploitation à jour (patches de sécurité automatiques)
+- Pare-feu (firewall) configuré (ports minimaux ouverts : 80, 443, 22 avec clé SSH uniquement)
+- Fail2ban ou équivalent (blocage automatique des IP suspectes)
+- Séparation des environnements (production / staging / développement)
 
 **Base de données** :
 
-- ✅ Utilisateur dédié avec droits minimaux (pas de compte root pour l'application)
-- ✅ Chiffrement au repos (AES-256)
-- ✅ Sauvegardes automatiques chiffrées et testées
-- ✅ Pas d'accès direct depuis Internet (uniquement via application)
+- Utilisateur dédié avec droits minimaux (pas de compte root pour l'application)
+- Chiffrement au repos (AES-256)
+- Sauvegardes automatiques chiffrées et testées
+- Pas d'accès direct depuis Internet (uniquement via application)
 
 **Application** :
 
-- ✅ Framework à jour (Next.js, Symfony dernières versions stables)
-- ✅ Dépendances à jour (npm audit / composer audit réguliers)
-- ✅ Variables d'environnement sécurisées (fichier .env non versionné)
-- ✅ Secrets gérés via gestionnaire sécurisé (pas en clair dans le code)
+- Framework à jour (Next.js, Symfony dernières versions stables)
+- Dépendances à jour (npm audit / composer audit réguliers)
+- Variables d'environnement sécurisées (fichier .env non versionné)
+- Secrets gérés via gestionnaire sécurisé (pas en clair dans le code)
 
 #### 2. Sécurité du code
 
 **Validation des entrées** :
 
-- ✅ Tous les inputs utilisateur sont validés et échappés
-- ✅ Whitelist plutôt que blacklist pour la validation
-- ✅ Longueur maximale définie pour chaque champ
+- Tous les inputs utilisateur sont validés et échappés
+- Whitelist plutôt que blacklist pour la validation
+- Longueur maximale définie pour chaque champ
 
 **Protection contre les attaques courantes** :
 
-- ✅ **SQL Injection** : requêtes préparées (PDO, Doctrine ORM)
-- ✅ **XSS** : échappement HTML, Content Security Policy
-- ✅ **CSRF** : tokens CSRF sur tous les formulaires
-- ✅ **Clickjacking** : en-tête X-Frame-Options: DENY
-- ✅ **Session Fixation** : régénération de l'ID de session après login
+- **SQL Injection** : requêtes préparées (PDO, Doctrine ORM)
+- **XSS** : échappement HTML, Content Security Policy
+- **CSRF** : tokens CSRF sur tous les formulaires
+- **Clickjacking** : en-tête X-Frame-Options: DENY
+- **Session Fixation** : régénération de l'ID de session après login
 
 **Gestion des mots de passe** :
 
@@ -944,11 +944,11 @@ if (password_verify($inputPassword, $hashedPassword)) {
 
 **HTTPS** :
 
-- ✅ Certificat SSL/TLS valide (Let's Encrypt avec renouvellement automatique)
-- ✅ TLS 1.2 minimum, TLS 1.3 recommandé
-- ✅ Protocoles faibles désactivés (SSL v2, v3, TLS 1.0, 1.1)
-- ✅ Chiffrement fort uniquement (AES, ChaCha20)
-- ✅ HSTS activé (max-age=31536000; includeSubDomains; preload)
+- Certificat SSL/TLS valide (Let's Encrypt avec renouvellement automatique)
+- TLS 1.2 minimum, TLS 1.3 recommandé
+- Protocoles faibles désactivés (SSL v2, v3, TLS 1.0, 1.1)
+- Chiffrement fort uniquement (AES, ChaCha20)
+- HSTS activé (max-age=31536000; includeSubDomains; preload)
 
 **En-têtes de sécurité** :
 
@@ -965,41 +965,41 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 
 **Authentification** :
 
-- ✅ Mot de passe minimum 8 caractères (recommandation : 12+)
-- ✅ Complexité requise (majuscules, minuscules, chiffres)
-- ✅ 2FA disponible (TOTP - Google Authenticator, Authy)
-- ✅ Limitation tentatives de connexion (5 max, puis blocage 15 min)
-- ✅ Captcha après 3 échecs
-- ✅ Notification par e-mail en cas de connexion depuis nouveau device/IP
+- Mot de passe minimum 8 caractères (recommandation : 12+)
+- Complexité requise (majuscules, minuscules, chiffres)
+- 2FA disponible (TOTP - Google Authenticator, Authy)
+- Limitation tentatives de connexion (5 max, puis blocage 15 min)
+- Captcha après 3 échecs
+- Notification par e-mail en cas de connexion depuis nouveau device/IP
 
 **Autorisation** :
 
-- ✅ Principe du moindre privilège
-- ✅ Vérification systématique des droits avant chaque action
-- ✅ Pas de confiance dans les IDs passés en paramètre (vérifier propriété)
+- Principe du moindre privilège
+- Vérification systématique des droits avant chaque action
+- Pas de confiance dans les IDs passés en paramètre (vérifier propriété)
 
 **Sessions** :
 
-- ✅ Durée de vie limitée (30 minutes d'inactivité)
-- ✅ Tokens HttpOnly, Secure, SameSite=Strict
-- ✅ Régénération après login
-- ✅ Déconnexion sur tous les appareils disponible
+- Durée de vie limitée (30 minutes d'inactivité)
+- Tokens HttpOnly, Secure, SameSite=Strict
+- Régénération après login
+- Déconnexion sur tous les appareils disponible
 
 #### 5. Logs et monitoring
 
 **Journalisation** :
 
-- ✅ Tous les événements de sécurité loggés (connexions, échecs, modifications de données sensibles)
-- ✅ Format structuré (JSON) pour analyse facilitée
-- ✅ Horodatage précis (UTC)
-- ✅ Conservation 12 mois minimum (LCEN)
-- ✅ Logs sensibles chiffrés
+- Tous les événements de sécurité loggés (connexions, échecs, modifications de données sensibles)
+- Format structuré (JSON) pour analyse facilitée
+- Horodatage précis (UTC)
+- Conservation 12 mois minimum (LCEN)
+- Logs sensibles chiffrés
 
 **Monitoring** :
 
-- ✅ Alertes automatiques (tentatives de connexion multiples, accès admin, erreurs 500)
-- ✅ Dashboard de surveillance (uptime, performance, erreurs)
-- ✅ Revue hebdomadaire des logs de sécurité
+- Alertes automatiques (tentatives de connexion multiples, accès admin, erreurs 500)
+- Dashboard de surveillance (uptime, performance, erreurs)
+- Revue hebdomadaire des logs de sécurité
 
 #### 6. Sauvegardes
 
@@ -1011,15 +1011,15 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 
 **Fréquence** :
 
-- ✅ Base de données : quotidienne (conservation 30 jours)
-- ✅ Fichiers : hebdomadaire (conservation 12 semaines)
-- ✅ Snapshot complet : mensuel (conservation 12 mois)
+- Base de données : quotidienne (conservation 30 jours)
+- Fichiers : hebdomadaire (conservation 12 semaines)
+- Snapshot complet : mensuel (conservation 12 mois)
 
 **Tests de restauration** :
 
-- ✅ Trimestriel (vérifier que les sauvegardes sont fonctionnelles)
-- ✅ Documentation de la procédure
-- ✅ Objectif de récupération : RTO < 24h, RPO < 24h
+- Trimestriel (vérifier que les sauvegardes sont fonctionnelles)
+- Documentation de la procédure
+- Objectif de récupération : RTO < 24h, RPO < 24h
 
 ---
 
@@ -1049,10 +1049,10 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 
 #### En cas d'évolution
 
-- [ ] Nouvelle finalité → Nouvelle base légale + Information utilisateurs
-- [ ] Nouveau sous-traitant → Contrat art. 28 + Mise à jour registre
-- [ ] Transfert hors UE → Garanties appropriées (CCT) + Information utilisateurs
-- [ ] Professionnalisation → Désignation DPO si nécessaire
+- [ ] Nouvelle finalité -> Nouvelle base légale + Information utilisateurs
+- [ ] Nouveau sous-traitant -> Contrat art. 28 + Mise à jour registre
+- [ ] Transfert hors UE -> Garanties appropriées (CCT) + Information utilisateurs
+- [ ] Professionnalisation -> Désignation DPO si nécessaire
 
 ---
 
@@ -1062,9 +1062,9 @@ Permissions-Policy: geolocation=(), microphone=(), camera=()
 
 Elle doit être :
 
-- ✅ Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
-- ✅ Adaptée en cas d'évolution vers un modèle commercial
-- ✅ Mise à jour selon les évolutions légales et les recommandations de la CNIL
+- Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
+- Adaptée en cas d'évolution vers un modèle commercial
+- Mise à jour selon les évolutions légales et les recommandations de la CNIL
 
 **Timothée Joël Tchinda Tchoffo** reste seul responsable de la conformité de ses traitements de données personnelles au RGPD et aux lois nationales applicables.
 
@@ -1074,7 +1074,7 @@ Elle doit être :
 
 **Version 1.0 | Date d'entrée en vigueur : 18 Octobre 2025**
 
-**© Co-Bage 2025 — Tous droits réservés**
+**© Co-Bage 2025 - Tous droits réservés**
 
 **Projet étudiant pré-commercial développé par Timothée Joël Tchinda Tchoffo**
 
@@ -1103,6 +1103,6 @@ Elle doit être :
 
 ---
 
-**FIN DE LA POLITIQUE DE CONFIDENTIALITÉ — VERSION BÊTA GRATUITE**
+**FIN DE LA POLITIQUE DE CONFIDENTIALITÉ - VERSION BÊTA GRATUITE**
 
 **Dernière mise à jour : 18 Octobre 2025**

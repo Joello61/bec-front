@@ -32,11 +32,11 @@ export default function AddressForm({
   const [addressType, setAddressType] = useState<'african' | 'postal'>('african');
   const [selectedCountry, setSelectedCountry] = useState<string>(address.pays);
 
-  // ✅ Données géographiques
+  // Données géographiques
   const { countries, isLoading: isLoadingCountries } = useCountries();
   const { cities, isLoading: isLoadingCities } = useCities(selectedCountry);
   
-  // ✅ Recherche de villes
+  // Recherche de villes
   const { searchResults, isSearching, search } = useCitySearch(selectedCountry);
 
   const isChangingCountryRef = useRef(false);
@@ -69,7 +69,7 @@ export default function AddressForm({
   const selectedCountryData = countries.find(c => c.label === watchPays);
   const continent = selectedCountryData?.continent || '';
 
-  // ✅ Initialisation unique
+  // Initialisation unique
   useEffect(() => {
     if (isInitializedRef.current) return;
     isInitializedRef.current = true;
@@ -84,7 +84,7 @@ export default function AddressForm({
     if (continent) lastContinentRef.current = continent;
   }, [address, continent]);
 
-  // ✅ Changement de pays
+  // Changement de pays
   const handleCountryChange = useCallback((newCountry: string) => {
     if (isChangingCountryRef.current) return;
     if (newCountry === lastCountryRef.current) return;
@@ -103,7 +103,7 @@ export default function AddressForm({
     }
   }, [address.pays, setValue]);
 
-  // ✅ Mise à jour type d'adresse
+  // Mise à jour type d'adresse
   useEffect(() => {
     if (!continent) return;
     if (continent === lastContinentRef.current) return;
@@ -140,7 +140,7 @@ export default function AddressForm({
     }
   };
 
-  // ✅ Options
+  // Options
   const countryOptions = useMemo<SelectOption[]>(() => {
     return countries.map(c => ({
       value: c.label,
@@ -148,7 +148,7 @@ export default function AddressForm({
     }));
   }, [countries]);
 
-  // ✅ Options villes : TOP 100 + Résultats de recherche
+  // Options villes : TOP 100 + Résultats de recherche
   const cityOptions = useMemo<SelectOption[]>(() => {
     if (searchResults.length > 0) {
       return searchResults.map((city) => ({
@@ -163,7 +163,7 @@ export default function AddressForm({
     }));
   }, [cities, searchResults]);
 
-  // ✅ Recherche
+  // Recherche
   const handleCitySearch = useCallback(
     (query: string) => {
       if (query.length >= 2) {
@@ -265,7 +265,7 @@ export default function AddressForm({
               onChange={field.onChange}
               onBlur={field.onBlur}
               searchable
-              onSearch={handleCitySearch} // ✅ Recherche dynamique
+              onSearch={handleCitySearch} // Recherche dynamique
               helperText={
                 searchResults.length > 0
                   ? `${searchResults.length} résultat(s) trouvé(s)`

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Explorer les voyages et demandes – Co-Bage",
+    title: "Explorer les voyages et demandes - Co-Bage",
     description:
       "Découvrez les trajets disponibles, trouvez un voyageur ou publiez votre demande de transport de colis. Simple, économique et sécurisé.",
     type: "website",

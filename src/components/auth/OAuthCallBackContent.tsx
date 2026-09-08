@@ -40,12 +40,12 @@ export default function OAuthCallbackContent() {
         
         // ==================== VÉRIFIER PROFIL COMPLET ====================
         if (!user.isProfileComplete) {
-          // Profil incomplet → Complete profile
+          // Profil incomplet -> Complete profile
           router.replace(ROUTES.COMPLETE_PROFILE);
           return;
         }
         
-        // Profil complet → Dashboard
+        // Profil complet -> Dashboard
         router.replace(redirectTo);
         
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

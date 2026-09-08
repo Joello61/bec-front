@@ -17,7 +17,7 @@ export default function DemandeDetailsPageClient() {
   const { user } = useAuth();
   const { demande, isLoading, error, refetch } = useDemande(demandeId);
   
-  // ✅ CORRECTION : Passer l'ID du CLIENT, pas le vôtre
+  // CORRECTION : Passer l'ID du CLIENT, pas le vôtre
   const { conversation } = useConversationWithUser(demande?.client.id);
 
   const isOwner = user?.id === demande?.client.id;

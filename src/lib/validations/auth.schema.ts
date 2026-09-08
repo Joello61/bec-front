@@ -31,7 +31,7 @@ export const registerSchema = z
       .regex(/[A-Z]/, 'Le mot de passe doit contenir au moins une majuscule')
       .regex(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre'),
     confirmPassword: z.string().min(1, 'Veuillez confirmer le mot de passe'),
-    // ❌ telephone retiré
+    // telephone retiré
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Les mots de passe ne correspondent pas',

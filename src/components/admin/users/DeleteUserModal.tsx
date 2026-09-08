@@ -71,7 +71,7 @@ export default function DeleteUserModal({ user, onClose, onSuccess }: DeleteUser
         {/* Warning */}
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
           <p className="text-sm font-semibold text-red-900 mb-2">
-            ⚠️ Action irréversible
+            Action irréversible
           </p>
           <p className="text-sm text-red-800">
             Cette action supprimera définitivement le compte de l&apos;utilisateur ainsi que

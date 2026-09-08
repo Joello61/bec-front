@@ -15,7 +15,7 @@ import { handleFavoriEvents } from './favoriHandlers';
 import { handleSettingsEvents } from './settingsHandlers';
 
 /**
- * Routeur global des événements Mercure → Handler approprié
+ * Routeur global des événements Mercure -> Handler approprié
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function dispatchMercureEvent(eventType: string, data: any, stable: StableContext) {

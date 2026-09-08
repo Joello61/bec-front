@@ -8,7 +8,7 @@ const APP_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 
-  title: 'FAQ Co-Bage – Questions fréquentes sur le transport collaboratif',
+  title: 'FAQ Co-Bage - Questions fréquentes sur le transport collaboratif',
   description:
     'Trouvez toutes les réponses à vos questions sur Co-Bage : fonctionnement, sécurité, paiement, objets autorisés et plus. Le guide complet pour voyageurs et expéditeurs.',
 

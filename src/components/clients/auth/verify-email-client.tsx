@@ -105,10 +105,10 @@ export default function VerifyEmailPageClient() {
       // ==================== VÉRIFIER SI PROFIL COMPLET ====================
       
       if (!user?.isProfileComplete) {
-        // Profil incomplet → Complete profile
+        // Profil incomplet -> Complete profile
         router.replace(ROUTES.COMPLETE_PROFILE);
       } else {
-        // Profil complet → Dashboard
+        // Profil complet -> Dashboard
         router.replace(ROUTES.EXPLORE);
       }
       

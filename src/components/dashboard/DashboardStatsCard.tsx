@@ -62,7 +62,7 @@ export default function DashboardStatsCard({ stats }: DashboardStatsCardProps) {
 
                 return (
                   <div key={note} className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-gray-600 w-6">{note}★</span>
+                    <span className="text-xs font-medium text-gray-600 w-6">{note}</span>
                     <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}

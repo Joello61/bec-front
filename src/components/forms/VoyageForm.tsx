@@ -27,10 +27,10 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
   const continent = useUserContinent()
   const isAfricanOrAsian = continent === 'AF' || continent === 'AS';
 
-  // ✅ Top 100 villes mondiales (chargé une seule fois)
+  // Top 100 villes mondiales (chargé une seule fois)
   const { topCitiesGlobal, isLoading: isLoadingTopCities } = useTopCitiesGlobal();
 
-  // ✅ Recherche globale
+  // Recherche globale
   const { 
     searchResults: searchResultsDepart, 
     search: searchDepart 
@@ -65,11 +65,11 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
       : undefined,
   });
 
-  // ✅ Surveiller les villes sélectionnées pour détecter les doublons
+  // Surveiller les villes sélectionnées pour détecter les doublons
   const watchVilleDepart = watch('villeDepart');
   const watchVilleArrivee = watch('villeArrivee');
 
-  // ✅ Options ville départ : Top 100 + Résultats recherche
+  // Options ville départ : Top 100 + Résultats recherche
   const optionsDepart = useMemo<SelectOption[]>(() => {
     if (searchResultsDepart.length > 0) {
       return searchResultsDepart.map((city) => ({
@@ -84,7 +84,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
     }));
   }, [topCitiesGlobal, searchResultsDepart]);
 
-  // ✅ Options ville arrivée : Top 100 + Résultats recherche
+  // Options ville arrivée : Top 100 + Résultats recherche
   const optionsArrivee = useMemo<SelectOption[]>(() => {
     if (searchResultsArrivee.length > 0) {
       return searchResultsArrivee.map((city) => ({
@@ -99,14 +99,14 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
     }));
   }, [topCitiesGlobal, searchResultsArrivee]);
 
-  // ✅ Recherche départ
+  // Recherche départ
   const handleSearchDepart = useCallback((query: string) => {
     if (query.length >= 2) {
       searchDepart(query, 50);
     }
   }, [searchDepart]);
 
-  // ✅ Recherche arrivée
+  // Recherche arrivée
   const handleSearchArrivee = useCallback((query: string) => {
     if (query.length >= 2) {
       searchArrivee(query, 50);
@@ -122,13 +122,13 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
     }
   };
 
-  // ✅ Détection des villes identiques (warning visuel)
+  // Détection des villes identiques (warning visuel)
   const showCityWarning = watchVilleDepart && watchVilleArrivee && 
     watchVilleDepart.trim().toLowerCase() === watchVilleArrivee.trim().toLowerCase();
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
-      {/* ✅ Warning villes identiques */}
+      {/* Warning villes identiques */}
       {showCityWarning && (
         <div className="bg-warning/10 border border-warning rounded-lg p-4">
           <div className="flex gap-3">
@@ -146,7 +146,7 @@ export default function VoyageForm({ voyage, onSubmit, onCancel }: VoyageFormPro
         </div>
       )}
 
-      {/* ✅ Sélection des villes avec recherche globale */}
+      {/* Sélection des villes avec recherche globale */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Controller
           name="villeDepart"

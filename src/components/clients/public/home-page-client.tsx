@@ -105,7 +105,7 @@ export default function HomePageClient() {
                 variants={fadeIn}
                 className="text-lg md:text-[20px] mb-8 text-white/90 leading-relaxed"
               >
-                La plateforme qui connecte le Cameroun et sa diaspora pour des envois de colis rapides, économiques et sécurisés — dans les deux sens
+                La plateforme qui connecte le Cameroun et sa diaspora pour des envois de colis rapides, économiques et sécurisés - dans les deux sens
               </motion.p>
 
               {/* CTA Buttons */}
