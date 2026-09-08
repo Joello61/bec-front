@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import PublicLayoutClient from '../../components/clients/public/public-layout-client';
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
@@ -48,5 +47,11 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <PublicLayoutClient>{children}</PublicLayoutClient>;
+  return (
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-1 bg-gray-50">
+        {children}
+      </main>
+    </div>
+  );
 }
