@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { currenciesApi } from '@/lib/api/currencies';
+import { createAsyncAction } from './createAsyncAction';
 import type { Currency, ConversionInfo } from '@/types';
 
 interface CurrencyState {
@@ -9,7 +9,7 @@ interface CurrencyState {
   defaultCurrency: string;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchCurrencies: () => Promise<void>;
   fetchPopularCurrencies: (limit?: number) => Promise<void>;
@@ -28,59 +28,35 @@ export const useCurrencyStore = create<CurrencyState>((set, get) => ({
   isLoading: false,
   error: null,
 
-  fetchCurrencies: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchCurrencies: () =>
+    createAsyncAction(set, async () => {
       const currencies = await currenciesApi.getAll();
       set({ currencies, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des devises', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des devises' }),
 
-  fetchPopularCurrencies: async (limit = 5) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchPopularCurrencies: (limit = 5) =>
+    createAsyncAction(set, async () => {
       const popularCurrencies = await currenciesApi.getPopular(limit);
       set({ popularCurrencies, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des devises populaires', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des devises populaires' }),
 
-  getCurrency: async (code: string) => {
+  getCurrency: async (code) => {
     // Chercher d'abord dans le cache local
-    const cached = get().currencies.find(c => c.code === code.toUpperCase());
+    const cached = get().currencies.find((c) => c.code === code.toUpperCase());
     if (cached) return cached;
 
-    // Sinon, appeler l'API
-    set({ isLoading: true, error: null });
-    try {
+    const currency = await createAsyncAction(set, async () => {
       const currency = await currenciesApi.getByCode(code);
-      
-      // Mettre à jour le cache
       set((state) => ({
-        currencies: [...state.currencies.filter(c => c.code !== currency.code), currency],
-        isLoading: false
+        currencies: [...state.currencies.filter((c) => c.code !== currency.code), currency],
+        isLoading: false,
       }));
-      
       return currency;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement de la devise', 
-        isLoading: false 
-      });
-      return null;
-    }
+    }, { fallbackError: 'Erreur lors du chargement de la devise' });
+    return currency ?? null;
   },
 
-  convert: async (amount: number, from: string, to: string) => {
+  convert: async (amount, from, to) => {
     if (from.toUpperCase() === to.toUpperCase()) {
       // Pas de conversion nécessaire
       const currency = await get().getCurrency(from);
@@ -97,64 +73,39 @@ export const useCurrencyStore = create<CurrencyState>((set, get) => ({
       };
     }
 
-    set({ isLoading: true, error: null });
-    try {
+    const conversionInfo = await createAsyncAction(set, async () => {
       const conversionInfo = await currenciesApi.convert(amount, from, to);
       set({ isLoading: false });
       return conversionInfo;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la conversion', 
-        isLoading: false 
-      });
-      return null;
-    }
+    }, { fallbackError: 'Erreur lors de la conversion' });
+    return conversionInfo ?? null;
   },
 
-  detectByCountry: async (country: string) => {
-    set({ isLoading: true, error: null });
-    try {
+  detectByCountry: async (country) => {
+    const currencyCode = await createAsyncAction(set, async () => {
       const result = await currenciesApi.detectByCountry(country);
       set({ isLoading: false });
       return result.currencyCode;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la détection de la devise', 
-        isLoading: false 
-      });
-      return null;
-    }
+    }, { fallbackError: 'Erreur lors de la détection de la devise' });
+    return currencyCode ?? null;
   },
 
-  formatAmount: async (amount: number, currency: string) => {
-    set({ isLoading: true, error: null });
-    try {
+  formatAmount: async (amount, currency) => {
+    const formatted = await createAsyncAction(set, async () => {
       const formatted = await currenciesApi.format(amount, currency);
       set({ isLoading: false });
       return formatted;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du formatage', 
-        isLoading: false 
-      });
-      return null;
-    }
+    }, { fallbackError: 'Erreur lors du formatage' });
+    return formatted ?? null;
   },
 
-  updateRates: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  updateRates: () =>
+    createAsyncAction(set, async () => {
       await currenciesApi.updateRates();
       // Recharger les devises après la mise à jour
       await get().fetchCurrencies();
       set({ isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour des taux', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la mise à jour des taux' }),
 
   clearError: () => set({ error: null }),
 }));

@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { addressApi } from '@/lib/api/address';
-import type { 
-  Address, 
-  AddressModificationInfo, 
-  UpdateAddressInput 
+import { createAsyncAction } from './createAsyncAction';
+import type {
+  Address,
+  AddressModificationInfo,
+  UpdateAddressInput
 } from '@/types/address';
 
 interface AddressState {
@@ -27,51 +27,28 @@ export const useAddressStore = create<AddressState>((set) => ({
   isLoading: false,
   error: null,
 
-  fetchModificationInfo: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchModificationInfo: () =>
+    createAsyncAction(set, async () => {
       const info = await addressApi.getModificationInfo();
-      set({ 
-        modificationInfo: info,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des informations',
-        isLoading: false 
-      });
-    }
-  },
+      set({ modificationInfo: info, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des informations' }),
 
-  updateAddress: async (data: UpdateAddressInput) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateAddress: (data) =>
+    createAsyncAction(set, async () => {
       const response = await addressApi.updateAddress(data);
-      set({ 
-        address: response.address,
-        isLoading: false 
-      });
-      
-      // Recharger les infos de modification
+      set({ address: response.address, isLoading: false });
+
       const info = await addressApi.getModificationInfo();
       set({ modificationInfo: info });
-      
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour de l\'adresse',
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de la mise à jour de l'adresse", rethrow: true }),
 
   setAddress: (address) => set({ address }),
 
   clearError: () => set({ error: null }),
 
-  reset: () => set({ 
+  reset: () => set({
     address: null,
     modificationInfo: null,
-    error: null 
+    error: null
   }),
 }));

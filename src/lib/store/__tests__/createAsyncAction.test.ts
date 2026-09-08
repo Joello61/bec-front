@@ -3,6 +3,7 @@ import { createAsyncAction, type AsyncActionState } from '../createAsyncAction';
 import type { ApiError } from '@/types';
 
 interface TestState extends AsyncActionState {
+  isLoading: boolean;
   data: string | null;
   user: string | null;
   isUploadingAvatar: boolean;

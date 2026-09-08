@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { geoApi } from '@/lib/api/geo';
+import { createAsyncAction } from './createAsyncAction';
 import type { Country, City, CityGlobal } from '@/types/geo';
 
 interface GeoState {
@@ -9,13 +9,13 @@ interface GeoState {
   cities: Record<string, City[]>;
   topCitiesGlobal: CityGlobal[];
   continentByCountry: Record<string, string>;
-  
+
   // États de chargement (pour usage interne uniquement)
   isLoadingCountries: boolean;
   isLoadingCities: boolean;
   isLoadingTopGlobal: boolean;
   isLoadingContinent: boolean;
-  
+
   // Erreurs
   error: string | null;
 
@@ -48,114 +48,60 @@ export const useGeoStore = create<GeoState>((set, get) => ({
   /**
    * Récupère tous les pays (une seule fois)
    */
-  fetchCountries: async () => {
+  fetchCountries: () => {
     const state = get();
-    
-    // Triple protection
-    if (state.countries.length > 0) return;
-    if (state.isLoadingCountries) return;
+    // Triple protection (cache + anti double-appel)
+    if (state.countries.length > 0 || state.isLoadingCountries) return Promise.resolve();
 
-    set({ isLoadingCountries: true, error: null });
-    
-    try {
+    return createAsyncAction(set, async () => {
       const countries = await geoApi.getCountries();
-      set({ 
-        countries,
-        isLoadingCountries: false,
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des pays',
-        isLoadingCountries: false,
-      });
-    }
+      set({ countries, isLoadingCountries: false });
+    }, { fallbackError: 'Erreur lors du chargement des pays', loadingKey: 'isLoadingCountries' });
   },
 
   /**
    * Récupère les villes d'un pays (top 100)
    */
-  fetchCities: async (countryName: string) => {
+  fetchCities: (countryName: string) => {
     const state = get();
-    
-    // Protection contre les appels multiples
-    if (state.cities[countryName]) return; // Déjà en cache
-    if (state.isLoadingCities) return; // Déjà en cours
+    if (state.cities[countryName] || state.isLoadingCities) return Promise.resolve();
 
-    set({ isLoadingCities: true, error: null });
-    
-    try {
+    return createAsyncAction(set, async () => {
       const cities = await geoApi.getCities(countryName);
-      
-      // Mise à jour atomique
-      set((currentState) => ({ 
-        cities: {
-          ...currentState.cities,
-          [countryName]: cities,
-        },
+      set((currentState) => ({
+        cities: { ...currentState.cities, [countryName]: cities },
         isLoadingCities: false,
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des villes',
-        isLoadingCities: false,
-      });
-    }
+    }, { fallbackError: 'Erreur lors du chargement des villes', loadingKey: 'isLoadingCities' });
   },
 
   /**
    * Recherche de villes (autocomplete)
    */
   searchCities: async (countryName: string, query: string) => {
-    if (query.length < 2) {
+    if (query.length < 2 || get().isLoadingCities) {
       return [];
     }
 
-    const state = get();
-    
-    // Ne pas bloquer si recherche en cours
-    if (state.isLoadingCities) {
-      return [];
-    }
-
-    set({ isLoadingCities: true, error: null });
-    
-    try {
+    const cities = await createAsyncAction(set, async () => {
       const cities = await geoApi.searchCities(countryName, query);
       set({ isLoadingCities: false });
       return cities;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la recherche',
-        isLoadingCities: false,
-      });
-      return [];
-    }
+    }, { fallbackError: 'Erreur lors de la recherche', loadingKey: 'isLoadingCities' });
+    return cities ?? [];
   },
 
   /**
    * Récupère le top 100 mondial (une seule fois)
    */
-  fetchTopCitiesGlobal: async () => {
+  fetchTopCitiesGlobal: () => {
     const state = get();
-    
-    // Protection contre appels multiples
-    if (state.topCitiesGlobal.length > 0) return;
-    if (state.isLoadingTopGlobal) return;
+    if (state.topCitiesGlobal.length > 0 || state.isLoadingTopGlobal) return Promise.resolve();
 
-    set({ isLoadingTopGlobal: true, error: null });
-    
-    try {
+    return createAsyncAction(set, async () => {
       const cities = await geoApi.getTopCitiesGlobal();
-      set({ 
-        topCitiesGlobal: cities,
-        isLoadingTopGlobal: false,
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement du top mondial',
-        isLoadingTopGlobal: false,
-      });
-    }
+      set({ topCitiesGlobal: cities, isLoadingTopGlobal: false });
+    }, { fallbackError: 'Erreur lors du chargement du top mondial', loadingKey: 'isLoadingTopGlobal' });
   },
 
   /**
@@ -166,57 +112,42 @@ export const useGeoStore = create<GeoState>((set, get) => ({
       return [];
     }
 
-    const state = get();
-    
     // Ne pas bloquer si recherche en cours (permet recherches multiples)
-    if (state.isLoadingCities) {
+    if (get().isLoadingCities) {
       return [];
     }
 
-    set({ isLoadingCities: true, error: null });
-    
-    try {
+    const cities = await createAsyncAction(set, async () => {
       const cities = await geoApi.searchCitiesGlobal(query, limit);
       set({ isLoadingCities: false });
       return cities;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la recherche globale',
-        isLoadingCities: false,
-      });
-      return [];
-    }
+    }, { fallbackError: 'Erreur lors de la recherche globale', loadingKey: 'isLoadingCities' });
+    return cities ?? [];
   },
 
   fetchContinentByPays: async (pays: string) => {
-    const state = get();
-    if (state.continentByCountry[pays]) return state.continentByCountry[pays]; // cache
+    const cached = get().continentByCountry[pays];
+    if (cached) return cached;
 
-    set({ isLoadingContinent: true, error: null });
-    try {
+    const continent = await createAsyncAction(set, async () => {
       const data = await geoApi.getContinentPays(pays);
       const continent = data.continent ?? null;
       if (continent) {
         set((current) => ({
-          continentByCountry: {
-            ...current.continentByCountry,
-            [pays]: continent,
-          },
+          continentByCountry: { ...current.continentByCountry, [pays]: continent },
           isLoadingContinent: false,
         }));
       } else {
         set({ isLoadingContinent: false });
       }
       return continent;
-    } catch (error: any) {
-      set({ error: error.message || 'Erreur lors du chargement du continent', isLoadingContinent: false });
-      return null;
-    }
+    }, { fallbackError: 'Erreur lors du chargement du continent', loadingKey: 'isLoadingContinent' });
+    return continent ?? null;
   },
 
   clearError: () => set({ error: null }),
 
-  reset: () => set({ 
+  reset: () => set({
     countries: [],
     cities: {},
     topCitiesGlobal: [],
