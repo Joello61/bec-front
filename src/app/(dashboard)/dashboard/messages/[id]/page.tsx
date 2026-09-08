@@ -1,5 +1,6 @@
-import ConversationPageClient from "../../../../../components/clients/dashboard/conversation-client";
 import { Metadata } from "next";
+
+import ConversationPageClient from "../../../../../components/clients/dashboard/conversation-client";
 
 export const metadata: Metadata = {
   title: 'Conversation',

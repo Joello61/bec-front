@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, CheckCheck, MoreVertical, Flag } from 'lucide-react';
+import { Check, CheckCheck, Flag, MoreVertical } from 'lucide-react';
+import { useState } from 'react';
+
 import { Avatar } from '@/components/ui';
-import { formatDateRelative } from '@/lib/utils/format';
 import { cn } from '@/lib/utils/cn';
+import { formatDateRelative } from '@/lib/utils/format';
 import type { Message } from '@/types';
 
 interface MessageBubbleProps {

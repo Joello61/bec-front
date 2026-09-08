@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it } from 'vitest';
+
 import ToastProvider from '../ToastProvider';
 
 function dispatchShowToast(detail: { id: string; type: 'success' | 'error' | 'warning' | 'info'; message: string }) {

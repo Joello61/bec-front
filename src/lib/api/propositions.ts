@@ -1,10 +1,11 @@
-import apiClient from './client';
-import { endpoints } from './endpoints';
 import type { 
-  Proposition, 
   CreatePropositionInput, 
+  Proposition, 
   RespondPropositionInput 
 } from '@/types';
+
+import apiClient from './client';
+import { endpoints } from './endpoints';
 
 export const propositionsApi = {
 

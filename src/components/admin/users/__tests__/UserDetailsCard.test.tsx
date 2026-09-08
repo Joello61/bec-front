@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
+
+import type { AdminLog, AdminUserActivity, User } from '@/types';
+
 import UserDetailsCard from '../UserDetailsCard';
-import type { User, AdminUserActivity, AdminLog } from '@/types';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

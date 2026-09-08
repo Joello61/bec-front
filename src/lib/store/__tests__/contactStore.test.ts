@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError } from '@/types';
 
 vi.mock('@/lib/api/contacts', () => ({
@@ -8,6 +9,7 @@ vi.mock('@/lib/api/contacts', () => ({
 }));
 
 import { contactsApi } from '@/lib/api/contacts';
+
 import { useContactStore } from '../contactStore';
 
 const initialState = useContactStore.getState();

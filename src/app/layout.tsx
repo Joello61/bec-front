@@ -1,8 +1,10 @@
+import './globals.css';
+
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
-import ClientRootProvider from '@/components/clients/dashboard/client-root-provider';
 import Script from 'next/script';
+
+import ClientRootProvider from '@/components/clients/dashboard/client-root-provider';
 import CookieConsentBanner from '@/components/common/CookiesConsent';
 
 const inter = Inter({

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import CompleteProfilePageClient from "../../../../components/clients/dashboard/complete-profil-client";
 
 export const metadata: Metadata = {

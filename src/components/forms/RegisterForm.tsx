@@ -1,14 +1,15 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { Eye, EyeOff, Lock, Mail, User, UserPlus } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, UserPlus, Mail, User, Lock } from 'lucide-react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+
 import { Button, Input } from '@/components/ui';
-import { registerSchema, type RegisterFormData } from '@/lib/validations';
 import { ROUTES } from '@/lib/utils/constants';
+import { type RegisterFormData, registerSchema } from '@/lib/validations';
 
 interface RegisterFormProps {
   onSubmit: (data: RegisterFormData) => Promise<void>;

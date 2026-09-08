@@ -1,15 +1,15 @@
-import apiClient from './client';
-import { endpoints } from './endpoints';
 import type { 
-  Demande, 
   CreateDemandeInput, 
-  UpdateDemandeInput, 
+  Demande, 
   DemandeFilters,
   DemandeStatut,
   PaginatedResponse,
-  VoyageWithScore,
-  PublicDemande
-} from '@/types';
+  PublicDemande,
+  UpdateDemandeInput, 
+  VoyageWithScore} from '@/types';
+
+import apiClient from './client';
+import { endpoints } from './endpoints';
 
 export const demandesApi = {
   async list(page = 1, limit = 10, filters?: DemandeFilters): Promise<PaginatedResponse<Demande>> {

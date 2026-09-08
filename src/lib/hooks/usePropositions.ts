@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect } from 'react';
+
 import { usePropositionStore } from '@/lib/store';
 
 export function useProposition(propositionId?: number) {

@@ -1,10 +1,11 @@
 'use client';
 
-import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Lock, Bell, Shield, AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Bell, Lock, Shield } from 'lucide-react';
+import { useForm, useWatch } from 'react-hook-form';
+
 import { Button } from '@/components/ui';
-import { securitySettingsSchema, type SecuritySettingsFormData } from '@/lib/validations';
+import { type SecuritySettingsFormData, securitySettingsSchema } from '@/lib/validations';
 import type { UserSettings } from '@/types';
 
 interface SecuritySettingsFormProps {

@@ -1,14 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Plane, Plus, ArrowRight } from 'lucide-react';
+import { ArrowRight, Plane, Plus } from 'lucide-react';
 import Link from 'next/link';
+
+import { EmptyState } from '@/components/common';
 import { Card, CardContent } from '@/components/ui';
 import { Button } from '@/components/ui';
-import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
+import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import type { DashboardVoyage } from '@/types';
-import { EmptyState } from '@/components/common';
+
 import VoyageStatusBadge from '../voyage/VoyageStatusBadge';
 
 interface RecentVoyagesProps {

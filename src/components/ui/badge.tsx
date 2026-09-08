@@ -1,4 +1,5 @@
 import { HTMLAttributes } from 'react';
+
 import { cn } from '@/lib/utils/cn';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {

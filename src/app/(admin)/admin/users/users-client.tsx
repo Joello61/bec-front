@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useAdmin } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
 import { Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
 import { UsersTable } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
 import { Select } from '@/components/ui';
+import { useAdmin } from '@/lib/hooks';
 
 export default function AdminUsersPageClient() {
   const [page, setPage] = useState(1);

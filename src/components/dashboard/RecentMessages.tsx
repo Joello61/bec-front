@@ -1,15 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageCircle, ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Card, CardContent, Avatar } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { formatDateRelative } from '@/lib/utils/format';
-import { ROUTES } from '@/lib/utils/constants';
-import type { DashboardMessage } from '@/types';
+
 import { EmptyState } from '@/components/common';
+import { Avatar, Card, CardContent } from '@/components/ui';
+import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils/cn';
+import { ROUTES } from '@/lib/utils/constants';
+import { formatDateRelative } from '@/lib/utils/format';
+import type { DashboardMessage } from '@/types';
 
 interface RecentMessagesProps {
   messages: DashboardMessage[];

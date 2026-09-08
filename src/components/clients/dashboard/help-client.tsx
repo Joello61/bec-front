@@ -1,24 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
-  HelpCircle,
+  AlertCircle,
   ChevronDown,
   ChevronUp,
-  MessageCircle,
-  Mail,
-  FileText,
-  Shield,
-  Package,
-  Users,
   CreditCard,
-  AlertCircle,
   ExternalLink,
+  FileText,
+  HelpCircle,
+  Mail,
+  MessageCircle,
+  Package,
   Search,
+  Shield,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Card, Button, Input } from '@/components/ui';
+import { useState } from 'react';
+
+import { Button, Card, Input } from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
 
 interface FAQItem {

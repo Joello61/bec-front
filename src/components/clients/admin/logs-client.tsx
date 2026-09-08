@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useAdmin } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
 import { Download } from 'lucide-react';
-import type { AdminLogFilters } from '@/types';
+import { useEffect, useState } from 'react';
+
 import { LogFilters, LogsTable } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
+import { useAdmin } from '@/lib/hooks';
+import { logger } from '@/lib/utils/logger';
+import type { AdminLogFilters } from '@/types';
 
 export default function AdminLogsPageClient() {
   const [page, setPage] = useState(1);
@@ -33,7 +35,7 @@ export default function AdminLogsPageClient() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
-      console.error('Erreur export:', error);
+      logger.error('Erreur export:', error);
     }
   };
 

@@ -1,5 +1,6 @@
-import ProfilePageClient from "../../../../components/clients/dashboard/profile-client";
 import { Metadata } from "next";
+
+import ProfilePageClient from "../../../../components/clients/dashboard/profile-client";
 
 export const metadata: Metadata = {
   title: 'Mon profil',

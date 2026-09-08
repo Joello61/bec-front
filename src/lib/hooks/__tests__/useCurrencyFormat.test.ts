@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('../useCurrency', () => ({
   useUserCurrency: () => ({ userCurrency: 'EUR', isLoading: false }),

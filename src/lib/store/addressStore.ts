@@ -1,11 +1,13 @@
 import { create } from 'zustand';
+
 import { addressApi } from '@/lib/api/address';
-import { createAsyncAction } from './createAsyncAction';
 import type {
   Address,
   AddressModificationInfo,
   UpdateAddressInput
 } from '@/types/address';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface AddressState {
   address: Address | null;

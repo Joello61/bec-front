@@ -1,10 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
-import { ROUTES, CONTACT } from '@/lib/utils/constants';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+import { CONTACT, ROUTES } from '@/lib/utils/constants';
+
 import { CookiePreferencesButton } from '../common/CookiesConsent';
 
 export default function Footer() {
@@ -115,16 +117,13 @@ export default function Footer() {
                 className="w-7 h-7 flex justify-center items-center rounded-md bg-black transition-transform duration-200 hover:scale-110"
                 aria-label={socialLinks[1].name}
               >
-                {
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={socialLinks[1].image}
-                    alt={socialLinks[1].name}
-                    width={20}
-                    height={20}
-                    className="w-5 h-5"
-                  />
-                }
+                <Image
+                  src={socialLinks[1].image}
+                  alt={socialLinks[1].name}
+                  width={20}
+                  height={20}
+                  className="w-5 h-5"
+                />
               </a>
 
               <a

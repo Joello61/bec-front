@@ -1,18 +1,19 @@
 'use client';
 
-import { useCallback, useMemo, useState } from "react";
-import type { VoyageFilters as VoyageFiltersType, DemandeFilters as DemandeFiltersType } from '@/types';
-import { usePublicVoyages } from "@/lib/hooks/useVoyages";
-import { usePublicDemandes } from "@/lib/hooks/useDemandes";
-import { Package, Plane, SlidersHorizontal } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { VoyageFilters } from "@/components/voyage";
-import { DemandeFilters } from "@/components/demande";
+import { Package, Plane, SlidersHorizontal } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
+
 import { EmptyState, LoadingSpinner } from "@/components/common";
-import PublicVoyageList from "@/components/voyage/PublicVoyageList";
+import { DemandeFilters } from "@/components/demande";
 import PublicDemandeList from "@/components/demande/PublicDemandeList";
-import ExploreTabs from "@/components/explore/ExploreTabs";
 import ExploreFiltersDrawer from "@/components/explore/ExploreFiltersDrawer";
+import ExploreTabs from "@/components/explore/ExploreTabs";
+import { VoyageFilters } from "@/components/voyage";
+import PublicVoyageList from "@/components/voyage/PublicVoyageList";
+import { usePublicDemandes } from "@/lib/hooks/useDemandes";
+import { usePublicVoyages } from "@/lib/hooks/useVoyages";
+import type { DemandeFilters as DemandeFiltersType, VoyageFilters as VoyageFiltersType } from '@/types';
 
 type TabType = 'voyages' | 'demandes';
 

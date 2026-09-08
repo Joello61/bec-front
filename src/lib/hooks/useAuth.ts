@@ -1,6 +1,7 @@
+import { useCallback } from 'react';
+
 import { useAuthStore } from '@/lib/store';
 import { User } from '@/types';
-import { useCallback } from 'react';
 
 /**
  * Hook simplifié pour accéder aux données d'authentification

@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle } from 'lucide-react';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
 import { Button, Modal, Select } from '@/components/ui';
-import { createSignalementSchema, type CreateSignalementFormData } from '@/lib/validations';
+import { type CreateSignalementFormData, createSignalementSchema } from '@/lib/validations';
 
 interface SignalementFormProps {
   isOpen: boolean;

@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState, useMemo } from 'react';
-import { useVoyageStore } from '@/lib/store';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { voyagesApi } from '@/lib/api/voyages';
-import type { VoyageFilters, DemandeWithScore } from '@/types';
+import { useVoyageStore } from '@/lib/store';
+import type { DemandeWithScore, VoyageFilters } from '@/types';
 
 /**
  * Hook pour charger et gérer les voyages

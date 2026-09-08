@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Package, Info, AlertCircle } from 'lucide-react';
+import { AlertCircle, Info, Package } from 'lucide-react';
+import { useCallback, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button, Input } from '@/components/ui';
-import { createDemandeSchema, type CreateDemandeFormData } from '@/lib/validations';
-import { useTopCitiesGlobal, useCitySearchGlobal } from '@/lib/hooks/useGeo';
-import { useUserCurrency } from '@/lib/hooks/useCurrency';
-import { getCurrencySymbol } from '@/lib/utils/format';
-import type { Demande } from '@/types';
 import type { SelectOption } from '@/components/ui/select';
+import { useUserCurrency } from '@/lib/hooks/useCurrency';
+import { useCitySearchGlobal, useTopCitiesGlobal } from '@/lib/hooks/useGeo';
+import { getCurrencySymbol } from '@/lib/utils/format';
+import { type CreateDemandeFormData, createDemandeSchema } from '@/lib/validations';
+import type { Demande } from '@/types';
+
 import CityRouteFields from './CityRouteFields';
 
 interface DemandeFormProps {

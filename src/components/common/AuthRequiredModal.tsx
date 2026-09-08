@@ -1,8 +1,10 @@
 'use client';
 
+import { Lock, LogIn, UserPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { LogIn, UserPlus, Lock } from 'lucide-react';
+
 import { ROUTES } from '@/lib/utils/constants';
+
 import { Modal, ModalFooter } from '../ui';
 
 interface AuthRequiredModalProps {

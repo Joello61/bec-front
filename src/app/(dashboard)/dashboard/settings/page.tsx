@@ -1,5 +1,6 @@
-import SettingsPageClient from "../../../../components/clients/dashboard/settings-client";
 import { Metadata } from "next";
+
+import SettingsPageClient from "../../../../components/clients/dashboard/settings-client";
 
 export const metadata: Metadata = {
   title: 'Paramètres',

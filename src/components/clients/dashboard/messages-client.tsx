@@ -1,9 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
+import { EmptyState, ErrorState, LoadingSpinner } from '@/components/common';
 import { ConversationList } from '@/components/message';
 import { useAuth, useConversations } from '@/lib/hooks';
-import { EmptyState, ErrorState, LoadingSpinner } from '@/components/common';
-import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function MessagesPageClient() {

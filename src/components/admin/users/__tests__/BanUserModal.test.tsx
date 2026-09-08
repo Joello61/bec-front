@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import BanUserModal from '../BanUserModal';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
+
+import BanUserModal from '../BanUserModal';
 
 const mockBanUser = vi.fn();
 const mockUnbanUser = vi.fn();

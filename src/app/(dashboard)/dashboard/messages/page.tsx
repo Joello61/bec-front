@@ -1,5 +1,6 @@
-import MessagesPageClient from "../../../../components/clients/dashboard/messages-client";
 import { Metadata } from "next";
+
+import MessagesPageClient from "../../../../components/clients/dashboard/messages-client";
 
 export const metadata: Metadata = {
   title: 'Messagerie',

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import RegisterPageClient from "../../../../components/clients/auth/register-client";
 
 export const metadata: Metadata = {

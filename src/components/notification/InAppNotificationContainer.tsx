@@ -1,6 +1,7 @@
 'use client';
 
 import { AnimatePresence } from 'framer-motion';
+
 import { InAppNotification } from './InAppNotification';
 
 interface NotificationData {

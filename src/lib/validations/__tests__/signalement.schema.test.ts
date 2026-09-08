@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { createSignalementSchema, traiterSignalementSchema } from '../signalement.schema';
 
 describe('createSignalementSchema', () => {

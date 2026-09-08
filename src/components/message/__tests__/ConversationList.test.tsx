@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ConversationList from '../ConversationList';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { Conversation, User } from '@/types';
+
+import ConversationList from '../ConversationList';
 
 vi.mock('../ConversationItem', () => ({
   default: ({ conversation, isActive, onClick }: { conversation: Conversation; isActive: boolean; onClick: () => void }) => (

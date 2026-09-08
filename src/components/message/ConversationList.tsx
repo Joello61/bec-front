@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import ConversationItem from './ConversationItem';
+
 import type { Conversation } from '@/types';
+
+import ConversationItem from './ConversationItem';
 
 interface ConversationListProps {
   conversations: Conversation[];

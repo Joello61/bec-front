@@ -2,8 +2,9 @@
 'use client';
 
 import { useState } from 'react';
-import { authApi } from '@/lib/api/auth';
+
 import { useToast } from '@/components/common';
+import { authApi } from '@/lib/api/auth';
 
 export default function OAuthButtons() {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);

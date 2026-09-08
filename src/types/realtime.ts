@@ -1,5 +1,6 @@
-import type { User } from '@/types/user';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
+import type { User } from '@/types/user';
 
 /**
  * Type global partagé entre tous les handlers d'événements Mercure.

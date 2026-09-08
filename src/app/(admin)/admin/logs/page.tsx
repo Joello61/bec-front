@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import AdminLogsPageClient from "../../../../components/clients/admin/logs-client";
 
 export const metadata: Metadata = {

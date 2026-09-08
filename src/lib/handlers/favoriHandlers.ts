@@ -1,6 +1,7 @@
-import { EventType } from '@/lib/utils/eventType';
 import { displayNotification } from '@/lib/utils/displayNotification';
+import { EventType } from '@/lib/utils/eventType';
 import { StableContext } from '@/types/realtime';
+
 import { ROUTES } from '../utils/constants';
 
 /**

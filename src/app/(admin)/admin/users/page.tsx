@@ -1,5 +1,6 @@
-import AdminUsersPageClient from "./users-client";
 import { Metadata } from "next";
+
+import AdminUsersPageClient from "./users-client";
 
 export const metadata: Metadata = {
   title: 'Gestion des utilisateurs',

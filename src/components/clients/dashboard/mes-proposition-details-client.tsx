@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { Modal } from '@/components/ui';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
-import { useAuth, usePropositionActions } from '@/lib/hooks';
-import { ROUTES } from '@/lib/utils/constants';
-import { useProposition } from '@/lib/hooks/usePropositions';
 import PropositionDetails from '@/components/propositions/PropositionDetails';
+import { Modal } from '@/components/ui';
+import { useAuth, usePropositionActions } from '@/lib/hooks';
+import { useProposition } from '@/lib/hooks/usePropositions';
+import { ROUTES } from '@/lib/utils/constants';
+import { logger } from '@/lib/utils/logger';
 
 export default function PropositionDetailsPageClient() {
   const router = useRouter();
@@ -40,7 +42,7 @@ export default function PropositionDetailsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors de l\'acceptation');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }
@@ -62,7 +64,7 @@ export default function PropositionDetailsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors du refus');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }

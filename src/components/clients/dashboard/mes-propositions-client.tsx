@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Inbox } from 'lucide-react';
-import { PropositionList } from '@/components/propositions';
-import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
-import { useMyPropositionsSent, useMyPropositionsReceived, usePropositionActions } from '@/lib/hooks';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Inbox, Send } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/lib/utils/constants';
-import { Modal } from '@/components/ui';
+import { useState } from 'react';
+
+import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import ExploreTabs from '@/components/explore/ExploreTabs';
+import { PropositionList } from '@/components/propositions';
+import { Modal } from '@/components/ui';
+import { useMyPropositionsReceived, useMyPropositionsSent, usePropositionActions } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
+import { logger } from '@/lib/utils/logger';
 
 type TabType = 'sent' | 'received';
 
@@ -75,7 +77,7 @@ export default function PropositionsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors de l\'acceptation');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }
@@ -97,7 +99,7 @@ export default function PropositionsPageClient() {
       refetch();
     } catch (err) {
       toast.error('Erreur lors du refus');
-      console.error(err);
+      logger.error(err);
     } finally {
       setIsResponding(false);
     }

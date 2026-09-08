@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { decodeJwtRoles } from '@/lib/utils/jwt';
 
 function base64url(value: object | string): string {

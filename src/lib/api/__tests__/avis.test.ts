@@ -4,8 +4,8 @@ vi.mock('../client', () => ({
   default: { post: vi.fn().mockResolvedValue({ data: {} }) },
 }));
 
-import apiClient from '../client';
 import { avisApi } from '../avis';
+import apiClient from '../client';
 
 describe('avisApi.create - contrat', () => {
   it('envoie un avis vers POST /avis avec le payload fourni', async () => {

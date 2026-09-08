@@ -1,5 +1,6 @@
-import SignalementsPageClient from "../../../../components/clients/dashboard/signalements-client";
 import { Metadata } from "next";
+
+import SignalementsPageClient from "../../../../components/clients/dashboard/signalements-client";
 
 export const metadata: Metadata = {
   title: 'Mes signalements',

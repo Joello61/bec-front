@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { AlertCircle, Plus, Lightbulb, ArrowRight } from 'lucide-react';
+import { AlertCircle, ArrowRight, Lightbulb, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Modal, Button } from '@/components/ui';
+import { useState } from 'react';
+
 import PropositionForm from '@/components/forms/PropositionForm';
-import { CurrencyDisplay } from '../common';
+import { Button, Modal } from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
-import type { Voyage, CreatePropositionInput } from '@/types';
+import type { CreatePropositionInput, Voyage } from '@/types';
+
+import { CurrencyDisplay } from '../common';
 
 interface PropositionModalProps {
   isOpen: boolean;

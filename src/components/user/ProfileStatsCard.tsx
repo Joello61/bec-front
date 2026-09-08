@@ -1,4 +1,5 @@
-import { User as UserIcon, MapPin, Package, Star } from 'lucide-react';
+import { MapPin, Package, Star, User as UserIcon } from 'lucide-react';
+
 import { Card } from '@/components/ui';
 import type { DashboardData } from '@/types';
 

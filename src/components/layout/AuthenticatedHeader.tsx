@@ -1,30 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Bell,
-  MessageSquare,
-  User,
-  LogOut,
-  Settings,
-  HelpCircle,
   Flag,
+  HelpCircle,
   LayoutDashboard,
+  LogOut,
+  MessageSquare,
+  Settings,
+  User,
 } from 'lucide-react';
-import { useAuth } from '@/lib/hooks';
-import { useUnreadNotificationCount, useUnreadMessages } from '@/lib/hooks';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import {
   Avatar,
   Dropdown,
-  DropdownItem,
   DropdownDivider,
+  DropdownItem,
 } from '@/components/ui';
-import { ROUTES } from '@/lib/utils/constants';
+import { useAuth } from '@/lib/hooks';
+import { useUnreadMessages, useUnreadNotificationCount } from '@/lib/hooks';
 import { cn } from '@/lib/utils/cn';
+import { ROUTES } from '@/lib/utils/constants';
+
 import { useToast } from '../common';
 
 export default function AuthenticatedHeader() {

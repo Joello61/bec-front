@@ -129,13 +129,7 @@ const nextConfig = {
   reactCompiler: true,
 
   experimental: {
-    optimizePackageImports: [
-      'lucide-react',
-      'framer-motion',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-select',
-    ],
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 
   logging: {

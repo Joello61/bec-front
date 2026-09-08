@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import HomePageContent from '../components/home/HomePageContent';
 import Script from 'next/script';
+
+import HomePageContent from '../components/home/HomePageContent';
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';

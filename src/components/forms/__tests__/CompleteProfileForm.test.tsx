@@ -1,9 +1,11 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import CompleteProfileForm from '../CompleteProfileForm';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
 import type { Country } from '@/types/geo';
+
+import CompleteProfileForm from '../CompleteProfileForm';
 
 const mockUseAuth = vi.fn();
 const mockUseCountries = vi.fn();

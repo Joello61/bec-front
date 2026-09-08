@@ -1,13 +1,15 @@
-import { Package, Clock, ArrowRight, Verified, Plane, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, Clock, MapPin, Package, Plane, Verified } from 'lucide-react';
 import type { Route } from 'next';
+import Link from 'next/link';
+
 import { Card, CardContent } from '@/components/ui';
-import DemandeStatusBadge from './DemandeStatusBadge';
 import { formatWeight } from '@/lib/utils/format';
-import { FavoriteButton } from '../favori';
-import { PriceDisplay } from '../common';
-import AvatarWithButton from '../ui/AvatarWithButton';
 import type { Demande } from '@/types';
+
+import { PriceDisplay } from '../common';
+import { FavoriteButton } from '../favori';
+import AvatarWithButton from '../ui/AvatarWithButton';
+import DemandeStatusBadge from './DemandeStatusBadge';
 
 interface DemandeCardDesktopProps {
   demande: Demande;

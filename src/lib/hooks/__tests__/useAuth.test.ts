@@ -1,5 +1,6 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
 
 const storeState: Record<string, unknown> = {
@@ -28,7 +29,7 @@ vi.mock('@/lib/store', () => ({
   useAuthStore: (selector: (state: typeof storeState) => unknown) => selector(storeState),
 }));
 
-import { useAuth, useProfileCompletion, useAuthError, useRequireAuth } from '../useAuth';
+import { useAuth, useAuthError, useProfileCompletion, useRequireAuth } from '../useAuth';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

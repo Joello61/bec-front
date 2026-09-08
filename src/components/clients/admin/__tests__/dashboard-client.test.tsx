@@ -1,7 +1,9 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import AdminDashboardPageClient from '../dashboard-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { AdminDashboardData } from '@/types';
+
+import AdminDashboardPageClient from '../dashboard-client';
 
 const mockFetchDashboard = vi.fn();
 const mockUseAdmin = vi.fn();

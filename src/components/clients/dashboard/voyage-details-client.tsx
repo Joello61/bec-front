@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft, Send } from 'lucide-react';
 import Link from 'next/link';
-import { VoyageDetails } from '@/components/voyage';
+import { useParams, useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
+
+import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { PropositionModal } from '@/components/propositions';
 import { Button } from '@/components/ui';
-import { useVoyage, useAuth, usePropositionActions, useUserDemandes, useConversationWithUser } from '@/lib/hooks';
-import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
+import { VoyageDetails } from '@/components/voyage';
+import { useAuth, useConversationWithUser, usePropositionActions, useUserDemandes, useVoyage } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { CreatePropositionInput } from '@/types';
 

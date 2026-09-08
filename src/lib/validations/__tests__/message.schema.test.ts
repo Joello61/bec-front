@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { sendMessageSchema } from '../message.schema';
 
 describe('sendMessageSchema', () => {

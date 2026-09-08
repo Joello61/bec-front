@@ -1,22 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
-import type { Route } from 'next';
 import {
-  Search,
-  Plus,
-  MessageSquare,
-  User,
   LayoutDashboard,
+  MessageSquare,
+  Plus,
+  Search,
+  User,
 } from 'lucide-react';
+import type { Route } from 'next';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 import { useAuth } from '@/lib/hooks';
 import { useUnreadMessages } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
+
 import { useToast } from '../common';
+import BottomNavAccountMenu from './BottomNavAccountMenu';
 import BottomNavBar, { type BottomNavItem } from './BottomNavBar';
 import BottomNavCreateMenu from './BottomNavCreateMenu';
-import BottomNavAccountMenu from './BottomNavAccountMenu';
 
 export default function BottomNav() {
   const pathname = usePathname();

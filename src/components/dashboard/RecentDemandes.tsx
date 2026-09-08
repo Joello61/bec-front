@@ -1,14 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Package, Plus, ArrowRight } from 'lucide-react';
+import { ArrowRight, Package, Plus } from 'lucide-react';
 import Link from 'next/link';
+
+import { EmptyState } from '@/components/common';
 import { Card, CardContent } from '@/components/ui';
 import { Button } from '@/components/ui';
-import { formatWeight, getDaysRemaining } from '@/lib/utils/format';
 import { ROUTES } from '@/lib/utils/constants';
+import { formatWeight, getDaysRemaining } from '@/lib/utils/format';
 import type { DashboardDemande } from '@/types';
-import { EmptyState } from '@/components/common';
+
 import DemandeStatusBadge from '../demande/DemandeStatusBadge';
 
 interface RecentDemandesProps {

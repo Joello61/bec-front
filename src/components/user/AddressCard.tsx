@@ -1,9 +1,10 @@
 'use client';
 
-import { MapPin, Home, Building2, Mail as MailIcon, Edit2, Calendar } from 'lucide-react';
-import { Button, Card, Badge } from '@/components/ui';
-import type { Address } from '@/types/address';
+import { Building2, Calendar, Edit2, Home, Mail as MailIcon, MapPin } from 'lucide-react';
+
+import { Badge, Button, Card } from '@/components/ui';
 import { formatDate } from '@/lib/utils/format';
+import type { Address } from '@/types/address';
 
 interface AddressCardProps {
   address: Address;

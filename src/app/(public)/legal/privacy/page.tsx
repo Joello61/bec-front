@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import PrivacyContent from '@/components/legal/PrivacyContent';
 import Script from 'next/script';
+
+import PrivacyContent from '@/components/legal/PrivacyContent';
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';

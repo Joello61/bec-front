@@ -1,24 +1,24 @@
-import apiClient from './client';
-import { endpoints } from './endpoints';
 import type { 
-  LoginInput, 
-  RegisterInput, 
-  User,
-  LoginResponse,
-  RegisterResponse,
   ChangePasswordInput,
+  CompleteProfileInput,
   ForgotPasswordInput,
+  LoginInput, 
+  LoginResponse,
+  RegisterInput, 
+  RegisterResponse,
+  ResendVerificationInput,
   ResetPasswordInput,
+  User,
   VerifyEmailInput,
   VerifyPhoneInput,
-  ResendVerificationInput,
-  CompleteProfileInput,
 } from '@/types';
 import type { 
-  VerifyEmailResponse, 
   CompleteProfileResponse,
-  ProfileStatusResponse
-} from '@/types/api';
+  ProfileStatusResponse,
+  VerifyEmailResponse} from '@/types/api';
+
+import apiClient from './client';
+import { endpoints } from './endpoints';
 
 export const authApi = {
   async login(data: LoginInput): Promise<LoginResponse> {

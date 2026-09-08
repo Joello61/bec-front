@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { Package } from 'lucide-react';
-import DemandeCard from './DemandeCard';
+
 import type { Demande, PaginationMeta } from '@/types';
+
 import { Pagination } from '../common';
+import DemandeCard from './DemandeCard';
 
 interface DemandeListProps {
   demandes: Demande[];

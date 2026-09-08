@@ -1,26 +1,27 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
-  Search,
-  Plane, 
-  Package, 
-  MessageSquare, 
   Bell, 
-  Heart,
-  Settings,
-  HelpCircle,
   ChevronRight,
-  LayoutDashboard,
-  User,
-  Shield,
   Handshake,
+  Heart,
+  HelpCircle,
+  LayoutDashboard,
+  MessageSquare, 
+  Package, 
+  Plane, 
+  Search,
+  Settings,
+  Shield,
+  User,
 } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import { useAuth } from '@/lib/hooks';
-import { ROUTES } from '@/lib/utils/constants';
 import { cn } from '@/lib/utils/cn';
+import { ROUTES } from '@/lib/utils/constants';
 
 export default function Sidebar() {
   const pathname = usePathname();

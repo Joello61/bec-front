@@ -1,11 +1,13 @@
 'use client';
 
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Globe, DollarSign, Clock, Calendar } from 'lucide-react';
+import { Calendar, Clock, DollarSign, Globe } from 'lucide-react';
+import { Controller, useForm } from 'react-hook-form';
+
 import { Button } from '@/components/ui';
-import { preferencesSettingsSchema, type PreferencesSettingsFormData } from '@/lib/validations';
+import { type PreferencesSettingsFormData, preferencesSettingsSchema } from '@/lib/validations';
 import type { UserSettings } from '@/types';
+
 import Select from '../ui/select';
 
 interface PreferencesSettingsFormProps {

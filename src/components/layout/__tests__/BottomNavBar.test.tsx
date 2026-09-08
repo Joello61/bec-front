@@ -1,8 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Plus, Search } from 'lucide-react';
+import { describe, expect, it, vi } from 'vitest';
+
 import BottomNavBar, { type BottomNavItem } from '../BottomNavBar';
-import { Search, Plus } from 'lucide-react';
 
 describe('BottomNavBar - logique metier', () => {
   it('affiche le badge avec le compte exact sous 10', () => {

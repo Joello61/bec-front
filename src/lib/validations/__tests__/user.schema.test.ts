@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { updateUserSchema, searchUserSchema } from '../user.schema';
+
+import { searchUserSchema, updateUserSchema } from '../user.schema';
 
 describe('updateUserSchema', () => {
   it('accepte un objet vide (tous les champs optionnels)', () => {

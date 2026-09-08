@@ -1,10 +1,11 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '@/lib/hooks';
-import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/lib/utils/constants';
+import { AnimatePresence, motion } from 'framer-motion';
 import { TriangleAlert } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { useAuth } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
 
 export default function VerificationBanner() {
   const { user } = useAuth();

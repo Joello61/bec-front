@@ -1,5 +1,6 @@
-import AdminModerationPageClient from "../../../../components/clients/admin/moderation-client";
 import { Metadata } from "next";
+
+import AdminModerationPageClient from "../../../../components/clients/admin/moderation-client";
 
 export const metadata: Metadata = {
   title: 'Modération',

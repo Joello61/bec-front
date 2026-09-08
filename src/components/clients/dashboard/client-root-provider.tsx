@@ -1,12 +1,13 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { AuthProvider } from '@/components/providers/AuthProvider';
-import { NotificationPermissionProvider } from '@/components/providers/NotificationPermissionProvider';
-import { InAppNotificationProvider } from '@/components/providers/InAppNotificationProvider';
-import ToastProvider from '@/components/providers/ToastProvider';
+
 import { Footer, Header } from '@/components/layout';
+import { AuthProvider } from '@/components/providers/AuthProvider';
+import { InAppNotificationProvider } from '@/components/providers/InAppNotificationProvider';
+import { NotificationPermissionProvider } from '@/components/providers/NotificationPermissionProvider';
 import PWAProvider from '@/components/providers/PWAProvider';
+import ToastProvider from '@/components/providers/ToastProvider';
 
 export default function ClientRootProvider({ children }: { children: ReactNode }) {
   

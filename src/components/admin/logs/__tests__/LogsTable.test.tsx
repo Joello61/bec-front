@@ -1,7 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import LogsTable from '../LogsTable';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { AdminLog } from '@/types';
+
+import LogsTable from '../LogsTable';
 
 function makeLog(overrides: Partial<AdminLog> = {}): AdminLog {
   return {

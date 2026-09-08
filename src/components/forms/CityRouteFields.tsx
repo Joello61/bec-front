@@ -1,5 +1,6 @@
-import { Controller, type Control, type FieldErrors, type Path } from 'react-hook-form';
 import { MapPin } from 'lucide-react';
+import { type Control, Controller, type FieldErrors, type Path } from 'react-hook-form';
+
 import { Select } from '@/components/ui';
 import type { SelectOption } from '@/components/ui/select';
 

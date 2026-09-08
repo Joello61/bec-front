@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import type { AdminDemandesStats, AdminSignalementsStats, AdminUsersStats, AdminVoyagesStats } from '@/types';
+
 import AdminStatsCards from '../AdminStatsCards';
-import type { AdminUsersStats, AdminVoyagesStats, AdminDemandesStats, AdminSignalementsStats } from '@/types';
 
 function makeProps(overrides: {
   users?: Partial<AdminUsersStats>;

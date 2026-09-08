@@ -1,5 +1,6 @@
 import { Shield } from 'lucide-react';
-import { Card, Badge } from '@/components/ui';
+
+import { Badge, Card } from '@/components/ui';
 import type { User } from '@/types';
 
 interface ProfileVerificationsCardProps {

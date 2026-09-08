@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, UserSettings } from '@/types';
 
 vi.mock('@/lib/api/settings', () => ({
@@ -9,6 +10,7 @@ vi.mock('@/lib/api/settings', () => ({
 }));
 
 import { settingsApi } from '@/lib/api/settings';
+
 import { useSettingsStore } from '../settingsStore';
 
 const initialState = useSettingsStore.getState();

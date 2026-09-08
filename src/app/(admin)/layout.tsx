@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
-import { ROUTES } from '@/lib/utils/constants';
+import { useEffect } from 'react';
+
 import AdminSidebar from '@/components/admin/layout/AdminSidebar';
+import { LoadingSpinner } from '@/components/common';
+import { useAuth } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
 
 export default function AdminLayout({
   children,
