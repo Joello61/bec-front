@@ -1,7 +1,6 @@
 import type { ApiError } from '@/types';
 
 export interface AsyncActionState {
-  isLoading: boolean;
   error: string | null;
 }
 
@@ -12,7 +11,11 @@ type SetState<T> = (
 
 interface AsyncActionOptions<T> {
   fallbackError: string;
-  /** Champ booléen à piloter (défaut 'isLoading') - ex. isUploadingAvatar, isLoadingCountries. */
+  /**
+   * Champ booléen à piloter, défaut 'isLoading'. Obligatoire à préciser si l'état
+   * n'a pas de champ 'isLoading' du tout (ex. geoStore : isLoadingCountries,
+   * isLoadingCities... par ressource) - non vérifié par le typage, seulement par convention.
+   */
   loadingKey?: keyof T;
   /** Remplace le `set({ error, [loadingKey]: false })` par défaut du catch. */
   onError?: (error: ApiError) => Partial<T> | void;
