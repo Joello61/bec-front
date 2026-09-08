@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import TermsPageClient from '@/components/clients/public/terms-client';
+import TermsContent from '@/components/legal/TermsContent';
 import Script from 'next/script';
 
 const APP_URL =
@@ -118,7 +118,7 @@ export default function TermsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(termsPageSchema) }}
       />
-      <TermsPageClient />
+      <TermsContent />
     </>
   );
 }
