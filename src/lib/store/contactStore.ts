@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { contactsApi } from '@/lib/api/contacts';
+import { createAsyncAction } from './createAsyncAction';
 import type { Contact, CreateContactInput } from '@/types';
 
 interface ContactState {
@@ -9,7 +9,7 @@ interface ContactState {
   isLoading: boolean;
   error: string | null;
   successMessage: string | null;
-  
+
   // Actions
   createContact: (data: CreateContactInput) => Promise<void>;
   fetchContacts: () => Promise<void>;
@@ -27,75 +27,40 @@ export const useContactStore = create<ContactState>((set) => ({
   error: null,
   successMessage: null,
 
-  createContact: async (data) => {
-    set({ isLoading: true, error: null, successMessage: null });
-    try {
+  createContact: (data) => {
+    set({ successMessage: null });
+    return createAsyncAction(set, async () => {
       const response = await contactsApi.create(data);
-      set({ 
-        successMessage: response.message,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message 
-        || error.message 
-        || 'Erreur lors de l\'envoi du message';
-      
-      set({ 
-        error: errorMessage,
-        isLoading: false 
-      });
-      throw error;
-    }
+      set({ successMessage: response.message, isLoading: false });
+    }, { fallbackError: "Erreur lors de l'envoi du message", rethrow: true });
   },
 
-  fetchContacts: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchContacts: () =>
+    createAsyncAction(set, async () => {
       const contacts = await contactsApi.list();
       set({ contacts, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des contacts',
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement des contacts' }),
 
-  fetchContact: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchContact: (id) =>
+    createAsyncAction(set, async () => {
       const contact = await contactsApi.show(id);
       set({ currentContact: contact, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement du contact',
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors du chargement du contact' }),
 
-  deleteContact: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  deleteContact: (id) =>
+    createAsyncAction(set, async () => {
       await contactsApi.delete(id);
       set((state) => ({
         contacts: state.contacts.filter((c) => c.id !== id),
         currentContact: state.currentContact?.id === id ? null : state.currentContact,
         isLoading: false
       }));
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la suppression du contact',
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la suppression du contact', rethrow: true }),
 
   clearError: () => set({ error: null }),
   clearSuccess: () => set({ successMessage: null }),
-  
-  reset: () => set({ 
+
+  reset: () => set({
     contacts: [],
     currentContact: null,
     error: null,
