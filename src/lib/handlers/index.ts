@@ -13,6 +13,7 @@ import { handleAvisEvents } from './avisHandlers';
 import { handleContactEvents } from './contactHandlers';
 import { handleFavoriEvents } from './favoriHandlers';
 import { handleSettingsEvents } from './settingsHandlers';
+import { logger } from '@/lib/utils/logger';
 
 /**
  * Routeur global des événements Mercure -> Handler approprié
@@ -59,10 +60,10 @@ export function dispatchMercureEvent(eventType: string, data: any, stable: Stabl
         return handleSettingsEvents(eventType, data, stable);
 
       default:
-        console.warn(`[Mercure] Aucun handler trouvé pour "${eventType}"`, data);
+        logger.warn(`[Mercure] Aucun handler trouvé pour "${eventType}"`, data);
         break;
     }
   } catch (err) {
-    console.error(`[Mercure] Erreur dans le handler pour "${eventType}":`, err);
+    logger.error(`[Mercure] Erreur dans le handler pour "${eventType}":`, err);
   }
 }
