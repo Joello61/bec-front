@@ -3,13 +3,13 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MapPin, Home, Building2, Mail as MailIcon, AlertCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { Button, Input, Select } from '@/components/ui';
+import { MapPin, Building2, AlertCircle } from 'lucide-react';
+import { Button, Select } from '@/components/ui';
 import { updateAddressSchema, type UpdateAddressFormData } from '@/lib/validations/address.schema';
 import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { Address } from '@/types/address';
 import type { SelectOption } from '@/components/ui/select';
+import AddressTypeFields from './AddressTypeFields';
 
 interface AddressFormProps {
   address: Address;
@@ -276,76 +276,14 @@ export default function AddressForm({
         />
       )}
 
-      {/* Format africain */}
-      {addressType === 'african' && watchVille && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-          <Input
-            label="Quartier"
-            type="text"
-            placeholder="Ex: Bastos, Bonanjo"
-            error={errors.quartier?.message}
-            leftIcon={<Home className="w-5 h-5" />}
-            {...register('quartier')}
-            required
-          />
-        </motion.div>
-      )}
-
-      {/* Format postal */}
-      {addressType === 'postal' && watchVille && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="space-y-4"
-        >
-          <Input
-            label="Adresse (ligne 1)"
-            type="text"
-            placeholder="Ex: 21 rue du Cher"
-            error={errors.adresseLigne1?.message}
-            leftIcon={<Home className="w-5 h-5" />}
-            {...register('adresseLigne1')}
-            required
-          />
-
-          <Input
-            label="Adresse (ligne 2)"
-            type="text"
-            placeholder="Ex: Appartement 3B (optionnel)"
-            error={errors.adresseLigne2?.message}
-            leftIcon={<Building2 className="w-5 h-5" />}
-            {...register('adresseLigne2')}
-          />
-
-          <Input
-            label="Code postal"
-            type="text"
-            placeholder="Ex: 31100"
-            error={errors.codePostal?.message}
-            leftIcon={<MailIcon className="w-5 h-5" />}
-            {...register('codePostal')}
-            required
-          />
-        </motion.div>
-      )}
-
-      {/* Info type */}
-      {watchPays && (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-          <p className="text-sm text-gray-700">
-            {addressType === 'african' ? (
-              <>
-                <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
-              </>
-            ) : (
-              <>
-                <strong>Format international :</strong> Adresse postale complète requise.
-              </>
-            )}
-          </p>
-        </div>
-      )}
+      <AddressTypeFields
+        addressType={addressType}
+        watchPays={watchPays}
+        watchVille={watchVille}
+        register={register}
+        errors={errors}
+        bannerVariant="gray"
+      />
 
       {/* Actions */}
       <div className="flex gap-3 pt-4 border-t border-gray-200">

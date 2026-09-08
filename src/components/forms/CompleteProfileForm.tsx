@@ -3,15 +3,16 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, MapPin, Home, Building2, Mail as MailIcon, Trash2 } from 'lucide-react';
+import { Phone, MapPin, Building2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Button, Input, Select, Avatar } from '@/components/ui';
-import InputFile from '@/components/ui/InputFile';
+import { Button, Input, Select } from '@/components/ui';
 import { completeProfileSchema, type CompleteProfileFormData } from '@/lib/validations';
 import { useAuth } from '@/lib/hooks';
 import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { SelectOption } from '@/components/ui/select';
 import { useAvatar } from '@/lib/hooks/useUsers';
+import AvatarUploadField from './AvatarUploadField';
+import AddressTypeFields from './AddressTypeFields';
 
 export default function CompleteProfileForm({
   onSubmit,
@@ -221,41 +222,16 @@ export default function CompleteProfileForm({
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
       {/* Photo de profil */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
-          Photo de profil (optionnel)
-        </label>
-        <div className="flex items-start gap-4">
-          <Avatar
-            src={currentAvatar || undefined}
-            fallback={user ? `${user.nom} ${user.prenom}` : 'User'}
-            size="xl"
-          />
-          <div className="flex-1 space-y-2">
-            <InputFile
-              onFileSelect={handleFileSelect}
-              error={uploadError || undefined}
-              helperText="Formats acceptés: JPG, PNG, WEBP (max 5MB)"
-              maxSize={5}
-              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
-              showPreview={true}
-              disabled={isProcessing}
-            />
-            {currentAvatar && !selectedFile && (
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={handleDeleteAvatar}
-                disabled={isProcessing}
-                leftIcon={<Trash2 className="w-4 h-4" />}
-              >
-                Supprimer la photo
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+      <AvatarUploadField
+        label="Photo de profil (optionnel)"
+        fallbackName={user ? `${user.nom} ${user.prenom}` : 'User'}
+        currentAvatar={currentAvatar}
+        selectedFile={selectedFile}
+        uploadError={uploadError}
+        isProcessing={isProcessing}
+        onFileSelect={handleFileSelect}
+        onDeleteAvatar={handleDeleteAvatar}
+      />
 
       {/* Téléphone */}
       <Input
@@ -333,80 +309,14 @@ export default function CompleteProfileForm({
         />
       )}
 
-      {/* Format Afrique */}
-      {addressType === 'african' && watchVille && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
-          <Input
-            label="Quartier"
-            type="text"
-            placeholder="Ex: Bastos, Bonanjo"
-            error={errors.quartier?.message}
-            leftIcon={<Home className="w-5 h-5" />}
-            {...register('quartier')}
-            required
-            disabled={isProcessing}
-          />
-        </motion.div>
-      )}
-
-      {/* Format postal */}
-      {addressType === 'postal' && watchVille && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-          className="space-y-4"
-        >
-          <Input
-            label="Adresse (ligne 1)"
-            type="text"
-            placeholder="Ex: 21 rue du Cher"
-            error={errors.adresseLigne1?.message}
-            leftIcon={<Home className="w-5 h-5" />}
-            {...register('adresseLigne1')}
-            required
-            disabled={isProcessing}
-          />
-
-          <Input
-            label="Adresse (ligne 2)"
-            type="text"
-            placeholder="Ex: Appartement 3B (optionnel)"
-            error={errors.adresseLigne2?.message}
-            leftIcon={<Building2 className="w-5 h-5" />}
-            {...register('adresseLigne2')}
-            disabled={isProcessing}
-          />
-
-          <Input
-            label="Code postal"
-            type="text"
-            placeholder="Ex: 31100"
-            error={errors.codePostal?.message}
-            leftIcon={<MailIcon className="w-5 h-5" />}
-            {...register('codePostal')}
-            required
-            disabled={isProcessing}
-          />
-        </motion.div>
-      )}
-
-      {/* Info type d'adresse */}
-      {watchPays && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-blue-800">
-            {addressType === 'african' ? (
-              <>
-                <strong>Format Afrique :</strong> Indiquez votre quartier/localité.
-              </>
-            ) : (
-              <>
-                <strong>Format international :</strong> Adresse postale complète requise.
-              </>
-            )}
-          </p>
-        </div>
-      )}
+      <AddressTypeFields
+        addressType={addressType}
+        watchPays={watchPays}
+        watchVille={watchVille}
+        register={register}
+        errors={errors}
+        disabled={isProcessing}
+      />
 
       {/* Champs optionnels */}
       <div className="pt-4 border-t border-gray-200">

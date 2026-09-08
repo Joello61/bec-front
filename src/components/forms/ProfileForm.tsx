@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Save, Trash2 } from 'lucide-react';
-import { Button, Input, Avatar } from '@/components/ui';
-import InputFile from '@/components/ui/InputFile';
+import { Save } from 'lucide-react';
+import { Button, Input } from '@/components/ui';
 import { updateUserSchema, type UpdateUserFormData } from '@/lib/validations';
 import type { User } from '@/types';
 import { useAvatar } from '@/lib/hooks/useUsers';
+import AvatarUploadField from './AvatarUploadField';
 
 interface ProfileFormProps {
   user: User;
@@ -89,41 +89,16 @@ export default function ProfileForm({ user, onSubmit, onCancel }: ProfileFormPro
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
       {/* Photo de profil */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
-          Photo de profil
-        </label>
-        <div className="flex items-start gap-4">
-          <Avatar
-            src={currentAvatar || undefined}
-            fallback={`${user.nom} ${user.prenom}`}
-            size="xl"
-          />
-          <div className="flex-1 space-y-2">
-            <InputFile
-              onFileSelect={handleFileSelect}
-              error={uploadError || undefined}
-              helperText="Formats acceptés: JPG, PNG, WEBP (max 5MB)"
-              maxSize={5}
-              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
-              showPreview={true}
-              disabled={isProcessing}
-            />
-            {currentAvatar && !selectedFile && (
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={handleDeleteAvatar}
-                disabled={isProcessing}
-                leftIcon={<Trash2 className="w-4 h-4" />}
-              >
-                Supprimer la photo
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+      <AvatarUploadField
+        label="Photo de profil"
+        fallbackName={`${user.nom} ${user.prenom}`}
+        currentAvatar={currentAvatar}
+        selectedFile={selectedFile}
+        uploadError={uploadError}
+        isProcessing={isProcessing}
+        onFileSelect={handleFileSelect}
+        onDeleteAvatar={handleDeleteAvatar}
+      />
 
       {/* Informations personnelles */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
