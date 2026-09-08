@@ -10,13 +10,28 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './e2e',
-  fullyParallel: true,
+  // Un seul serveur `next dev` partage (bec-infra), pas une instance par worker : plusieurs
+  // tests en parallele declenchant chacun une compilation Turbopack a la demande sur une
+  // route jamais visitee se font concurrence sur le meme processus et amplifient la lenteur
+  // du premier acces (constate en session : echecs intermittents de timeout disparus une
+  // fois la parallelisation retiree). Un seul worker, quitte a etre plus lent.
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
+  // Au-dela du defaut (30s) : un premier acces a une route non encore compilee sous
+  // `next dev`/Turbopack peut a lui seul prendre 10+ secondes (constate en session,
+  // cf. Phase 7b-A) - un scenario qui traverse plusieurs routes jamais visitees peut
+  // legitimement depasser 30s au total sans qu'il s'agisse d'une regression.
+  timeout: 60000,
   reporter: 'html',
   use: {
-    baseURL: 'http://127.0.0.1:8000',
+    // "localhost", pas "127.0.0.1" : bec-backend/.env fixe JWT_COOKIE_DOMAIN=localhost
+    // (choix backend delibere, hors perimetre de cette phase) - un cookie pose pour le
+    // domaine "localhost" n'est jamais envoye a "127.0.0.1", meme si les deux resolvent
+    // vers la meme boucle locale (constate : /api/me repond 403 juste apres un login 200
+    // reussi lorsqu'on accede au pont nginx via 127.0.0.1).
+    baseURL: 'http://localhost:8000',
     trace: 'on-first-retry',
   },
   projects: [
