@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { settingsApi } from '@/lib/api/settings';
+import { createAsyncAction } from './createAsyncAction';
 import type { UserSettings, UpdateSettingsInput, ExportedUserData } from '@/types';
 
 interface SettingsState {
   settings: UserSettings | null;
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchSettings: () => Promise<void>;
   updateSettings: (data: UpdateSettingsInput) => Promise<void>;
@@ -21,67 +21,35 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   isLoading: false,
   error: null,
 
-  fetchSettings: async () => {
-
+  fetchSettings: () => {
     if (get().isLoading || get().settings) {
-      // console.log('[SettingsStore] Fetch ignoré (déjà en cours ou données présentes)');
-      return; // Ne rien faire
+      return Promise.resolve();
     }
 
-    set({ isLoading: true, error: null });
-    try {
+    return createAsyncAction(set, async () => {
       const settings = await settingsApi.get();
       set({ settings, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des paramètres', 
-        isLoading: false 
-      });
-    }
+    }, { fallbackError: 'Erreur lors du chargement des paramètres' });
   },
 
-  updateSettings: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateSettings: (data) =>
+    createAsyncAction(set, async () => {
       const settings = await settingsApi.update(data);
       set({ settings, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour des paramètres', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la mise à jour des paramètres', rethrow: true }),
 
-  resetSettings: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  resetSettings: () =>
+    createAsyncAction(set, async () => {
       const settings = await settingsApi.reset();
       set({ settings, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la réinitialisation des paramètres', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la réinitialisation des paramètres', rethrow: true }),
 
-  exportData: async () => {
-    set({ isLoading: true, error: null });
-    try {
+  exportData: () =>
+    createAsyncAction(set, async () => {
       const data = await settingsApi.exportData();
       set({ isLoading: false });
       return data;
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de l\'export des données', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: "Erreur lors de l'export des données", rethrow: true }),
 
   clearError: () => set({ error: null }),
 }));
