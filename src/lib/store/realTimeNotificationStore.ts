@@ -2,6 +2,8 @@
 
 import { create } from 'zustand';
 
+import { logger } from '@/lib/utils/logger';
+
 export interface RealTimeNotificationData {
   id: string;
   title: string;
@@ -26,7 +28,7 @@ export const useRealTimeNotificationStore = create<RealTimeNotificationState>((s
       const exists = state.realTimeNotifications.some((notif) => notif.id === n.id);
       if (exists) return state;
 
-      console.log('[Store] addNotification reçu :', n);
+      logger.log('[Store] addNotification reçu :', n);
 
       // suppression automatique après duration
       if (n.duration && n.duration > 0) {
@@ -48,7 +50,7 @@ export const useRealTimeNotificationStore = create<RealTimeNotificationState>((s
     })),
 
   clear: () => {
-    console.log('[Store] clear() -> purge totale des notifications');
+    logger.log('[Store] clear() -> purge totale des notifications');
     set({ realTimeNotifications: [] });
   },
 }));

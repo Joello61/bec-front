@@ -1,25 +1,27 @@
-import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import type { StableContext } from '@/types/realtime';
+import { useEffect, useMemo } from 'react';
 
 import {
   useAdmin,
   useAuth,
-  useUserAvis,
   useConversations,
-  useUnreadMessages,
   useDemandes,
-  useUserDemandes,
   useFavoris,
   useNotifications,
-  useUnreadNotificationCount,
-  useVoyagePropositions,
   useSignalements,
-  useVoyages,
+  useUnreadMessages,
+  useUnreadNotificationCount,
+  useUserAvis,
+  useUserDemandes,
   useUserVoyages,
+  useVoyagePropositions,
+  useVoyages,
 } from '@/lib/hooks';
-import { useInAppNotification } from './useInAppNotification';
+import { logger } from '@/lib/utils/logger';
+import type { StableContext } from '@/types/realtime';
+
 import { useContacts } from './useContacts';
+import { useInAppNotification } from './useInAppNotification';
 import { useGlobalMercureSubscription } from './useMercureSubscription';
 
 export function useMercureEvents() {
@@ -96,6 +98,6 @@ export function useMercureEvents() {
 
   // Simple log d’état
   useEffect(() => {
-    console.log('[Mercure] Prêt à dispatcher les événements via handlers...');
+    logger.log('[Mercure] Prêt à dispatcher les événements via handlers...');
   }, []);
 }

@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Plus, SlidersHorizontal } from 'lucide-react';
-import { Button, Modal } from '@/components/ui';
-import { VoyageList, VoyageFilters } from '@/components/voyage';
-import { VoyageForm } from '@/components/forms';
-import { useVoyageActions, useAuth, useUserVoyages } from '@/lib/hooks';
+import { useMemo, useState } from 'react';
+
 import { EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
-import type { VoyageFilters as VoyageFiltersType, Voyage } from '@/types';
-import { CreateVoyageFormData } from '@/lib/validations/voyage.schema';
 import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
+import { VoyageForm } from '@/components/forms';
+import { Button, Modal } from '@/components/ui';
+import { VoyageFilters, VoyageList } from '@/components/voyage';
+import { useAuth, useUserVoyages, useVoyageActions } from '@/lib/hooks';
+import { logger } from '@/lib/utils/logger';
+import { CreateVoyageFormData } from '@/lib/validations/voyage.schema';
+import type { Voyage, VoyageFilters as VoyageFiltersType } from '@/types';
 
 export default function VoyagesPageClient() {
   const [filters, setFilters] = useState<VoyageFiltersType>({});
@@ -75,7 +77,7 @@ export default function VoyagesPageClient() {
       toast.success("Voyage créé avec succès !");
     } catch (error) {
       toast.error("Erreur lors de la création du voyage");
-      console.error(error);
+      logger.error(error);
     }
   };
 

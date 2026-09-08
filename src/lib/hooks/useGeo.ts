@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { useAuthStore, useGeoStore } from '@/lib/store';
 import type { City, CityGlobal } from '@/types/geo';
 

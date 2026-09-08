@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect } from 'react';
-import { useFavoriStore } from '@/lib/store';
 import { usePathname } from 'next/navigation';
+import { useCallback, useEffect } from 'react';
+
+import { useFavoriStore } from '@/lib/store';
 
 /**
  * Hook pour gérer tous les favoris

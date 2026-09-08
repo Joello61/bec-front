@@ -1,18 +1,19 @@
+import { logger } from '@/lib/utils/logger';
 import { StableContext } from '@/types/realtime';
 
+import { handleAdminEvents } from './adminHandlers';
+import { handleAvisEvents } from './avisHandlers';
+import { handleContactEvents } from './contactHandlers';
+import { handleDemandeEvents } from './demandeHandlers';
+import { handleFavoriEvents } from './favoriHandlers';
+import { handleMessageEvents } from './messageHandlers';
+import { handleNotificationEvents } from './notificationHandlers';
+import { handlePropositionEvents } from './propositionHandlers';
+import { handleSettingsEvents } from './settingsHandlers';
+import { handleSignalementEvents } from './signalementHandlers';
 // === Import de tous les handlers ===
 import { handleUserEvents } from './userHandlers';
 import { handleVoyageEvents } from './voyageHandlers';
-import { handleDemandeEvents } from './demandeHandlers';
-import { handlePropositionEvents } from './propositionHandlers';
-import { handleMessageEvents } from './messageHandlers';
-import { handleNotificationEvents } from './notificationHandlers';
-import { handleAdminEvents } from './adminHandlers';
-import { handleSignalementEvents } from './signalementHandlers';
-import { handleAvisEvents } from './avisHandlers';
-import { handleContactEvents } from './contactHandlers';
-import { handleFavoriEvents } from './favoriHandlers';
-import { handleSettingsEvents } from './settingsHandlers';
 
 /**
  * Routeur global des événements Mercure -> Handler approprié
@@ -59,10 +60,10 @@ export function dispatchMercureEvent(eventType: string, data: any, stable: Stabl
         return handleSettingsEvents(eventType, data, stable);
 
       default:
-        console.warn(`[Mercure] Aucun handler trouvé pour "${eventType}"`, data);
+        logger.warn(`[Mercure] Aucun handler trouvé pour "${eventType}"`, data);
         break;
     }
   } catch (err) {
-    console.error(`[Mercure] Erreur dans le handler pour "${eventType}":`, err);
+    logger.error(`[Mercure] Erreur dans le handler pour "${eventType}":`, err);
   }
 }

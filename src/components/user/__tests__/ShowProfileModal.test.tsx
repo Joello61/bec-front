@@ -1,7 +1,9 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ShowProfileModal from '../ShowProfileModal';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
+
+import ShowProfileModal from '../ShowProfileModal';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

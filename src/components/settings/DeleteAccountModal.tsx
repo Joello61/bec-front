@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { AlertTriangle, Eye, EyeOff, X } from 'lucide-react';
-import { Modal, Input, Button } from '@/components/ui';
-import { useAuth } from '@/lib/hooks';
+import { useState } from 'react';
+
 import { useToast } from '@/components/common';
+import { Button, Input, Modal } from '@/components/ui';
+import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 
 interface DeleteAccountModalProps {

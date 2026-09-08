@@ -1,6 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createAsyncAction, type AsyncActionState } from '../createAsyncAction';
+
 import type { ApiError } from '@/types';
+
+import { type AsyncActionState, createAsyncAction } from '../createAsyncAction';
 
 interface TestState extends AsyncActionState {
   isLoading: boolean;

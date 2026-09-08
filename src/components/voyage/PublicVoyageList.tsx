@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { Plane } from 'lucide-react';
+
 import type { PaginationMeta, PublicVoyage } from '@/types';
+
 import { Pagination } from '../common';
 import PublicVoyageCard from './PublicVoyageCard';
 

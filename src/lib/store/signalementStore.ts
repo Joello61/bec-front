@@ -1,12 +1,15 @@
 import { create } from 'zustand';
+
 import { signalementsApi } from '@/lib/api/signalement';
-import { createAsyncAction } from './createAsyncAction';
+import { logger } from '@/lib/utils/logger';
 import type {
-  Signalement,
   CreateSignalementInput,
-  TraiterSignalementInput,
   PaginationMeta,
+  Signalement,
+  TraiterSignalementInput,
 } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface SignalementState {
   signalements: Signalement[];
@@ -80,7 +83,7 @@ export const useSignalementStore = create<SignalementState>((set) => ({
       const pendingCount = await signalementsApi.getPendingCount();
       set({ pendingCount });
     } catch (error) {
-      console.error('Erreur compteur signalements:', error);
+      logger.error('Erreur compteur signalements:', error);
     }
   },
 

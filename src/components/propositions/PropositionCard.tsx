@@ -1,8 +1,9 @@
 'use client';
 
 import type { Proposition } from '@/types';
-import PropositionCardMobile from './PropositionCardMobile';
+
 import PropositionCardDesktop from './PropositionCardDesktop';
+import PropositionCardMobile from './PropositionCardMobile';
 
 interface PropositionCardProps {
   proposition: Proposition;

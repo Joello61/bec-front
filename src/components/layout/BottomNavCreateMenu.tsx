@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Plane, Package, Handshake } from 'lucide-react';
+import { Handshake, Package, Plane, X } from 'lucide-react';
 
 interface BottomNavCreateMenuProps {
   isOpen: boolean;

@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, RefreshCw, ArrowRight } from 'lucide-react';
+import { ArrowRight, Mail, RefreshCw } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+
+import { useToast } from '@/components/common';
 import { Button } from '@/components/ui';
 import { useAuth } from '@/lib/hooks';
-import { useToast } from '@/components/common';
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function VerifyEmailPageClient() {

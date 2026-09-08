@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import type { Route } from 'next';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 interface ModerationSectionCardProps {

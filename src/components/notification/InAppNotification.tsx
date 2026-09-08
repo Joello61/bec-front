@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Bell, X } from 'lucide-react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+
+import { logger } from '@/lib/utils/logger';
 
 interface InAppNotificationProps {
   id: string;
@@ -23,7 +25,7 @@ export function InAppNotification({
   onClose,
 }: InAppNotificationProps) {
   useEffect(() => {
-    console.log('[Notif] affichée ->', id);
+    logger.log('[Notif] affichée ->', id);
 
     if (duration > 0) {
       const timer = setTimeout(() => {

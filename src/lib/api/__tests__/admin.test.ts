@@ -4,8 +4,8 @@ vi.mock('../client', () => ({
   default: { post: vi.fn().mockResolvedValue({ data: undefined }) },
 }));
 
-import apiClient from '../client';
 import { adminApi } from '../admin';
+import apiClient from '../client';
 
 describe('adminApi.banUser - contrat (mutation sensible, admin uniquement)', () => {
   it('envoie le bannissement vers POST /admin/users/{id}/ban avec le payload fourni', async () => {

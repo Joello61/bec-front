@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import UpdateRolesModal from '../UpdateRolesModal';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
+
+import UpdateRolesModal from '../UpdateRolesModal';
 
 const mockUpdateUserRoles = vi.fn();
 vi.mock('@/lib/hooks', () => ({

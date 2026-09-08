@@ -1,11 +1,14 @@
 import { create } from 'zustand';
+
 import { propositionsApi } from '@/lib/api/propositions';
-import { createAsyncAction } from './createAsyncAction';
+import { logger } from '@/lib/utils/logger';
 import type {
-  Proposition,
   CreatePropositionInput,
+  Proposition,
   RespondPropositionInput
 } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface PropositionState {
   currentProposition: Proposition | null;
@@ -112,7 +115,7 @@ export const usePropositionStore = create<PropositionState>((set) => ({
       const count = await propositionsApi.getMyPendingCount();
       set({ pendingCount: count });
     } catch (error) {
-      console.error('Erreur lors du comptage des propositions:', error);
+      logger.error('Erreur lors du comptage des propositions:', error);
     }
   },
 

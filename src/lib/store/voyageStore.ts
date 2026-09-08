@@ -1,16 +1,17 @@
 import { create } from 'zustand';
+
 import { voyagesApi } from '@/lib/api/voyages';
-import { createAsyncAction } from './createAsyncAction';
 import type {
-  Voyage,
   CreateVoyageInput,
-  UpdateVoyageInput,
-  VoyageFilters,
-  VoyageStatut,
   PaginationMeta,
-  PublicVoyage
-} from '@/types';
+  PublicVoyage,
+  UpdateVoyageInput,
+  Voyage,
+  VoyageFilters,
+  VoyageStatut} from '@/types';
+
 import { VOYAGE_STATUTS } from '../utils/constants';
+import { createAsyncAction } from './createAsyncAction';
 
 interface VoyageState {
   voyages: Voyage[];

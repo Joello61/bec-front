@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Filter, RefreshCw, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronDown, ChevronUp, Filter, RefreshCw, X } from 'lucide-react';
+import { useCallback, useMemo, useState } from 'react';
+
 import { Button } from '@/components/ui';
-import { useTopCitiesGlobal, useCitySearchGlobal } from '@/lib/hooks/useGeo';
-import type { DemandeFilters as DemandeFiltersType } from '@/types';
 import type { SelectOption } from '@/components/ui/select';
+import { useCitySearchGlobal, useTopCitiesGlobal } from '@/lib/hooks/useGeo';
+import type { DemandeFilters as DemandeFiltersType } from '@/types';
+
 import DemandeFilterFields from './DemandeFilterFields';
 
 interface DemandeFiltersProps {

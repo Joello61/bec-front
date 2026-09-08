@@ -1,14 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Eye, ShieldCheck, ShieldAlert, Mail, Phone } from 'lucide-react';
+import { Eye, Mail, Phone, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 import { Pagination } from '@/components/common';
 import { Badge } from '@/components/ui';
 import { cn } from '@/lib/utils/cn';
-import type { User, PaginationMeta } from '@/types';
 import { ROUTES } from '@/lib/utils/constants';
+import type { PaginationMeta, User } from '@/types';
 
 interface UsersTableProps {
   users: User[];

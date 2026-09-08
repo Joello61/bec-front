@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import type { ConversationDetail, Message, User } from '@/types';
+
 import ConversationPageClient from '../conversation-client';
-import type { User, ConversationDetail, Message } from '@/types';
 
 vi.mock('next/navigation', () => ({
   useParams: () => ({ id: '5' }),

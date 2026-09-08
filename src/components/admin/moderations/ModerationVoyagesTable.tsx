@@ -2,11 +2,12 @@
 
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { Trash2, Eye, ArrowRight } from 'lucide-react';
+import { ArrowRight, Eye, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 import { Pagination } from '@/components/common';
 import { Badge } from '@/components/ui';
-import { useRouter } from 'next/navigation';
-import type { Voyage, PaginationMeta } from '@/types';
+import type { PaginationMeta, Voyage } from '@/types';
 
 interface ModerationVoyagesTableProps {
   voyages: Voyage[];

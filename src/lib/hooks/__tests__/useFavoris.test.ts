@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const storeState = {
   favoris: [],
@@ -21,7 +21,7 @@ vi.mock('next/navigation', () => ({
   usePathname: () => mockPathname,
 }));
 
-import { useFavoris, useFavorisVoyages, useFavorisDemandes } from '../useFavoris';
+import { useFavoris, useFavorisDemandes, useFavorisVoyages } from '../useFavoris';
 
 describe('useFavoris - fetch inconditionnel au montage', () => {
   it('declenche fetchFavoris au montage quelle que soit la page', () => {

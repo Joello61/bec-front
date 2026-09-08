@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
+
 import {
-  updateSettingsSchema,
   notificationSettingsSchema,
-  privacySettingsSchema,
   preferencesSettingsSchema,
+  privacySettingsSchema,
   rgpdSettingsSchema,
   securitySettingsSchema,
+  updateSettingsSchema,
 } from '../settings.schema';
 
 describe('updateSettingsSchema', () => {

@@ -1,25 +1,27 @@
 import { create } from 'zustand';
+
 import { adminApi } from '@/lib/api/admin';
-import { createAsyncAction } from './createAsyncAction';
 import type {
-  AdminDashboardData,
-  AdminVoyagesStats,
-  AdminDemandesStats,
-  AdminSignalementsStats,
   AdminActivityStats,
+  AdminDashboardData,
+  AdminDemandesStats,
   AdminEngagementStats,
-  User,
-  AdminUserActivity,
   AdminLog,
   AdminLogFilters,
   AdminLogStats,
-  BanUserInput,
-  UpdateUserRolesInput,
-  DeleteContentInput,
+  AdminSignalementsStats,
+  AdminUserActivity,
   AdminUserFilters,
-  PaginationMeta,
   AdminUsersDetailedStats,
+  AdminVoyagesStats,
+  BanUserInput,
+  DeleteContentInput,
+  PaginationMeta,
+  UpdateUserRolesInput,
+  User,
 } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface AdminState {
   // Dashboard & Stats

@@ -1,6 +1,7 @@
+import type { Contact, CreateContactInput } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Contact, CreateContactInput } from '@/types';
 
 interface CreateContactResponse {
   message: string;

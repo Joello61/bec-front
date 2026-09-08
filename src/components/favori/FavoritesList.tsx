@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import VoyageCard from '@/components/voyage/VoyageCard';
+import { useState } from 'react';
+
 import DemandeCard from '@/components/demande/DemandeCard';
+import VoyageCard from '@/components/voyage/VoyageCard';
 import { cn } from '@/lib/utils/cn';
 import type { Favori } from '@/types';
 

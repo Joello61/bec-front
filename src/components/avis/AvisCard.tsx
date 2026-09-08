@@ -1,13 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { Avatar, Card, CardContent } from '@/components/ui';
-import StarRating from './StarRating';
-import { formatDateRelative } from '@/lib/utils/format';
-import { ROUTES } from '@/lib/utils/constants';
-import type { Avis } from '@/types';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+
+import { Avatar, Card, CardContent } from '@/components/ui';
+import { ROUTES } from '@/lib/utils/constants';
+import { formatDateRelative } from '@/lib/utils/format';
+import type { Avis } from '@/types';
+
+import StarRating from './StarRating';
 
 interface AvisCardProps {
   avis: Avis;

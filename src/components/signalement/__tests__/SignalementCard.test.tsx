@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import type { Demande, Message, Signalement, User, Voyage } from '@/types';
+
 import SignalementCard from '../SignalementCard';
-import type { Signalement, User, Voyage, Demande, Message } from '@/types';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

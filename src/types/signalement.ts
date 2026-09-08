@@ -1,7 +1,7 @@
-import type { User } from './user';
-import type { Voyage } from './voyage';
 import type { Demande } from './demande';
 import { Message } from './message';
+import type { User } from './user';
+import type { Voyage } from './voyage';
 
 export type SignalementMotif = 
   | 'contenu_inapproprie' 

@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { usersApi } from '@/lib/api/users';
+import type { PaginationMeta, UpdateUserInput, User } from '@/types';
+
 import { createAsyncAction } from './createAsyncAction';
-import type { User, UpdateUserInput, PaginationMeta } from '@/types';
 
 interface UserState {
   users: User[];

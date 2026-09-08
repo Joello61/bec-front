@@ -1,6 +1,8 @@
-import { EventType } from '@/lib/utils/eventType';
 import { displayNotification } from '@/lib/utils/displayNotification';
+import { EventType } from '@/lib/utils/eventType';
+import { logger } from '@/lib/utils/logger';
 import type { StableContext } from '@/types/realtime';
+
 import { ROUTES } from '../utils/constants';
 
 /**
@@ -12,7 +14,7 @@ export const handleVoyageEvents = (eventType: string, data: any, stable: StableC
 
     case EventType.VOYAGE_CREATED:
       if (data.createdBy === stable.userId) return;
-      console.log('Nouveau voyage créé:', data.voyageId);
+      logger.log('Nouveau voyage créé:', data.voyageId);
       stable.refetchVoyages?.();
       if (stable.isAdmin) stable.refetchAdminStats?.();
       displayNotification(

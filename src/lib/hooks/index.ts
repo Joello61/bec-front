@@ -7,69 +7,54 @@ export { useAuth, useRequireAuth } from './useAuth';
 
 // Voyage hooks
 export { 
-  useVoyages, 
+  useMatchingDemandes,
+  useUserVoyages,
   useVoyage, 
   useVoyageActions, 
-  useUserVoyages,
-  useMatchingDemandes
-} from './useVoyages';
+  useVoyages} from './useVoyages';
 
 // Demande hooks
-export { 
-  useDemandes, 
-  useDemande, 
-  useDemandeActions, 
-  useUserDemandes,
-  useMatchingVoyages
-} from './useDemandes';
-
 export {
   useConversation,
+  useConversations,
   useConversationWithUser,
-  useUnreadMessages,
-  useConversations
-} from './useConversations'
+  useUnreadMessages} from './useConversations'
+export { 
+  useDemande, 
+  useDemandeActions, 
+  useDemandes, 
+  useMatchingVoyages,
+  useUserDemandes} from './useDemandes';
 
 // Notification hooks
 export { 
   useNotifications, 
-  useUnreadNotifications, 
-  useUnreadNotificationCount 
-} from './useNotifications';
+  useUnreadNotificationCount, 
+  useUnreadNotifications} from './useNotifications';
 
 // User hooks
 export { 
-  useUser, 
   useSearchUsers, 
-  useUpdateProfile 
-} from './useUsers';
+  useUpdateProfile, 
+  useUser} from './useUsers';
 
 // Favori hooks
 export { 
+  useFavoriActions, 
   useFavoris, 
-  useFavorisVoyages, 
   useFavorisDemandes, 
-  useFavoriActions 
-} from './useFavoris';
+  useFavorisVoyages} from './useFavoris';
 
 // Avis hooks
 export { 
-  useUserAvis, 
-  useAvisActions 
-} from './useAvis';
+  useAvisActions, 
+  useUserAvis} from './useAvis';
 
 // Signalement hooks
-export { 
-  useSignalements, 
-  useSignalementActions, 
-  usePendingSignalements 
-} from './useSignalement';
-
-export {
-  useSettings,
-  useSettingsActions
-} from './useSettings'
-
+export { useAddress, useAddressModificationInfo, useCanModifyAddress } from './useAddress';
+export * from './useAdmin';
+export * from './useCurrency'; // <- AJOUT
+export * from './useCurrencyFormat'; // <- AJOUT
 export {
   useAcceptedPropositions,
   useMyPropositionsReceived,
@@ -78,9 +63,11 @@ export {
   usePropositionActions,
   useVoyagePropositions
 } from './usePropositions'
-
-export { useAddress, useAddressModificationInfo, useCanModifyAddress } from './useAddress';
-
-export * from './useAdmin';
-export * from './useCurrency'; // <- AJOUT
-export * from './useCurrencyFormat'; // <- AJOUT
+export {
+  useSettings,
+  useSettingsActions
+} from './useSettings'
+export { 
+  usePendingSignalements, 
+  useSignalementActions, 
+  useSignalements} from './useSignalement';

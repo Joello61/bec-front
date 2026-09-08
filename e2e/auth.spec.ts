@@ -1,6 +1,6 @@
-import { test, expect } from './support/fixtures';
+import { expect, test } from './support/fixtures';
 import { makeTestUser } from './support/fixtures';
-import { labelExact, gotoAndWaitReady, waitPageReady } from './support/helpers';
+import { gotoAndWaitReady, labelExact, waitPageReady } from './support/helpers';
 
 /**
  * Parcours critique : inscription -> connexion -> deconnexion, entierement pilote

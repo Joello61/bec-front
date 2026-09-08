@@ -1,8 +1,10 @@
 'use client';
 
-import { User } from '@/types';
-import { Modal, Avatar } from '../ui';
 import { Check } from 'lucide-react';
+
+import { User } from '@/types';
+
+import { Avatar, Modal } from '../ui';
 
 export interface ShowProfileModalProps {
   isOpen: boolean;

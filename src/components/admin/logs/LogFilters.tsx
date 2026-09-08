@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { Filter, X } from 'lucide-react';
-import type { AdminLogFilters } from '@/types';
+import { useState } from 'react';
+
 import { Select } from '@/components/ui';
+import type { AdminLogFilters } from '@/types';
 
 interface LogFiltersProps {
   filters: AdminLogFilters;

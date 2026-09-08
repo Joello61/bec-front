@@ -1,20 +1,21 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
-  LayoutDashboard,
-  Users,
-  Shield,
-  FileText,
-  BarChart3,
   ArrowLeft,
+  BarChart3,
   ChevronRight,
+  FileText,
+  LayoutDashboard,
+  Shield,
+  Users,
 } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import { useAuth } from '@/lib/hooks';
-import { ROUTES } from '@/lib/utils/constants';
 import { cn } from '@/lib/utils/cn';
+import { ROUTES } from '@/lib/utils/constants';
 
 export default function AdminSidebar() {
   const pathname = usePathname();

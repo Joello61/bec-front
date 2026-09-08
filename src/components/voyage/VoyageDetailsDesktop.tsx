@@ -1,24 +1,26 @@
 import {
-  Package,
-  MessageCircle,
   AlertCircle,
-  Flag,
-  Star,
-  DollarSign,
-  MapPin,
-  Phone,
-  Mail,
   Clock,
+  DollarSign,
+  Flag,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Package,
+  Phone,
   Plane,
   Shield,
+  Star,
 } from 'lucide-react';
-import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
-import VoyageStatusBadge from './VoyageStatusBadge';
+
+import { Avatar, Button, Card, CardContent, CardHeader } from '@/components/ui';
 import { formatDate, formatWeight } from '@/lib/utils/format';
 import type { Voyage } from '@/types';
 import type { User } from '@/types';
-import { FavoriteButton } from '../favori';
+
 import { CurrencyDisplay } from '../common';
+import { FavoriteButton } from '../favori';
+import VoyageStatusBadge from './VoyageStatusBadge';
 
 interface VoyageDetailsDesktopProps {
   voyage: Voyage;

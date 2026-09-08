@@ -1,13 +1,14 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AlertTriangle, X } from 'lucide-react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useToast } from '@/components/common';
 import { Modal, Select } from '@/components/ui';
 import { useAdmin } from '@/lib/hooks';
-import { deleteContentSchema, type DeleteContentFormData } from '@/lib/validations/admin.schema';
-import { useToast } from '@/components/common';
-import { X, AlertTriangle } from 'lucide-react';
+import { type DeleteContentFormData, deleteContentSchema } from '@/lib/validations/admin.schema';
 
 interface DeleteContentModalProps {
   contentType: 'voyage' | 'demande' | 'avis' | 'message';

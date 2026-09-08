@@ -1,4 +1,5 @@
 import { AppNotification } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
 

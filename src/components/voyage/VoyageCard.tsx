@@ -1,16 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ROUTES } from '@/lib/utils/constants';
-import { useFavoriActions } from '@/lib/hooks/useFavoris';
-import { useAuth } from '@/lib/hooks/useAuth';
-import type { Voyage } from '@/types';
-import { usePathname } from 'next/navigation';
 import { Route } from 'next';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+
+import { useAuth } from '@/lib/hooks/useAuth';
+import { useFavoriActions } from '@/lib/hooks/useFavoris';
+import { ROUTES } from '@/lib/utils/constants';
+import type { Voyage } from '@/types';
+
 import ShowProfileModal from '../user/ShowProfileModal';
-import VoyageCardMobile from './VoyageCardMobile';
 import VoyageCardDesktop from './VoyageCardDesktop';
+import VoyageCardMobile from './VoyageCardMobile';
 
 interface VoyageCardProps {
   voyage: Voyage;

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import RechercherPageClient from "../../../../components/clients/dashboard/explore-client";
 
 export const metadata: Metadata = {

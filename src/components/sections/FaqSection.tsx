@@ -1,8 +1,8 @@
 'use client';
 
+import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { HelpCircle, Mail, Minus, Plus } from 'lucide-react';
 import Link from 'next/link';
-import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { Mail, Plus, Minus, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 
 const fadeIn: Variants = {

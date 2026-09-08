@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
-import { DollarSign, Shield, Users, Zap, ArrowRight, Info } from 'lucide-react';
+import { ArrowRight, DollarSign, Info, Shield, Users, Zap } from 'lucide-react';
+import Link from 'next/link';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },

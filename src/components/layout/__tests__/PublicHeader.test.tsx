@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import PublicHeader from '../PublicHeader';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { ROUTES } from '@/lib/utils/constants';
+
+import PublicHeader from '../PublicHeader';
 
 const mockUsePathname = vi.fn();
 vi.mock('next/navigation', () => ({

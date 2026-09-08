@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
+
+import type { Demande, Favori, User, Voyage } from '@/types';
+
 import FavoritesList from '../FavoritesList';
-import type { Favori, User, Voyage, Demande } from '@/types';
 
 vi.mock('@/components/voyage/VoyageCard', () => ({
   default: ({ voyage }: { voyage: Voyage }) => <div>VoyageCard {voyage.villeDepart}</div>,

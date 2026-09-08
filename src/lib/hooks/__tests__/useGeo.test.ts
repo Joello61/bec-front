@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { renderHook, waitFor, act } from '@testing-library/react';
+import { act, renderHook, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const geoState = {
   countries: [] as { nom: string }[],
@@ -29,7 +29,7 @@ vi.mock('@/lib/store', () => ({
   useAuthStore: useAuthStoreMock,
 }));
 
-import { useCountries, useCities, useCitySearch, useTopCitiesGlobal, useCitySearchGlobal, useUserContinent } from '../useGeo';
+import { useCities, useCitySearch, useCitySearchGlobal, useCountries, useTopCitiesGlobal, useUserContinent } from '../useGeo';
 
 describe('useCountries - fetch unique, pas de refetch si deja en cache', () => {
   beforeEach(() => {

@@ -1,14 +1,15 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { Eye, EyeOff, Lock, LogIn, Mail } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, LogIn, Mail, Lock } from 'lucide-react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+
 import { Button, Input } from '@/components/ui';
-import { loginSchema, type LoginFormData } from '@/lib/validations';
 import { ROUTES } from '@/lib/utils/constants';
+import { type LoginFormData, loginSchema } from '@/lib/validations';
 
 interface LoginFormProps {
   onSubmit: (data: LoginFormData) => Promise<void>;

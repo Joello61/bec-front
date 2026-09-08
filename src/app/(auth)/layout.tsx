@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import AuthLayoutContent from '../../components/layout/AuthLayoutContent';
 
 // Metadata pour toutes les pages d'authentification

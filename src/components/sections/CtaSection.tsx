@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { ArrowRight, Plane } from 'lucide-react';
+import Link from 'next/link';
+
 import { ROUTES } from '@/lib/utils/constants';
 
 const fadeIn: Variants = {

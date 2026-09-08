@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Plane, Package, Heart, User, Settings, LogOut } from 'lucide-react';
+import { Heart, LogOut, Package, Plane, Settings, User, X } from 'lucide-react';
+
 import { cn } from '@/lib/utils/cn';
 import type { User as UserType } from '@/types';
 

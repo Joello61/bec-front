@@ -1,21 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft, Inbox } from 'lucide-react';
 import Link from 'next/link';
-import { Modal } from '@/components/ui';
-import { VoyageDetails } from '@/components/voyage';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { ConfirmDialog, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { VoyageForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
-import { ConfirmDialog, ErrorState, LoadingSpinner, useToast } from '@/components/common';
+import { Modal } from '@/components/ui';
+import { VoyageDetails } from '@/components/voyage';
 import { 
+  useAuth, 
+  usePropositionActions, 
   useVoyage, 
   useVoyageActions, 
-  useAuth, 
-  useVoyagePropositions,
-  usePropositionActions 
-} from '@/lib/hooks';
+  useVoyagePropositions} from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import { UpdateVoyageFormData } from '@/lib/validations';
 

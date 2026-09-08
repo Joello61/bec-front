@@ -1,11 +1,12 @@
 'use client';
 
-import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { DemandeDetails } from '@/components/demande';
-import { useDemande, useAuth, useConversationWithUser } from '@/lib/hooks';
+import { useParams, useRouter } from 'next/navigation';
+
 import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
+import { DemandeDetails } from '@/components/demande';
+import { useAuth, useConversationWithUser, useDemande } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function DemandeDetailsPageClient() {

@@ -1,11 +1,12 @@
 'use client';
 
+import { AlertTriangle, X } from 'lucide-react';
 import { useState } from 'react';
+
+import { useToast } from '@/components/common';
 import { Modal } from '@/components/ui';
 import { useAdmin } from '@/lib/hooks';
-import { useToast } from '@/components/common';
 import type { User } from '@/types';
-import { X, AlertTriangle } from 'lucide-react';
 
 interface DeleteUserModalProps {
   user: User;

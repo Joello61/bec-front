@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Plane, Package, Bell, MessageCircle } from 'lucide-react';
+import { Bell, MessageCircle, Package, Plane } from 'lucide-react';
+
 import { Card, CardContent } from '@/components/ui';
 import type { DashboardSummary } from '@/types';
 

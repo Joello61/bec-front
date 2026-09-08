@@ -1,14 +1,15 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { useVoyages } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
-import { Search, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/lib/utils/constants';
-import type { Voyage, VoyageStatut, VoyageFilters } from '@/types';
-import { ModerationVoyagesTable, DeleteContentModal } from '@/components/admin';
+import { useMemo, useState } from 'react';
+
+import { DeleteContentModal, ModerationVoyagesTable } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
 import { Select } from '@/components/ui';
+import { useVoyages } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
+import type { Voyage, VoyageFilters, VoyageStatut } from '@/types';
 
 export default function AdminModerationVoyagesPageClient() {
   const [page, setPage] = useState(1);

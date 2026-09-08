@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { motion, Variants } from 'framer-motion';
+import { AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, Variants } from 'framer-motion';
-import { CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
-import { authApi } from '@/lib/api/auth';
-import type { ResetPasswordFormData } from '@/lib/validations';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+
 import { useToast } from '@/components/common';
-import { ROUTES } from '@/lib/utils/constants';
-import { Button } from '@/components/ui';
 import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
+import { Button } from '@/components/ui';
+import { authApi } from '@/lib/api/auth';
+import { ROUTES } from '@/lib/utils/constants';
+import type { ResetPasswordFormData } from '@/lib/validations';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },

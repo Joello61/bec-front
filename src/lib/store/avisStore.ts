@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { avisApi } from '@/lib/api/avis';
+import type { Avis, AvisWithStats, CreateAvisInput } from '@/types';
+
 import { createAsyncAction } from './createAsyncAction';
-import type { Avis, CreateAvisInput, AvisWithStats } from '@/types';
 
 interface AvisState {
   avisWithStats: AvisWithStats | null;

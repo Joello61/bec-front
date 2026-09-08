@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Shield } from 'lucide-react';
+import Link from 'next/link';
+
 import { ROUTES } from '@/lib/utils/constants';
 
 export default function AuthFooter() {

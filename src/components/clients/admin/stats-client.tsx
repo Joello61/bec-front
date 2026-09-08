@@ -1,9 +1,10 @@
 'use client';
 
+import { Flag, Package, Plane, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useAdmin } from '@/lib/hooks';
+
 import { LoadingSpinner } from '@/components/common';
-import { Users, Plane, Package, Flag } from 'lucide-react';
+import { useAdmin } from '@/lib/hooks';
 import { cn } from '@/lib/utils/cn';
 
 type StatType = 'users' | 'voyages' | 'demandes' | 'signalements';

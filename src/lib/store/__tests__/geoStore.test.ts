@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError } from '@/types';
 import type { Country } from '@/types/geo';
 
@@ -10,6 +11,7 @@ vi.mock('@/lib/api/geo', () => ({
 }));
 
 import { geoApi } from '@/lib/api/geo';
+
 import { useGeoStore } from '../geoStore';
 
 const initialState = useGeoStore.getState();

@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { settingsApi } from '@/lib/api/settings';
+import type { ExportedUserData, UpdateSettingsInput, UserSettings } from '@/types';
+
 import { createAsyncAction } from './createAsyncAction';
-import type { UserSettings, UpdateSettingsInput, ExportedUserData } from '@/types';
 
 interface SettingsState {
   settings: UserSettings | null;

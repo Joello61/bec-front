@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, Signalement } from '@/types';
 
 vi.mock('@/lib/api/signalement', () => ({
@@ -9,6 +10,7 @@ vi.mock('@/lib/api/signalement', () => ({
 }));
 
 import { signalementsApi } from '@/lib/api/signalement';
+
 import { useSignalementStore } from '../signalementStore';
 
 const initialState = useSignalementStore.getState();

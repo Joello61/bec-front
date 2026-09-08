@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MessageBubble from '../MessageBubble';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { Message, User } from '@/types';
+
+import MessageBubble from '../MessageBubble';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

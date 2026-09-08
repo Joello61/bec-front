@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { currenciesApi } from '@/lib/api/currencies';
+import type { ConversionInfo, Currency } from '@/types';
+
 import { createAsyncAction } from './createAsyncAction';
-import type { Currency, ConversionInfo } from '@/types';
 
 interface CurrencyState {
   currencies: Currency[];

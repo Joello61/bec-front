@@ -1,16 +1,17 @@
 'use client';
 
+import { Bell, Eye, Globe, Lock, Shield } from 'lucide-react';
 import { useState } from 'react';
-import { Bell, Lock, Globe, Shield, Eye } from 'lucide-react';
+
+import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import {
   NotificationSettingsForm,
-  PrivacySettingsForm,
   PreferencesSettingsForm,
+  PrivacySettingsForm,
   RgpdSettingsForm,
   SecuritySettingsForm,
 } from '@/components/settings';
 import { useSettings, useSettingsActions } from '@/lib/hooks';
-import { LoadingSpinner, ErrorState, useToast } from '@/components/common';
 import type { UserSettings } from '@/types';
 
 type TabKey = 'notifications' | 'privacy' | 'preferences' | 'rgpd' | 'security';

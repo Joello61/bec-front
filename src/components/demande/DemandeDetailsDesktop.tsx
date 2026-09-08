@@ -1,25 +1,27 @@
 import {
-  Package,
-  MessageCircle,
   AlertCircle,
-  Clock,
-  Flag,
-  DollarSign,
-  MapPin,
-  Phone,
-  Mail,
-  ArrowRight,
-  Shield,
   AlertTriangle,
+  ArrowRight,
   Calendar,
+  Clock,
+  DollarSign,
+  Flag,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Package,
+  Phone,
+  Shield,
 } from 'lucide-react';
-import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
-import DemandeStatusBadge from './DemandeStatusBadge';
+
+import { Avatar, Button, Card, CardContent, CardHeader } from '@/components/ui';
 import { formatDate, formatWeight } from '@/lib/utils/format';
 import type { Demande } from '@/types';
 import type { User } from '@/types';
-import { FavoriteButton } from '../favori';
+
 import { CurrencyDisplay } from '../common';
+import { FavoriteButton } from '../favori';
+import DemandeStatusBadge from './DemandeStatusBadge';
 
 interface DemandeDetailsDesktopProps {
   demande: Demande;

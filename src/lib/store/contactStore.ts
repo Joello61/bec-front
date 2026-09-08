@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { contactsApi } from '@/lib/api/contacts';
-import { createAsyncAction } from './createAsyncAction';
 import type { Contact, CreateContactInput } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface ContactState {
   contacts: Contact[];

@@ -1,15 +1,17 @@
 import { create } from 'zustand';
+
 import { authApi } from '@/lib/api/auth';
 import { usersApi } from '@/lib/api/users';
-import { createAsyncAction } from './createAsyncAction';
+import { logger } from '@/lib/utils/logger';
 import type {
-  User,
-  LoginInput,
-  RegisterInput,
   CompleteProfileInput,
   CompleteProfileResponse,
-  RegisterResponse
-} from '@/types';
+  LoginInput,
+  RegisterInput,
+  RegisterResponse,
+  User} from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface AuthState {
   user: User | null;
@@ -170,7 +172,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const status = await authApi.getProfileStatus();
       return status.isComplete;
     } catch (error) {
-      console.error('Erreur vérification profil:', error);
+      logger.error('Erreur vérification profil:', error);
       return false;
     }
   },

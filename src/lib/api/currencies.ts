@@ -1,14 +1,15 @@
-import apiClient from './client';
-import { endpoints } from './endpoints';
 import type {
-  Currency,
-  CurrenciesListResponse,
-  CurrencyResponse,
   ConvertResponse,
+  CurrenciesListResponse,
+  Currency,
+  CurrencyResponse,
+  DefaultCurrencyResponse,
   DetectCurrencyResponse,
   FormatResponse,
-  DefaultCurrencyResponse,
 } from '@/types';
+
+import apiClient from './client';
+import { endpoints } from './endpoints';
 
 export const currenciesApi = {
   /**

@@ -1,15 +1,15 @@
+import type { 
+  CreateVoyageInput, 
+  DemandeWithScore,
+  PaginatedResponse,
+  PublicVoyage,
+  UpdateVoyageInput, 
+  Voyage, 
+  VoyageFilters,
+  VoyageStatut} from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { 
-  Voyage, 
-  CreateVoyageInput, 
-  UpdateVoyageInput, 
-  VoyageFilters,
-  VoyageStatut,
-  PaginatedResponse,
-  DemandeWithScore,
-  PublicVoyage
-} from '@/types';
 
 export const voyagesApi = {
   async list(page = 1, limit = 10, filters?: VoyageFilters): Promise<PaginatedResponse<Voyage>> {

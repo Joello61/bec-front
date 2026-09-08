@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { usersApi } from '@/lib/api/users';
 import type { DashboardData } from '@/types';
 

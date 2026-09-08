@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import AvisStats from '../AvisStats';
+import { describe, expect, it } from 'vitest';
+
 import type { AvisStats as AvisStatsType } from '@/types';
+
+import AvisStats from '../AvisStats';
 
 function makeStats(overrides: Partial<AvisStatsType> = {}): AvisStatsType {
   return {

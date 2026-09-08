@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useAdmin } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
 import { ArrowLeft } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { BanUserModal, DeleteUserModal, UpdateRolesModal, UserDetailsCard } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
+import { useAdmin } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
-import { UserDetailsCard, BanUserModal, UpdateRolesModal, DeleteUserModal } from '@/components/admin';
 
 export default function AdminUserDetailsPageClient() {
   const params = useParams();

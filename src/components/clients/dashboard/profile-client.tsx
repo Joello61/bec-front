@@ -1,19 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Edit2, ChevronRight } from 'lucide-react';
-import { useAddress, useAuth } from '@/lib/hooks';
-import { usersApi } from '@/lib/api/users';
+import { ChevronRight, Edit2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { ProfileForm } from '@/components/forms';
+import { Button, Card } from '@/components/ui';
 import AddressCard from '@/components/user/AddressCard';
 import ProfileInfoCard from '@/components/user/ProfileInfoCard';
+import ProfileMemberSinceCard from '@/components/user/ProfileMemberSinceCard';
 import ProfileStatsCard from '@/components/user/ProfileStatsCard';
 import ProfileVerificationsCard from '@/components/user/ProfileVerificationsCard';
-import ProfileMemberSinceCard from '@/components/user/ProfileMemberSinceCard';
-import { Button, Card } from '@/components/ui';
-import { LoadingSpinner, ErrorState, useToast } from '@/components/common';
+import { usersApi } from '@/lib/api/users';
+import { useAddress, useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { UpdateUserFormData } from '@/lib/validations';
 import type { ApiError, DashboardData } from '@/types';

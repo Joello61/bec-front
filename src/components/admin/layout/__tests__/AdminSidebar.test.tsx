@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import AdminSidebar from '../AdminSidebar';
+import { describe, expect, it, vi } from 'vitest';
+
 import { ROUTES } from '@/lib/utils/constants';
 import type { User } from '@/types';
+
+import AdminSidebar from '../AdminSidebar';
 
 const mockUsePathname = vi.fn();
 vi.mock('next/navigation', () => ({

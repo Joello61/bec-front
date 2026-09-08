@@ -1,17 +1,19 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { getDaysRemaining } from '@/lib/utils/format';
+import { useState } from 'react';
+
+import { useAuth } from '@/lib/hooks/useAuth';
 import { useFavoriActions } from '@/lib/hooks/useFavoris';
 import { useSignalementActions } from '@/lib/hooks/useSignalement';
-import { useAuth } from '@/lib/hooks/useAuth';
-import type { Demande } from '@/types';
+import { getDaysRemaining } from '@/lib/utils/format';
 import type { CreateSignalementFormData } from '@/lib/validations';
-import SignalementForm from '../forms/SignalementForm';
+import type { Demande } from '@/types';
+
 import { useToast } from '../common';
-import DemandeDetailsMobile from './DemandeDetailsMobile';
+import SignalementForm from '../forms/SignalementForm';
 import DemandeDetailsDesktop from './DemandeDetailsDesktop';
+import DemandeDetailsMobile from './DemandeDetailsMobile';
 
 interface DemandeDetailsProps {
   demande: Demande;

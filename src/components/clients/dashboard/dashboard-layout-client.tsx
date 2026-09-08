@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Sidebar, BottomNav } from '@/components/layout';
-import { useAuth } from '@/lib/hooks';
-import { ROUTES } from '@/lib/utils/constants';
-import VerificationBanner from '@/components/dashboard/VerificationBanner';
-import { useMercureEvents } from '@/lib/hooks/useMercureEvents';
+import { useEffect, useState } from 'react';
+
 import SplashScreen from '@/components/common/SplashScreen';
+import VerificationBanner from '@/components/dashboard/VerificationBanner';
+import { BottomNav, Sidebar } from '@/components/layout';
+import { useAuth } from '@/lib/hooks';
+import { useMercureEvents } from '@/lib/hooks/useMercureEvents';
+import { ROUTES } from '@/lib/utils/constants';
 
 export default function DashboardLayoutClient({
   children,

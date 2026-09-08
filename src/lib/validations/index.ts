@@ -9,6 +9,6 @@ export * from './user.schema';
 export * from './voyage.schema';
 
 // ==================== NOUVEAUX EXPORTS ====================
-export * from './settings.schema';
-export * from './proposition.schema';
 export * from './admin.schema'; 
+export * from './proposition.schema';
+export * from './settings.schema';

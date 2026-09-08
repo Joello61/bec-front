@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { ContactSection } from '@/components/sections';
 import Script from 'next/script';
+
+import { ContactSection } from '@/components/sections';
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';

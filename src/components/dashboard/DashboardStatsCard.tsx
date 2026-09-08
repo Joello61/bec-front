@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TrendingUp, Award, Star } from 'lucide-react';
+import { Award, Star, TrendingUp } from 'lucide-react';
+
 import { Card, CardContent } from '@/components/ui';
 import type { DashboardStats } from '@/types';
 

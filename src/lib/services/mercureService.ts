@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { logger } from '@/lib/utils/logger';
+
 import apiClient from "../api/client";
 import { EventTypeValue } from "../utils/eventType";
 
@@ -147,8 +149,8 @@ class MercureService {
   /** Log utile en dev uniquement */
   private log(message: string, isError = false): void {
     if (this.isDev) {
-      if (isError) console.warn(`[Mercure] ${message}`);
-      else console.log(`[Mercure] ${message}`);
+      if (isError) logger.warn(`[Mercure] ${message}`);
+      else logger.log(`[Mercure] ${message}`);
     }
   }
 }

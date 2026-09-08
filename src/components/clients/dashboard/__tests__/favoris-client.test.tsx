@@ -1,7 +1,9 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import FavorisPageClient from '../favoris-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { Favori, User } from '@/types';
+
+import FavorisPageClient from '../favoris-client';
 
 const mockUseFavorisVoyages = vi.fn();
 const mockUseFavorisDemandes = vi.fn();

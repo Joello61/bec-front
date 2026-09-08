@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { createContactSchema } from '../contact.schema';
 
 describe('createContactSchema', () => {

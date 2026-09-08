@@ -1,14 +1,16 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Download, Info, Shield } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Shield, Download, Info } from 'lucide-react';
+
 import { Button } from '@/components/ui';
-import DeleteAccountModal from './DeleteAccountModal';
-import { rgpdSettingsSchema, type RgpdSettingsFormData } from '@/lib/validations';
-import type { UserSettings } from '@/types';
 import { formatDate } from '@/lib/utils/format';
+import { type RgpdSettingsFormData, rgpdSettingsSchema } from '@/lib/validations';
+import type { UserSettings } from '@/types';
+
+import DeleteAccountModal from './DeleteAccountModal';
 
 interface RgpdSettingsFormProps {
   settings: UserSettings;

@@ -1,5 +1,5 @@
-import type { UserSettings } from './settings';
 import type { Address } from './address';
+import type { UserSettings } from './settings';
 
 export interface User {
   id: number;

@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { UserCheck, CheckCircle } from 'lucide-react';
-import CompleteProfileForm from '@/components/forms/CompleteProfileForm';
+import { CheckCircle, UserCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import VerificationModal from '@/components/auth/VerificationModal';
-import { useAuth } from '@/lib/hooks';
 import { useToast } from '@/components/common';
+import CompleteProfileForm from '@/components/forms/CompleteProfileForm';
+import { useAuth } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
 import type { CompleteProfileFormData } from '@/lib/validations';
 

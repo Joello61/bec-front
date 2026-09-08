@@ -1,3 +1,4 @@
+import { logger } from '@/lib/utils/logger';
 import { StableContext } from '@/types/realtime';
 
 export function displayNotification(
@@ -7,7 +8,7 @@ export function displayNotification(
   onClickRoute?: string
 ) {
   try {
-    console.log('[InAppNotif] typeof stable.showNotification =', typeof stable.showNotification);
+    logger.log('[InAppNotif] typeof stable.showNotification =', typeof stable.showNotification);
 
     // In-App si onglet visible
     if (!document.hidden) {
@@ -28,9 +29,9 @@ export function displayNotification(
         if (onClickRoute) stable.router.push(onClickRoute);
       };
     } else {
-      console.log(`[Notification fallback] ${title}: ${message}`);
+      logger.log(`[Notification fallback] ${title}: ${message}`);
     }
   } catch (err) {
-    console.error('[displayNotification] Erreur lors de l’affichage :', err);
+    logger.error('[displayNotification] Erreur lors de l’affichage :', err);
   }
 }

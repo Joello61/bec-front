@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star, MessageCircle } from 'lucide-react';
+import { MessageCircle, Star } from 'lucide-react';
 import Link from 'next/link';
-import { Card, CardContent, Avatar, Button } from '@/components/ui';
+
+import { Avatar, Button, Card, CardContent } from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
 import type { User } from '@/types';
 

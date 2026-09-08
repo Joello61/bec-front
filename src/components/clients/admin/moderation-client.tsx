@@ -1,7 +1,8 @@
-import { Plane, Package, Star, MessageSquare } from 'lucide-react';
-import { ROUTES } from '@/lib/utils/constants';
+import { MessageSquare, Package, Plane, Star } from 'lucide-react';
 import type { Route } from 'next';
+
 import ModerationSectionCard from '@/components/admin/moderations/ModerationSectionCard';
+import { ROUTES } from '@/lib/utils/constants';
 
 const moderationSections = [
   {
