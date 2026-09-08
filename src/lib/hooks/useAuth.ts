@@ -30,7 +30,10 @@ export function useAuth() {
   
   // Actions de mot de passe
   const changePassword = useAuthStore((state) => state.changePassword);
-  
+
+  // Suppression de compte
+  const deleteAccount = useAuthStore((state) => state.deleteAccount);
+
   // Utilitaires
   const clearError = useAuthStore((state) => state.clearError);
   const setPendingEmail = useAuthStore((state) => state.setPendingEmail);
@@ -82,7 +85,10 @@ export function useAuth() {
     
     // Actions mot de passe
     changePassword,
-    
+
+    // Suppression de compte
+    deleteAccount,
+
     // Utilitaires
     clearError,
     setPendingEmail,
