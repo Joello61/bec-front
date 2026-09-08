@@ -12,10 +12,6 @@ export default function AdminDashboardPageClient() {
     fetchDashboard();
   }, [fetchDashboard]);
 
-  console.log('Dashboard Data:', dashboardData);
-  console.log('Loading:', isLoading);
-  console.log('Error:', error);
-
   if (isLoading && !dashboardData) {
     return <LoadingSpinner fullScreen text="Chargement du dashboard admin..." />;
   }
