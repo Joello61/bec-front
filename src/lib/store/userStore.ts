@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 import { usersApi } from '@/lib/api/users';
+import { createAsyncAction } from './createAsyncAction';
 import type { User, UpdateUserInput, PaginationMeta } from '@/types';
 
 interface UserState {
@@ -11,7 +11,7 @@ interface UserState {
   isLoading: boolean;
   error: string | null;
   isUploadingAvatar: boolean;
-  
+
   // Actions
   fetchUsers: (page?: number, limit?: number) => Promise<void>;
   fetchUser: (id: number) => Promise<void>;
@@ -19,7 +19,7 @@ interface UserState {
   searchUsers: (query: string) => Promise<void>;
   uploadAvatar: (file: File) => Promise<string | null>;
   deleteAvatar: () => Promise<void>;
-  
+
   clearError: () => void;
   reset: () => void;
 }
@@ -33,120 +33,78 @@ export const useUserStore = create<UserState>((set, get) => ({
   error: null,
   isUploadingAvatar: false,
 
-  fetchUsers: async (page = 1, limit = 10) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUsers: (page = 1, limit = 10) =>
+    createAsyncAction(set, async () => {
       const response = await usersApi.list(page, limit);
-      set({ 
-        users: response.data, 
-        pagination: response.pagination,
-        isLoading: false 
-      });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement des utilisateurs', 
-        isLoading: false 
-      });
-    }
-  },
+      set({ users: response.data, pagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des utilisateurs' }),
 
-  fetchUser: async (id) => {
-    set({ isLoading: true, error: null });
-    try {
+  fetchUser: (id) =>
+    createAsyncAction(set, async () => {
       const user = await usersApi.show(id);
       set({ currentUser: user, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors du chargement de l\'utilisateur', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: "Erreur lors du chargement de l'utilisateur" }),
 
-  updateMe: async (data) => {
-    set({ isLoading: true, error: null });
-    try {
+  updateMe: (data) =>
+    createAsyncAction(set, async () => {
       const user = await usersApi.updateMe(data);
       set({ currentUser: user, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la mise à jour du profil', 
-        isLoading: false 
-      });
-      throw error;
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la mise à jour du profil', rethrow: true }),
 
-  searchUsers: async (query) => {
-    set({ isLoading: true, error: null });
-    try {
+  searchUsers: (query) =>
+    createAsyncAction(set, async () => {
       const searchResults = await usersApi.search(query);
       set({ searchResults, isLoading: false });
-    } catch (error: any) {
-      set({ 
-        error: error.message || 'Erreur lors de la recherche', 
-        isLoading: false 
-      });
-    }
-  },
+    }, { fallbackError: 'Erreur lors de la recherche' }),
 
-  uploadAvatar: async (file: File) => {
-    set({ isUploadingAvatar: true, error: null });
-    try {
+  uploadAvatar: (file) =>
+    createAsyncAction<UserState, string | null>(set, async () => {
       const response = await usersApi.uploadAvatar(file);
-      
-      // Mettre à jour le currentUser avec la nouvelle photo
       const currentUser = get().currentUser;
       if (currentUser) {
-        set({ 
-          currentUser: { ...currentUser, photo: response.photoUrl },
-          isUploadingAvatar: false 
-        });
+        set({ currentUser: { ...currentUser, photo: response.photoUrl }, isUploadingAvatar: false });
       } else {
         set({ isUploadingAvatar: false });
       }
-      
       return response.photoUrl;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || 'Erreur lors de l\'upload de l\'avatar';
-      set({ 
-        error: errorMessage,
-        isUploadingAvatar: false 
-      });
-      throw new Error(errorMessage);
-    }
-  },
+    }, {
+      fallbackError: "Erreur lors de l'upload de l'avatar",
+      loadingKey: 'isUploadingAvatar',
+      // rethrow:true fixe le type de retour a Promise<string|null> (jamais undefined) ;
+      // onError lance lui-meme une Error normalisee avant d'y arriver, comme pour login().
+      rethrow: true,
+      onError: (error) => {
+        const message = error.message || "Erreur lors de l'upload de l'avatar";
+        set({ error: message, isUploadingAvatar: false });
+        throw new Error(message);
+      },
+    }),
 
-  deleteAvatar: async () => {
-    set({ isUploadingAvatar: true, error: null });
-    try {
+  deleteAvatar: () =>
+    createAsyncAction(set, async () => {
       await usersApi.deleteAvatar();
-      
-      // Mettre à jour le currentUser en supprimant la photo
       const currentUser = get().currentUser;
       if (currentUser) {
-        set({ 
-          currentUser: { ...currentUser, photo: null },
-          isUploadingAvatar: false 
-        });
+        set({ currentUser: { ...currentUser, photo: null }, isUploadingAvatar: false });
       } else {
         set({ isUploadingAvatar: false });
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || 'Erreur lors de la suppression de l\'avatar';
-      set({ 
-        error: errorMessage,
-        isUploadingAvatar: false 
-      });
-      throw new Error(errorMessage);
-    }
-  },
+    }, {
+      fallbackError: "Erreur lors de la suppression de l'avatar",
+      loadingKey: 'isUploadingAvatar',
+      rethrow: true,
+      onError: (error) => {
+        const message = error.message || "Erreur lors de la suppression de l'avatar";
+        set({ error: message, isUploadingAvatar: false });
+        throw new Error(message);
+      },
+    }),
 
   clearError: () => set({ error: null }),
-  
-  reset: () => set({ 
-    users: [], 
-    currentUser: null, 
+
+  reset: () => set({
+    users: [],
+    currentUser: null,
     pagination: null,
     searchResults: [],
     error: null,
