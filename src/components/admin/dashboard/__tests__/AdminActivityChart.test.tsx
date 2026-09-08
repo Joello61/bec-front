@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import AdminActivityChart from '../AdminActivityChart';
+import { describe, expect, it } from 'vitest';
+
 import type { AdminActivityStats, AdminDayActivity } from '@/types';
+
+import AdminActivityChart from '../AdminActivityChart';
 
 function makeDay(overrides: Partial<AdminDayActivity> = {}): AdminDayActivity {
   return {

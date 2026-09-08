@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, Calendar, Star, Edit } from 'lucide-react';
-import { Avatar, Button, Badge } from '@/components/ui';
+import { Calendar, Edit, Mail, Phone, Star } from 'lucide-react';
+
+import { Avatar, Badge, Button } from '@/components/ui';
 import { formatDate, formatPhone } from '@/lib/utils/format';
 import type { User } from '@/types';
 

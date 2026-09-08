@@ -1,6 +1,7 @@
+import type { Avis, AvisWithStats, CreateAvisInput } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Avis, CreateAvisInput, AvisWithStats } from '@/types';
 
 export const avisApi = {
   async byUser(userId: number): Promise<AvisWithStats> {

@@ -1,5 +1,5 @@
-import { EventType } from '@/lib/utils/eventType';
 import { displayNotification } from '@/lib/utils/displayNotification';
+import { EventType } from '@/lib/utils/eventType';
 import type { StableContext } from '@/types/realtime';
 
 /**

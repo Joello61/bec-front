@@ -1,11 +1,12 @@
+import type { 
+  CreateSignalementInput, 
+  PaginatedResponse,
+  Signalement, 
+  TraiterSignalementInput,
+} from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { 
-  Signalement, 
-  CreateSignalementInput, 
-  TraiterSignalementInput,
-  PaginatedResponse,
-} from '@/types';
 
 export const signalementsApi = {
   async list(page = 1, limit = 10, statut?: string): Promise<PaginatedResponse<Signalement>> {

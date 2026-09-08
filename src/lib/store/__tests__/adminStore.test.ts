@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, User } from '@/types';
 
 vi.mock('@/lib/api/admin', () => ({
@@ -10,6 +11,7 @@ vi.mock('@/lib/api/admin', () => ({
 }));
 
 import { adminApi } from '@/lib/api/admin';
+
 import { useAdminStore } from '../adminStore';
 
 const initialState = useAdminStore.getState();

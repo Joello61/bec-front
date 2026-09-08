@@ -1,6 +1,7 @@
+import type { Favori } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Favori } from '@/types';
 
 export const favorisApi = {
   async list(): Promise<Favori[]> {

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import ResetPasswordPageClient from "../../../../components/clients/auth/reset-password-client";
 
 export const metadata: Metadata = {

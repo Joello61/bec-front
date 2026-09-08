@@ -1,12 +1,14 @@
 import { create } from 'zustand';
+
 import { propositionsApi } from '@/lib/api/propositions';
-import { createAsyncAction } from './createAsyncAction';
+import { logger } from '@/lib/utils/logger';
 import type {
-  Proposition,
   CreatePropositionInput,
+  Proposition,
   RespondPropositionInput
 } from '@/types';
-import { logger } from '@/lib/utils/logger';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface PropositionState {
   currentProposition: Proposition | null;

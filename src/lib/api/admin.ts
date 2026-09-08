@@ -1,24 +1,25 @@
-import apiClient from './client';
-import { endpoints } from './endpoints';
 import type {
-  AdminDashboardData,
-  AdminVoyagesStats,
-  AdminDemandesStats,
-  AdminSignalementsStats,
   AdminActivityStats,
+  AdminDashboardData,
+  AdminDemandesStats,
   AdminEngagementStats,
-  User,
-  AdminUserActivity,
   AdminLog,
   AdminLogFilters,
   AdminLogStats,
-  BanUserInput,
-  UpdateUserRolesInput,
-  DeleteContentInput,
+  AdminSignalementsStats,
+  AdminUserActivity,
   AdminUserFilters,
-  PaginatedResponse,
   AdminUsersDetailedStats,
+  AdminVoyagesStats,
+  BanUserInput,
+  DeleteContentInput,
+  PaginatedResponse,
+  UpdateUserRolesInput,
+  User,
 } from '@/types';
+
+import apiClient from './client';
+import { endpoints } from './endpoints';
 
 // ==================== DASHBOARD ====================
 export const adminApi = {

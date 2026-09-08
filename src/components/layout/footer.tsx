@@ -1,10 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
-import { ROUTES, CONTACT } from '@/lib/utils/constants';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+import { CONTACT, ROUTES } from '@/lib/utils/constants';
+
 import { CookiePreferencesButton } from '../common/CookiesConsent';
 
 export default function Footer() {

@@ -1,7 +1,8 @@
 'use client';
 
-import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
+import { Suspense } from 'react';
+
 import OAuthCallbackContent from '@/components/auth/OAuthCallBackContent';
 
 export default function OAuthCallbackPageClient() {

@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
+
 import { Avatar, Badge } from '@/components/ui';
-import { formatDateRelative, truncate } from '@/lib/utils/format';
 import { cn } from '@/lib/utils/cn';
+import { formatDateRelative, truncate } from '@/lib/utils/format';
 import type { Conversation, User } from '@/types';
 
 interface ConversationItemProps {

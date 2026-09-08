@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { logger } from '@/lib/utils/logger';
+
 import apiClient from "../api/client";
 import { EventTypeValue } from "../utils/eventType";
-import { logger } from '@/lib/utils/logger';
 
 class MercureService {
   private eventSource: EventSource | null = null;

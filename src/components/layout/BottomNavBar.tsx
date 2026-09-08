@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils/cn';
 import type { LucideIcon } from 'lucide-react';
+
+import { cn } from '@/lib/utils/cn';
 
 export interface BottomNavItem {
   name: string;

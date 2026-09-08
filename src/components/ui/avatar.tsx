@@ -1,7 +1,8 @@
-import { HTMLAttributes } from 'react';
-import { cn } from '@/lib/utils/cn';
-import Image from 'next/image';
 import { Check } from 'lucide-react';
+import Image from 'next/image';
+import { HTMLAttributes } from 'react';
+
+import { cn } from '@/lib/utils/cn';
 import { formatImageUrl } from '@/lib/utils/format';
 
 export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {

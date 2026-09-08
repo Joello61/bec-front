@@ -1,9 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Zap, Users } from 'lucide-react';
+import { ArrowLeft, Shield, Users, Zap } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { ROUTES } from '@/lib/utils/constants';
 
 const features = [

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, Proposition } from '@/types';
 
 vi.mock('@/lib/api/propositions', () => ({
@@ -9,6 +10,7 @@ vi.mock('@/lib/api/propositions', () => ({
 }));
 
 import { propositionsApi } from '@/lib/api/propositions';
+
 import { usePropositionStore } from '../propositionStore';
 
 const initialState = usePropositionStore.getState();

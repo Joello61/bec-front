@@ -1,9 +1,11 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ProfilePageClient from '../profile-client';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
 import type { DashboardData } from '@/types/dashboard';
+
+import ProfilePageClient from '../profile-client';
 
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({

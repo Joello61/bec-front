@@ -1,12 +1,11 @@
+import HomeBannerAd from '@/components/ads/HomeBannerAd';
+import { ScrollToTop } from '@/components/common';
 import {
   AboutSection,
-  HowItWorksSection,
+  CtaSection,
   FaqSection,
   HeroSection,
-  CtaSection
-} from '@/components/sections';
-import { ScrollToTop } from '@/components/common';
-import HomeBannerAd from '@/components/ads/HomeBannerAd';
+  HowItWorksSection} from '@/components/sections';
 
 export default function HomePageContent() {
   return (

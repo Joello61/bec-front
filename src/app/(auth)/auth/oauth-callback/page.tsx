@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import OAuthCallbackPageClient from "../../../../components/clients/auth/oauth-callback-client";
 
 export const metadata: Metadata = {

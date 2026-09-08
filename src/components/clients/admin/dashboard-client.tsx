@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAdmin } from '@/lib/hooks';
-import { LoadingSpinner } from '@/components/common';
+
 import { AdminActivityChart, AdminQuickActions, AdminStatsCards } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
+import { useAdmin } from '@/lib/hooks';
 
 export default function AdminDashboardPageClient() {
   const { dashboardData, isLoading, error, fetchDashboard } = useAdmin();

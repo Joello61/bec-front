@@ -1,8 +1,9 @@
 'use client';
 
-import { InputHTMLAttributes, forwardRef, useState, useRef } from 'react';
-import { cn } from '@/lib/utils/cn';
 import Image from 'next/image';
+import { forwardRef, InputHTMLAttributes, useRef, useState } from 'react';
+
+import { cn } from '@/lib/utils/cn';
 
 export interface InputFileProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string;

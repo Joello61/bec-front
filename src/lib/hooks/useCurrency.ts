@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { useCurrencyStore } from '@/lib/store/currencyStore';
+
 import { useAuthStore } from '@/lib/store/authStore';
+import { useCurrencyStore } from '@/lib/store/currencyStore';
+
 import { useSettingsStore } from '../store';
 
 /**

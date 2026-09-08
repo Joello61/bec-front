@@ -1,19 +1,21 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, MapPin, Building2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Building2, MapPin, Phone } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
 import { Button, Input, Select } from '@/components/ui';
-import { completeProfileSchema, type CompleteProfileFormData } from '@/lib/validations';
-import { useAuth } from '@/lib/hooks';
-import { useCountries, useCities, useCitySearch } from '@/lib/hooks/useGeo';
 import type { SelectOption } from '@/components/ui/select';
+import { useAuth } from '@/lib/hooks';
+import { useCities, useCitySearch, useCountries } from '@/lib/hooks/useGeo';
 import { useAvatar } from '@/lib/hooks/useUsers';
-import AvatarUploadField from './AvatarUploadField';
-import AddressTypeFields from './AddressTypeFields';
 import { logger } from '@/lib/utils/logger';
+import { type CompleteProfileFormData, completeProfileSchema } from '@/lib/validations';
+
+import AddressTypeFields from './AddressTypeFields';
+import AvatarUploadField from './AvatarUploadField';
 
 export default function CompleteProfileForm({
   onSubmit,

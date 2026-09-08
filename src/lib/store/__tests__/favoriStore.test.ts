@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, Favori } from '@/types';
 
 vi.mock('@/lib/api/favoris', () => ({
@@ -9,6 +10,7 @@ vi.mock('@/lib/api/favoris', () => ({
 }));
 
 import { favorisApi } from '@/lib/api/favoris';
+
 import { useFavoriStore } from '../favoriStore';
 
 const initialState = useFavoriStore.getState();

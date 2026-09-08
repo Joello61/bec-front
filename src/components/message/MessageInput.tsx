@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, KeyboardEvent } from 'react';
 import { Send } from 'lucide-react';
+import { KeyboardEvent, useState } from 'react';
+
 import { Button } from '@/components/ui';
 
 interface MessageInputProps {

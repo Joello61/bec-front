@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { AboutSection } from '@/components/sections';
 
 const APP_URL =

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, AppNotification } from '@/types';
 
 vi.mock('@/lib/api/notifications', () => ({
@@ -13,6 +14,7 @@ vi.mock('@/lib/api/notifications', () => ({
 }));
 
 import { notificationsApi } from '@/lib/api/notifications';
+
 import { useNotificationStore } from '../notificationStore';
 
 const initialState = useNotificationStore.getState();

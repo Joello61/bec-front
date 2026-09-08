@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
+
+import type { Conversation, Message, User } from '@/types';
+
 import ConversationItem from '../ConversationItem';
-import type { Conversation, User, Message } from '@/types';
 
 function makeUser(overrides: Partial<User> = {}): User {
   return {

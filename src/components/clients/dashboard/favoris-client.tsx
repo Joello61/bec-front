@@ -1,8 +1,8 @@
 'use client';
 
-import { FavoritesList } from '@/components/favori';
-import { useFavorisVoyages, useFavorisDemandes, useFavoriActions } from '@/lib/hooks';
 import { EmptyState, LoadingSpinner } from '@/components/common';
+import { FavoritesList } from '@/components/favori';
+import { useFavoriActions, useFavorisDemandes, useFavorisVoyages } from '@/lib/hooks';
 
 export default function FavorisPageClient() {
   const { favorisVoyages, isLoading: isLoadingVoyages } = useFavorisVoyages();

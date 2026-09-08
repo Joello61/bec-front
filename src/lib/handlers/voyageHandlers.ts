@@ -1,8 +1,9 @@
-import { EventType } from '@/lib/utils/eventType';
 import { displayNotification } from '@/lib/utils/displayNotification';
-import type { StableContext } from '@/types/realtime';
-import { ROUTES } from '../utils/constants';
+import { EventType } from '@/lib/utils/eventType';
 import { logger } from '@/lib/utils/logger';
+import type { StableContext } from '@/types/realtime';
+
+import { ROUTES } from '../utils/constants';
 
 /**
  * Gère les événements liés aux voyages (création, mise à jour, annulation, etc.)

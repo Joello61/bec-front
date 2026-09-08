@@ -1,23 +1,24 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   BookOpen,
   Home,
   Info,
   Mail,
   Menu,
-  X,
-  UserRoundPlus,
   Search,
+  UserRoundPlus,
+  X,
 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import { Dropdown, DropdownItem } from '@/components/ui';
-import { ROUTES } from '@/lib/utils/constants';
 import { cn } from '@/lib/utils/cn';
+import { ROUTES } from '@/lib/utils/constants';
 
 const navigation = [
   { name: 'Accueil', href: ROUTES.HOME, icon: Home },

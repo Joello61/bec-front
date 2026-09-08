@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import CookiesContent from '@/components/legal/CookiesContent';
 import Script from 'next/script';
+
+import CookiesContent from '@/components/legal/CookiesContent';
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';

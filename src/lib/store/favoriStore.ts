@@ -1,7 +1,9 @@
 import { create } from 'zustand';
+
 import { favorisApi } from '@/lib/api/favoris';
-import { createAsyncAction } from './createAsyncAction';
 import type { Favori } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface FavoriState {
   favoris: Favori[];

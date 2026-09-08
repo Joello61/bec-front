@@ -1,9 +1,10 @@
 'use client';
 
-import { Flag, Clock, CheckCircle, XCircle } from 'lucide-react';
-import { Card, CardContent, CardFooter, Badge } from '@/components/ui';
-import type { Signalement, SignalementStatut } from '@/types';
+import { CheckCircle, Clock, Flag, XCircle } from 'lucide-react';
+
+import { Badge, Card, CardContent, CardFooter } from '@/components/ui';
 import { formatDate } from '@/lib/utils/format';
+import type { Signalement, SignalementStatut } from '@/types';
 
 interface SignalementCardProps {
   signalement: Signalement;

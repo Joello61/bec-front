@@ -1,16 +1,17 @@
 import { create } from 'zustand';
+
 import { authApi } from '@/lib/api/auth';
 import { usersApi } from '@/lib/api/users';
-import { createAsyncAction } from './createAsyncAction';
+import { logger } from '@/lib/utils/logger';
 import type {
-  User,
-  LoginInput,
-  RegisterInput,
   CompleteProfileInput,
   CompleteProfileResponse,
-  RegisterResponse
-} from '@/types';
-import { logger } from '@/lib/utils/logger';
+  LoginInput,
+  RegisterInput,
+  RegisterResponse,
+  User} from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface AuthState {
   user: User | null;

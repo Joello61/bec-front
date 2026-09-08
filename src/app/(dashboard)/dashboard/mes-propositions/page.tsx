@@ -1,5 +1,6 @@
-import PropositionsPageClient from "@/components/clients/dashboard/mes-propositions-client";
 import { Metadata } from "next";
+
+import PropositionsPageClient from "@/components/clients/dashboard/mes-propositions-client";
 
 export const metadata: Metadata = {
   title: 'Mes propositions',

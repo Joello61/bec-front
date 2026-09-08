@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, Plane, Package, Flag, TrendingUp, TrendingDown } from 'lucide-react';
-import type { AdminUsersStats, AdminVoyagesStats, AdminDemandesStats, AdminSignalementsStats } from '@/types';
+import { Flag, Package, Plane, TrendingDown, TrendingUp, Users } from 'lucide-react';
+
+import type { AdminDemandesStats, AdminSignalementsStats, AdminUsersStats, AdminVoyagesStats } from '@/types';
 
 interface AdminStatsCardsProps {
   users: AdminUsersStats;

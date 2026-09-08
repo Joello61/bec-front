@@ -1,9 +1,11 @@
-import { Package, MapPin, Calendar, Weight, DollarSign, ArrowRight, Eye } from 'lucide-react';
-import { PropositionStatusBadge } from './PropositionStatusBadge';
-import type { Proposition, User } from '@/types';
+import { ArrowRight, Calendar, DollarSign, Eye, MapPin, Package, Weight } from 'lucide-react';
+
 import { formatDateRelative, formatFullName } from '@/lib/utils/format';
+import type { Proposition, User } from '@/types';
+
 import { CurrencyDisplay } from '../common';
 import AvatarWithButton from '../ui/AvatarWithButton';
+import { PropositionStatusBadge } from './PropositionStatusBadge';
 
 interface PropositionCardDesktopProps {
   proposition: Proposition;

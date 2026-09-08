@@ -1,5 +1,5 @@
-import type { Voyage } from './voyage';
 import type { Demande } from './demande'
+import type { Voyage } from './voyage';
 
 // ==================== DASHBOARD & STATS ====================
 export interface AdminDashboardData {

@@ -1,14 +1,15 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AlertTriangle, X } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useToast } from '@/components/common';
 import { Modal } from '@/components/ui';
 import { useAdmin } from '@/lib/hooks';
-import { banUserSchema, type BanUserFormData } from '@/lib/validations/admin.schema';
-import { useToast } from '@/components/common';
+import { type BanUserFormData, banUserSchema } from '@/lib/validations/admin.schema';
 import type { User } from '@/types';
-import { X, AlertTriangle } from 'lucide-react';
 
 interface BanUserModalProps {
   user: User;

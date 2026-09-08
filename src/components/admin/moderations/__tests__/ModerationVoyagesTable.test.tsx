@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
+
+import type { User, Voyage } from '@/types';
+
 import ModerationVoyagesTable from '../ModerationVoyagesTable';
-import type { Voyage, User } from '@/types';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),

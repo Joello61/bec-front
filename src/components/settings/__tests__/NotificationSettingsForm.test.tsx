@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import NotificationSettingsForm from '../NotificationSettingsForm';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { UserSettings } from '@/types';
+
+import NotificationSettingsForm from '../NotificationSettingsForm';
 
 function makeSettings(overrides: Partial<UserSettings> = {}): UserSettings {
   return {

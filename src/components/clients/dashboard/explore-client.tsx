@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Plane, Package, SlidersHorizontal } from 'lucide-react';
-import { VoyageList, VoyageFilters } from '@/components/voyage';
-import { DemandeList, DemandeFilters } from '@/components/demande';
-import { useVoyages, useDemandes, useFavorisDemandes, useFavorisVoyages } from '@/lib/hooks';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Package, Plane, SlidersHorizontal } from 'lucide-react';
+import { useCallback, useMemo, useState } from 'react';
+
 import { EmptyState, LoadingSpinner } from '@/components/common';
-import type { VoyageFilters as VoyageFiltersType, DemandeFilters as DemandeFiltersType } from '@/types';
-import ExploreTabs from '@/components/explore/ExploreTabs';
+import { DemandeFilters, DemandeList } from '@/components/demande';
 import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
+import ExploreTabs from '@/components/explore/ExploreTabs';
+import { VoyageFilters, VoyageList } from '@/components/voyage';
+import { useDemandes, useFavorisDemandes, useFavorisVoyages, useVoyages } from '@/lib/hooks';
+import type { DemandeFilters as DemandeFiltersType, VoyageFilters as VoyageFiltersType } from '@/types';
 
 type TabType = 'voyages' | 'demandes';
 

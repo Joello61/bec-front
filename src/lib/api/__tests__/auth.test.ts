@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, afterEach } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../client', () => ({
   default: {
@@ -7,8 +7,8 @@ vi.mock('../client', () => ({
   },
 }));
 
-import apiClient from '../client';
 import { authApi } from '../auth';
+import apiClient from '../client';
 
 describe('authApi.login / register - contrat', () => {
   it('envoie login sur le bon endpoint avec le payload fourni', async () => {

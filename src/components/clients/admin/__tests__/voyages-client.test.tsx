@@ -1,8 +1,10 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import type { PaginationMeta, User, Voyage } from '@/types';
+
 import AdminModerationVoyagesPageClient from '../voyages-client';
-import type { Voyage, User, PaginationMeta } from '@/types';
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),

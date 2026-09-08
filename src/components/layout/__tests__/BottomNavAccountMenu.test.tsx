@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import BottomNavAccountMenu from '../BottomNavAccountMenu';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { User } from '@/types';
+
+import BottomNavAccountMenu from '../BottomNavAccountMenu';
 
 const routes = { mesVoyages: '/mes-voyages', mesDemandes: '/mes-demandes', favoris: '/favoris', profile: '/profile', settings: '/settings' };
 

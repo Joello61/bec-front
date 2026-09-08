@@ -1,9 +1,11 @@
 import { create } from 'zustand';
+
 import { conversationsApi } from '@/lib/api/conversations';
 import { messagesApi } from '@/lib/api/messages';
-import { createAsyncAction } from './createAsyncAction';
-import type { ApiError, Conversation, ConversationDetail, SendMessageInput } from '@/types';
 import { logger } from '@/lib/utils/logger';
+import type { ApiError, Conversation, ConversationDetail, SendMessageInput } from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface ConversationState {
   conversations: Conversation[];

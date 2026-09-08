@@ -1,5 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+
 import InputFile from '@/components/ui/InputFile';
 
 function makeFile(name: string, sizeInBytes: number, type: string): File {

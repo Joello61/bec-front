@@ -4,8 +4,8 @@ vi.mock('../client', () => ({
   default: { put: vi.fn().mockResolvedValue({ data: {} }) },
 }));
 
-import apiClient from '../client';
 import { addressApi } from '../address';
+import apiClient from '../client';
 
 describe('addressApi.updateAddress - contrat (contrainte 6 mois cote backend)', () => {
   it('envoie la mise a jour vers PUT /users/me/address avec le payload fourni', async () => {

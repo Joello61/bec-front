@@ -1,5 +1,6 @@
-import HelpPageClient from "../../../../components/clients/dashboard/help-client";
 import { Metadata } from "next";
+
+import HelpPageClient from "../../../../components/clients/dashboard/help-client";
 
 export const metadata: Metadata = {
   title: 'Centre d\'aide',

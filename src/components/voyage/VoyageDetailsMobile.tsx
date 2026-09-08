@@ -1,23 +1,25 @@
 import {
-  Calendar,
-  Package,
   AlertCircle,
-  Flag,
-  Star,
-  DollarSign,
-  MapPin,
-  Phone,
-  Mail,
+  Calendar,
   Clock,
-  Plane,
+  DollarSign,
+  Flag,
   Heart,
+  Mail,
+  MapPin,
+  Package,
+  Phone,
+  Plane,
+  Star,
 } from 'lucide-react';
-import { Card, CardHeader, CardContent, Avatar, Button } from '@/components/ui';
-import VoyageStatusBadge from './VoyageStatusBadge';
+
+import { Avatar, Button, Card, CardContent, CardHeader } from '@/components/ui';
 import { formatDate, formatWeight } from '@/lib/utils/format';
 import type { Voyage } from '@/types';
 import type { User } from '@/types';
+
 import { CurrencyDisplay } from '../common';
+import VoyageStatusBadge from './VoyageStatusBadge';
 
 interface VoyageDetailsMobileProps {
   voyage: Voyage;

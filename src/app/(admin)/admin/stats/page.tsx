@@ -1,5 +1,6 @@
-import AdminStatsPageClient from "../../../../components/clients/admin/stats-client";
 import { Metadata } from "next";
+
+import AdminStatsPageClient from "../../../../components/clients/admin/stats-client";
 
 export const metadata: Metadata = {
   title: 'Statistiques',

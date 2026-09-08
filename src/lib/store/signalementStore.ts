@@ -1,13 +1,15 @@
 import { create } from 'zustand';
+
 import { signalementsApi } from '@/lib/api/signalement';
-import { createAsyncAction } from './createAsyncAction';
-import type {
-  Signalement,
-  CreateSignalementInput,
-  TraiterSignalementInput,
-  PaginationMeta,
-} from '@/types';
 import { logger } from '@/lib/utils/logger';
+import type {
+  CreateSignalementInput,
+  PaginationMeta,
+  Signalement,
+  TraiterSignalementInput,
+} from '@/types';
+
+import { createAsyncAction } from './createAsyncAction';
 
 interface SignalementState {
   signalements: Signalement[];

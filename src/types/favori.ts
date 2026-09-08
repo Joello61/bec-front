@@ -1,6 +1,6 @@
+import type { Demande } from './demande';
 import type { User } from './user';
 import type { Voyage } from './voyage';
-import type { Demande } from './demande';
 
 export interface Favori {
   id: number;

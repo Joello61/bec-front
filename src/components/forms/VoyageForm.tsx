@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Plane, Info, AlertCircle } from 'lucide-react';
+import { AlertCircle, Info, Plane } from 'lucide-react';
+import { useCallback, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button, Input } from '@/components/ui';
-import { createVoyageSchema, type CreateVoyageFormData } from '@/lib/validations';
-import { useTopCitiesGlobal, useCitySearchGlobal, useUserContinent } from '@/lib/hooks/useGeo';
-import { useUserCurrency } from '@/lib/hooks/useCurrency';
-import { getCurrencySymbol } from '@/lib/utils/format';
-import type { Voyage } from '@/types';
 import type { SelectOption } from '@/components/ui/select';
+import { useUserCurrency } from '@/lib/hooks/useCurrency';
+import { useCitySearchGlobal, useTopCitiesGlobal, useUserContinent } from '@/lib/hooks/useGeo';
+import { getCurrencySymbol } from '@/lib/utils/format';
+import { type CreateVoyageFormData, createVoyageSchema } from '@/lib/validations';
+import type { Voyage } from '@/types';
+
 import CityRouteFields from './CityRouteFields';
 
 interface VoyageFormProps {

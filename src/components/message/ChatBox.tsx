@@ -1,15 +1,17 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+
 import { Avatar } from '@/components/ui';
+import { useSignalementActions } from '@/lib/hooks/useSignalement';
+import type { CreateSignalementFormData } from '@/lib/validations';
+import type { Message, User } from '@/types';
+
+import SignalementForm from '../forms/SignalementForm';
 import MessageBubble from './MessageBubble';
 import MessageInput from './MessageInput';
-import { useSignalementActions } from '@/lib/hooks/useSignalement';
-import type { Message, User } from '@/types';
-import type { CreateSignalementFormData } from '@/lib/validations';
-import SignalementForm from '../forms/SignalementForm';
 
 interface ChatBoxProps {
   messages: Message[];

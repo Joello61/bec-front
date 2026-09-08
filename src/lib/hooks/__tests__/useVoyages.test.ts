@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const storeState = {
   voyages: [],
@@ -29,7 +29,7 @@ vi.mock('@/lib/api/voyages', () => ({
   voyagesApi: { getMatchingDemandes: (...args: unknown[]) => getMatchingDemandesMock(...args) },
 }));
 
-import { useVoyages, useMatchingDemandes } from '../useVoyages';
+import { useMatchingDemandes, useVoyages } from '../useVoyages';
 
 describe('useVoyages - branchement effet -> action de store', () => {
   beforeEach(() => {

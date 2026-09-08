@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { updateAddressSchema } from '../address.schema';
 
 describe('updateAddressSchema', () => {

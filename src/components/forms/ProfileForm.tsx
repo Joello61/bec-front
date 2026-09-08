@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button, Input } from '@/components/ui';
-import { updateUserSchema, type UpdateUserFormData } from '@/lib/validations';
-import type { User } from '@/types';
 import { useAvatar } from '@/lib/hooks/useUsers';
-import AvatarUploadField from './AvatarUploadField';
 import { logger } from '@/lib/utils/logger';
+import { type UpdateUserFormData, updateUserSchema } from '@/lib/validations';
+import type { User } from '@/types';
+
+import AvatarUploadField from './AvatarUploadField';
 
 interface ProfileFormProps {
   user: User;

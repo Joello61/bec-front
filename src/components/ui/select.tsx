@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect, forwardRef } from 'react';
 import { Check, ChevronDown, Search } from 'lucide-react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
+
 import { cn } from '@/lib/utils/cn';
 
 export interface SelectOption {

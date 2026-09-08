@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { logger } from '@/lib/utils/logger';
 
 type PermissionStatus = NotificationPermission | null;

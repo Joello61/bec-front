@@ -1,8 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
+
+import type { PaginationMeta, User } from '@/types';
+
 import UsersTable from '../UsersTable';
-import type { User, PaginationMeta } from '@/types';
 
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({

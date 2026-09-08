@@ -1,8 +1,9 @@
 'use client';
 
+import { CheckCircle, Mail, Phone, Shield, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Mail, Phone, Shield, CheckCircle, XCircle } from 'lucide-react';
-import { Button, Avatar, Badge } from '@/components/ui';
+
+import { Avatar, Badge, Button } from '@/components/ui';
 import { ROUTES } from '@/lib/utils/constants';
 import { formatDate } from '@/lib/utils/format';
 import type { User } from '@/types';

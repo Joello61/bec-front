@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import TrustSafetyContent from '@/components/legal/TrustSafetyContent';
 import Script from 'next/script';
+
+import TrustSafetyContent from '@/components/legal/TrustSafetyContent';
 
 const APP_URL =
   process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';

@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Lock } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
 import { Button, Input } from '@/components/ui';
-import { changePasswordSchema, type ChangePasswordFormData } from '@/lib/validations';
+import { type ChangePasswordFormData, changePasswordSchema } from '@/lib/validations';
 
 interface ChangePasswordFormProps {
   onSubmit: (data: ChangePasswordFormData) => Promise<void>;

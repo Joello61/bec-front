@@ -1,6 +1,7 @@
 'use client';
 
-import { Clock, CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, Clock, XCircle } from 'lucide-react';
+
 import { cn } from '@/lib/utils/cn';
 import type { PropositionStatut } from '@/types';
 

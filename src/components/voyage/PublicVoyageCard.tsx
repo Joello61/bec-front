@@ -1,11 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, Package, Plane, MapPin, DollarSign, Eye } from 'lucide-react';
+import { Calendar, DollarSign, Eye, MapPin, Package, Plane } from 'lucide-react';
+import { useState } from 'react';
+
 import { Card, CardContent } from '@/components/ui';
 import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import type { PublicVoyage } from '@/types';
-import { useState } from 'react';
+
 import AuthRequiredModal from '../common/AuthRequiredModal';
 
 interface PublicVoyageCardProps {

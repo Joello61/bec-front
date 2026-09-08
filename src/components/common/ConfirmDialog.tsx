@@ -1,7 +1,8 @@
 'use client';
 
 import { AlertTriangle } from 'lucide-react';
-import { Modal, ModalFooter, Button } from '@/components/ui';
+
+import { Button, Modal, ModalFooter } from '@/components/ui';
 
 interface ConfirmDialogProps {
   isOpen: boolean;

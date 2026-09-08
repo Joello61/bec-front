@@ -1,5 +1,6 @@
-import NotFoundClient from '../components/clients/public/not-found-client';
 import { Metadata } from 'next';
+
+import NotFoundClient from '../components/clients/public/not-found-client';
 
 export const metadata: Metadata = {
   title: 'Page non trouvée - 404',

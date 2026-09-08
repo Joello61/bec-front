@@ -1,10 +1,11 @@
-import apiClient from './client';
-import { endpoints } from './endpoints';
 import type { 
   AddressModificationInfo, 
   UpdateAddressInput, 
   UpdateAddressResponse 
 } from '@/types/address';
+
+import apiClient from './client';
+import { endpoints } from './endpoints';
 
 export const addressApi = {
   /**

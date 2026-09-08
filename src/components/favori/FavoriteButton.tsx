@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
+import { useState } from 'react';
+
 import { cn } from '@/lib/utils/cn';
 
 interface FavoriteButtonProps {

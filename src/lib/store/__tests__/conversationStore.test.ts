@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { ApiError, ConversationDetail } from '@/types';
 
 vi.mock('@/lib/api/conversations', () => ({
@@ -16,6 +17,7 @@ vi.mock('@/lib/api/messages', () => ({
 
 import { conversationsApi } from '@/lib/api/conversations';
 import { messagesApi } from '@/lib/api/messages';
+
 import { useConversationStore } from '../conversationStore';
 
 const initialState = useConversationStore.getState();

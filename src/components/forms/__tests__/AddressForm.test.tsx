@@ -1,9 +1,11 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import AddressForm from '../AddressForm';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import type { Address } from '@/types/address';
 import type { Country } from '@/types/geo';
+
+import AddressForm from '../AddressForm';
 
 const mockUseCountries = vi.fn();
 const mockUseCities = vi.fn();

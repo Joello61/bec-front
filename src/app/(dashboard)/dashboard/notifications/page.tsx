@@ -1,5 +1,6 @@
-import NotificationsPageClient from "../../../../components/clients/dashboard/notifications-client";
 import { Metadata } from "next";
+
+import NotificationsPageClient from "../../../../components/clients/dashboard/notifications-client";
 
 export const metadata: Metadata = {
   title: 'Notifications',

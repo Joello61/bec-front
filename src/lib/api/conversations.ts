@@ -1,6 +1,7 @@
+import type { Conversation, ConversationDetail } from '@/types';
+
 import apiClient from './client';
 import { endpoints } from './endpoints';
-import type { Conversation, ConversationDetail } from '@/types';
 
 export const conversationsApi = {
   /**

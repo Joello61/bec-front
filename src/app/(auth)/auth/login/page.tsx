@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import LoginPageClient from "../../../../components/clients/auth/login-client"
 
 export const metadata: Metadata = {

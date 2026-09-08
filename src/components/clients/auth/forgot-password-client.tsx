@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
-import { Mail, CheckCircle } from 'lucide-react';
-import { authApi } from '@/lib/api/auth';
-import type { ForgotPasswordFormData } from '@/lib/validations';
+import { CheckCircle, Mail } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+
 import { useToast } from '@/components/common';
 import ForgotPasswordForm from '@/components/forms/ForgotPasswordForm';
+import { authApi } from '@/lib/api/auth';
+import type { ForgotPasswordFormData } from '@/lib/validations';
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },

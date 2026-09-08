@@ -2,10 +2,11 @@
 
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { MessageSquare, Package, Plane, Shield, Star, User } from 'lucide-react';
+
 import { Pagination } from '@/components/common';
 import { Badge } from '@/components/ui';
 import type { AdminLog, PaginationMeta } from '@/types';
-import { Shield, User, Plane, Package, Star, MessageSquare } from 'lucide-react';
 
 interface LogsTableProps {
   logs: AdminLog[];

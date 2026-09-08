@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import PropositionCard from './PropositionCard';
+import { Filter, Package } from 'lucide-react';
+import { useState } from 'react';
+
 import { EmptyState, ErrorState, LoadingSkeleton } from '@/components/common';
-import { Package, Filter } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import type { Proposition } from '@/types';
+
 import { Select } from '../ui';
+import PropositionCard from './PropositionCard';
 
 interface PropositionListProps {
   propositions: Proposition[];

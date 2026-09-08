@@ -1,8 +1,9 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+
 import { useAuthStore } from '@/lib/store'; // 1. Importer le store Auth
 import { ROUTES } from '@/lib/utils/constants'; // Pour la redirection
-import type { ApiError } from '@/types'; // Garder si utilisé
 import { logger } from '@/lib/utils/logger';
+import type { ApiError } from '@/types'; // Garder si utilisé
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api', // Assurez-vous que /api est inclus si nécessaire

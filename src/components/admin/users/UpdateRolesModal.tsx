@@ -1,14 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Shield, X } from 'lucide-react';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
+import { useToast } from '@/components/common';
 import { Modal } from '@/components/ui';
 import { useAdmin } from '@/lib/hooks';
-import { updateRolesSchema, type UpdateRolesFormData } from '@/lib/validations/admin.schema';
-import { useToast } from '@/components/common';
+import { type UpdateRolesFormData, updateRolesSchema } from '@/lib/validations/admin.schema';
 import type { User } from '@/types';
-import { X, Shield } from 'lucide-react';
 
 interface UpdateRolesModalProps {
   user: User;
