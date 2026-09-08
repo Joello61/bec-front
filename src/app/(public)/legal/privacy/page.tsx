@@ -7,7 +7,7 @@ const APP_URL =
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
-  title: 'Politique de Confidentialité – Co-Bage',
+  title: 'Politique de Confidentialité - Co-Bage',
   description:
     'Découvrez comment Co-Bage collecte, utilise et protège vos données personnelles. Engagement RGPD pour la protection de votre vie privée.',
   robots: { index: true, follow: true },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${APP_URL}/legal/privacy`,
     siteName: 'Co-Bage',
-    title: 'Politique de Confidentialité – Co-Bage',
+    title: 'Politique de Confidentialité - Co-Bage',
     description:
       'Comment nous protégeons vos données personnelles en conformité avec le RGPD.',
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@cobage_officiel',
     creator: '@cobage_officiel',
-    title: 'Politique de Confidentialité – Co-Bage',
+    title: 'Politique de Confidentialité - Co-Bage',
     description: 'Protection de vos données personnelles (RGPD).',
     images: [`${APP_URL}/images/og-legal-privacy.jpg`],
   },

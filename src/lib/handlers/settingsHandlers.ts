@@ -53,7 +53,7 @@ export const handleSettingsEvents = (eventType: string, data: any, stable: Stabl
       break;
 
     // ============================================================
-    // 🔔 Changement des préférences de notifications
+    // Changement des préférences de notifications
     // ============================================================
     case EventType.SETTINGS_NOTIFICATIONS_CHANGED:
       stable.refetchUser?.();

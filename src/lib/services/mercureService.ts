@@ -63,7 +63,7 @@ class MercureService {
   private async attemptMercureTokenRefresh(): Promise<void> {
     if (this.isRefreshing || this.refreshAttemptCount >= this.MAX_REFRESH_ATTEMPTS) {
       if (this.refreshAttemptCount >= this.MAX_REFRESH_ATTEMPTS) {
-        this.log("Tentatives de rafraîchissement épuisées — déconnexion.", true);
+        this.log("Tentatives de rafraîchissement épuisées - déconnexion.", true);
         this.disconnect();
       }
       return;

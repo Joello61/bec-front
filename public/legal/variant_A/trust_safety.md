@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 RÉSUMÉ EN LANGAGE CLAIR
+## RÉSUMÉ EN LANGAGE CLAIR
 
 Co-Bage s'engage à maintenir un environnement sûr pour tous. Nous modérons les contenus illégaux, dangereux ou contraires à nos règles. Vous pouvez signaler tout contenu suspect via le bouton de signalement. Notre système examine chaque signalement sous 24-48h. Les contenus manifestement illégaux (drogues, armes, pédopornographie, terrorisme) sont supprimés immédiatement et signalés aux autorités. Les violations graves entraînent une suspension ou suppression définitive du compte. Nous conservons les preuves 3 ans pour les enquêtes judiciaires. Notre modération combine outils automatiques (détection de mots-clés) et révision humaine. Vous pouvez contester toute décision de modération.
 
@@ -125,11 +125,11 @@ Co-Bage coopère avec les autorités judiciaires et administratives :
 
 Le Règlement européen sur les services numériques impose des obligations aux plateformes en ligne. Co-Bage applique les principes suivants :
 
-- ✅ **Signalement facile et accessible** : bouton clairement visible
-- ✅ **Notification des décisions de modération** avec motifs précis
-- ✅ **Procédure de contestation** claire et accessible
-- ✅ **Transparence** : publication d'un rapport annuel de modération (si volume significatif)
-- ✅ **Point de contact unique** pour les autorités
+- **Signalement facile et accessible** : bouton clairement visible
+- **Notification des décisions de modération** avec motifs précis
+- **Procédure de contestation** claire et accessible
+- **Transparence** : publication d'un rapport annuel de modération (si volume significatif)
+- **Point de contact unique** pour les autorités
 
 ### 2.6 Responsabilité du responsable de traitement
 
@@ -157,10 +157,10 @@ Tout contenu représentant ou évoquant des **mineurs dans un contexte sexuel** 
 
 **Action de Co-Bage** :
 
-- 🔴 **Suppression immédiate** du contenu et du compte
-- 🔴 **Signalement à PHAROS** : [www.internet-signalement.gouv.fr](https://www.internet-signalement.gouv.fr)
-- 🔴 **Conservation de toutes les preuves** pour transmission aux autorités
-- 🔴 **Blocage IP** et interdiction de réinscription
+- **Suppression immédiate** du contenu et du compte
+- **Signalement à PHAROS** : [www.internet-signalement.gouv.fr](https://www.internet-signalement.gouv.fr)
+- **Conservation de toutes les preuves** pour transmission aux autorités
+- **Blocage IP** et interdiction de réinscription
 
 #### b) Apologie du terrorisme et provocation (art. 421-2-5 Code pénal)
 
@@ -172,8 +172,8 @@ Tout contenu représentant ou évoquant des **mineurs dans un contexte sexuel** 
 
 **Action de Co-Bage** :
 
-- 🔴 **Suppression immédiate** + signalement à **PHAROS**
-- 🔴 Conservation des preuves pour transmission à la DGSI
+- **Suppression immédiate** + signalement à **PHAROS**
+- Conservation des preuves pour transmission à la DGSI
 
 #### c) Incitation à la haine, violence, discrimination (art. 24 Loi 1881 sur la presse)
 
@@ -194,10 +194,10 @@ Contenus incitant à la haine ou à la violence en raison de :
 
 **Action de Co-Bage** :
 
-- 🔴 **Suppression immédiate** du contenu
-- 🟡 **Avertissement ou suspension** du compte (1ère fois)
-- 🔴 **Suppression définitive** en cas de récidive
-- 🔴 Signalement à PHAROS si appel à la violence
+- **Suppression immédiate** du contenu
+- **Avertissement ou suspension** du compte (1ère fois)
+- **Suppression définitive** en cas de récidive
+- Signalement à PHAROS si appel à la violence
 
 #### d) Trafic de stupéfiants (art. L. 3421-1 Code de la santé publique)
 
@@ -217,10 +217,10 @@ Toute annonce ou message proposant :
 
 **Action de Co-Bage** :
 
-- 🔴 **Suppression immédiate** + **suspension définitive** du compte
-- 🔴 **Signalement à l'OCRTIS** via PHAROS
-- 🔴 **Signalement à TRACFIN** (si soupçon de blanchiment)
-- 🔴 Conservation des preuves pour transmission
+- **Suppression immédiate** + **suspension définitive** du compte
+- **Signalement à l'OCRTIS** via PHAROS
+- **Signalement à TRACFIN** (si soupçon de blanchiment)
+- Conservation des preuves pour transmission
 
 #### e) Armes et explosifs (art. L. 2353-5 Code de la défense)
 
@@ -234,9 +234,9 @@ Annonces proposant :
 
 **Action de Co-Bage** :
 
-- 🔴 **Suppression immédiate**
-- 🔴 Signalement à PHAROS et police
-- 🔴 Suspension définitive du compte
+- **Suppression immédiate**
+- Signalement à PHAROS et police
+- Suspension définitive du compte
 
 #### f) Contrefaçons (art. L. 335-2 Code de la propriété intellectuelle)
 
@@ -250,9 +250,9 @@ Annonces de transport de :
 
 **Action de Co-Bage** :
 
-- 🟡 **Suppression du contenu** après vérification
-- 🟡 Avertissement de l'utilisateur
-- 🔴 Suspension en cas de récidive
+- **Suppression du contenu** après vérification
+- Avertissement de l'utilisateur
+- Suspension en cas de récidive
 
 #### g) Blanchiment d'argent (art. 324-1 Code pénal)
 
@@ -267,9 +267,9 @@ Messages suggérant des **transferts d'argent suspects** :
 
 **Action de Co-Bage** :
 
-- 🟡 **Analyse approfondie** du contexte
-- 🔴 Si suspicion avérée : **signalement à TRACFIN**
-- 🟡 Suspension du compte en attendant clarification
+- **Analyse approfondie** du contexte
+- Si suspicion avérée : **signalement à TRACFIN**
+- Suspension du compte en attendant clarification
 
 ### 3.2 Contenus illicites nécessitant une analyse juridique
 
@@ -284,10 +284,10 @@ Allégation ou imputation d'un **fait précis portant atteinte à l'honneur** d'
 
 **Action de Co-Bage** :
 
-- 📧 **Notification qualifiée requise** (art. 6-I-5 LCEN)
-- ⏱️ **Examen sous 7 jours**
-- 🟡 Retrait si manifestement diffamatoire
-- 🟡 Avertissement de l'auteur
+- **Notification qualifiée requise** (art. 6-I-5 LCEN)
+- **Examen sous 7 jours**
+- Retrait si manifestement diffamatoire
+- Avertissement de l'auteur
 
 #### b) Atteinte à la vie privée et droit à l'image (art. 9 Code civil)
 
@@ -299,9 +299,9 @@ Publication sans consentement de :
 
 **Action de Co-Bage** :
 
-- 📧 Notification par la victime avec justificatif
-- 🟡 **Retrait sous 48-72h** après vérification
-- 🟡 Avertissement de l'auteur
+- Notification par la victime avec justificatif
+- **Retrait sous 48-72h** après vérification
+- Avertissement de l'auteur
 
 #### c) Contenu trompeur ou frauduleux
 
@@ -311,10 +311,10 @@ Publication sans consentement de :
 
 **Action de Co-Bage** :
 
-- 🔍 Enquête interne (vérification des informations)
-- 📧 Demande de justificatifs (billet d'avion, pièce d'identité)
-- 🟡 Suspension temporaire en attendant clarification
-- 🔴 Suppression définitive si fraude avérée
+- Enquête interne (vérification des informations)
+- Demande de justificatifs (billet d'avion, pièce d'identité)
+- Suspension temporaire en attendant clarification
+- Suppression définitive si fraude avérée
 
 ### 3.3 Contenus contraires aux CGU (mais non illégaux)
 
@@ -324,7 +324,7 @@ Publication sans consentement de :
 - Promotion de services concurrents
 - Liens vers des sites externes non pertinents
 
-**Action** : 🟡 Avertissement puis suspension en cas de récidive
+**Action** : Avertissement puis suspension en cas de récidive
 
 #### b) Harcèlement et comportement abusif
 
@@ -332,14 +332,14 @@ Publication sans consentement de :
 - Insultes, menaces, intimidation
 - Harcèlement sexuel
 
-**Action** : 🟡 Avertissement (1ère fois), suspension temporaire (7 jours), suppression définitive (récidive)
+**Action** : Avertissement (1ère fois), suspension temporaire (7 jours), suppression définitive (récidive)
 
 #### c) Manipulation de la plateforme
 
 - Création de faux comptes multiples
 - Utilisation de bots ou scripts automatisés
 
-**Action** : 🔴 Suspension de tous les comptes liés
+**Action** : Suspension de tous les comptes liés
 
 #### d) Contenu hors sujet
 
@@ -347,7 +347,7 @@ Publication sans consentement de :
 - Annonces incompréhensibles
 - Annonces dupliquées de manière excessive
 
-**Action** : 🟡 Suppression du contenu + demande de correction (pas de sanction si bonne foi)
+**Action** : Suppression du contenu + demande de correction (pas de sanction si bonne foi)
 
 ---
 
@@ -355,7 +355,7 @@ Publication sans consentement de :
 
 ### 4.1 Bouton de signalement
 
-Chaque **annonce** et chaque **message** dispose d'un **bouton de signalement** clairement visible (icône : ⚠️ ou 🚩).
+Chaque **annonce** et chaque **message** dispose d'un **bouton de signalement** clairement visible (icône : ou).
 
 **Emplacement** :
 
@@ -720,7 +720,7 @@ Co-Bage coopère pleinement avec les autorités judiciaires.
 
 **Étape 1 : Envoi de la contestation**
 
-Par e-mail à **support@cobage.joeltech.dev** avec objet "Contestation décision de modération — Ticket [NUMÉRO]"
+Par e-mail à **support@cobage.joeltech.dev** avec objet "Contestation décision de modération - Ticket [NUMÉRO]"
 
 **Contenu de la contestation** :
 
@@ -816,42 +816,42 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 
 ### ANNEXE A : EXEMPLES DE CONTENUS INTERDITS/AUTORISÉS
 
-#### ✅ EXEMPLES D'ANNONCES AUTORISÉES
+#### EXEMPLES D'ANNONCES AUTORISÉES
 
 **Exemple 1 : Voyage avec capacité bagage**
 
-> **Trajet Toulouse → Dakar (Sénégal)**  
+> **Trajet Toulouse -> Dakar (Sénégal)**  
 > **Dates** : 20-27 décembre 2025  
 > **Capacité** : 10 kg disponibles  
 > **Objets acceptés** : Vêtements, livres, cadeaux (pas de liquides, pas d'électronique de grande valeur)  
 > **Conditions** : Remise aéroport, contribution transport 50€  
 > **Contact** : Via messagerie Co-Bage
 
-✅ **Pourquoi autorisé** : Informations claires, objet légal, conditions transparentes.
+**Pourquoi autorisé** : Informations claires, objet légal, conditions transparentes.
 
 **Exemple 2 : Demande de transport**
 
-> **Besoin transport Paris → Lyon**  
+> **Besoin transport Paris -> Lyon**  
 > **Objet** : Carton de livres (15 kg)  
 > **Date** : Flexible entre le 1er et 10 novembre  
 > **Conditions** : Remise en main propre à Paris, livraison Lyon centre, contribution 30€  
 > **Contact** : Via messagerie
 
-✅ **Pourquoi autorisé** : Description précise, objet légal, conditions claires.
+**Pourquoi autorisé** : Description précise, objet légal, conditions claires.
 
 ---
 
-#### ❌ EXEMPLES D'ANNONCES INTERDITES
+#### EXEMPLES D'ANNONCES INTERDITES
 
 **Exemple 1 : Suspicion de trafic de drogue**
 
-> ❌ **Vol régulier Amsterdam → Paris**  
+> **Vol régulier Amsterdam -> Paris**  
 > **Capacité** : 20 kg  
 > **Spécialité** : Transport discret, aucune question sur le contenu  
 > **Tarif** : À négocier selon nature du colis  
 > **Paiement cash uniquement, bien payé**
 
-❌ **Pourquoi interdit** :
+**Pourquoi interdit** :
 
 - "Transport discret"
 - "Aucune question"
@@ -864,11 +864,11 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 
 **Exemple 2 : Armes**
 
-> ❌ **Transport Paris → Marseille**  
+> **Transport Paris -> Marseille**  
 > **Objet** : Colis métallique (5 kg), pas de questions svp  
 > **Urgent**, bien payé 500€
 
-❌ **Pourquoi interdit** :
+**Pourquoi interdit** :
 
 - "Colis métallique" (possiblement arme)
 - "Pas de questions"
@@ -880,11 +880,11 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 
 **Exemple 3 : Contenu confidentiel suspect**
 
-> ❌ **Envoi urgent Paris → Yaoundé**  
+> **Envoi urgent Paris -> Yaoundé**  
 > **Objet** : Colis 3 kg (contenu confidentiel, ne pas ouvrir)  
 > **Paiement** : 500€ cash, discrétion totale
 
-❌ **Pourquoi interdit** :
+**Pourquoi interdit** :
 
 - "Contenu confidentiel"
 - "Ne pas ouvrir"
@@ -897,11 +897,11 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 
 **Exemple 4 : Blanchiment possible**
 
-> ❌ **Cherche personne de confiance**  
+> **Cherche personne de confiance**  
 > **Mission** : Faire passer enveloppe contenant 15 000€ entre Paris et Bruxelles  
 > **Rémunération** : 2 000€, aucune déclaration, discrétion absolue
 
-❌ **Pourquoi interdit** :
+**Pourquoi interdit** :
 
 - Montant élevé sans justification
 - "Aucune déclaration"
@@ -923,7 +923,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 
 **Étape 2 : Cliquer sur "Signaler"**
 
-- Bouton ⚠️ ou 🚩 présent sur chaque contenu
+- Bouton ou présent sur chaque contenu
 - Ou envoyer un e-mail à support@cobage.joeltech.dev
 
 **Étape 3 : Remplir le formulaire**
@@ -945,9 +945,9 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 
 **Important** :
 
-- ✅ Signaler les vrais problèmes
-- ❌ Ne pas abuser du système
-- ❌ Les signalements abusifs répétés peuvent entraîner des sanctions
+- Signaler les vrais problèmes
+- Ne pas abuser du système
+- Les signalements abusifs répétés peuvent entraîner des sanctions
 
 ---
 
@@ -969,9 +969,9 @@ Nous vous contactons concernant **[type de contenu : annonce / message]** publi�
 Votre contenu viole nos Conditions Générales d'Utilisation, notamment : [motif précis avec référence à l'article des CGU].
 
 **Action prise** :  
-✅ Le contenu a été supprimé  
-⚠️ Ceci est un avertissement formel  
-📝 Cette violation est enregistrée dans votre dossier
+Le contenu a été supprimé  
+Ceci est un avertissement formel  
+Cette violation est enregistrée dans votre dossier
 
 **Ce que cela signifie pour vous** :
 
@@ -986,8 +986,8 @@ Si vous estimez que cette décision est erronée, vous pouvez la contester dans 
 - Tout élément de preuve pertinent
 
 **Besoin d'aide ?**  
-📧 E-mail : support@cobage.joeltech.dev  
-📱 Téléphone : +33 7 52 89 20 73
+E-mail : support@cobage.joeltech.dev  
+Téléphone : +33 7 52 89 20 73
 
 Nous comptons sur votre coopération pour maintenir Co-Bage comme un espace sûr et respectueux.
 
@@ -999,7 +999,7 @@ Responsable Co-Bage
 
 #### Modèle 2 : Notification de suspension temporaire
 
-**Objet** : 🔴 Votre compte Co-Bage a été suspendu
+**Objet** : Votre compte Co-Bage a été suspendu
 
 ---
 
@@ -1017,26 +1017,26 @@ Nous vous informons que votre compte Co-Bage a été **suspendu temporairement**
 **Contenu concerné** : [Référence]
 
 **Pendant la suspension** :  
-❌ Vous ne pouvez pas vous connecter  
-❌ Vos annonces sont masquées  
-❌ La messagerie est inaccessible  
-⚠️ Votre profil affiche "Compte suspendu"
+Vous ne pouvez pas vous connecter  
+Vos annonces sont masquées  
+La messagerie est inaccessible  
+Votre profil affiche "Compte suspendu"
 
 **Après la suspension** :  
-✅ Votre compte sera automatiquement réactivé le [DATE]  
-✅ Vous recevrez un e-mail de confirmation  
-⚠️ Toute nouvelle violation entraînera une suspension plus longue ou une suppression définitive
+Votre compte sera automatiquement réactivé le [DATE]  
+Vous recevrez un e-mail de confirmation  
+Toute nouvelle violation entraînera une suspension plus longue ou une suppression définitive
 
 **Contestation** :  
 Vous pouvez contester cette décision dans un délai de 15 jours en envoyant un e-mail à support@cobage.joeltech.dev avec :
 
-- Objet : "Contestation suspension — [Nom du compte]"
+- Objet : "Contestation suspension - [Nom du compte]"
 - Explication détaillée
 - Éléments de preuve
 
 **Contact** :  
-📧 support@cobage.joeltech.dev  
-📱 +33 7 52 89 20 73
+support@cobage.joeltech.dev  
++33 7 52 89 20 73
 
 Nous espérons que vous comprenez la nécessité de ces mesures pour maintenir un environnement sûr sur Co-Bage.
 
@@ -1048,7 +1048,7 @@ Responsable Co-Bage
 
 #### Modèle 3 : Notification de suppression définitive
 
-**Objet** : 🔴 Votre compte Co-Bage a été supprimé définitivement
+**Objet** : Votre compte Co-Bage a été supprimé définitivement
 
 ---
 
@@ -1062,11 +1062,11 @@ Nous vous informons que votre compte Co-Bage a été **supprimé définitivement
 **Contenu concerné** : [Référence avec date]
 
 **Conséquences** :  
-❌ Votre compte a été supprimé immédiatement et définitivement  
-❌ Vos annonces ont été retirées  
-❌ Votre profil a été anonymisé  
-❌ Vous ne pouvez plus créer de nouveau compte sur Co-Bage  
-⚠️ Les données nécessaires ont été conservées pour preuve (3 ans minimum)
+Votre compte a été supprimé immédiatement et définitivement  
+Vos annonces ont été retirées  
+Votre profil a été anonymisé  
+Vous ne pouvez plus créer de nouveau compte sur Co-Bage  
+Les données nécessaires ont été conservées pour preuve (3 ans minimum)
 
 **Signalement aux autorités** : [SI APPLICABLE]  
 En raison de la nature de la violation (contenu illégal : [préciser]), nous avons procédé à un signalement auprès des autorités compétentes :
@@ -1097,8 +1097,8 @@ Conformément au RGPD et à la LCEN, nous conservons :
 - Les données transmises aux autorités : jusqu'à clôture de l'enquête + 3 ans
 
 **Contact** :  
-📧 support@cobage.joeltech.dev  
-📱 +33 7 52 89 20 73
+support@cobage.joeltech.dev  
++33 7 52 89 20 73
 
 Cordialement,  
 **Timothée Joël Tchinda Tchoffo**  
@@ -1156,9 +1156,9 @@ Toujours analyser le contexte complet :
 **3. Proportionnalité**  
 La sanction doit être proportionnée à la gravité :
 
-- 1ère erreur mineure → Avertissement
-- Récidive → Sanctions progressives
-- Infraction grave immédiate → Suspension/suppression
+- 1ère erreur mineure -> Avertissement
+- Récidive -> Sanctions progressives
+- Infraction grave immédiate -> Suspension/suppression
 
 **4. Documentation**  
 Toujours documenter :
@@ -1177,16 +1177,16 @@ Rester impartial, ne pas juger sur :
 #### Cas particuliers
 
 **Citation dans un contexte éducatif**  
-Un utilisateur cite un passage d'un texte terroriste pour le critiquer ou l'analyser → Pas de sanction si contexte clair
+Un utilisateur cite un passage d'un texte terroriste pour le critiquer ou l'analyser -> Pas de sanction si contexte clair
 
 **Débat politique passionné**  
-Des utilisateurs débattent avec véhémence mais sans insultes ni appel à la violence → Tolérer, surveiller
+Des utilisateurs débattent avec véhémence mais sans insultes ni appel à la violence -> Tolérer, surveiller
 
 **Humour/second degré**  
 Distinguer l'humour (même de mauvais goût) de l'incitation réelle. En cas de doute, demander clarification à l'utilisateur.
 
 **Erreur linguistique**  
-Un utilisateur non francophone utilise un mot qui sonne comme une insulte → Vérifier l'intention, avertir gentiment si erreur innocente
+Un utilisateur non francophone utilise un mot qui sonne comme une insulte -> Vérifier l'intention, avertir gentiment si erreur innocente
 
 ---
 
@@ -1213,11 +1213,11 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 **Traitement** : IMMÉDIAT (< 2 heures)  
 **Actions** :
 
-1. ⚠️ **Suppression immédiate** du contenu et du compte
-2. 📸 **Capture d'écran** et conservation de toutes les preuves
-3. 🚨 **Signalement PHAROS** immédiat
-4. 📞 **Contact police** si menace imminente
-5. 📝 **Documentation complète** pour transmission judiciaire
+1. **Suppression immédiate** du contenu et du compte
+2. **Capture d'écran** et conservation de toutes les preuves
+3. **Signalement PHAROS** immédiat
+4. **Contact police** si menace imminente
+5. **Documentation complète** pour transmission judiciaire
 
 #### Niveau 5 : URGENCE ABSOLUE (menace imminente, danger de mort)
 
@@ -1229,11 +1229,11 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 
 **Actions IMMÉDIATES** :
 
-1. 📞 **Appel immédiat au 17 (Police)** ou 112 (urgences)
-2. 🚨 **Signalement PHAROS** en parallèle
-3. 📧 **E-mail au procureur** avec toutes les données
-4. 🔒 **Gel du compte** sans suppression (preuves)
-5. 📝 **Traçabilité complète** de toutes les actions
+1. **Appel immédiat au 17 (Police)** ou 112 (urgences)
+2. **Signalement PHAROS** en parallèle
+3. **E-mail au procureur** avec toutes les données
+4. **Gel du compte** sans suppression (preuves)
+5. **Traçabilité complète** de toutes les actions
 
 **Contacts d'urgence** :
 
@@ -1284,9 +1284,9 @@ Un utilisateur non francophone utilise un mot qui sonne comme une insulte → V�
 
 Elle doit être :
 
-- ✅ Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
-- ✅ Adaptée en cas d'évolution vers un modèle commercial avec équipe de modération
-- ✅ Mise à jour selon les évolutions légales et les recommandations des autorités
+- Validée par un avocat spécialisé en droit du numérique avant déploiement à grande échelle
+- Adaptée en cas d'évolution vers un modèle commercial avec équipe de modération
+- Mise à jour selon les évolutions légales et les recommandations des autorités
 
 **Timothée Joël Tchinda Tchoffo** reste seul responsable de la modération et de la sécurité de la plateforme Co-Bage.
 
@@ -1296,7 +1296,7 @@ Elle doit être :
 
 **Version 1.0 | Date d'entrée en vigueur : 18 Octobre 2025**
 
-**© Co-Bage 2025 — Tous droits réservés**
+**© Co-Bage 2025 - Tous droits réservés**
 
 **Projet étudiant pré-commercial développé par Timothée Joël Tchinda Tchoffo**
 

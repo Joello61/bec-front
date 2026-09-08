@@ -113,7 +113,7 @@ export default function UsersTable({ users, pagination, onPageChange }: UsersTab
                       )}
                     >
                       <Mail className="w-3 h-3" />
-                      {user.emailVerifie ? '✓' : '✗'}
+                      {user.emailVerifie ? '' : ''}
                     </div>
                     <div
                       className={cn(
@@ -124,7 +124,7 @@ export default function UsersTable({ users, pagination, onPageChange }: UsersTab
                       )}
                     >
                       <Phone className="w-3 h-3" />
-                      {user.telephoneVerifie ? '✓' : '✗'}
+                      {user.telephoneVerifie ? '' : ''}
                     </div>
                   </div>
                 </td>

@@ -67,7 +67,7 @@ export default function AdminModerationAvisPageClient() {
       <div className="bg-white rounded-lg shadow-md p-12 text-center">
         <div className="max-w-md mx-auto">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl">🚧</span>
+            <span className="text-3xl"></span>
           </div>
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
             Fonctionnalité en cours de développement

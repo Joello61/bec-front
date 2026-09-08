@@ -11,7 +11,7 @@ export const handleSignalementEvents = (eventType: string, data: any, stable: St
   switch (eventType) {
     
     case EventType.SIGNALEMENT_CREATED:
-      // Admins → nouveau signalement à examiner
+      // Admins -> nouveau signalement à examiner
       if (stable.isAdmin) {
         stable.refetchSignalements?.();
         displayNotification(
@@ -21,7 +21,7 @@ export const handleSignalementEvents = (eventType: string, data: any, stable: St
         );
       }
 
-      // Auteur du signalement → confirmation
+      // Auteur du signalement -> confirmation
       if (data.auteurId === stable.userId) {
         displayNotification(
           stable,
@@ -33,12 +33,12 @@ export const handleSignalementEvents = (eventType: string, data: any, stable: St
       break;
 
     case EventType.SIGNALEMENT_HANDLED:
-      // Admin → maj des stats
+      // Admin -> maj des stats
       if (stable.isAdmin) {
         stable.refetchSignalements?.();
       }
 
-      // Auteur → notification de résolution
+      // Auteur -> notification de résolution
       if (data.auteurId === stable.userId) {
         displayNotification(
           stable,
@@ -49,7 +49,7 @@ export const handleSignalementEvents = (eventType: string, data: any, stable: St
         );
       }
 
-      // Utilisateur signalé → avertissement éventuel
+      // Utilisateur signalé -> avertissement éventuel
       if (data.utilisateurSignaleId === stable.userId) {
         displayNotification(
           stable,
@@ -62,7 +62,7 @@ export const handleSignalementEvents = (eventType: string, data: any, stable: St
       break;
 
     case EventType.SIGNALEMENT_REJECTED:
-      // Auteur → notification du rejet
+      // Auteur -> notification du rejet
       if (data.auteurId === stable.userId) {
         displayNotification(
           stable,
@@ -72,7 +72,7 @@ export const handleSignalementEvents = (eventType: string, data: any, stable: St
         );
       }
 
-      // Admin → rafraîchir la liste des signalements
+      // Admin -> rafraîchir la liste des signalements
       if (stable.isAdmin) {
         stable.refetchSignalements?.();
       }

@@ -8,7 +8,7 @@ const APP_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 
-  title: 'Conditions Générales d’Utilisation (CGU) – Co-Bage',
+  title: 'Conditions Générales d’Utilisation (CGU) - Co-Bage',
   description:
     'Lisez les conditions générales d’utilisation de Co-Bage. Découvrez vos droits et obligations en tant qu’utilisateur de la plateforme de transport collaboratif de colis entre le Cameroun, l’Afrique et la diaspora.',
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${APP_URL}/legal/terms`,
     siteName: 'Co-Bage',
-    title: 'Conditions Générales d’Utilisation (CGU) – Co-Bage',
+    title: 'Conditions Générales d’Utilisation (CGU) - Co-Bage',
     description:
       'Conditions générales d’utilisation de la plateforme Co-Bage : droits, obligations et cadre d’utilisation du service.',
     images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@cobage_officiel',
     creator: '@cobage_officiel',
-    title: 'CGU – Co-Bage',
+    title: 'CGU - Co-Bage',
     description:
       'Conditions générales d’utilisation de la plateforme Co-Bage pour voyageurs et expéditeurs.',
     images: [`${APP_URL}/images/og-legal-terms.jpg`],

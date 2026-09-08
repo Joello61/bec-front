@@ -15,9 +15,9 @@ export interface Proposition {
   commissionProposeePourUnBagage: string;
   
   // ==================== DEVISE ====================
-  currency: string; // ⬅️ Code devise (toujours celle de la demande)
-  viewerCurrency?: string; // ⬅️ Devise de l'utilisateur qui consulte
-  converted?: ConvertedAmount; // ⬅️ Montants convertis
+  currency: string; // <- Code devise (toujours celle de la demande)
+  viewerCurrency?: string; // <- Devise de l'utilisateur qui consulte
+  converted?: ConvertedAmount; // <- Montants convertis
   
   message: string | null;
   statut: PropositionStatut;
@@ -32,7 +32,7 @@ export interface CreatePropositionInput {
   prixParKilo: number;
   commissionProposeePourUnBagage: number;
   message?: string;
-  // ⚠️ PAS de champ currency - géré automatiquement par le backend
+  // PAS de champ currency - géré automatiquement par le backend
 }
 
 export interface RespondPropositionInput {

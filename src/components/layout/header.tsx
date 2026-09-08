@@ -99,7 +99,7 @@ export default function Header() {
             <Link href={ROUTES.HOME} className="flex-shrink-0">
               <Image
                 src="/images/logo/logo-1.png"
-                alt="Co-Bage – Le monde à portée de bagage"
+                alt="Co-Bage - Le monde à portée de bagage"
                 width={112}
                 height={56}
                 priority

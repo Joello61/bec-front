@@ -57,7 +57,7 @@ export const createVoyageSchema = z.object({
   message: 'La date d\'arrivée doit être après la date de départ',
   path: ['dateArrivee'],
 })
-// ✅ NOUVEAU - Validation ville départ ≠ ville arrivée
+// NOUVEAU - Validation ville départ ≠ ville arrivée
 .refine((data) => {
   return data.villeDepart.trim().toLowerCase() !== data.villeArrivee.trim().toLowerCase();
 }, {

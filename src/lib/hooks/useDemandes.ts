@@ -14,14 +14,14 @@ export function useDemandes(page = 1, limit = 10, filters?: DemandeFilters) {
   const error = useDemandeStore((state) => state.error);
   const fetchDemandes = useDemandeStore((state) => state.fetchDemandes);
 
-  // ✅ Stabiliser filters avec useMemo
+  // Stabiliser filters avec useMemo
   const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
 
   useEffect(() => {
     fetchDemandes(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchDemandes]);
 
-  // ✅ Stabiliser refetch avec useCallback
+  // Stabiliser refetch avec useCallback
   const refetch = useCallback(() => {
     fetchDemandes(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchDemandes]);
@@ -42,14 +42,14 @@ export function usePublicDemandes(page = 1, limit = 10, filters?: DemandeFilters
   const error = useDemandeStore((state) => state.error);
   const fetchPublicDemandes = useDemandeStore((state) => state.fetchPublicDemandes);
 
-  // ✅ Stabiliser filters avec useMemo
+  // Stabiliser filters avec useMemo
   const stableFilters = useMemo(() => filters, [JSON.stringify(filters)]);
 
   useEffect(() => {
     fetchPublicDemandes(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchPublicDemandes]);
 
-  // ✅ Stabiliser refetch avec useCallback
+  // Stabiliser refetch avec useCallback
   const refetch = useCallback(() => {
     fetchPublicDemandes(page, limit, stableFilters);
   }, [page, limit, stableFilters, fetchPublicDemandes]);
@@ -78,7 +78,7 @@ export function useDemande(id: number) {
     }
   }, [id, fetchDemande]);
 
-  // ✅ Stabiliser refetch avec useCallback
+  // Stabiliser refetch avec useCallback
   const refetch = useCallback(() => {
     fetchDemande(id);
   }, [id, fetchDemande]);
@@ -129,7 +129,7 @@ export function useUserDemandes(userId?: number) {
     }
   }, [userId, fetchUserDemandes]);
 
-  // ✅ Stabiliser refetch avec useCallback
+  // Stabiliser refetch avec useCallback
   const refetch = useCallback(() => {
     if (userId != null) {
       fetchUserDemandes(userId);
@@ -152,7 +152,7 @@ export function useMatchingVoyages(demandeId?: number) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // ✅ Stabiliser fetchMatchingVoyages avec useCallback
+  // Stabiliser fetchMatchingVoyages avec useCallback
   const fetchMatchingVoyages = useCallback(async () => {
     if (demandeId == null) return;
     

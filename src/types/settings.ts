@@ -1,7 +1,7 @@
 export type ProfileVisibility = 'public' | 'verified_only' | 'private';
 export type MessagePermission = 'everyone' | 'verified_only' | 'no_one';
 export type Langue = 'fr' | 'en';
-//export type Devise = 'XAF' | 'EUR' | 'USD' | 'CAD' | 'GBP'; // ⬅️ ÉTENDU
+//export type Devise = 'XAF' | 'EUR' | 'USD' | 'CAD' | 'GBP'; // <- ÉTENDU
 export type DateFormat = 'dd/MM/yyyy' | 'MM/dd/yyyy' | 'yyyy-MM-dd';
 
 export interface UserSettings {
@@ -70,7 +70,7 @@ export interface UpdateSettingsInput {
   
   // Préférences
   langue?: Langue;
-  // ⚠️ DEVISE SUPPRIMÉE - non modifiable via settings
+  // DEVISE SUPPRIMÉE - non modifiable via settings
   timezone?: string;
   dateFormat?: DateFormat;
   

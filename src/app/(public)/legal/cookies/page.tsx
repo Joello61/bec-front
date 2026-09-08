@@ -8,7 +8,7 @@ const APP_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
 
-  title: 'Politique de Cookies – Co-Bage',
+  title: 'Politique de Cookies - Co-Bage',
   description:
     'Découvrez comment Co-Bage utilise des cookies et technologies similaires pour améliorer votre expérience, mesurer l’audience et personnaliser certaines fonctionnalités, conformément au RGPD et aux recommandations de la CNIL.',
 
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${APP_URL}/legal/cookies`,
     siteName: 'Co-Bage',
-    title: 'Politique de Cookies – Co-Bage',
+    title: 'Politique de Cookies - Co-Bage',
     description:
       'Informations sur l’utilisation des cookies par la plateforme Co-Bage : finalités, durée de conservation et gestion du consentement utilisateur.',
     images: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@cobage_officiel',
     creator: '@cobage_officiel',
-    title: 'Politique de Cookies – Co-Bage',
+    title: 'Politique de Cookies - Co-Bage',
     description:
       'En savoir plus sur l’utilisation des cookies et traceurs sur la plateforme Co-Bage.',
     images: [`${APP_URL}/images/og-legal-cookies.jpg`],
