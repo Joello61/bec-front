@@ -72,7 +72,7 @@ jobs:
             NEXT_PUBLIC_BACKEND_URL=https://${{ vars.STAGING_PUBLIC_DOMAIN }}
             NEXT_PUBLIC_MERCURE_HUB_URL=https://${{ vars.STAGING_PUBLIC_DOMAIN }}/.well-known/mercure
             NEXT_PUBLIC_ENV=staging
-            R2_PUBLIC_URL=${{ vars.R2_PUBLIC_URL }}
+            R2_PUBLIC_URL=${{ vars.STAGING_R2_PUBLIC_URL }}
             NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME }}
             NEXT_PUBLIC_APP_SHORT_NAME=${{ vars.NEXT_PUBLIC_APP_SHORT_NAME }}
 
@@ -149,7 +149,7 @@ jobs:
             NEXT_PUBLIC_BACKEND_URL=https://${{ vars.PROD_PUBLIC_DOMAIN }}
             NEXT_PUBLIC_MERCURE_HUB_URL=https://${{ vars.PROD_PUBLIC_DOMAIN }}/.well-known/mercure
             NEXT_PUBLIC_ENV=production
-            R2_PUBLIC_URL=${{ vars.R2_PUBLIC_URL }}
+            R2_PUBLIC_URL=${{ vars.PROD_R2_PUBLIC_URL }}
             NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME }}
             NEXT_PUBLIC_APP_SHORT_NAME=${{ vars.NEXT_PUBLIC_APP_SHORT_NAME }}
             NEXT_PUBLIC_GA_ID=${{ vars.PROD_GA_ID }}
