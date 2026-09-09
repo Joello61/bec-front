@@ -148,7 +148,7 @@ const faqs: FAQItem[] = [
     category: 'compte',
     question: 'Comment supprimer mon compte ?',
     answer:
-      "La suppression de compte n'est pas encore disponible depuis l'interface. Contactez-nous à contact@cobage.joeltech.dev avec votre demande et nous procéderons à la suppression dans les 48h.",
+      "La suppression de compte n'est pas encore disponible depuis l'interface. Contactez-nous à contact@cobage.joeltech.fr avec votre demande et nous procéderons à la suppression dans les 48h.",
   },
 ];
 
@@ -318,7 +318,7 @@ export default function HelpPageClient() {
                 Notre équipe est là pour vous aider. Contactez-nous par email.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="mailto:contact@cobage.joeltech.dev">
+                <a href="mailto:contact@cobage.joeltech.fr">
                   <Button
                     variant="primary"
                     leftIcon={<Mail className="w-4 h-4" />}
