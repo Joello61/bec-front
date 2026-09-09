@@ -22,6 +22,11 @@ const r2Hostname = new URL(r2PublicUrl).hostname;
 // payload RSC bloque). Pas de regression en production : cette CSP ne s'applique qu'a ce
 // mode (voir son usage conditionnel dans headers() ci-dessous).
 const isProd = process.env.NODE_ENV === 'production';
+// NODE_ENV vaut "production" pour staging ET production (même cible Docker "prod",
+// Dockerfile) - jamais utilisable pour distinguer les deux. NEXT_PUBLIC_ENV, injecté
+// différemment par bec-frontend/.github/workflows/deploy.yml selon l'environnement,
+// est la seule variable qui les distingue réellement au moment du build.
+const isRealProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
 // Seuls tiers identifies dans le code (CookiesConsent.tsx, HomeBannerAd.tsx) : Google Analytics + AdSense.
 const cspHeader = `
@@ -93,7 +98,17 @@ const nextConfig = {
         source: '/:path*',
         headers: [
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
-          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          // Codé en dur sans condition jusqu'ici (piège réel constaté le 2026-09-09) :
+          // HSTS était donc déjà actif sur staging dès son premier certificat TLS valide,
+          // alors que la variable "HSTS_ENABLED" censée le retarder n'était en réalité
+          // lue par aucun code (ni ici, ni côté backend) - un navigateur mémorise cet
+          // en-tête pour "max-age" (2 ans) dès la première visite HTTPS valide, y compris
+          // sur un domaine de test. Restreint désormais à la production réelle - jamais
+          // besoin d'un "flip" manuel après coup, contrairement au cadrage initial de ce
+          // document (voir bec-docs/docs/deploiement/deploiement-cobage.md §14 D6).
+          ...(isRealProduction
+            ? [{ key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' }]
+            : []),
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
