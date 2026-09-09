@@ -29,9 +29,15 @@ const isProd = process.env.NODE_ENV === 'production';
 const isRealProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
 // Seuls tiers identifies dans le code (CookiesConsent.tsx, HomeBannerAd.tsx) : Google Analytics + AdSense.
+// "'unsafe-inline'" sur script-src (constaté necessaire en production, 2026-09-10) : le
+// App Router injecte ses propres scripts inline pour l'hydratation progressive (streaming
+// RSC), bloques sinon (erreur React #412, hydratation cassee) - la doc officielle Next.js
+// (Configuring: Content Security Policy) documente exactement ce cas : la seule alternative
+// (nonce via proxy.ts) exige un rendu 100% dynamique sur tout le site, incompatible avec le
+// prerendering statique deja en place ("x-nextjs-cache: HIT" constate en production).
 const cspHeader = `
   default-src 'self';
-  script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com;
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob: https://www.google-analytics.com https://*.googlesyndication.com https://*.g.doubleclick.net;
   font-src 'self';
