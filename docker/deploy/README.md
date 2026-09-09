@@ -40,11 +40,23 @@ secrets :
 |---|---|---|
 | `STAGING_PUBLIC_DOMAIN` | `staging.cobage.joeltech.fr` | build-staging |
 | `PROD_PUBLIC_DOMAIN` | `cobage.joeltech.fr` | build-production |
-| `R2_PUBLIC_URL` | domaine public du bucket Cloudflare R2 (Phase D1) | les deux builds |
+| `STAGING_R2_PUBLIC_URL` | domaine public du bucket Cloudflare R2 de staging | build-staging |
+| `PROD_R2_PUBLIC_URL` | domaine public du bucket Cloudflare R2 de production | build-production |
 | `NEXT_PUBLIC_APP_NAME` | nom complet de l'application | les deux builds |
 | `NEXT_PUBLIC_APP_SHORT_NAME` | nom court (PWA) | les deux builds |
 | `PROD_GA_ID` | ID Google Analytics | build-production uniquement |
 | `PROD_ADSENSE_ID` | ID AdSense (`pub-...`) | build-production uniquement |
+
+**`STAGING_R2_PUBLIC_URL`/`PROD_R2_PUBLIC_URL` en deux variables distinctes (pas une
+seule `R2_PUBLIC_URL` partagée), piège réel corrigé (2026-09-09)** : si staging et
+production utilisent deux buckets R2 séparés (recommandé, cf. `bec-docs/docs/
+deploiement/deploiement-cobage.md` §14 D3.4), leurs domaines publics diffèrent - une
+variable unique aurait figé la même URL dans les deux builds, cassant `next/image` sur
+l'un des deux environnements (hôte non reconnu dans `images.remotePatterns`,
+`next.config.ts`). `build-staging`/`build-production` n'étant pas rattachés à un
+Environment GitHub (uniquement les jobs `deploy-*` le sont), une seule Repository
+Variable ne peut de toute façon pas varier par environnement - d'où le choix de deux
+noms distincts plutôt que deux valeurs d'un même Environment.
 
 `PROD_GA_ID`/`PROD_ADSENSE_ID` sont volontairement absentes du build staging (variable
 non définie = vide) - éviter de polluer les statistiques réelles avec du trafic de test.
@@ -88,7 +100,7 @@ ou `staging-<sha>`, onglet "Packages" du dépôt), en relançant manuellement
 
 ## Vérification avant le tout premier déploiement réel
 
-- [ ] Les 7 Repository Variables ci-dessus créées.
+- [ ] Les 8 Repository Variables ci-dessus créées.
 - [ ] Environnements `staging`/`cobage-production` créés avec leurs 4 secrets chacun, "Required reviewers" actif sur `cobage-production` uniquement (jamais sur `Production`, l'environnement Vercel préexistant).
 - [ ] DNS de `STAGING_PUBLIC_DOMAIN` et `PROD_PUBLIC_DOMAIN` propagés avant le premier déploiement de chaque environnement (sans quoi les URLs SEO/canoniques générées au build pointeraient vers un domaine non résolvable).
 - [ ] `docker login ghcr.io` déjà fait sur le serveur (partagé avec le pipeline backend si même utilisateur).
