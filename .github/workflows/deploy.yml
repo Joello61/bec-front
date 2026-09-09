@@ -155,14 +155,21 @@ jobs:
             NEXT_PUBLIC_GA_ID=${{ vars.PROD_GA_ID }}
             NEXT_PUBLIC_ADSENSE_ID=${{ vars.PROD_ADSENSE_ID }}
 
-  # "environment: production" + règle "Required reviewers" (Settings > Environments,
-  # jamais configurable depuis ce fichier YAML seul) : seul garde-fou manuel avant la mise
-  # en prod réelle - voir docker/deploy/README.md.
+  # "environment: cobage-production" + règle "Required reviewers" (Settings >
+  # Environments, jamais configurable depuis ce fichier YAML seul) : seul garde-fou
+  # manuel avant la mise en prod réelle - voir docker/deploy/README.md. Nom distinct de
+  # "production" (voir commentaire sur "environment:" ci-dessous pour la raison).
   deploy-production:
     name: Deploy to production
     needs: build-production
     runs-on: ubuntu-latest
-    environment: production
+    # "production" (minuscule) collisionnerait avec l'environnement "Production" déjà
+    # existant sur ce dépôt (Vercel, actif) - GitHub traite les noms d'environnement de
+    # façon insensible à la casse, constaté en pratique (2026-09-09) en tentant de créer
+    # "production" via l'API, qui a résolu vers "Production" au lieu d'en créer un
+    # nouveau. Nom distinct pour éviter d'hériter silencieusement de la protection ou de
+    # perturber le déploiement Vercel existant.
+    environment: cobage-production
     steps:
       - name: Checkout tested commit
         uses: actions/checkout@v7
