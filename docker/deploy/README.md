@@ -51,11 +51,21 @@ non définie = vide) - éviter de polluer les statistiques réelles avec du traf
 
 ### 3. Environnements GitHub (Settings > Environments, dépôt `bec-front`)
 
-**Attention** : ce dépôt a déjà des Environments `Preview`/`Production` (vraisemblablement
-issus d'une intégration Vercel antérieure) - **ne pas les réutiliser**. Créer deux
-nouveaux environnements dédiés à ce pipeline, nommés `staging` et `production` (mêmes
-noms que ceux utilisés par `bec-backend`, mais propres à ce dépôt), chacun avec ses
-**propres** secrets :
+**Attention, piège réel rencontré (2026-09-09)** : ce dépôt a déjà des Environments
+`Preview`/`Production` (intégration Vercel active - déploiements constatés la veille de
+cette configuration) - **ne jamais les réutiliser**. GitHub traite les noms
+d'environnement de façon **insensible à la casse** : une tentative de créer un
+environnement `production` (minuscule) via l'API a silencieusement résolu vers
+`Production` (Vercel) au lieu d'en créer un nouveau, et y a ajouté par erreur une règle
+"Required reviewers" - laquelle aurait bloqué tout déploiement Vercel automatique en
+attente d'une approbation manuelle jamais prévue par cette intégration. Corrigé
+immédiatement (règle retirée), mais **la leçon reste** : `staging` est sans risque (aucun
+homonyme), la cible de production de ce pipeline est nommée **`cobage-production`**
+(jamais `production` tout court) - déjà reflété dans `.github/workflows/deploy.yml`
+(`environment: cobage-production`).
+
+Créer deux environnements dédiés à ce pipeline, `staging` et `cobage-production`, chacun
+avec ses **propres** secrets :
 
 | Secret | Contenu |
 |---|---|
@@ -64,8 +74,8 @@ noms que ceux utilisés par `bec-backend`, mais propres à ce dépôt), chacun a
 | `SSH_USER` | Utilisateur SSH de déploiement |
 | `DEPLOY_PATH` | Chemin absolu du checkout `bec-infra` sur le serveur pour cet environnement (identique à celui utilisé par `bec-backend`) |
 
-**Sur `production` uniquement** : ajouter une règle **"Required reviewers"** - seul
-garde-fou manuel avant la mise en prod réelle. Cette règle protège le job
+**Sur `cobage-production` uniquement** : ajouter une règle **"Required reviewers"** -
+seul garde-fou manuel avant la mise en prod réelle. Cette règle protège le job
 `deploy-production` ; le job `build-production` (qui précède) n'est volontairement pas
 gardé par un environnement (les valeurs qu'il utilise sont publiques, pas de risque à les
 construire avant validation).
@@ -79,6 +89,6 @@ ou `staging-<sha>`, onglet "Packages" du dépôt), en relançant manuellement
 ## Vérification avant le tout premier déploiement réel
 
 - [ ] Les 7 Repository Variables ci-dessus créées.
-- [ ] Environnements `staging`/`production` créés avec leurs 4 secrets chacun, "Required reviewers" actif sur `production`.
+- [ ] Environnements `staging`/`cobage-production` créés avec leurs 4 secrets chacun, "Required reviewers" actif sur `cobage-production` uniquement (jamais sur `Production`, l'environnement Vercel préexistant).
 - [ ] DNS de `STAGING_PUBLIC_DOMAIN` et `PROD_PUBLIC_DOMAIN` propagés avant le premier déploiement de chaque environnement (sans quoi les URLs SEO/canoniques générées au build pointeraient vers un domaine non résolvable).
 - [ ] `docker login ghcr.io` déjà fait sur le serveur (partagé avec le pipeline backend si même utilisateur).
