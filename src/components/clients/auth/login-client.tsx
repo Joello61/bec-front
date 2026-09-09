@@ -4,7 +4,7 @@ import { motion, Variants } from 'framer-motion';
 import { Shield, Users, Zap } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import OAuthButtons from '@/components/auth/OAuthButtons';
 import { LoadingSpinner, useToast } from '@/components/common';
@@ -25,7 +25,7 @@ const fadeIn: Variants = {
   },
 };
 
-export default function LoginPageClient() {
+function LoginContent() {
   const router = useRouter();
   const { login, user } = useAuth();
   const toast = useToast();
@@ -183,5 +183,17 @@ export default function LoginPageClient() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPageClient() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen w-full items-center justify-center">
+        <LoadingSpinner size="md" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
