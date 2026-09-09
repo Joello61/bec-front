@@ -66,9 +66,14 @@ source image-tags.env
 
 export FRONTEND_IMAGE="$FRONTEND_IMAGE"
 # BACKEND_IMAGE peut être vide au tout premier déploiement (aucun déploiement backend
-# encore effectué sur ce serveur) - sans impact ici, "--no-deps" ci-dessous ne demande
-# jamais à Compose d'instancier "backend"/"worker"/"scheduler" à partir de cette valeur.
-export BACKEND_IMAGE="\${BACKEND_IMAGE:-}"
+# encore effectué sur ce serveur) - un placeholder syntaxiquement valide est nécessaire
+# malgré tout : Docker Compose refuse de valider TOUT le fichier fusionné (même en ne
+# ciblant que "frontend" via "--no-deps") si un seul service déclaré ailleurs (ici
+# "backend"/"worker"/"scheduler") a une valeur d'image vide - "invalid compose project",
+# constaté en pratique (2026-09-09, voir bec-backend/docker/deploy/ssh-deploy.sh pour le
+# même piège côté backend). Jamais réellement tiré tant que ces services ne font pas
+# partie de ceux explicitement ciblés par une commande Compose.
+export BACKEND_IMAGE="\${BACKEND_IMAGE:-ghcr.io/joello61/bec-back:bootstrap-placeholder}"
 
 cat > image-tags.env <<IMAGETAGS
 BACKEND_IMAGE=\$BACKEND_IMAGE
