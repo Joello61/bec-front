@@ -8,7 +8,7 @@
 
 ## RÉSUMÉ EN LANGAGE CLAIR
 
-Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage. Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **support@cobage.joeltech.dev** pour toute question.
+Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage. Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **support@cobage.joeltech.fr** pour toute question.
 
 ---
 
@@ -39,7 +39,7 @@ Le responsable du traitement des données personnelles collectées via la Platef
 **Timothée Joël Tchinda Tchoffo**  
 **Statut** : Étudiant développeur, agissant à titre non professionnel dans le cadre d'un projet pré-commercial  
 **Adresse** : Toulouse, France  
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73
 
 Le responsable de traitement au sens de l'article 4.7 du RGPD est **Timothée Joël Tchinda Tchoffo**, personne physique, agissant en tant qu'éditeur de la plateforme Co-Bage.
@@ -53,7 +53,7 @@ Le responsable de traitement au sens de l'article 4.7 du RGPD est **Timothée Jo
 - Le projet est en phase bêta avec un nombre limité d'utilisateurs
 
 **Toute demande relative à la protection des données peut être adressée directement à :**  
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73
 
 > **Note** : Si le projet se développe et atteint un volume de traitement important (>10 000 utilisateurs actifs mensuels), la désignation d'un DPO sera envisagée conformément aux recommandations de la CNIL.
@@ -286,7 +286,7 @@ L'utilisateur peut demander :
 - Copie de toutes ses données personnelles
 - Informations sur les finalités, destinataires, durées de conservation
 
-**Modalités** : E-mail à support@cobage.joeltech.dev  
+**Modalités** : E-mail à support@cobage.joeltech.fr  
 **Délai de réponse** : 1 mois (prorogeable de 2 mois en cas de complexité)  
 **Format de remise** : Fichier JSON ou CSV téléchargeable, ou copie PDF
 
@@ -294,7 +294,7 @@ L'utilisateur peut demander :
 
 L'utilisateur peut corriger des données **inexactes ou incomplètes**.
 
-**Modalités** : Directement depuis les paramètres du compte ou demande à support@cobage.joeltech.dev  
+**Modalités** : Directement depuis les paramètres du compte ou demande à support@cobage.joeltech.fr  
 **Délai** : Rectification sous 72 heures pour les données éditables en ligne
 
 ### 8.3 Droit à l'effacement / "Droit à l'oubli" (art. 17 RGPD)
@@ -313,7 +313,7 @@ L'utilisateur peut demander la **suppression de ses données** dans les cas suiv
 
 **Procédure** :
 
-1. Demande via support@cobage.joeltech.dev
+1. Demande via support@cobage.joeltech.fr
 2. Vérification d'identité (copie de pièce d'identité si doute)
 3. Suppression sous 1 mois (sauf exception légale)
 4. Notification de la suppression par e-mail
@@ -322,7 +322,7 @@ L'utilisateur peut demander la **suppression de ses données** dans les cas suiv
 
 L'utilisateur peut demander le **gel temporaire** du traitement dans certaines circonstances.
 
-**Modalités** : Demande à support@cobage.joeltech.dev. Réponse sous 1 mois.
+**Modalités** : Demande à support@cobage.joeltech.fr. Réponse sous 1 mois.
 
 ### 8.5 Droit à la portabilité (art. 20 RGPD)
 
@@ -335,7 +335,7 @@ L'utilisateur peut **récupérer ses données dans un format structuré, couramm
 - Messages envoyés
 - Historique de recherche et favoris
 
-**Modalités** : Demande via support@cobage.joeltech.dev. Export fourni sous 1 mois.
+**Modalités** : Demande via support@cobage.joeltech.fr. Export fourni sous 1 mois.
 
 ### 8.6 Droit d'opposition (art. 21 RGPD)
 
@@ -356,12 +356,12 @@ L'utilisateur peut **s'opposer à tout moment** à un traitement fondé sur l'**
 
 L'utilisateur peut définir des **directives concernant le sort de ses données après son décès**.
 
-**Modalités** : Demande à support@cobage.joeltech.dev
+**Modalités** : Demande à support@cobage.joeltech.fr
 
 ### 8.9 Modalités d'exercice des droits
 
 **Contact** :  
-E-mail : **support@cobage.joeltech.dev**  
+E-mail : **support@cobage.joeltech.fr**  
 Téléphone : +33 7 52 89 20 73
 
 **Informations à fournir** :
@@ -551,7 +551,7 @@ L'utilisateur dispose de **30 jours** pour refuser les nouvelles conditions. Le 
 
 ### 11.4 Archivage des versions antérieures
 
-Co-Bage archive toutes les versions antérieures de la Politique de confidentialité. L'utilisateur peut demander une copie d'une version antérieure à support@cobage.joeltech.dev.
+Co-Bage archive toutes les versions antérieures de la Politique de confidentialité. L'utilisateur peut demander une copie d'une version antérieure à support@cobage.joeltech.fr.
 
 ---
 
@@ -563,7 +563,7 @@ Pour toute question relative à la protection des données ou à l'exercice de v
 
 **Responsable de traitement**  
 **Timothée Joël Tchinda Tchoffo**  
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 
@@ -670,7 +670,7 @@ Cordialement,
 
 ---
 
-**Envoi à** : support@cobage.joeltech.dev
+**Envoi à** : support@cobage.joeltech.fr
 
 ---
 
@@ -860,7 +860,7 @@ Si vous remarquez une activité inhabituelle sur votre compte Co-Bage, contactez
 ### BESOIN D'AIDE ?
 
 Si vous avez des questions ou des inquiétudes :  
-E-mail : support@cobage.joeltech.dev  
+E-mail : support@cobage.joeltech.fr  
 Téléphone : +33 7 52 89 20 73
 
 **Ressources utiles** :

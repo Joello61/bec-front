@@ -4,6 +4,12 @@ const apiOrigin = new URL(
 const mercureOrigin = new URL(
   process.env.NEXT_PUBLIC_MERCURE_HUB_URL || 'http://localhost:3001/.well-known/mercure'
 ).origin;
+// Bucket Cloudflare R2 (Phase D1/D2) - remplace l'ancien sous-domaine "cobage-api"
+// utilisé pour /uploads/** (obsolète : les avatars sont servis directement par R2 en
+// production, plus par le backend). Fallback dev-safe si la variable n'est pas encore
+// définie (aucune image R2 réelle en local, où le disque local sert déjà les avatars).
+const r2PublicUrl = process.env.R2_PUBLIC_URL || 'https://example.r2.dev';
+const r2Hostname = new URL(r2PublicUrl).hostname;
 
 // next dev --turbopack (bec-infra/docker-compose.yml, service "frontend", target: dev)
 // injecte ses propres scripts inline (runtime Fast Refresh/HMR, overlay d'erreurs) en plus
@@ -63,8 +69,8 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cobage-api.joeltech.dev',
-        pathname: '/uploads/**',
+        hostname: r2Hostname,
+        pathname: '/**',
       },
       {
         protocol: 'https',
@@ -123,7 +129,7 @@ const nextConfig = {
 
   env: {
     NEXT_PUBLIC_APP_NAME: 'Co-Bage',
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev',
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.fr',
   },
 
   reactCompiler: true,

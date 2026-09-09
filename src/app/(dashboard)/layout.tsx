@@ -34,6 +34,13 @@ export const metadata: Metadata = {
   },
 };
 
+// Contenu utilisateur authentifié, jamais de valeur à prérendre statiquement - hérité par
+// toutes les routes de ce groupe. Contourne aussi un bug de prerendering connu de
+// Next.js 16 (voir bec-docs, investigation dédiée) qui plantait au build sur certaines de
+// ces routes ("/dashboard", "/dashboard/mes-voyages") lorsqu'elles restaient éligibles à
+// l'optimisation statique par défaut.
+export const dynamic = 'force-dynamic';
+
 // Server Component qui wrap le Client Component
 export default function DashboardLayout({
   children,
