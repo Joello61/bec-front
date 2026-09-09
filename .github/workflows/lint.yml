@@ -1,13 +1,6 @@
 name: CI
 
 # Patron repris de factu_sentinel (.github/workflows/lint.yml), adapté à Cobage.
-#
-# Le step "Build (next build)" reste actuellement rouge : /_global-error plante au build
-# (bug interne à Next.js 16.3.4, confirmé non corrigeable côté application - voir
-# bec-docs/docs/deploiement/deploiement-cobage.md, §5, "Blocage critique découvert en
-# Phase D2"). Attendu, pas une régression de ce workflow - gardé tel quel (jamais retiré
-# ni assoupli) pour que ce garde-fou soit immédiatement vert dès que le blocage amont sera
-# levé, plutôt que de devoir le réintroduire plus tard.
 
 on:
   push:
@@ -49,8 +42,7 @@ jobs:
       - name: Run tests
         run: npm test
 
-      # Garde-fou réel (ignoreBuildErrors: false, next.config.ts) - actuellement rouge,
-      # voir le commentaire en tête de ce fichier.
+      # Garde-fou réel (ignoreBuildErrors: false, next.config.ts).
       - name: Build (next build)
         run: npm run build
 
