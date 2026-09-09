@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { AboutSection } from '@/components/sections';
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
+  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.fr';
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),

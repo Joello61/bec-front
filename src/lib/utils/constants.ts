@@ -158,7 +158,7 @@ export const SOCIAL_LINKS = {
 
 // Contact
 export const CONTACT = {
-  EMAIL: 'support@cobage.joeltech.dev',
+  EMAIL: 'support@cobage.joeltech.fr',
   PHONE: '+330752892073',
   ADDRESS: 'Toulouse, France',
 } as const;

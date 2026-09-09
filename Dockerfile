@@ -51,8 +51,13 @@ ARG NEXT_PUBLIC_MERCURE_HUB_URL
 ARG NEXT_PUBLIC_BACKEND_URL
 ARG NEXT_PUBLIC_GA_ID
 ARG NEXT_PUBLIC_ADSENSE_ID
+# Pas de préfixe NEXT_PUBLIC_ : lu uniquement par next.config.ts (contexte Node du build,
+# jamais expédié au bundle client) pour dériver le hostname R2 autorisé par next/image
+# (images.remotePatterns) - Phase D1/D2, avatars servis par Cloudflare R2.
+ARG R2_PUBLIC_URL
 
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
+    R2_PUBLIC_URL=$R2_PUBLIC_URL \
     NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID \
     NEXT_PUBLIC_ADSENSE_ID=$NEXT_PUBLIC_ADSENSE_ID \
     NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME \

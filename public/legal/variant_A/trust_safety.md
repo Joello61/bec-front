@@ -394,7 +394,7 @@ Le clic sur le bouton ouvre un **formulaire guidé** :
 
 ### 4.3 Signalement par e-mail
 
-Alternative au bouton in-app : envoi d'un e-mail à **support@cobage.joeltech.dev** avec objet "Signalement - [Motif]".
+Alternative au bouton in-app : envoi d'un e-mail à **support@cobage.joeltech.fr** avec objet "Signalement - [Motif]".
 
 ### 4.4 Accusé de réception
 
@@ -500,7 +500,7 @@ Pour les contenus relevant du pénal.
 - E-mail dans les 24h suivant la décision
 - Motif précis et référence aux CGU
 - Droit de contestation (15 jours)
-- Contact pour recours : support@cobage.joeltech.dev
+- Contact pour recours : support@cobage.joeltech.fr
 
 ---
 
@@ -693,7 +693,7 @@ Co-Bage coopère pleinement avec les autorités judiciaires.
 
 **Responsable** :  
 **Timothée Joël Tchinda Tchoffo**  
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 
@@ -720,7 +720,7 @@ Co-Bage coopère pleinement avec les autorités judiciaires.
 
 **Étape 1 : Envoi de la contestation**
 
-Par e-mail à **support@cobage.joeltech.dev** avec objet "Contestation décision de modération - Ticket [NUMÉRO]"
+Par e-mail à **support@cobage.joeltech.fr** avec objet "Contestation décision de modération - Ticket [NUMÉRO]"
 
 **Contenu de la contestation** :
 
@@ -759,7 +759,7 @@ L'utilisateur est informé par e-mail de la décision finale avec :
 
 **Note** : En tant que projet étudiant non professionnel, Co-Bage n'est pas actuellement tenu de désigner un médiateur. Toutefois, si le projet évolue vers une activité professionnelle, un médiateur sera désigné conformément aux articles L.611-1 et suivants du Code de la consommation.
 
-**Alternative actuelle** : Contact direct pour résolution amiable via support@cobage.joeltech.dev
+**Alternative actuelle** : Contact direct pour résolution amiable via support@cobage.joeltech.fr
 
 **Plateforme européenne de règlement en ligne** :  
 [https://ec.europa.eu/consumers/odr](https://ec.europa.eu/consumers/odr)
@@ -924,7 +924,7 @@ Dans un souci de transparence, Co-Bage s'engage à publier des statistiques de m
 **Étape 2 : Cliquer sur "Signaler"**
 
 - Bouton ou présent sur chaque contenu
-- Ou envoyer un e-mail à support@cobage.joeltech.dev
+- Ou envoyer un e-mail à support@cobage.joeltech.fr
 
 **Étape 3 : Remplir le formulaire**
 
@@ -986,7 +986,7 @@ Si vous estimez que cette décision est erronée, vous pouvez la contester dans 
 - Tout élément de preuve pertinent
 
 **Besoin d'aide ?**  
-E-mail : support@cobage.joeltech.dev  
+E-mail : support@cobage.joeltech.fr  
 Téléphone : +33 7 52 89 20 73
 
 Nous comptons sur votre coopération pour maintenir Co-Bage comme un espace sûr et respectueux.
@@ -1028,14 +1028,14 @@ Vous recevrez un e-mail de confirmation
 Toute nouvelle violation entraînera une suspension plus longue ou une suppression définitive
 
 **Contestation** :  
-Vous pouvez contester cette décision dans un délai de 15 jours en envoyant un e-mail à support@cobage.joeltech.dev avec :
+Vous pouvez contester cette décision dans un délai de 15 jours en envoyant un e-mail à support@cobage.joeltech.fr avec :
 
 - Objet : "Contestation suspension - [Nom du compte]"
 - Explication détaillée
 - Éléments de preuve
 
 **Contact** :  
-support@cobage.joeltech.dev  
+support@cobage.joeltech.fr  
 +33 7 52 89 20 73
 
 Nous espérons que vous comprenez la nécessité de ces mesures pour maintenir un environnement sûr sur Co-Bage.
@@ -1078,7 +1078,7 @@ En raison de la nature de la violation (contenu illégal : [préciser]), nous av
 **Contestation** :  
 Vous disposez d'un droit de contestation dans un délai de 15 jours :
 
-- Par e-mail : support@cobage.joeltech.dev
+- Par e-mail : support@cobage.joeltech.fr
 - Par courrier recommandé avec AR :  
   Timothée Joël Tchinda Tchoffo  
   Toulouse, France
@@ -1097,7 +1097,7 @@ Conformément au RGPD et à la LCEN, nous conservons :
 - Les données transmises aux autorités : jusqu'à clôture de l'enquête + 3 ans
 
 **Contact** :  
-support@cobage.joeltech.dev  
+support@cobage.joeltech.fr  
 +33 7 52 89 20 73
 
 Cordialement,  

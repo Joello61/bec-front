@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
+  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.fr';
 
 // Configuration du viewport
 export const viewport: Viewport = {
@@ -153,7 +153,7 @@ export default function RootLayout({
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Support Client',
-      email: 'support@cobage.joeltech.dev',
+      email: 'support@cobage.joeltech.fr',
       telephone: '+33752892073',
       availableLanguage: ['French', 'English'],
       areaServed: ['CM', 'FR', 'US', 'CA', 'GB'],

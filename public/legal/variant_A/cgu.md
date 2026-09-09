@@ -48,7 +48,7 @@
 
 La plateforme Co-Bage (ci-après « la Plateforme » ou « le Service ») est éditée par **Timothée Joël Tchinda Tchoffo**, étudiant développeur, agissant à titre non professionnel dans le cadre d'un projet pré-commercial.
 
-**Contact** : support@cobage.joeltech.dev  
+**Contact** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 
@@ -133,7 +133,7 @@ Pour s'inscrire, l'Utilisateur doit :
 
 ### 4.4 Sécurité du compte
 
-L'Utilisateur est responsable de la confidentialité de ses identifiants. En cas de piratage, contacter immédiatement : support@cobage.joeltech.dev
+L'Utilisateur est responsable de la confidentialité de ses identifiants. En cas de piratage, contacter immédiatement : support@cobage.joeltech.fr
 
 ---
 
@@ -487,7 +487,7 @@ L'Utilisateur garantit disposer de tous les droits sur ses contenus et indemnise
 
 Le responsable du traitement des données personnelles collectées via la Plateforme Co-Bage est **Timothée Joël Tchinda Tchoffo**, étudiant développeur, agissant à titre non professionnel dans le cadre d'un projet pré-commercial.
 
-**Contact** : support@cobage.joeltech.dev  
+**Contact** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73
 
 Co-Bage n'est pas tenu de désigner un délégué à la protection des données (DPO) au sens de l'article 37 du RGPD.
@@ -545,7 +545,7 @@ Vous disposez des droits suivants :
 - **Droit d'opposition** (art. 21) : s'opposer au traitement
 - **Droit de retirer le consentement** : à tout moment
 
-**Exercice** : Envoyez un e-mail à support@cobage.joeltech.dev avec copie de pièce d'identité. Réponse sous **1 mois**.
+**Exercice** : Envoyez un e-mail à support@cobage.joeltech.fr avec copie de pièce d'identité. Réponse sous **1 mois**.
 
 **Réclamation** : Vous pouvez saisir la CNIL : [www.cnil.fr](https://www.cnil.fr)
 
@@ -605,7 +605,7 @@ Contenus criminels transmis immédiatement à :
 
 ### 13.5 Contestation
 
-L'Utilisateur peut contester une décision en écrivant à support@cobage.joeltech.dev. Réponse sous 15 jours.
+L'Utilisateur peut contester une décision en écrivant à support@cobage.joeltech.fr. Réponse sous 15 jours.
 
 ---
 
@@ -639,7 +639,7 @@ L'Utilisateur peut contester une décision en écrivant à support@cobage.joelte
 
 ### 14.3 Résiliation par l'Utilisateur
 
-**Fermeture du compte** : À tout moment via paramètres ou contact support@cobage.joeltech.dev
+**Fermeture du compte** : À tout moment via paramètres ou contact support@cobage.joeltech.fr
 
 **Effets** :
 
@@ -741,7 +741,7 @@ Co-Bage se réserve le droit de modifier les présentes CGU à tout moment pour 
 
 ### 16.4 Archivage
 
-Les versions antérieures sont archivées. Demande de copie : support@cobage.joeltech.dev
+Les versions antérieures sont archivées. Demande de copie : support@cobage.joeltech.fr
 
 ---
 
@@ -766,7 +766,7 @@ Conformément aux articles L.611-1 et suivants du Code de la consommation, le re
 
 Co-Bage étant éditée à titre non professionnel par un étudiant développeur, ce dispositif ne s'applique pas pour le moment.
 
-En cas de réclamation ou de question, les utilisateurs peuvent contacter l'éditeur par e-mail à : **support@cobage.joeltech.dev**
+En cas de réclamation ou de question, les utilisateurs peuvent contacter l'éditeur par e-mail à : **support@cobage.joeltech.fr**
 
 **Plateforme européenne de règlement en ligne** :  
 [https://ec.europa.eu/consumers/odr](https://ec.europa.eu/consumers/odr)
@@ -797,16 +797,16 @@ En cas de traduction, seule la version française fait foi.
 **Éditeur** : Timothée Joël Tchinda Tchoffo  
 **Statut** : Étudiant développeur, éditeur à titre non professionnel (phase pré-commerciale)  
 **Adresse** : Toulouse, France  
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73
 
 ### 18.2 Contacts par service
 
-- **Support général** : support@cobage.joeltech.dev
-- **Questions juridiques / CGU** : support@cobage.joeltech.dev
-- **Protection des données (RGPD)** : support@cobage.joeltech.dev
-- **Sécurité (incidents)** : support@cobage.joeltech.dev
-- **Signalements (modération)** : Bouton de signalement in-app ou support@cobage.joeltech.dev
+- **Support général** : support@cobage.joeltech.fr
+- **Questions juridiques / CGU** : support@cobage.joeltech.fr
+- **Protection des données (RGPD)** : support@cobage.joeltech.fr
+- **Sécurité (incidents)** : support@cobage.joeltech.fr
+- **Signalements (modération)** : Bouton de signalement in-app ou support@cobage.joeltech.fr
 
 **Délai de réponse moyen** : 48-72h (hors week-ends et périodes d'examens)
 
@@ -930,7 +930,7 @@ En cas de traduction, seule la version française fait foi.
 3. **HTTPS activé** : Certificat SSL/TLS installé et HTTPS forcé sur toute la plateforme
 4. **Hachage mots de passe** : Bcrypt/Argon2 implémenté (facteur ≥ 12, JAMAIS en clair)
 5. **Hébergement conforme** : Contrat avec DigitalOcean vérifié (clauses RGPD art. 28)
-6. **Contact fonctionnel** : Adresse e-mail support@cobage.joeltech.dev active et surveillée
+6. **Contact fonctionnel** : Adresse e-mail support@cobage.joeltech.fr active et surveillée
 
 ### PRIORITÉ 2 (CRITIQUE - 7 JOURS POST-LANCEMENT)
 
@@ -1225,7 +1225,7 @@ En cochant la case « J'accepte les Conditions Générales d'Utilisation » lors
 
 **Projet étudiant pré-commercial développé par Timothée Joël Tchinda Tchoffo**
 
-**Contact** : support@cobage.joeltech.dev | +33 7 52 89 20 73  
+**Contact** : support@cobage.joeltech.fr | +33 7 52 89 20 73  
 **Hébergement** : DigitalOcean, LLC (New York, États-Unis)
 
 ---
