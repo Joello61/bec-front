@@ -1,0 +1,179 @@
+name: Deploy
+
+# Patron repris de factu_sentinel (build+push GHCR une seule fois, jamais reconstruit sur
+# le serveur), avec un écart assumé et documenté (voir docker/deploy/README.md) : les
+# valeurs "NEXT_PUBLIC_*" sont inlinées dans le bundle client au moment de "next build" et
+# diffèrent entre staging et production (domaine différent) - contrairement au backend
+# (config 100% runtime via Infisical), une seule image ne peut donc pas servir les deux
+# environnements ici. Ce pipeline construit deux images distinctes (tags "staging-<sha>"
+# et "prod-<sha>"), chacune avec les valeurs de son propre domaine.
+on:
+  workflow_run:
+    workflows: ['CI']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-staging:
+    name: Build and push image (staging)
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Compute image metadata
+        id: meta
+        run: |
+          IMAGE_BASE="${REGISTRY}/$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')"
+          echo "image=${IMAGE_BASE}:staging-${SHA:0:12}" >> "$GITHUB_OUTPUT"
+        env:
+          SHA: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      # Valeurs non sensibles (URLs publiques) - portées par des "Repository variables"
+      # (Settings > Secrets and variables > Actions > Variables), pas des secrets. Voir
+      # docker/deploy/README.md pour la liste complète à créer.
+      - name: Build and push frontend (staging)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          target: prod
+          push: true
+          tags: ${{ steps.meta.outputs.image }}
+          cache-from: type=gha,scope=frontend-staging
+          cache-to: type=gha,scope=frontend-staging,mode=max
+          build-args: |
+            NEXT_PUBLIC_API_URL=https://${{ vars.STAGING_PUBLIC_DOMAIN }}/api
+            NEXT_PUBLIC_APP_URL=https://${{ vars.STAGING_PUBLIC_DOMAIN }}
+            NEXT_PUBLIC_API_DOMAIN=https://${{ vars.STAGING_PUBLIC_DOMAIN }}
+            NEXT_PUBLIC_BACKEND_URL=https://${{ vars.STAGING_PUBLIC_DOMAIN }}
+            NEXT_PUBLIC_MERCURE_HUB_URL=https://${{ vars.STAGING_PUBLIC_DOMAIN }}/.well-known/mercure
+            NEXT_PUBLIC_ENV=staging
+            R2_PUBLIC_URL=${{ vars.R2_PUBLIC_URL }}
+            NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME }}
+            NEXT_PUBLIC_APP_SHORT_NAME=${{ vars.NEXT_PUBLIC_APP_SHORT_NAME }}
+
+  deploy-staging:
+    name: Deploy to staging
+    needs: build-staging
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Deploy over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          FRONTEND_IMAGE: ${{ needs.build-staging.outputs.image }}
+        run: docker/deploy/ssh-deploy.sh staging
+
+  # Construit APRÈS "deploy-staging" (jamais en parallèle) : valide le comportement du
+  # code en staging avant de dépenser un second build avec les valeurs de production. Pas
+  # de gate reviewer sur ce job de build - les valeurs injectées sont publiques, seule
+  # "deploy-production" (ci-dessous) reste protégée.
+  build-production:
+    name: Build and push image (production)
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Compute image metadata
+        id: meta
+        run: |
+          IMAGE_BASE="${REGISTRY}/$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')"
+          echo "image=${IMAGE_BASE}:prod-${SHA:0:12}" >> "$GITHUB_OUTPUT"
+        env:
+          SHA: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build and push frontend (production)
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          target: prod
+          push: true
+          tags: ${{ steps.meta.outputs.image }}
+          cache-from: type=gha,scope=frontend-production
+          cache-to: type=gha,scope=frontend-production,mode=max
+          build-args: |
+            NEXT_PUBLIC_API_URL=https://${{ vars.PROD_PUBLIC_DOMAIN }}/api
+            NEXT_PUBLIC_APP_URL=https://${{ vars.PROD_PUBLIC_DOMAIN }}
+            NEXT_PUBLIC_API_DOMAIN=https://${{ vars.PROD_PUBLIC_DOMAIN }}
+            NEXT_PUBLIC_BACKEND_URL=https://${{ vars.PROD_PUBLIC_DOMAIN }}
+            NEXT_PUBLIC_MERCURE_HUB_URL=https://${{ vars.PROD_PUBLIC_DOMAIN }}/.well-known/mercure
+            NEXT_PUBLIC_ENV=production
+            R2_PUBLIC_URL=${{ vars.R2_PUBLIC_URL }}
+            NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME }}
+            NEXT_PUBLIC_APP_SHORT_NAME=${{ vars.NEXT_PUBLIC_APP_SHORT_NAME }}
+            NEXT_PUBLIC_GA_ID=${{ vars.PROD_GA_ID }}
+            NEXT_PUBLIC_ADSENSE_ID=${{ vars.PROD_ADSENSE_ID }}
+
+  # "environment: production" + règle "Required reviewers" (Settings > Environments,
+  # jamais configurable depuis ce fichier YAML seul) : seul garde-fou manuel avant la mise
+  # en prod réelle - voir docker/deploy/README.md.
+  deploy-production:
+    name: Deploy to production
+    needs: build-production
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Deploy over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          FRONTEND_IMAGE: ${{ needs.build-production.outputs.image }}
+        run: docker/deploy/ssh-deploy.sh production
