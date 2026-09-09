@@ -1,0 +1,72 @@
+name: CI
+
+# Patron repris de factu_sentinel (.github/workflows/lint.yml), adapté à Cobage.
+#
+# Le step "Build (next build)" reste actuellement rouge : /_global-error plante au build
+# (bug interne à Next.js 16.3.4, confirmé non corrigeable côté application - voir
+# bec-docs/docs/deploiement/deploiement-cobage.md, §5, "Blocage critique découvert en
+# Phase D2"). Attendu, pas une régression de ce workflow - gardé tel quel (jamais retiré
+# ni assoupli) pour que ce garde-fou soit immédiatement vert dès que le blocage amont sera
+# levé, plutôt que de devoir le réintroduire plus tard.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  frontend-lint:
+    name: Frontend (Next.js)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # CLAUDE.md section 16 - --audit-level=high : ignore le bruit de sévérité
+      # faible/moyenne non actionnable, bloquant sur les advisories high/critical.
+      - name: Audit dependencies (npm audit)
+        run: npm audit --audit-level=high
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm test
+
+      # Garde-fou réel (ignoreBuildErrors: false, next.config.ts) - actuellement rouge,
+      # voir le commentaire en tête de ce fichier.
+      - name: Build (next build)
+        run: npm run build
+
+  secret-scan:
+    name: Secret scanning (gitleaks)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
