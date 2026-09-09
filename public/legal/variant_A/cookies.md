@@ -643,7 +643,7 @@ Co-Bage se réserve le droit de modifier cette Politique Cookies à tout moment 
 
 ### 10.3 Archivage
 
-Co-Bage archive toutes les versions antérieures de la Politique Cookies. Vous pouvez demander une copie d'une version antérieure à support@cobage.joeltech.dev.
+Co-Bage archive toutes les versions antérieures de la Politique Cookies. Vous pouvez demander une copie d'une version antérieure à support@cobage.joeltech.fr.
 
 ---
 
@@ -655,7 +655,7 @@ Pour toute question concernant cette Politique Cookies ou la gestion de vos pré
 
 **Responsable** :  
 **Timothée Joël Tchinda Tchoffo**  
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 
@@ -933,7 +933,7 @@ Co-Bage s'engage à **ne jamais vendre, louer ou partager** vos données personn
 
 **Procédure** :
 
-1. Envoyez un e-mail à support@cobage.joeltech.dev avec objet "Demande d'accès RGPD - Cookies"
+1. Envoyez un e-mail à support@cobage.joeltech.fr avec objet "Demande d'accès RGPD - Cookies"
 2. Indiquez votre nom, prénom, adresse e-mail du compte
 3. Joignez une copie de votre pièce d'identité (pour vérification)
 
@@ -1140,7 +1140,7 @@ Section dédiée aux cookies : [www.cnil.fr/fr/cookies-et-autres-traceurs](https
 
 ### Contact Co-Bage
 
-**E-mail** : support@cobage.joeltech.dev  
+**E-mail** : support@cobage.joeltech.fr  
 **Téléphone** : +33 7 52 89 20 73  
 **Adresse** : Toulouse, France
 

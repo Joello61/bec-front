@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
+  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.fr';
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),

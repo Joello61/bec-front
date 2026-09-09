@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { ContactSection } from '@/components/sections';
 
 const APP_URL =
-  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.dev';
+  process.env.NEXT_PUBLIC_APP_URL || 'https://cobage.joeltech.fr';
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
@@ -59,13 +59,13 @@ const contactPageSchema = {
     '@type': 'Organization',
     name: 'Co-Bage',
     url: APP_URL,
-    email: 'support@cobage.joeltech.dev',
+    email: 'support@cobage.joeltech.fr',
     telephone: '+33-07-52-89-20-73',
     logo: `${APP_URL}/images/logo/logo-1.png`,
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Support Client',
-      email: 'support@cobage.joeltech.dev',
+      email: 'support@cobage.joeltech.fr',
       telephone: '+33-07-52-89-20-73',
       availableLanguage: ['French', 'English'],
       areaServed: ['CM', 'FR', 'US', 'CA', 'GB'],
