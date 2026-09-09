@@ -21,6 +21,19 @@ RUN npm ci
 # ---------------------------------------------------------------------------
 FROM deps AS dev
 
+# Piège découvert en session (2026-09-09), à ne pas redécouvrir : lancer "npm run build"
+# (next build) DANS un conteneur de cette cible "dev" plante systématiquement au
+# prerendering de /_global-error ("TypeError: Cannot read properties of null"), quel que
+# soit l'état de node_modules/.next (testé sur volumes entièrement neufs, conteneur
+# éphémère isolé du serveur "next dev" en cours - donc jamais un bug Next.js, ni un cache
+# périmé). Cause réelle : NODE_ENV=development ci-dessous, déjà présent dans
+# l'environnement AVANT que "next build" ne s'exécute - or ce dernier doit tourner avec
+# NODE_ENV=production (jamais déjà positionné en amont), sans quoi certaines parties de
+# React/Next.js se comportent de façon incohérente (contexte nul au lieu du bon provider).
+# Le stage "builder" ci-dessous fixe déjà NODE_ENV=production correctement - jamais
+# affecté, ni la vraie image de production, ni la CI (aucun des deux ne passe par cette
+# cible "dev"). Si un test manuel de "npm run build" est nécessaire depuis ce conteneur
+# "dev", le forcer explicitement : "NODE_ENV=production npm run build".
 ENV NODE_ENV=development
 
 # Le code source réel est monté en volume par bec-infra/docker-compose.yml en
