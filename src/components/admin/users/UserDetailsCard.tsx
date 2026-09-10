@@ -248,7 +248,10 @@ function InfoItem({
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-500">{label}</p>
         <div className="flex items-center gap-2 mt-1">
-          <p className="text-sm font-medium text-gray-900">{value}</p>
+          {/* `value` accepte un ReactNode arbitraire (badges pour "Roles" notamment, pas
+              seulement du texte) - un <p> imbriquant un <div> est du HTML invalide et
+              declenche une erreur d'hydratation React. */}
+          <div className="text-sm font-medium text-gray-900">{value}</div>
           {verified !== undefined && (
             <span
               className={cn(
