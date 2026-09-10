@@ -189,6 +189,19 @@ export default function RootLayout({
         className="min-h-screen bg-gray-50 antialiased"
         suppressHydrationWarning
       >
+        {/* Tag de vérification de propriété AdSense (support.google.com/adsense/answer/16283098) -
+            chargé sans condition sur toutes les pages, avant tout consentement cookies
+            (décision actée avec l'utilisateur, 2026-09-10) : Google exige que ce tag exact
+            soit présent sur chaque page pour vérifier le domaine, indépendamment du
+            chargement complet d'AdSense/GA dans CookiesConsent.tsx (celui-ci, gated par
+            consentement, reste inchangé - seule la vérification de domaine est concernée
+            ici). N'affiche/ne sert aucune publicité par lui-même. */}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <Script
           id="ld-org"
           type="application/ld+json"
