@@ -61,13 +61,44 @@ export async function completeProfile(page: Page): Promise<void> {
   expect(response.ok(), `Echec completion profil API: ${response.status()}`).toBeTruthy();
 }
 
-export const test = base.extend<{ testUser: TestUser; authenticatedPage: Page }>({
+/**
+ * Connecte le compte admin fixe seede une fois via `app:user:promote-admin`
+ * (bec-infra/README.md) - jamais recree par cette fixture, contrairement a
+ * registerAndLogin/makeTestUser : promouvoir un utilisateur en ROLE_ADMIN n'a pas
+ * d'equivalent en self-service (l'API l'exige deja), et re-executer la commande a chaque
+ * lancement de la suite consommerait inutilement le quota d'inscription pour rien (le
+ * compte existe deja). Email/mot de passe lus depuis E2E_ADMIN_EMAIL/E2E_ADMIN_PASSWORD
+ * (.env.e2e.local, charge par playwright.config.ts) - pas de defaut code en dur pour le
+ * mot de passe, echec explicite si absent plutot qu'un compte devine.
+ */
+async function loginAsAdmin(page: Page): Promise<void> {
+  const email = process.env.E2E_ADMIN_EMAIL;
+  const password = process.env.E2E_ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    throw new Error(
+      'E2E_ADMIN_EMAIL/E2E_ADMIN_PASSWORD manquants - voir bec-infra/README.md ' +
+        '("Creer le premier administrateur") puis renseigner bec-frontend/.env.e2e.local.'
+    );
+  }
+
+  const loginResponse = await page.request.post('/api/login', {
+    data: { email, password },
+  });
+  expect(loginResponse.ok(), `Echec connexion admin E2E: ${loginResponse.status()}`).toBeTruthy();
+}
+
+export const test = base.extend<{ testUser: TestUser; authenticatedPage: Page; adminPage: Page }>({
   testUser: async ({}, use) => {
     await use(makeTestUser());
   },
   authenticatedPage: async ({ page, testUser }, use) => {
     await registerAndLogin(page, testUser);
     await completeProfile(page);
+    await use(page);
+  },
+  adminPage: async ({ page }, use) => {
+    await loginAsAdmin(page);
     await use(page);
   },
 });
