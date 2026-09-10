@@ -49,7 +49,7 @@ const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googlesyndication.com https://*.adtrafficquality.google;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net;
+  img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net https://*.adtrafficquality.google;
   font-src 'self';
   connect-src 'self' https://www.google-analytics.com https://*.googlesyndication.com https://*.adtrafficquality.google ${apiOrigin} ${mercureOrigin};
   frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.adtrafficquality.google;
