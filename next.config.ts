@@ -29,26 +29,30 @@ const isProd = process.env.NODE_ENV === 'production';
 const isRealProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
 // Seuls tiers identifies dans le code (CookiesConsent.tsx, HomeBannerAd.tsx) : Google Analytics + AdSense.
-// img-src (googletagmanager.com) et connect-src (pagead2.googlesyndication.com,
-// ep1.adtrafficquality.google) completes le 2026-09-10 - constate en production reelle,
-// pas suppose : gtag.js charge un pixel de tracking (/td) en image, adsbygoogle.js fait
-// ensuite ses propres requetes XHR/fetch vers ces domaines pour la config des annonces et
-// la verification de qualite du trafic (sodar/abg_config) - le seul autoriser le chargement
-// initial du script (script-src) ne couvre jamais ce qu'il fait une fois execute.
 // "'unsafe-inline'" sur script-src (constaté necessaire en production, 2026-09-10) : le
 // App Router injecte ses propres scripts inline pour l'hydratation progressive (streaming
 // RSC), bloques sinon (erreur React #412, hydratation cassee) - la doc officielle Next.js
 // (Configuring: Content Security Policy) documente exactement ce cas : la seule alternative
 // (nonce via proxy.ts) exige un rendu 100% dynamique sur tout le site, incompatible avec le
 // prerendering statique deja en place ("x-nextjs-cache: HIT" constate en production).
+//
+// Wildcards sur *.adtrafficquality.google (constate en production, 2026-09-10 : d'abord
+// ep1, puis ep2 quelques minutes plus tard - Google fait tourner ces sous-domaines de
+// verification sans preavis) plutot que des sous-domaines exacts - Google documente
+// explicitement (support.google.com/adsense/answer/16283098) ne PAS supporter de liste de
+// domaines statique pour AdSense pour cette meme raison, et recommande une CSP stricte a
+// base de nonce a la place (ecartee ici, memes raisons que pour l'hydratation ci-dessus -
+// perte du rendu statique). Ce wildcard est un compromis assume : moins strict qu'une
+// liste exacte, mais reste scope aux domaines Google connus, jamais un fallback "https:"
+// ouvert a n'importe quelle origine.
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com;
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googlesyndication.com https://*.adtrafficquality.google;
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net;
   font-src 'self';
-  connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google ${apiOrigin} ${mercureOrigin};
-  frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com;
+  connect-src 'self' https://www.google-analytics.com https://*.googlesyndication.com https://*.adtrafficquality.google ${apiOrigin} ${mercureOrigin};
+  frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.adtrafficquality.google;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
