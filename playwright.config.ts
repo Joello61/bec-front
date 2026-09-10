@@ -1,4 +1,33 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * Charge .env.e2e.local (credentials du compte admin fixe seede une fois via
+ * `app:user:promote-admin`, voir bec-infra/README.md) sans dependance dotenv - juste
+ * quelques paires cle=valeur, pas besoin d'un parseur complet. Fichier optionnel et jamais
+ * committe (`.env*` deja dans .gitignore) : en son absence, e2e/admin.spec.ts echoue avec un
+ * message explicite plutot que de silencieusement utiliser un defaut.
+ */
+function loadE2EEnv(): void {
+  try {
+    const content = readFileSync(join(__dirname, '.env.e2e.local'), 'utf-8');
+    for (const line of content.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const separatorIndex = trimmed.indexOf('=');
+      if (separatorIndex === -1) continue;
+      const key = trimmed.slice(0, separatorIndex).trim();
+      if (key && !(key in process.env)) {
+        process.env[key] = trimmed.slice(separatorIndex + 1).trim();
+      }
+    }
+  } catch {
+    // Fichier absent - voir e2e/support/fixtures.ts pour le message d'erreur explicite
+  }
+}
+loadE2EEnv();
 
 /**
  * La stack bec-infra (docker compose : nginx + frontend en `next dev` + backend + postgres)
