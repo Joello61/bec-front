@@ -56,7 +56,17 @@ const CookieConsentBanner: React.FC = () => {
 
   useEffect(() => {
     if (!isMounted) return;
-    
+
+    // Chargés sans condition, y compris avant tout choix de l'utilisateur (corrigé
+    // 2026-09-10) : Google Consent Mode v2 (default "denied" ci-dessus, déjà en place
+    // avant ce chargement) est spécifiquement conçu pour ça - les scripts s'exécutent
+    // en mode restreint tant que le consentement n'est pas explicitement accordé, jamais
+    // besoin d'attendre un clic pour les charger. Nécessaire pour que le message de
+    // consentement certifié de Google (AdSense > Confidentialité et messages, EEE/UK/CH)
+    // ait l'occasion de s'afficher : il se déclenche via ce même script AdSense, jamais
+    // chargé auparavant tant qu'aucun choix n'était fait sur CETTE bannière.
+    loadGoogleScripts();
+
     // Vérifier si l'utilisateur a déjà fait un choix
     const checkConsent = () => {
       try {
@@ -65,16 +75,7 @@ const CookieConsentBanner: React.FC = () => {
           setShowBanner(true);
         } else {
           const consent: CookieConsent = JSON.parse(savedConsent);
-          if (consent.accepted) {
-            loadGoogleScripts();
-            updateGoogleConsent(consent.consent);
-          } else {
-            updateGoogleConsent({
-              analytics_storage: "denied",
-              ad_storage: "denied",
-              ad_personalization: "denied",
-            });
-          }
+          updateGoogleConsent(consent.consent);
         }
       } catch (error) {
         logger.error("Erreur lors de la lecture du consentement:", error);
@@ -163,8 +164,10 @@ const CookieConsentBanner: React.FC = () => {
       window.dispatchEvent(new CustomEvent('cookieConsentChange', { 
         detail: consent 
       }));
-      
-      loadGoogleScripts();
+
+      // loadGoogleScripts() déjà appelé sans condition au montage - inutile de le
+      // refaire ici, updateGoogleConsent() suffit à faire passer les scripts déjà
+      // chargés en mode "granted".
       updateGoogleConsent(consent.consent);
       setShowBanner(false);
     } catch (error) {
