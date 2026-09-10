@@ -29,6 +29,12 @@ const isProd = process.env.NODE_ENV === 'production';
 const isRealProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
 // Seuls tiers identifies dans le code (CookiesConsent.tsx, HomeBannerAd.tsx) : Google Analytics + AdSense.
+// img-src (googletagmanager.com) et connect-src (pagead2.googlesyndication.com,
+// ep1.adtrafficquality.google) completes le 2026-09-10 - constate en production reelle,
+// pas suppose : gtag.js charge un pixel de tracking (/td) en image, adsbygoogle.js fait
+// ensuite ses propres requetes XHR/fetch vers ces domaines pour la config des annonces et
+// la verification de qualite du trafic (sodar/abg_config) - le seul autoriser le chargement
+// initial du script (script-src) ne couvre jamais ce qu'il fait une fois execute.
 // "'unsafe-inline'" sur script-src (constaté necessaire en production, 2026-09-10) : le
 // App Router injecte ses propres scripts inline pour l'hydratation progressive (streaming
 // RSC), bloques sinon (erreur React #412, hydratation cassee) - la doc officielle Next.js
@@ -39,9 +45,9 @@ const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://pagead2.googlesyndication.com;
   style-src 'self' 'unsafe-inline';
-  img-src 'self' data: blob: https://www.google-analytics.com https://*.googlesyndication.com https://*.g.doubleclick.net;
+  img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net;
   font-src 'self';
-  connect-src 'self' https://www.google-analytics.com ${apiOrigin} ${mercureOrigin};
+  connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google ${apiOrigin} ${mercureOrigin};
   frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com;
   object-src 'none';
   base-uri 'self';
