@@ -103,7 +103,7 @@ export interface AdminEngagementStats {
 }
 
 // ==================== LOGS ====================
-export type AdminActionType = 
+export type AdminActionType =
   | 'ban_user'
   | 'unban_user'
   | 'update_roles'
@@ -112,9 +112,11 @@ export type AdminActionType =
   | 'delete_demande'
   | 'delete_avis'
   | 'delete_message'
-  | 'delete_all_user_content';
+  | 'delete_all_user_content'
+  | 'approve_signalement'
+  | 'reject_signalement';
 
-export type AdminTargetType = 'user' | 'voyage' | 'demande' | 'avis' | 'message';
+export type AdminTargetType = 'user' | 'voyage' | 'demande' | 'avis' | 'message' | 'signalement';
 
 export interface AdminLog {
   id: number;

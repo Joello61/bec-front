@@ -26,6 +26,8 @@ export default function LogsTable({ logs, pagination, onPageChange }: LogsTableP
       delete_avis: 'Suppression avis',
       delete_message: 'Suppression message',
       delete_all_user_content: 'Suppression tous contenus',
+      approve_signalement: 'Signalement traité',
+      reject_signalement: 'Signalement rejeté',
     };
     return labels[action] || action;
   };
