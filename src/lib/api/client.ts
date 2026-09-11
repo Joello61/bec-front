@@ -36,7 +36,14 @@ apiClient.interceptors.response.use(
   async (error: AxiosError<ApiError>) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    if (error.response?.status === 401 && originalRequest && originalRequest.url !== '/token/refresh' && !originalRequest._retry) {
+    // /login et /register peuvent legitimement renvoyer 401/400 sur des identifiants
+    // invalides, sans qu'aucune session n'ait jamais existe - tenter un refresh dans ce
+    // cas est a la fois inutile (aucun refresh token a rafraichir) et trompeur pour
+    // l'utilisateur (rechargement complet de la page au lieu du message d'erreur du
+    // formulaire). Cf. plan-correction-cobage.md, Phase 13/Lot F1.
+    const isAuthEndpoint = originalRequest?.url === '/login' || originalRequest?.url === '/register';
+
+    if (error.response?.status === 401 && originalRequest && !isAuthEndpoint && originalRequest.url !== '/token/refresh' && !originalRequest._retry) {
 
       // Si un refresh est déjà en cours, mettre la requête en attente
       if (isRefreshing) {

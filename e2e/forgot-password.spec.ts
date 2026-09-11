@@ -49,18 +49,16 @@ test.describe('Mot de passe oublie', () => {
     await page.waitForURL('**/auth/login**', { timeout: 10000 });
     await waitPageReady(page);
 
-    // L'ancien mot de passe ne doit plus fonctionner. Un 401 sur /api/login est traite par
-    // l'intercepteur axios centralise (src/lib/api/client.ts) comme un token expire : il
-    // tente /token/refresh, echoue (aucun cookie ici), puis fait un window.location.replace
-    // vers /auth/login (comportement existant de l'app, hors perimetre de ce test) - attendre
-    // cette navigation avant de continuer, plutot que de presumer la page reste en l'etat.
+    // L'ancien mot de passe ne doit plus fonctionner. Depuis le correctif de l'intercepteur
+    // axios (src/lib/api/client.ts, Phase 13/Lot F1 du plan de correction) : /login est
+    // exclu de la logique refresh+reload sur 401 - un mauvais mot de passe affiche desormais
+    // une erreur inline (toast), sans rechargement complet de page. Meme patron de
+    // verification que e2e/auth.spec.ts ("un identifiant invalide affiche une erreur sans
+    // connecter l'utilisateur") : toHaveURL reessaie nativement pendant son timeout, pas
+    // besoin d'attendre un evenement "load" qui ne se produit plus.
     await page.getByLabel(labelExact('Email')).fill(user.email);
     await page.getByLabel(labelExact('Mot de passe')).fill(user.password);
     await page.getByRole('button', { name: 'Se connecter' }).click();
-    // L'URL reste /auth/login (le hard-reload y retombe) : attendre l'evenement "load" lui-meme
-    // plutot qu'un changement d'URL, qui ne se produirait pas ici.
-    await page.waitForEvent('load', { timeout: 15000 });
-    await waitPageReady(page);
     await expect(page).toHaveURL(/\/auth\/login/, { timeout: 10000 });
     await expect(page.getByRole('button', { name: 'Menu utilisateur' })).not.toBeVisible();
 
