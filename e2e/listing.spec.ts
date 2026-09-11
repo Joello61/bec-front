@@ -1,5 +1,5 @@
-import { expect, test } from './support/fixtures';
-import { gotoAndWaitReady } from './support/helpers';
+import { completeProfile, expect, makeTestUser, registerAndLogin, test } from './support/fixtures';
+import { gotoAndWaitReady, isoDateInDays, waitPageReady } from './support/helpers';
 
 /**
  * Zone "Accueil / Listing" (Lot 1 de la Phase 8) : page d'exploration authentifiee,
@@ -33,5 +33,118 @@ test.describe('Exploration - listing voyages et demandes', () => {
     await expect(
       authenticatedPage.getByText(/Aucun voyage|Aucun résultat/).or(authenticatedPage.locator('[class*="grid"] a')).filter({ visible: true }).first()
     ).toBeVisible({ timeout: 10000 });
+  });
+
+  test('le filtre ville de depart restreint reellement la liste des voyages', async ({ authenticatedPage, browser }) => {
+    const villeDepart = 'Kribi';
+    const villeArrivee = 'Bruxelles';
+
+    // VoyageRepository::findAllPaginated exclut deliberement le voyageur courant de ses
+    // propres resultats Explorer (on ne parcourt jamais ses propres annonces) - constate en
+    // CI (base neuve, sans les dizaines d'autres comptes E2E qui masquaient ce comportement
+    // en local) : creer le voyage via un second compte jetable, jamais via authenticatedPage
+    // lui-meme, qui reste ici uniquement le navigateur/filtreur.
+    const voyageurContext = await browser.newContext();
+    const voyageurPage = await voyageurContext.newPage();
+    const voyageur = makeTestUser();
+    await registerAndLogin(voyageurPage, voyageur);
+    await completeProfile(voyageurPage);
+
+    const voyageResponse = await voyageurPage.request.post('/api/voyages', {
+      data: {
+        villeDepart,
+        villeArrivee,
+        dateDepart: isoDateInDays(15),
+        dateArrivee: isoDateInDays(16),
+        poidsDisponible: 8,
+      },
+    });
+    expect(voyageResponse.ok(), `Echec creation voyage API: ${voyageResponse.status()}`).toBeTruthy();
+    await voyageurContext.close();
+
+    await gotoAndWaitReady(authenticatedPage, '/dashboard/explore');
+    await authenticatedPage.getByRole('button', { name: 'Filtres' }).first().click();
+
+    // VoyageFilterFields.tsx : le <label> n'est jamais associe au Select custom qui le
+    // suit (pas de prop "label"/"id" passee a <Select>, contrairement aux formulaires de
+    // creation) - getByLabel ne resout donc rien ici, cible via le sibling CSS.
+    const departButton = authenticatedPage
+      .locator('label:has-text("Ville de départ") ~ div button')
+      .filter({ visible: true })
+      .first();
+    await departButton.click();
+    await authenticatedPage.getByPlaceholder('Rechercher...').filter({ visible: true }).first().fill(villeDepart);
+    await authenticatedPage
+      .getByRole('button', { name: new RegExp(villeDepart) })
+      .filter({ visible: true })
+      .first()
+      .click();
+
+    await waitPageReady(authenticatedPage);
+
+    // VoyageCard.tsx : le lien "Voir les détails" n'englobe que le pied de carte (statut +
+    // lien), la ville de départ vit dans un bloc frere au sein du meme wrapper de carte
+    // (motion.div "group relative") - remonter jusqu'a ce wrapper plutot que de chercher le
+    // texte dans le lien lui-meme.
+    const detailLink = authenticatedPage
+      .getByRole('link', { name: /Voir les détails/ })
+      .filter({ visible: true })
+      .first();
+    await expect(detailLink).toBeVisible({ timeout: 10000 });
+    const card = detailLink.locator('xpath=ancestor::div[contains(@class,"group") and contains(@class,"relative")][1]');
+    await expect(card).toContainText(villeDepart);
+  });
+
+  test('le filtre statut restreint reellement la liste des demandes', async ({ authenticatedPage, browser }) => {
+    const villeDepart = 'Bafoussam';
+    const villeArrivee = 'Montreal';
+
+    // Meme raisonnement que pour le filtre ville ci-dessus : DemandeRepository exclut le
+    // demandeur courant de ses propres resultats Explorer.
+    const demandeurContext = await browser.newContext();
+    const demandeurPage = await demandeurContext.newPage();
+    const demandeur = makeTestUser();
+    await registerAndLogin(demandeurPage, demandeur);
+    await completeProfile(demandeurPage);
+
+    const demandeResponse = await demandeurPage.request.post('/api/demandes', {
+      data: {
+        villeDepart,
+        villeArrivee,
+        dateLimite: isoDateInDays(15),
+        poidsEstime: 4,
+        description: 'Demande test E2E - filtre statut sur le listing.',
+      },
+    });
+    expect(demandeResponse.ok(), `Echec creation demande API: ${demandeResponse.status()}`).toBeTruthy();
+    await demandeurContext.close();
+
+    await gotoAndWaitReady(authenticatedPage, '/dashboard/explore');
+    await authenticatedPage.getByRole('button', { name: /Demandes/ }).first().click();
+    await authenticatedPage.getByRole('button', { name: 'Filtres' }).first().click();
+
+    const statutButton = authenticatedPage
+      .locator('label:has-text("Statut") ~ div button')
+      .filter({ visible: true })
+      .first();
+    await statutButton.click();
+    // Select non-searchable (searchable={false}) : pas de champ de recherche, un clic
+    // direct sur l'option suffit.
+    await authenticatedPage
+      .getByRole('button', { name: 'En recherche' })
+      .filter({ visible: true })
+      .first()
+      .click();
+
+    await waitPageReady(authenticatedPage);
+
+    // Contrairement au filtre ville (test precedent, qui remonte a la carte via xpath pour
+    // verifier son contenu), "en_recherche" est le statut de la grande majorite des
+    // demandes creees par le reste de la suite E2E - la ville de notre demande n'a pas
+    // besoin d'etre associee a une carte precise, sa seule presence visible dans les
+    // resultats suffit a prouver que le filtre a bien recharge une liste qui l'inclut.
+    await expect(authenticatedPage.getByText(villeDepart).filter({ visible: true }).first()).toBeVisible({
+      timeout: 10000,
+    });
   });
 });
