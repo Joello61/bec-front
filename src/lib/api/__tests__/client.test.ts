@@ -118,6 +118,21 @@ describe('apiClient interceptor (client.ts)', () => {
     expect(result).toMatchObject({ success: false, statusCode: 401 });
   });
 
+  it('ne tente pas de refresh sur un 401 renvoye par /login (mauvais mot de passe)', async () => {
+    const result = await interceptorHandlers.error!(makeError(401, '/login')).catch((e) => e);
+
+    expect(mockPost).not.toHaveBeenCalled();
+    expect(logoutMock).not.toHaveBeenCalled();
+    expect(result).toMatchObject({ success: false, statusCode: 401 });
+  });
+
+  it('ne tente pas de refresh sur un 401 renvoye par /register', async () => {
+    const result = await interceptorHandlers.error!(makeError(401, '/register')).catch((e) => e);
+
+    expect(mockPost).not.toHaveBeenCalled();
+    expect(result).toMatchObject({ success: false, statusCode: 401 });
+  });
+
   it('ne retente pas indefiniment une requete deja marquee _retry', async () => {
     const result = await interceptorHandlers.error!(makeError(401, '/voyages', true)).catch((e) => e);
 
