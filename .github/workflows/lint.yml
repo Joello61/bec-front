@@ -1,6 +1,13 @@
 name: CI
 
 # Patron repris de factu_sentinel (.github/workflows/lint.yml), adapté à Cobage.
+#
+# Phase 11 (plan-correction-cobage.md) : job unique scindé en jobs paralleles (lint/
+# typecheck/test/audit/build) - aucune de ces etapes ne depend du resultat des autres,
+# pourtant toutes sequentielles auparavant. Chaque job restaure independamment le cache
+# npm (deja en place via setup-node). Cache de .next/cache (cache persistant Turbopack,
+# patron officiel Next.js - https://nextjs.org/docs/app/guides/ci-build-caching) ajoute
+# pour le job build specifiquement. Aucune etape retiree.
 
 on:
   push:
@@ -13,7 +20,64 @@ permissions:
 
 jobs:
   frontend-lint:
-    name: Frontend (Next.js)
+    name: Frontend - Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+  frontend-typecheck:
+    name: Frontend - Type check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+  frontend-test:
+    name: Frontend - Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  frontend-audit:
+    name: Frontend - Audit dépendances
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,14 +97,33 @@ jobs:
       - name: Audit dependencies (npm audit)
         run: npm audit --audit-level=high
 
-      - name: Lint
-        run: npm run lint
+  frontend-build:
+    name: Frontend - Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - name: Type check
-        run: npx tsc --noEmit
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
 
-      - name: Run tests
-        run: npm test
+      - name: Install dependencies
+        run: npm ci
+
+      # Cache persistant Turbopack (.next/cache) entre executions - patron officiel
+      # Next.js pour GitHub Actions. Cle sur le lockfile + le code source : invalide
+      # des qu'une dependance OU un fichier source change, retombe sur un cache partiel
+      # (restore-keys) si seul le code a change.
+      - name: Cache .next/cache (Turbopack)
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       # Garde-fou réel (ignoreBuildErrors: false, next.config.ts).
       - name: Build (next build)
