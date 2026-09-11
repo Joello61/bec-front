@@ -205,6 +205,10 @@ export interface AdminModerationFilters {
   endDate?: string;
 }
 
+export interface AdminAvisFilters {
+  maxNote?: number;
+}
+
 // ==================== USER ACTIVITY ====================
 export interface AdminUserActivity {
   voyages: Voyage[];

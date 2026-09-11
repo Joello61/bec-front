@@ -1,15 +1,35 @@
 'use client';
 
-import { ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { DeleteContentModal, ModerationAvisTable } from '@/components/admin';
+import { LoadingSpinner } from '@/components/common';
+import { Select } from '@/components/ui';
+import { useAdmin } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
+import type { Avis } from '@/types';
 
 export default function AdminModerationAvisPageClient() {
-  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [maxNote, setMaxNote] = useState<string>('');
+  const [selectedAvis, setSelectedAvis] = useState<Avis | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const router = useRouter();
+  const { avisList, avisPagination, isLoading, error, fetchAvisList } = useAdmin();
+
+  useEffect(() => {
+    fetchAvisList(page, 20, maxNote ? { maxNote: Number(maxNote) } : undefined);
+  }, [page, maxNote, fetchAvisList]);
+
+  const handleDelete = (avis: Avis) => {
+    setSelectedAvis(avis);
+    setShowDeleteModal(true);
+  };
+
+  const refetch = () => fetchAvisList(page, 20, maxNote ? { maxNote: Number(maxNote) } : undefined);
 
   return (
     <div className="space-y-6">
@@ -22,33 +42,36 @@ export default function AdminModerationAvisPageClient() {
           <ArrowLeft className="w-5 h-5" />
         </button>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Modération des Avis
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900">Modération des Avis</h1>
           <p className="text-gray-500 mt-1">
-            Gérer les avis et notes des utilisateurs
+            {avisPagination?.total || 0} avis au total
           </p>
         </div>
       </div>
 
       {/* Filters */}
       <div className="bg-white rounded-lg shadow-md p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Rechercher un avis..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Select
+            options={[
+              { value: '', label: 'Toutes les notes' },
+              { value: '1', label: '1 étoile ou moins' },
+              { value: '2', label: '2 étoiles ou moins' },
+              { value: '3', label: '3 étoiles ou moins' },
+            ]}
+            value={maxNote}
+            onChange={(value) => {
+              setMaxNote(value);
+              setPage(1);
+            }}
+            searchable={false}
+          />
 
-          {/* Reset */}
           <button
-            onClick={() => setSearch('')}
+            onClick={() => {
+              setMaxNote('');
+              setPage(1);
+            }}
             className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
           >
             Réinitialiser
@@ -64,27 +87,41 @@ export default function AdminModerationAvisPageClient() {
         </p>
       </div>
 
-      {/* Coming Soon Placeholder */}
-      <div className="bg-white rounded-lg shadow-md p-12 text-center">
-        <div className="max-w-md mx-auto">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl"></span>
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            Fonctionnalité en cours de développement
-          </h3>
-          <p className="text-gray-600 mb-6">
-            La gestion des avis depuis l&apos;interface admin sera bientôt disponible.
-            Pour le moment, utilisez les endpoints API directement.
-          </p>
-          <div className="bg-gray-50 rounded-lg p-4 text-left">
-            <p className="text-sm font-medium text-gray-700 mb-2">Endpoints disponibles :</p>
-            <code className="text-xs text-gray-600 block">
-              DELETE /api/admin/moderation/avis/:id
-            </code>
-          </div>
+      {/* Avis Table */}
+      {error ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-error text-lg font-semibold mb-2">Erreur</p>
+          <p className="text-gray-600">{error}</p>
         </div>
-      </div>
+      ) : isLoading && avisList.length === 0 ? (
+        <LoadingSpinner text="Chargement des avis..." />
+      ) : (
+        <ModerationAvisTable
+          avisList={avisList}
+          pagination={avisPagination}
+          onPageChange={setPage}
+          onDelete={handleDelete}
+        />
+      )}
+
+      {/* Delete Modal */}
+      {showDeleteModal && selectedAvis && (
+        <DeleteContentModal
+          contentType="avis"
+          contentId={selectedAvis.id}
+          contentTitle={`Avis de ${selectedAvis.auteur.prenom} ${selectedAvis.auteur.nom} sur ${selectedAvis.cible.prenom} ${selectedAvis.cible.nom}`}
+          userId={selectedAvis.auteur.id}
+          onClose={() => {
+            setShowDeleteModal(false);
+            setSelectedAvis(null);
+          }}
+          onSuccess={() => {
+            setShowDeleteModal(false);
+            setSelectedAvis(null);
+            refetch();
+          }}
+        />
+      )}
     </div>
   );
 }

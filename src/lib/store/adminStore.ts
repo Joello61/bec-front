@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { adminApi } from '@/lib/api/admin';
 import type {
   AdminActivityStats,
+  AdminAvisFilters,
   AdminDashboardData,
   AdminDemandesStats,
   AdminEngagementStats,
@@ -14,6 +15,7 @@ import type {
   AdminUserFilters,
   AdminUsersDetailedStats,
   AdminVoyagesStats,
+  Avis,
   BanUserInput,
   DeleteContentInput,
   PaginationMeta,
@@ -45,6 +47,10 @@ interface AdminState {
   logsStats: AdminLogStats | null;
   logsPagination: PaginationMeta | null;
 
+  // Modération - avis
+  avisList: Avis[];
+  avisPagination: PaginationMeta | null;
+
   // Loading & Error
   isLoading: boolean;
   error: string | null;
@@ -72,6 +78,7 @@ interface AdminState {
   deleteUser: (id: number, reason: string) => Promise<void>;
 
   // Modération
+  fetchAvisList: (page?: number, limit?: number, filters?: AdminAvisFilters) => Promise<void>;
   deleteVoyage: (id: number, input: DeleteContentInput) => Promise<void>;
   deleteDemande: (id: number, input: DeleteContentInput) => Promise<void>;
   deleteAvis: (id: number, input: DeleteContentInput) => Promise<void>;
@@ -106,6 +113,8 @@ export const useAdminStore = create<AdminState>((set) => ({
   logs: [],
   logsStats: null,
   logsPagination: null,
+  avisList: [],
+  avisPagination: null,
   isLoading: false,
   error: null,
 
@@ -209,6 +218,12 @@ export const useAdminStore = create<AdminState>((set) => ({
     }, { fallbackError: "Erreur lors de la suppression de l'utilisateur", rethrow: true }),
 
   // ==================== MODÉRATION ====================
+  fetchAvisList: (page = 1, limit = 20, filters) =>
+    createAsyncAction(set, async () => {
+      const response = await adminApi.getAvisList(page, limit, filters);
+      set({ avisList: response.data, avisPagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des avis' }),
+
   deleteVoyage: (id, input) =>
     createAsyncAction(set, async () => {
       await adminApi.deleteVoyage(id, input);
@@ -285,6 +300,8 @@ export const useAdminStore = create<AdminState>((set) => ({
       logs: [],
       logsStats: null,
       logsPagination: null,
+      avisList: [],
+      avisPagination: null,
       error: null,
     }),
 }));

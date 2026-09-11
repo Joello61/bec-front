@@ -1,5 +1,6 @@
 import type {
   AdminActivityStats,
+  AdminAvisFilters,
   AdminDashboardData,
   AdminDemandesStats,
   AdminEngagementStats,
@@ -11,6 +12,7 @@ import type {
   AdminUserFilters,
   AdminUsersDetailedStats,
   AdminVoyagesStats,
+  Avis,
   BanUserInput,
   DeleteContentInput,
   PaginatedResponse,
@@ -113,6 +115,17 @@ export const adminApi = {
   },
 
   // ==================== MODÉRATION ====================
+  getAvisList: async (
+    page = 1,
+    limit = 20,
+    filters?: AdminAvisFilters
+  ): Promise<PaginatedResponse<Avis>> => {
+    const { data } = await apiClient.get(endpoints.admin.listAvis, {
+      params: { page, limit, ...filters },
+    });
+    return data;
+  },
+
   deleteVoyage: async (id: number, input: DeleteContentInput): Promise<void> => {
     await apiClient.delete(endpoints.admin.deleteVoyage(id), {
       data: input,
