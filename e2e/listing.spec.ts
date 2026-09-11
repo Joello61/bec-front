@@ -1,4 +1,4 @@
-import { expect, test } from './support/fixtures';
+import { completeProfile, expect, makeTestUser, registerAndLogin, test } from './support/fixtures';
 import { gotoAndWaitReady, isoDateInDays, waitPageReady } from './support/helpers';
 
 /**
@@ -35,11 +35,22 @@ test.describe('Exploration - listing voyages et demandes', () => {
     ).toBeVisible({ timeout: 10000 });
   });
 
-  test('le filtre ville de depart restreint reellement la liste des voyages', async ({ authenticatedPage }) => {
+  test('le filtre ville de depart restreint reellement la liste des voyages', async ({ authenticatedPage, browser }) => {
     const villeDepart = 'Kribi';
     const villeArrivee = 'Bruxelles';
 
-    const voyageResponse = await authenticatedPage.request.post('/api/voyages', {
+    // VoyageRepository::findAllPaginated exclut deliberement le voyageur courant de ses
+    // propres resultats Explorer (on ne parcourt jamais ses propres annonces) - constate en
+    // CI (base neuve, sans les dizaines d'autres comptes E2E qui masquaient ce comportement
+    // en local) : creer le voyage via un second compte jetable, jamais via authenticatedPage
+    // lui-meme, qui reste ici uniquement le navigateur/filtreur.
+    const voyageurContext = await browser.newContext();
+    const voyageurPage = await voyageurContext.newPage();
+    const voyageur = makeTestUser();
+    await registerAndLogin(voyageurPage, voyageur);
+    await completeProfile(voyageurPage);
+
+    const voyageResponse = await voyageurPage.request.post('/api/voyages', {
       data: {
         villeDepart,
         villeArrivee,
@@ -49,6 +60,7 @@ test.describe('Exploration - listing voyages et demandes', () => {
       },
     });
     expect(voyageResponse.ok(), `Echec creation voyage API: ${voyageResponse.status()}`).toBeTruthy();
+    await voyageurContext.close();
 
     await gotoAndWaitReady(authenticatedPage, '/dashboard/explore');
     await authenticatedPage.getByRole('button', { name: 'Filtres' }).first().click();
@@ -83,11 +95,19 @@ test.describe('Exploration - listing voyages et demandes', () => {
     await expect(card).toContainText(villeDepart);
   });
 
-  test('le filtre statut restreint reellement la liste des demandes', async ({ authenticatedPage }) => {
+  test('le filtre statut restreint reellement la liste des demandes', async ({ authenticatedPage, browser }) => {
     const villeDepart = 'Bafoussam';
     const villeArrivee = 'Montreal';
 
-    const demandeResponse = await authenticatedPage.request.post('/api/demandes', {
+    // Meme raisonnement que pour le filtre ville ci-dessus : DemandeRepository exclut le
+    // demandeur courant de ses propres resultats Explorer.
+    const demandeurContext = await browser.newContext();
+    const demandeurPage = await demandeurContext.newPage();
+    const demandeur = makeTestUser();
+    await registerAndLogin(demandeurPage, demandeur);
+    await completeProfile(demandeurPage);
+
+    const demandeResponse = await demandeurPage.request.post('/api/demandes', {
       data: {
         villeDepart,
         villeArrivee,
@@ -97,6 +117,7 @@ test.describe('Exploration - listing voyages et demandes', () => {
       },
     });
     expect(demandeResponse.ok(), `Echec creation demande API: ${demandeResponse.status()}`).toBeTruthy();
+    await demandeurContext.close();
 
     await gotoAndWaitReady(authenticatedPage, '/dashboard/explore');
     await authenticatedPage.getByRole('button', { name: /Demandes/ }).first().click();
