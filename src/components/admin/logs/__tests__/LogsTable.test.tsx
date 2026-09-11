@@ -25,6 +25,16 @@ describe('LogsTable - logique metier', () => {
     expect(screen.getByText('Bannissement utilisateur')).toBeInTheDocument();
   });
 
+  it('traduit le traitement d\'un signalement en libelle lisible', () => {
+    render(<LogsTable logs={[makeLog({ action: 'approve_signalement', targetType: 'signalement' })]} pagination={null} onPageChange={vi.fn()} />);
+    expect(screen.getByText('Signalement traité')).toBeInTheDocument();
+  });
+
+  it('traduit le rejet d\'un signalement en libelle lisible', () => {
+    render(<LogsTable logs={[makeLog({ action: 'reject_signalement', targetType: 'signalement' })]} pagination={null} onPageChange={vi.fn()} />);
+    expect(screen.getByText('Signalement rejeté')).toBeInTheDocument();
+  });
+
   it("retombe sur le code brut de l'action pour une action inconnue", () => {
     render(<LogsTable logs={[makeLog({ action: 'action_future_inconnue' as AdminLog['action'] })]} pagination={null} onPageChange={vi.fn()} />);
     expect(screen.getByText('action_future_inconnue')).toBeInTheDocument();
