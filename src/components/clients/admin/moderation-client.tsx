@@ -1,5 +1,4 @@
-import { MessageSquare, Package, Plane, Star } from 'lucide-react';
-import type { Route } from 'next';
+import { Flag, Package, Plane, Star } from 'lucide-react';
 
 import ModerationSectionCard from '@/components/admin/moderations/ModerationSectionCard';
 import { ROUTES } from '@/lib/utils/constants';
@@ -27,10 +26,10 @@ const moderationSections = [
     color: 'warning',
   },
   {
-    title: 'Messages',
-    description: 'Modérer les messages signalés',
-    icon: <MessageSquare className="w-6 h-6 text-info" />,
-    href: '/admin/moderation/messages' as Route,
+    title: 'Signalements',
+    description: 'Traiter les signalements de voyages, demandes, messages et utilisateurs',
+    icon: <Flag className="w-6 h-6 text-info" />,
+    href: ROUTES.ADMIN_MODERATION_SIGNALEMENTS,
     color: 'info',
   },
 ];
