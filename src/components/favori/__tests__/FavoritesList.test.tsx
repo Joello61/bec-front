@@ -54,7 +54,6 @@ describe('FavoritesList - logique metier', () => {
       <FavoritesList
         favorisVoyages={[makeFavori({ voyage: makeVoyage() })]}
         favorisDemandes={[makeFavori({ id: 2, demande: makeDemande() }), makeFavori({ id: 3, demande: makeDemande({ id: 21 }) })]}
-        onRemove={vi.fn()}
       />
     );
     expect(screen.getByText('Voyages (1)')).toBeInTheDocument();
@@ -68,7 +67,6 @@ describe('FavoritesList - logique metier', () => {
       <FavoritesList
         favorisVoyages={[makeFavori({ voyage: makeVoyage() })]}
         favorisDemandes={[makeFavori({ id: 2, demande: makeDemande() })]}
-        onRemove={vi.fn()}
       />
     );
 
@@ -78,13 +76,15 @@ describe('FavoritesList - logique metier', () => {
   });
 
   it("affiche un etat vide specifique a l onglet quand il n'y a aucun favori", () => {
-    render(<FavoritesList favorisVoyages={[]} favorisDemandes={[]} onRemove={vi.fn()} />);
+    render(<FavoritesList favorisVoyages={[]} favorisDemandes={[]} />);
+
     expect(screen.getByText('Aucun favori')).toBeInTheDocument();
     expect(screen.getByText(/ajouter des voyages/i)).toBeInTheDocument();
   });
 
   it('affiche un placeholder de chargement quand isLoading est vrai', () => {
-    render(<FavoritesList favorisVoyages={[]} favorisDemandes={[]} onRemove={vi.fn()} isLoading />);
+    render(<FavoritesList favorisVoyages={[]} favorisDemandes={[]} isLoading />);
+
     expect(screen.queryByText('Aucun favori')).not.toBeInTheDocument();
     expect(screen.queryByText(/voyages \(/i)).not.toBeInTheDocument();
   });

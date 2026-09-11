@@ -11,7 +11,6 @@ import type { Favori } from '@/types';
 interface FavoritesListProps {
   favorisVoyages: Favori[];
   favorisDemandes: Favori[];
-  onRemove: (id: number, type: 'voyage' | 'demande') => Promise<void>;
   isLoading?: boolean;
 }
 

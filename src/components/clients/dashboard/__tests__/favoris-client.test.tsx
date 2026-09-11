@@ -7,11 +7,9 @@ import FavorisPageClient from '../favoris-client';
 
 const mockUseFavorisVoyages = vi.fn();
 const mockUseFavorisDemandes = vi.fn();
-const mockUseFavoriActions = vi.fn();
 vi.mock('@/lib/hooks', () => ({
   useFavorisVoyages: () => mockUseFavorisVoyages(),
   useFavorisDemandes: () => mockUseFavorisDemandes(),
-  useFavoriActions: () => mockUseFavoriActions(),
 }));
 
 vi.mock('@/components/favori', () => ({
@@ -36,7 +34,6 @@ function makeFavori(overrides: Partial<Favori> = {}): Favori {
 describe('favoris-client - logique metier', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockUseFavoriActions.mockReturnValue({ removeFavori: vi.fn() });
   });
 
   it('affiche le chargement tant qu un seul des deux flux est en cours (voyages)', () => {
