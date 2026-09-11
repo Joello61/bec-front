@@ -167,6 +167,7 @@ export const endpoints = {
     // Modération
     deleteVoyage: (id: number) => `/admin/moderation/voyages/${id}`,
     deleteDemande: (id: number) => `/admin/moderation/demandes/${id}`,
+    listAvis: '/admin/moderation/avis',
     deleteAvis: (id: number) => `/admin/moderation/avis/${id}`,
     deleteMessage: (id: number) => `/admin/moderation/messages/${id}`,
     deleteAllUserContent: (userId: number) => `/admin/moderation/users/${userId}/delete-all`,

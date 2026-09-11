@@ -17,8 +17,11 @@ export { default as UsersTable } from './users/UsersTable';
 
 // Moderation
 export { default as DeleteContentModal } from './moderations/DeleteContentModal';
+export { default as ModerationAvisTable } from './moderations/ModerationAvisTable';
 export { default as ModerationDemandesTable } from './moderations/ModerationDemandesTable';
 export { default as ModerationVoyagesTable } from './moderations/ModerationVoyagesTable';
+export { default as SignalementsTable } from './moderations/SignalementsTable';
+export { default as TraiterSignalementModal } from './moderations/TraiterSignalementModal';
 
 // Logs
 export { default as LogFilters } from './logs/LogFilters';

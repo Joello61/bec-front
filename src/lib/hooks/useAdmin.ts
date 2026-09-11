@@ -45,6 +45,8 @@ export function useAdmin() {
     logs: store.logs,
     logsStats: store.logsStats,
     logsPagination: store.logsPagination,
+    avisList: store.avisList,
+    avisPagination: store.avisPagination,
     isLoading: store.isLoading,
     error: store.error,
 
@@ -65,6 +67,7 @@ export function useAdmin() {
     unbanUser: store.unbanUser,
     updateUserRoles: store.updateUserRoles,
     deleteUser: store.deleteUser,
+    fetchAvisList: store.fetchAvisList,
     deleteVoyage: store.deleteVoyage,
     deleteDemande: store.deleteDemande,
     deleteAvis: store.deleteAvis,
