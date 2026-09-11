@@ -59,12 +59,8 @@ describe('ProfileForm - logique metier', () => {
     const user = userEvent.setup();
     render(<ProfileForm user={makeUser()} onSubmit={onSubmit} />);
 
-    // Le champ fichier de AvatarUploadField n'a pas de <label htmlFor> associe
-    // (bug d'accessibilite pre-existant, hors perimetre de cette phase, deja
-    // constate sur LogFilters) : ciblage par selecteur direct.
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
     const file = makeFile();
-    await user.upload(fileInput, file);
+    await user.upload(screen.getByLabelText('Photo de profil'), file);
 
     await user.click(screen.getByRole('button', { name: /enregistrer/i }));
 
@@ -78,11 +74,7 @@ describe('ProfileForm - logique metier', () => {
     const user = userEvent.setup();
     render(<ProfileForm user={makeUser()} onSubmit={onSubmit} />);
 
-    // Le champ fichier de AvatarUploadField n'a pas de <label htmlFor> associe
-    // (bug d'accessibilite pre-existant, hors perimetre de cette phase, deja
-    // constate sur LogFilters) : ciblage par selecteur direct.
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    await user.upload(fileInput, makeFile());
+    await user.upload(screen.getByLabelText('Photo de profil'), makeFile());
     await user.click(screen.getByRole('button', { name: /enregistrer/i }));
 
     await waitFor(() => expect(mockUploadAvatar).toHaveBeenCalled());

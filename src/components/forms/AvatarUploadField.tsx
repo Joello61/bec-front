@@ -37,6 +37,7 @@ export default function AvatarUploadField({
         />
         <div className="flex-1 space-y-2">
           <InputFile
+            aria-label={label}
             onFileSelect={onFileSelect}
             error={uploadError || undefined}
             helperText="Formats acceptés: JPG, PNG, WEBP (max 5MB)"

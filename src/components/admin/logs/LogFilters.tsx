@@ -79,10 +79,9 @@ export default function LogFilters({ filters, onFiltersChange }: LogFiltersProps
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Action Filter */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Type d&apos;action
-          </label>
           <Select
+            id="log-filters-action"
+            label="Type d'action"
             options={[
               { value: '', label: 'Toutes les actions' },
               ...actions.map((action) => ({
@@ -98,10 +97,9 @@ export default function LogFilters({ filters, onFiltersChange }: LogFiltersProps
 
         {/* Target Type Filter */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Type de cible
-          </label>
           <Select
+            id="log-filters-target-type"
+            label="Type de cible"
             options={[
               { value: '', label: 'Tous les types' },
               ...targetTypes.map((type) => ({
@@ -117,10 +115,11 @@ export default function LogFilters({ filters, onFiltersChange }: LogFiltersProps
 
         {/* Start Date */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="log-filters-start-date" className="block text-sm font-medium text-gray-700 mb-2">
             Date de début
           </label>
           <input
+            id="log-filters-start-date"
             type="date"
             value={localFilters.startDate || ''}
             onChange={(e) =>
@@ -132,10 +131,11 @@ export default function LogFilters({ filters, onFiltersChange }: LogFiltersProps
 
         {/* End Date */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="log-filters-end-date" className="block text-sm font-medium text-gray-700 mb-2">
             Date de fin
           </label>
           <input
+            id="log-filters-end-date"
             type="date"
             value={localFilters.endDate || ''}
             onChange={(e) =>
