@@ -2,7 +2,7 @@
 
 import { ArrowLeft, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   DeleteContentModal,
@@ -10,9 +10,9 @@ import {
 } from '@/components/admin';
 import { LoadingSpinner } from '@/components/common';
 import { Select } from '@/components/ui';
-import { useDemandes } from '@/lib/hooks';
+import { useAdmin } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
-import type { Demande, DemandeFilters, DemandeStatut } from '@/types';
+import type { AdminContentListFilters, Demande, DemandeStatut } from '@/types';
 
 export default function AdminModerationDemandesPageClient() {
   const [page, setPage] = useState(1);
@@ -22,17 +22,20 @@ export default function AdminModerationDemandesPageClient() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const router = useRouter();
+  const { demandesList, demandesListPagination, isLoading, error, fetchDemandesList } = useAdmin();
 
-  // Utiliser useMemo pour stabiliser l'objet filters
-  const filters = useMemo<DemandeFilters | undefined>(() => {
-    return statusFilter ? { statut: statusFilter as DemandeStatut } : undefined;
-  }, [statusFilter]);
+  const load = useCallback((currentSearch: string) => {
+    const filters: AdminContentListFilters | undefined =
+      currentSearch || statusFilter ? { search: currentSearch || undefined, statut: statusFilter || undefined } : undefined;
+    fetchDemandesList(page, 10, filters);
+  }, [page, statusFilter, fetchDemandesList]);
 
-  const { demandes, pagination, isLoading, error, refetch } = useDemandes(
-    page,
-    10,
-    filters
-  );
+  // Recherche debouncee (evite un appel API a chaque frappe), page/statut appliques
+  // immediatement - meme raisonnement que useGeo (recherche ville).
+  useEffect(() => {
+    const timeout = setTimeout(() => load(search), search ? 400 : 0);
+    return () => clearTimeout(timeout);
+  }, [search, load]);
 
   const handleDelete = (demande: Demande) => {
     setSelectedDemande(demande);
@@ -54,7 +57,7 @@ export default function AdminModerationDemandesPageClient() {
             Modération des Demandes
           </h1>
           <p className="text-gray-500 mt-1">
-            {pagination?.total || 0} demandes au total
+            {demandesListPagination?.total || 0} demandes au total
           </p>
         </div>
       </div>
@@ -122,12 +125,12 @@ export default function AdminModerationDemandesPageClient() {
           <p className="text-error text-lg font-semibold mb-2">Erreur</p>
           <p className="text-gray-600">{error}</p>
         </div>
-      ) : isLoading && demandes.length === 0 ? (
+      ) : isLoading && demandesList.length === 0 ? (
         <LoadingSpinner text="Chargement des demandes..." />
       ) : (
         <ModerationDemandesTable
-          demandes={demandes}
-          pagination={pagination}
+          demandes={demandesList}
+          pagination={demandesListPagination}
           onPageChange={setPage}
           onDelete={handleDelete}
         />
@@ -147,7 +150,7 @@ export default function AdminModerationDemandesPageClient() {
           onSuccess={() => {
             setShowDeleteModal(false);
             setSelectedDemande(null);
-            refetch();
+            load(search);
           }}
         />
       )}

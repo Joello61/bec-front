@@ -10,16 +10,10 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),
 }));
 
-const mockUseDemandes = vi.fn();
-const mockRefetch = vi.fn();
+const mockUseAdmin = vi.fn();
+const mockFetchDemandesList = vi.fn();
 vi.mock('@/lib/hooks', () => ({
-  useDemandes: (...args: unknown[]) => mockUseDemandes(...args),
-  useAdmin: () => ({
-    deleteVoyage: vi.fn(),
-    deleteDemande: vi.fn(),
-    deleteAvis: vi.fn(),
-    deleteMessage: vi.fn(),
-  }),
+  useAdmin: (...args: unknown[]) => mockUseAdmin(...args),
 }));
 
 function makeClient(overrides: Partial<User> = {}): User {
@@ -44,17 +38,24 @@ function makeDemande(overrides: Partial<Demande> = {}): Demande {
 describe('clients/admin/demandes-clients - logique metier', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockUseDemandes.mockReturnValue({
-      demandes: [makeDemande()],
-      pagination: { page: 1, pages: 1, total: 1, limit: 10 } as PaginationMeta,
+    mockUseAdmin.mockReturnValue({
+      demandesList: [makeDemande()],
+      demandesListPagination: { page: 1, pages: 1, total: 1, limit: 10 } as PaginationMeta,
       isLoading: false,
       error: null,
-      refetch: mockRefetch,
+      fetchDemandesList: mockFetchDemandesList,
+      deleteVoyage: vi.fn(),
+      deleteDemande: vi.fn(),
+      deleteAvis: vi.fn(),
+      deleteMessage: vi.fn(),
     });
   });
 
   it('affiche une erreur si le chargement echoue', () => {
-    mockUseDemandes.mockReturnValue({ demandes: [], pagination: null, isLoading: false, error: 'Erreur reseau', refetch: mockRefetch });
+    mockUseAdmin.mockReturnValue({
+      demandesList: [], demandesListPagination: null, isLoading: false, error: 'Erreur reseau',
+      fetchDemandesList: mockFetchDemandesList, deleteDemande: vi.fn(),
+    });
     render(<AdminModerationDemandesPageClient />);
     expect(screen.getByText('Erreur reseau')).toBeInTheDocument();
   });
@@ -67,7 +68,7 @@ describe('clients/admin/demandes-clients - logique metier', () => {
     await user.click(selectTrigger);
     await user.click(await screen.findByRole('button', { name: /voyageur trouvé/i }));
 
-    await waitFor(() => expect(mockUseDemandes).toHaveBeenLastCalledWith(1, 10, { statut: 'voyageur_trouve' }));
+    await waitFor(() => expect(mockFetchDemandesList).toHaveBeenLastCalledWith(1, 10, { search: undefined, statut: 'voyageur_trouve' }));
   });
 
   it('ouvre la modale de suppression', async () => {
@@ -76,5 +77,19 @@ describe('clients/admin/demandes-clients - logique metier', () => {
 
     await user.click(screen.getByRole('button', { name: /supprimer/i }));
     expect(screen.getByText(/supprimer la demande/i)).toBeInTheDocument();
+  });
+
+  /**
+   * Bug de production corrige (Phase 13/Lot F1, plan-correction-cobage.md) : le champ
+   * de recherche n'etait jusqu'ici jamais transmis au filtre reel - champ visuellement
+   * present mais totalement inerte.
+   */
+  it('transmet le terme de recherche au filtre apres le debounce', async () => {
+    const user = userEvent.setup();
+    render(<AdminModerationDemandesPageClient />);
+
+    await user.type(screen.getByPlaceholderText(/rechercher une demande/i), 'Martin');
+
+    await waitFor(() => expect(mockFetchDemandesList).toHaveBeenLastCalledWith(1, 10, { search: 'Martin', statut: undefined }), { timeout: 1000 });
   });
 });

@@ -2,14 +2,14 @@
 
 import { ArrowLeft, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { DeleteContentModal, ModerationVoyagesTable } from '@/components/admin';
 import { LoadingSpinner } from '@/components/common';
 import { Select } from '@/components/ui';
-import { useVoyages } from '@/lib/hooks';
+import { useAdmin } from '@/lib/hooks';
 import { ROUTES } from '@/lib/utils/constants';
-import type { Voyage, VoyageFilters, VoyageStatut } from '@/types';
+import type { AdminContentListFilters, Voyage, VoyageStatut } from '@/types';
 
 export default function AdminModerationVoyagesPageClient() {
   const [page, setPage] = useState(1);
@@ -19,17 +19,20 @@ export default function AdminModerationVoyagesPageClient() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const router = useRouter();
+  const { voyagesList, voyagesListPagination, isLoading, error, fetchVoyagesList } = useAdmin();
 
-  // Utiliser useMemo pour stabiliser l'objet filters
-  const filters = useMemo<VoyageFilters | undefined>(() => {
-    return statusFilter ? { statut: statusFilter as VoyageStatut } : undefined;
-  }, [statusFilter]);
+  const load = useCallback((currentSearch: string) => {
+    const filters: AdminContentListFilters | undefined =
+      currentSearch || statusFilter ? { search: currentSearch || undefined, statut: statusFilter || undefined } : undefined;
+    fetchVoyagesList(page, 10, filters);
+  }, [page, statusFilter, fetchVoyagesList]);
 
-  const { voyages, pagination, isLoading, error, refetch } = useVoyages(
-    page,
-    10,
-    filters
-  );
+  // Recherche debouncee (evite un appel API a chaque frappe), page/statut appliques
+  // immediatement - meme raisonnement que useGeo (recherche ville).
+  useEffect(() => {
+    const timeout = setTimeout(() => load(search), search ? 400 : 0);
+    return () => clearTimeout(timeout);
+  }, [search, load]);
 
   const handleDelete = (voyage: Voyage) => {
     setSelectedVoyage(voyage);
@@ -51,7 +54,7 @@ export default function AdminModerationVoyagesPageClient() {
             Modération des Voyages
           </h1>
           <p className="text-gray-500 mt-1">
-            {pagination?.total || 0} voyages au total
+            {voyagesListPagination?.total || 0} voyages au total
           </p>
         </div>
       </div>
@@ -120,12 +123,12 @@ export default function AdminModerationVoyagesPageClient() {
           <p className="text-error text-lg font-semibold mb-2">Erreur</p>
           <p className="text-gray-600">{error}</p>
         </div>
-      ) : isLoading && voyages.length === 0 ? (
+      ) : isLoading && voyagesList.length === 0 ? (
         <LoadingSpinner text="Chargement des voyages..." />
       ) : (
         <ModerationVoyagesTable
-          voyages={voyages}
-          pagination={pagination}
+          voyages={voyagesList}
+          pagination={voyagesListPagination}
           onPageChange={setPage}
           onDelete={handleDelete}
         />
@@ -145,7 +148,7 @@ export default function AdminModerationVoyagesPageClient() {
           onSuccess={() => {
             setShowDeleteModal(false);
             setSelectedVoyage(null);
-            refetch();
+            load(search);
           }}
         />
       )}

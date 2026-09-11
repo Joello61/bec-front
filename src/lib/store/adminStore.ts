@@ -4,6 +4,7 @@ import { adminApi } from '@/lib/api/admin';
 import type {
   AdminActivityStats,
   AdminAvisFilters,
+  AdminContentListFilters,
   AdminDashboardData,
   AdminDemandesStats,
   AdminEngagementStats,
@@ -18,9 +19,11 @@ import type {
   Avis,
   BanUserInput,
   DeleteContentInput,
+  Demande,
   PaginationMeta,
   UpdateUserRolesInput,
   User,
+  Voyage,
 } from '@/types';
 
 import { createAsyncAction } from './createAsyncAction';
@@ -47,7 +50,11 @@ interface AdminState {
   logsStats: AdminLogStats | null;
   logsPagination: PaginationMeta | null;
 
-  // Modération - avis
+  // Modération - voyages/demandes/avis
+  voyagesList: Voyage[];
+  voyagesListPagination: PaginationMeta | null;
+  demandesList: Demande[];
+  demandesListPagination: PaginationMeta | null;
   avisList: Avis[];
   avisPagination: PaginationMeta | null;
 
@@ -78,6 +85,8 @@ interface AdminState {
   deleteUser: (id: number, reason: string) => Promise<void>;
 
   // Modération
+  fetchVoyagesList: (page?: number, limit?: number, filters?: AdminContentListFilters) => Promise<void>;
+  fetchDemandesList: (page?: number, limit?: number, filters?: AdminContentListFilters) => Promise<void>;
   fetchAvisList: (page?: number, limit?: number, filters?: AdminAvisFilters) => Promise<void>;
   deleteVoyage: (id: number, input: DeleteContentInput) => Promise<void>;
   deleteDemande: (id: number, input: DeleteContentInput) => Promise<void>;
@@ -113,6 +122,10 @@ export const useAdminStore = create<AdminState>((set) => ({
   logs: [],
   logsStats: null,
   logsPagination: null,
+  voyagesList: [],
+  voyagesListPagination: null,
+  demandesList: [],
+  demandesListPagination: null,
   avisList: [],
   avisPagination: null,
   isLoading: false,
@@ -218,6 +231,18 @@ export const useAdminStore = create<AdminState>((set) => ({
     }, { fallbackError: "Erreur lors de la suppression de l'utilisateur", rethrow: true }),
 
   // ==================== MODÉRATION ====================
+  fetchVoyagesList: (page = 1, limit = 20, filters) =>
+    createAsyncAction(set, async () => {
+      const response = await adminApi.getVoyagesList(page, limit, filters);
+      set({ voyagesList: response.data, voyagesListPagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des voyages' }),
+
+  fetchDemandesList: (page = 1, limit = 20, filters) =>
+    createAsyncAction(set, async () => {
+      const response = await adminApi.getDemandesList(page, limit, filters);
+      set({ demandesList: response.data, demandesListPagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des demandes' }),
+
   fetchAvisList: (page = 1, limit = 20, filters) =>
     createAsyncAction(set, async () => {
       const response = await adminApi.getAvisList(page, limit, filters);
@@ -300,6 +325,10 @@ export const useAdminStore = create<AdminState>((set) => ({
       logs: [],
       logsStats: null,
       logsPagination: null,
+      voyagesList: [],
+      voyagesListPagination: null,
+      demandesList: [],
+      demandesListPagination: null,
       avisList: [],
       avisPagination: null,
       error: null,
