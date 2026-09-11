@@ -60,6 +60,7 @@ export const ROUTES = {
   ADMIN_MODERATION_VOYAGES: '/admin/moderation/voyages' as Route,
   ADMIN_MODERATION_DEMANDES: '/admin/moderation/demandes' as Route,
   ADMIN_MODERATION_AVIS: '/admin/moderation/avis' as Route,
+  ADMIN_MODERATION_SIGNALEMENTS: '/admin/moderation/signalements' as Route,
   ADMIN_LOGS: '/admin/logs' as Route,
 } as const;
 
