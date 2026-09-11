@@ -2,12 +2,11 @@
 
 import { EmptyState, LoadingSpinner } from '@/components/common';
 import { FavoritesList } from '@/components/favori';
-import { useFavoriActions, useFavorisDemandes, useFavorisVoyages } from '@/lib/hooks';
+import { useFavorisDemandes, useFavorisVoyages } from '@/lib/hooks';
 
 export default function FavorisPageClient() {
   const { favorisVoyages, isLoading: isLoadingVoyages } = useFavorisVoyages();
   const { favorisDemandes, isLoading: isLoadingDemandes } = useFavorisDemandes();
-  const { removeFavori } = useFavoriActions();
 
   const isLoading = isLoadingVoyages || isLoadingDemandes;
   const hasNoFavorites = favorisVoyages.length === 0 && favorisDemandes.length === 0;
@@ -40,7 +39,6 @@ export default function FavorisPageClient() {
         <FavoritesList
           favorisVoyages={favorisVoyages}
           favorisDemandes={favorisDemandes}
-          onRemove={removeFavori}
           isLoading={isLoading}
         />
       )}
