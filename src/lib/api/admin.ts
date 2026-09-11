@@ -1,6 +1,7 @@
 import type {
   AdminActivityStats,
   AdminAvisFilters,
+  AdminContentListFilters,
   AdminDashboardData,
   AdminDemandesStats,
   AdminEngagementStats,
@@ -15,9 +16,11 @@ import type {
   Avis,
   BanUserInput,
   DeleteContentInput,
+  Demande,
   PaginatedResponse,
   UpdateUserRolesInput,
   User,
+  Voyage,
 } from '@/types';
 
 import apiClient from './client';
@@ -115,6 +118,28 @@ export const adminApi = {
   },
 
   // ==================== MODÉRATION ====================
+  getVoyagesList: async (
+    page = 1,
+    limit = 20,
+    filters?: AdminContentListFilters
+  ): Promise<PaginatedResponse<Voyage>> => {
+    const { data } = await apiClient.get(endpoints.admin.listVoyages, {
+      params: { page, limit, ...filters },
+    });
+    return data;
+  },
+
+  getDemandesList: async (
+    page = 1,
+    limit = 20,
+    filters?: AdminContentListFilters
+  ): Promise<PaginatedResponse<Demande>> => {
+    const { data } = await apiClient.get(endpoints.admin.listDemandes, {
+      params: { page, limit, ...filters },
+    });
+    return data;
+  },
+
   getAvisList: async (
     page = 1,
     limit = 20,

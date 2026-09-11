@@ -10,17 +10,11 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),
 }));
 
-const mockUseVoyages = vi.fn();
-const mockRefetch = vi.fn();
+const mockUseAdmin = vi.fn();
+const mockFetchVoyagesList = vi.fn();
 const mockDeleteVoyage = vi.fn();
 vi.mock('@/lib/hooks', () => ({
-  useVoyages: (...args: unknown[]) => mockUseVoyages(...args),
-  useAdmin: () => ({
-    deleteVoyage: mockDeleteVoyage,
-    deleteDemande: vi.fn(),
-    deleteAvis: vi.fn(),
-    deleteMessage: vi.fn(),
-  }),
+  useAdmin: (...args: unknown[]) => mockUseAdmin(...args),
 }));
 
 function makeVoyageur(overrides: Partial<User> = {}): User {
@@ -46,17 +40,24 @@ function makeVoyage(overrides: Partial<Voyage> = {}): Voyage {
 describe('clients/admin/voyages-client - logique metier', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockUseVoyages.mockReturnValue({
-      voyages: [makeVoyage()],
-      pagination: { page: 1, pages: 1, total: 1, limit: 10 } as PaginationMeta,
+    mockUseAdmin.mockReturnValue({
+      voyagesList: [makeVoyage()],
+      voyagesListPagination: { page: 1, pages: 1, total: 1, limit: 10 } as PaginationMeta,
       isLoading: false,
       error: null,
-      refetch: mockRefetch,
+      fetchVoyagesList: mockFetchVoyagesList,
+      deleteVoyage: mockDeleteVoyage,
+      deleteDemande: vi.fn(),
+      deleteAvis: vi.fn(),
+      deleteMessage: vi.fn(),
     });
   });
 
   it('affiche une erreur si le chargement echoue', () => {
-    mockUseVoyages.mockReturnValue({ voyages: [], pagination: null, isLoading: false, error: 'Erreur reseau', refetch: mockRefetch });
+    mockUseAdmin.mockReturnValue({
+      voyagesList: [], voyagesListPagination: null, isLoading: false, error: 'Erreur reseau',
+      fetchVoyagesList: mockFetchVoyagesList, deleteVoyage: mockDeleteVoyage,
+    });
     render(<AdminModerationVoyagesPageClient />);
     expect(screen.getByText('Erreur reseau')).toBeInTheDocument();
   });
@@ -70,7 +71,7 @@ describe('clients/admin/voyages-client - logique metier', () => {
     await user.click(selectTrigger);
     await user.click(await screen.findByRole('button', { name: 'Actif' }));
 
-    await waitFor(() => expect(mockUseVoyages).toHaveBeenLastCalledWith(1, 10, { statut: 'actif' }));
+    await waitFor(() => expect(mockFetchVoyagesList).toHaveBeenLastCalledWith(1, 10, { search: undefined, statut: 'actif' }));
   });
 
   it('ouvre la modale de suppression et rafraichit la liste apres succes', async () => {
@@ -90,6 +91,20 @@ describe('clients/admin/voyages-client - logique metier', () => {
     await user.click(await screen.findByRole('button', { name: 'Actif' }));
 
     await user.click(screen.getByRole('button', { name: /réinitialiser/i }));
-    await waitFor(() => expect(mockUseVoyages).toHaveBeenLastCalledWith(1, 10, undefined));
+    await waitFor(() => expect(mockFetchVoyagesList).toHaveBeenLastCalledWith(1, 10, undefined));
+  });
+
+  /**
+   * Bug de production corrige (Phase 13/Lot F1, plan-correction-cobage.md) : le champ
+   * de recherche n'etait jusqu'ici jamais transmis au filtre reel - champ visuellement
+   * present mais totalement inerte.
+   */
+  it('transmet le terme de recherche au filtre apres le debounce', async () => {
+    const user = userEvent.setup();
+    render(<AdminModerationVoyagesPageClient />);
+
+    await user.type(screen.getByPlaceholderText(/rechercher un voyage/i), 'Dupont');
+
+    await waitFor(() => expect(mockFetchVoyagesList).toHaveBeenLastCalledWith(1, 10, { search: 'Dupont', statut: undefined }), { timeout: 1000 });
   });
 });

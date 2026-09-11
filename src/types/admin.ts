@@ -209,6 +209,11 @@ export interface AdminAvisFilters {
   maxNote?: number;
 }
 
+export interface AdminContentListFilters {
+  search?: string;
+  statut?: string;
+}
+
 // ==================== USER ACTIVITY ====================
 export interface AdminUserActivity {
   voyages: Voyage[];

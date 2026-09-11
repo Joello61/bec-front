@@ -165,7 +165,9 @@ export const endpoints = {
     deleteUser: (id: number) => `/admin/users/${id}`,
     
     // Modération
+    listVoyages: '/admin/moderation/voyages',
     deleteVoyage: (id: number) => `/admin/moderation/voyages/${id}`,
+    listDemandes: '/admin/moderation/demandes',
     deleteDemande: (id: number) => `/admin/moderation/demandes/${id}`,
     listAvis: '/admin/moderation/avis',
     deleteAvis: (id: number) => `/admin/moderation/avis/${id}`,
