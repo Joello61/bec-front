@@ -108,4 +108,12 @@ test.describe('Profil, parametres et suppression de compte', () => {
       expect(loginResponse.ok()).toBeFalsy();
     });
   });
+
+  // Ajout leger (pas de nouveau fichier, plan Lot B) : DashboardStatsCard.tsx n'a jusque-la
+  // aucune couverture E2E - /dashboard (distinct de /dashboard/explore, destination du
+  // login) est la seule page qui la monte.
+  test('la page /dashboard affiche la carte de statistiques utilisateur', async ({ authenticatedPage: page }) => {
+    await gotoAndWaitReady(page, '/dashboard');
+    await expect(page.getByRole('heading', { name: 'Mes Statistiques' })).toBeVisible({ timeout: 10000 });
+  });
 });

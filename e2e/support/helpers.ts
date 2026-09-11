@@ -1,4 +1,14 @@
-import type { Locator, Page } from '@playwright/test';
+import type { APIRequestContext, Locator, Page } from '@playwright/test';
+
+/**
+ * Mailpit (bec-infra/docker-compose.override.yml) capture tous les emails de dev sans
+ * jamais les livrer reellement, expose sur le port hote 8025 (README bec-infra) - a la
+ * fois en local et en CI (le job E2E de bec-infra publie ce port sur le runner). Racine
+ * fixe plutot qu'une variable d'environnement : ce port n'a jamais varie entre les deux
+ * environnements, contrairement a baseURL (playwright.config.ts) qui a une raison
+ * documentee de ne pas etre 127.0.0.1.
+ */
+const MAILPIT_URL = 'http://localhost:8025';
 
 /**
  * Bandeau de consentement cookies (CookiesConsent.tsx) affiche en overlay (role="dialog")
@@ -67,4 +77,50 @@ export function isoDateInDays(days: number): string {
   date.setHours(0, 0, 0, 0);
   date.setDate(date.getDate() + days);
   return date.toISOString().slice(0, 10);
+}
+
+/**
+ * Recupere le dernier email envoye a `toEmail` via l'API REST Mailpit (v1) et en extrait
+ * une URL correspondant a `linkPattern` (ex. le lien de reinitialisation de mot de passe,
+ * EmailService::getPasswordResetEmailContent - le corps HTML contient l'URL a la fois en
+ * href et en texte affiche, donc une simple recherche par regex suffit, pas besoin de
+ * parser le HTML). Poll court plutot qu'une seule tentative : Mailpit n'ecrit le message
+ * qu'une fois le SMTP du backend termine, un decalage de quelques centaines de ms apres le
+ * clic "Envoyer" est attendu, pas une erreur.
+ */
+export async function fetchLatestEmailLink(
+  request: APIRequestContext,
+  toEmail: string,
+  linkPattern: RegExp,
+  timeoutMs = 15000
+): Promise<string> {
+  const deadline = Date.now() + timeoutMs;
+  let lastHtml = '';
+
+  while (Date.now() < deadline) {
+    const searchResponse = await request.get(`${MAILPIT_URL}/api/v1/search`, {
+      params: { query: `to:${toEmail}`, limit: '1' },
+    });
+    if (searchResponse.ok()) {
+      const searchBody = await searchResponse.json();
+      const messageId = searchBody.messages?.[0]?.ID;
+      if (messageId) {
+        const messageResponse = await request.get(`${MAILPIT_URL}/api/v1/message/${messageId}`);
+        if (messageResponse.ok()) {
+          const message = await messageResponse.json();
+          lastHtml = message.HTML ?? message.Text ?? '';
+          const match = lastHtml.match(linkPattern);
+          if (match) {
+            return match[0];
+          }
+        }
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+
+  throw new Error(
+    `Aucun email trouve pour ${toEmail} contenant un lien correspondant a ${linkPattern} ` +
+      `apres ${timeoutMs}ms (dernier corps recu: ${lastHtml.slice(0, 200) || '(aucun message)'}).`
+  );
 }

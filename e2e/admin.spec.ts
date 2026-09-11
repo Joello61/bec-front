@@ -133,4 +133,63 @@ test.describe('Administration - gestion utilisateurs et moderation', () => {
 
     await targetContext.close();
   });
+
+  test('un admin peut moderer (supprimer) une demande', async ({ adminPage, browser }) => {
+    const targetContext = await browser.newContext();
+    const targetPage = await targetContext.newPage();
+    const targetUser = makeTestUser();
+    await registerAndLogin(targetPage, targetUser);
+    await completeProfile(targetPage);
+
+    const demandeResponse = await targetPage.request.post('/api/demandes', {
+      data: {
+        villeDepart: 'Yaoundé',
+        villeArrivee: 'Bruxelles',
+        dateLimite: isoDateInDays(15),
+        poidsEstime: 5,
+        description: 'Demande test E2E - destinee a etre moderee (supprimee).',
+      },
+    });
+    expect(demandeResponse.ok(), `Echec creation demande API: ${demandeResponse.status()}`).toBeTruthy();
+
+    await gotoAndWaitReady(adminPage, '/admin/moderation/demandes');
+    const row = adminPage.getByRole('row').filter({ hasText: targetUser.prenom });
+
+    // Meme raisonnement que pour les voyages ci-dessus : pagination fixe, pas de filtre
+    // par utilisateur, la base de dev accumule les demandes des sessions E2E precedentes -
+    // cette suite en cree elle-meme plusieurs par execution (proposition-lifecycle.spec.ts
+    // notamment), plafond plus genereux que le test voyage pour rester fiable a mesure que
+    // la base grossit.
+    for (let attempt = 0; attempt < 50 && !(await row.isVisible().catch(() => false)); attempt++) {
+      const nextButton = adminPage.getByRole('button', { name: 'Page suivante' });
+      if (!(await nextButton.isEnabled().catch(() => false))) break;
+      await nextButton.click();
+      await waitPageReady(adminPage);
+    }
+    await expect(row).toBeVisible({ timeout: 15000 });
+    await row.getByRole('button', { name: 'Supprimer' }).click();
+
+    const dialog = adminPage.getByRole('dialog');
+    await dialog.getByPlaceholder('Expliquez en détail la raison de la suppression...').fill(
+      'Contenu supprime dans le cadre du test E2E de moderation'
+    );
+    await dialog.getByRole('button', { name: 'Supprimer le contenu' }).click();
+    await waitPageReady(adminPage);
+
+    await expect(adminPage.getByRole('row').filter({ hasText: targetUser.prenom })).not.toBeVisible();
+
+    await gotoAndWaitReady(adminPage, '/admin/logs');
+    await expect(adminPage.getByText('Suppression demande').first()).toBeVisible({ timeout: 15000 });
+
+    await targetContext.close();
+  });
+
+  // Ajout leger (pas de nouveau fichier, plan Lot B) : /admin/stats n'a jusque-la aucune
+  // couverture E2E.
+  test('la page /admin/stats affiche les statistiques detaillees', async ({ adminPage }) => {
+    await gotoAndWaitReady(adminPage, '/admin/stats');
+    await expect(adminPage.getByRole('heading', { name: 'Statistiques Détaillées' })).toBeVisible({
+      timeout: 10000,
+    });
+  });
 });
