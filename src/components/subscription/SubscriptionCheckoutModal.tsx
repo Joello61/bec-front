@@ -13,10 +13,11 @@ import type { SubscriptionPlan } from '@/types';
 
 interface SubscriptionCheckoutModalProps {
   plan: SubscriptionPlan;
+  initialBillingPeriod?: 'monthly' | 'yearly';
   onClose: () => void;
 }
 
-export default function SubscriptionCheckoutModal({ plan, onClose }: SubscriptionCheckoutModalProps) {
+export default function SubscriptionCheckoutModal({ plan, initialBillingPeriod = 'monthly', onClose }: SubscriptionCheckoutModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { checkout } = useSubscriptionActions();
   const { formatAmount } = useCurrencyFormat();
@@ -34,12 +35,19 @@ export default function SubscriptionCheckoutModal({ plan, onClose }: Subscriptio
     defaultValues: {
       planCode: plan.code,
       paymentMethod: 'card',
+      billingPeriod: initialBillingPeriod,
       accessImmediateConsent: false,
       withdrawalWaiverConsent: false,
     },
   });
 
   const paymentMethod = watch('paymentMethod');
+  const billingPeriod = watch('billingPeriod');
+  const isMobileMoney = paymentMethod === 'mobile_money';
+  const hasYearlyPrice = isMobileMoney ? plan.priceAmountXafYearly !== null : plan.priceAmountEurYearly !== null;
+  const monthlyAmount = isMobileMoney ? plan.priceAmountXaf : plan.priceAmountEur;
+  const yearlyAmount = isMobileMoney ? plan.priceAmountXafYearly : plan.priceAmountEurYearly;
+  const displayedAmount = billingPeriod === 'yearly' ? yearlyAmount : monthlyAmount;
 
   const onSubmit = async (data: CheckoutConsentFormData) => {
     setIsSubmitting(true);
@@ -69,20 +77,50 @@ export default function SubscriptionCheckoutModal({ plan, onClose }: Subscriptio
         </div>
 
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-600 mb-1">Montant facturé chaque mois</p>
+          <p className="text-sm text-gray-600 mb-1">
+            Montant facturé {billingPeriod === 'yearly' ? 'chaque année' : 'chaque mois'}
+          </p>
           <p className="text-2xl font-bold text-gray-900">
-            {paymentMethod === 'mobile_money'
-              ? plan.priceAmountXaf
-                ? formatAmount(plan.priceAmountXaf, 'XAF')
-                : '-'
-              : plan.priceAmountEur
-                ? formatAmount(plan.priceAmountEur, 'EUR')
-                : '-'}
+            {displayedAmount ? formatAmount(displayedAmount, isMobileMoney ? 'XAF' : 'EUR') : '-'}
           </p>
           <p className="text-xs text-gray-500 mt-1">Sans engagement, résiliable à tout moment.</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <p className="text-sm font-medium text-gray-700 mb-2">Cadence de facturation</p>
+            <div className="grid grid-cols-2 gap-3">
+              <label
+                className={`flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg cursor-pointer transition-colors ${
+                  billingPeriod === 'monthly'
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                <input type="radio" value="monthly" {...register('billingPeriod')} className="sr-only" />
+                Mensuel
+              </label>
+              <label
+                className={`flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg transition-colors ${
+                  !hasYearlyPrice
+                    ? 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
+                    : billingPeriod === 'yearly'
+                      ? 'border-primary bg-primary/5 text-primary cursor-pointer'
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer'
+                }`}
+              >
+                <input
+                  type="radio"
+                  value="yearly"
+                  disabled={!hasYearlyPrice}
+                  {...register('billingPeriod')}
+                  className="sr-only"
+                />
+                Annuel
+              </label>
+            </div>
+          </div>
+
           <div>
             <p className="text-sm font-medium text-gray-700 mb-2">Moyen de paiement</p>
             <div className="grid grid-cols-2 gap-3">

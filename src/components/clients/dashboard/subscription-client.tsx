@@ -7,7 +7,8 @@ import { ErrorState, LoadingSpinner } from '@/components/common';
 import { CancelSubscriptionModal, SubscriptionCheckoutModal } from '@/components/subscription';
 import { Badge, Button, Card } from '@/components/ui';
 import { useCurrencyFormat, useSubscription, useSubscriptionPlans } from '@/lib/hooks';
-import type { SubscriptionPlan } from '@/types';
+import { cn } from '@/lib/utils/cn';
+import type { BillingPeriod, SubscriptionPlan } from '@/types';
 
 function QuotaBar({ label, used, max }: { label: string; used: number; max: number | null }) {
   const isUnlimited = max === null;
@@ -37,7 +38,9 @@ export default function SubscriptionPageClient() {
   const { formatAmount } = useCurrencyFormat();
 
   const [checkoutPlan, setCheckoutPlan] = useState<SubscriptionPlan | null>(null);
+  const [checkoutBillingPeriod, setCheckoutBillingPeriod] = useState<BillingPeriod>('monthly');
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>('monthly');
 
   if (isLoading || isLoadingPlans) {
     return (
@@ -88,10 +91,37 @@ export default function SubscriptionPageClient() {
       )}
 
       <div>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Nos plans</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-gray-900">Nos plans</h2>
+          <div className="inline-flex rounded-lg border border-gray-200 p-1">
+            <button
+              type="button"
+              onClick={() => setBillingPeriod('monthly')}
+              className={cn(
+                'px-3 py-1.5 text-sm font-medium rounded-md transition-colors',
+                billingPeriod === 'monthly' ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-50'
+              )}
+            >
+              Mensuel
+            </button>
+            <button
+              type="button"
+              onClick={() => setBillingPeriod('yearly')}
+              className={cn(
+                'px-3 py-1.5 text-sm font-medium rounded-md transition-colors',
+                billingPeriod === 'yearly' ? 'bg-primary text-white' : 'text-gray-600 hover:bg-gray-50'
+              )}
+            >
+              Annuel
+            </button>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {(plans ?? []).map((candidatePlan) => {
             const isCurrent = candidatePlan.code === plan.code;
+            const yearlyPrice = candidatePlan.priceAmountEurYearly;
+            const displayedPrice = billingPeriod === 'yearly' ? yearlyPrice : candidatePlan.priceAmountEur;
+            const isYearlyUnavailable = billingPeriod === 'yearly' && candidatePlan.priceAmountEur !== null && yearlyPrice === null;
 
             return (
               <Card key={candidatePlan.id} variant="bordered" className="flex flex-col gap-4">
@@ -101,9 +131,21 @@ export default function SubscriptionPageClient() {
                 </div>
 
                 <p className="text-3xl font-bold text-gray-900">
-                  {candidatePlan.priceAmountEur ? formatAmount(candidatePlan.priceAmountEur, 'EUR') : 'Gratuit'}
-                  {candidatePlan.priceAmountEur && <span className="text-sm font-normal text-gray-500">/mois</span>}
+                  {isYearlyUnavailable
+                    ? formatAmount(candidatePlan.priceAmountEur as string, 'EUR')
+                    : displayedPrice
+                      ? formatAmount(displayedPrice, 'EUR')
+                      : 'Gratuit'}
+                  {displayedPrice && !isYearlyUnavailable && (
+                    <span className="text-sm font-normal text-gray-500">
+                      {billingPeriod === 'yearly' ? '/an' : '/mois'}
+                    </span>
+                  )}
+                  {isYearlyUnavailable && <span className="text-sm font-normal text-gray-500">/mois</span>}
                 </p>
+                {isYearlyUnavailable && (
+                  <p className="text-xs text-gray-500 -mt-3">Cadence annuelle non disponible pour ce plan</p>
+                )}
 
                 <ul className="space-y-2 text-sm text-gray-700 flex-1">
                   <li className="flex items-center gap-2">
@@ -123,7 +165,10 @@ export default function SubscriptionPageClient() {
                 <Button
                   variant={isCurrent ? 'outline' : 'primary'}
                   disabled={isCurrent || candidatePlan.code === 'free'}
-                  onClick={() => setCheckoutPlan(candidatePlan)}
+                  onClick={() => {
+                    setCheckoutPlan(candidatePlan);
+                    setCheckoutBillingPeriod(isYearlyUnavailable ? 'monthly' : billingPeriod);
+                  }}
                   className="w-full"
                 >
                   {isCurrent ? 'Plan actuel' : 'Choisir ce plan'}
@@ -135,7 +180,11 @@ export default function SubscriptionPageClient() {
       </div>
 
       {checkoutPlan && (
-        <SubscriptionCheckoutModal plan={checkoutPlan} onClose={() => setCheckoutPlan(null)} />
+        <SubscriptionCheckoutModal
+          plan={checkoutPlan}
+          initialBillingPeriod={checkoutBillingPeriod}
+          onClose={() => setCheckoutPlan(null)}
+        />
       )}
 
       {showCancelModal && (
