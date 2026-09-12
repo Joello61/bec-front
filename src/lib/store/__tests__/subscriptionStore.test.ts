@@ -30,7 +30,7 @@ describe('subscriptionStore.fetchPlans', () => {
 
     await useSubscriptionStore.getState().fetchPlans();
 
-    expect(useSubscriptionStore.getState()).toMatchObject({ plans: mockPlans, isLoading: false });
+    expect(useSubscriptionStore.getState()).toMatchObject({ plans: mockPlans, isLoadingPlans: false });
   });
 
   it('ne refait pas d\'appel si des plans sont deja charges', async () => {
@@ -39,6 +39,24 @@ describe('subscriptionStore.fetchPlans', () => {
     await useSubscriptionStore.getState().fetchPlans();
 
     expect(subscriptionsApi.getPlans).not.toHaveBeenCalled();
+  });
+
+  it('n\'est pas bloque par le chargement en cours de fetchMySubscription (flags de chargement independants)', async () => {
+    // Regression : useSubscription() et useSubscriptionPlans() sont montes ensemble sur
+    // la page d'abonnement et declenchent chacun leur fetch au montage. Si les deux
+    // partageaient le meme flag isLoading, le set({isLoading:true}) synchrone de
+    // fetchMySubscription (toujours appele en premier) ferait echouer la garde anti-
+    // doublon de fetchPlans avant meme que l'appel API ne parte - le catalogue ne
+    // s'afficherait alors jamais.
+    vi.mocked(subscriptionsApi.getMine).mockResolvedValue(mockMySubscription);
+    vi.mocked(subscriptionsApi.getPlans).mockResolvedValue(mockPlans);
+
+    const mySubscriptionPromise = useSubscriptionStore.getState().fetchMySubscription();
+    const plansPromise = useSubscriptionStore.getState().fetchPlans();
+    await Promise.all([mySubscriptionPromise, plansPromise]);
+
+    expect(subscriptionsApi.getPlans).toHaveBeenCalledTimes(1);
+    expect(useSubscriptionStore.getState().plans).toEqual(mockPlans);
   });
 });
 
