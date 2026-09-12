@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { BoostButton } from '@/components/boost';
 import { ConfirmDialog, EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { DemandeDetails } from '@/components/demande';
 import { DemandeForm } from '@/components/forms';
@@ -103,6 +104,12 @@ export default function DemandeDetailsPageClient() {
         onDelete={() => setIsDeleteDialogOpen(true)}
         onContact={handleContact}
       />
+
+      {isOwner && (
+        <div className="mt-4">
+          <BoostButton targetType="demande" targetId={demandeId} />
+        </div>
+      )}
 
       {/* Propositions envoyées */}
       {isOwner && propositions.length > 0 && (

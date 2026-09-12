@@ -22,6 +22,7 @@ export interface Voyage {
   
   description: string | null;
   statut: VoyageStatut;
+  isCurrentlyBoosted: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -41,6 +42,7 @@ export interface PublicVoyage {
   currency: string; // <- AJOUT - Code devise (EUR, XAF, USD)
 
   description: string | null;
+  isCurrentlyBoosted: boolean;
 }
 
 export interface CreateVoyageInput {

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { BoostButton } from '@/components/boost';
 import { ConfirmDialog, ErrorState, LoadingSpinner, useToast } from '@/components/common';
 import { VoyageForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
@@ -139,6 +140,12 @@ export default function VoyageDetailsPageClient() {
           onDelete={() => setIsDeleteDialogOpen(true)}
           onContact={handleContact}
         />
+
+        {isOwner && (
+          <div className="mt-4">
+            <BoostButton targetType="voyage" targetId={voyageId} />
+          </div>
+        )}
 
         {/* Propositions reçues - Header amélioré et responsive */}
         {isOwner && (

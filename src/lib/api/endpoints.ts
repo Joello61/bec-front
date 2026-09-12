@@ -142,6 +142,12 @@ export const endpoints = {
     cancel: '/subscriptions/cancel',
   },
 
+  // Boosts (monétisation Lot 2)
+  boosts: {
+    offers: '/boosts/offers',
+    checkout: '/boosts/checkout',
+  },
+
   // Propositions
   propositions: {
     byId: (id: number) => `/propositions/${id}`,

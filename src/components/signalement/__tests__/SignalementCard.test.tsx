@@ -20,7 +20,7 @@ function makeVoyage(overrides: Partial<Voyage> = {}): Voyage {
     dateDepart: '2026-01-10T00:00:00.000Z', dateArrivee: '2026-01-11T00:00:00.000Z',
     poidsDisponible: '20', poidsDisponibleRestant: '20', prixParKilo: '1000',
     commissionProposeePourUnBagage: null, currency: 'XAF', description: null,
-    statut: 'actif', createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
+    statut: 'actif', isCurrentlyBoosted: false, createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
     ...overrides,
   };
 }
@@ -30,7 +30,7 @@ function makeDemande(overrides: Partial<Demande> = {}): Demande {
     id: 20, client: makeUser({ id: 2 }), villeDepart: 'Douala', villeArrivee: 'Paris',
     dateLimite: '2026-01-15T00:00:00.000Z', poidsEstime: '5', prixParKilo: '1500',
     commissionProposeePourUnBagage: null, currency: 'XAF', description: 'Colis fragile',
-    statut: 'en_recherche', createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
+    statut: 'en_recherche', isCurrentlyBoosted: false, createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
     ...overrides,
   };
 }

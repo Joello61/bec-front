@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui';
 import { formatWeight } from '@/lib/utils/format';
 import type { Demande } from '@/types';
 
+import BoostBadge from '../boost/BoostBadge';
 import { PriceDisplay } from '../common';
 import { FavoriteButton } from '../favori';
 import AvatarWithButton from '../ui/AvatarWithButton';
@@ -35,6 +36,12 @@ export default function DemandeCardMobile({
 }: DemandeCardMobileProps) {
   return (
     <div className="md:hidden">
+      {demande.isCurrentlyBoosted && (
+        <div className="absolute top-3 left-3 z-10">
+          <BoostBadge size="sm" />
+        </div>
+      )}
+
       {/* Bouton Favoris - Overlay discret */}
       {showFavoriteButton && (
         <div className="absolute top-3 right-3 z-10">

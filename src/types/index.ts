@@ -3,6 +3,7 @@ export * from './address'; // <- AJOUT
 export * from './admin';
 export * from './api';
 export * from './avis';
+export * from './boost';
 export * from './contact'; // <- AJOUT
 export * from './currency';
 export * from './dashboard';
