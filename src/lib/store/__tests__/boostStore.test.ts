@@ -15,7 +15,7 @@ import { useBoostStore } from '../boostStore';
 
 const initialState = useBoostStore.getState();
 const mockOffers: BoostOffer[] = [
-  { id: 1, name: '7 jours', durationDays: 7, priceAmountEur: '2.99', priceAmountXaf: null, isActive: true, sortOrder: 0 },
+  { id: 1, name: '7 jours', durationDays: 7, priceAmountEur: '2.99', priceAmountXaf: null, isFeatured: false, isActive: true, sortOrder: 0 },
 ];
 
 beforeEach(() => {

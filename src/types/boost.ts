@@ -8,6 +8,7 @@ export interface BoostOffer {
   durationDays: number;
   priceAmountEur: string;
   priceAmountXaf: string | null;
+  isFeatured: boolean;
   isActive: boolean;
   sortOrder: number;
 }
