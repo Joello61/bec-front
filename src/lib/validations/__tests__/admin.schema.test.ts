@@ -105,6 +105,8 @@ describe('subscriptionPlanSchema (Lot 5)', () => {
     name: 'Plus',
     priceAmountEur: '4.99',
     priceAmountXaf: '3000',
+    priceAmountEurYearly: null,
+    priceAmountXafYearly: null,
     billingPeriod: 'monthly' as const,
     maxActiveVoyages: null,
     maxActiveDemandes: null,
@@ -114,6 +116,7 @@ describe('subscriptionPlanSchema (Lot 5)', () => {
     isActive: true,
     sortOrder: 1,
     stripePriceId: null,
+    stripePriceIdYearly: null,
   };
 
   it('accepte un plan valide', () => {
@@ -146,6 +149,21 @@ describe('subscriptionPlanSchema (Lot 5)', () => {
 
   it('rejette un hasViewStats non booleen', () => {
     expect(subscriptionPlanSchema.safeParse({ ...base, hasViewStats: 'oui' }).success).toBe(false);
+  });
+
+  it('accepte des prix annuels renseignes (Lot 6.3)', () => {
+    expect(subscriptionPlanSchema.safeParse({
+      ...base,
+      priceAmountEurYearly: '49.99',
+      priceAmountXafYearly: '30000',
+      stripePriceIdYearly: 'price_yearly',
+    }).success).toBe(true);
+  });
+
+  it('rejette un plan sans priceAmountEurYearly (champ requis, meme si nullable)', () => {
+    const withoutYearly: Partial<typeof base> = { ...base };
+    delete withoutYearly.priceAmountEurYearly;
+    expect(subscriptionPlanSchema.safeParse(withoutYearly).success).toBe(false);
   });
 });
 
