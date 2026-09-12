@@ -1,6 +1,7 @@
 import type {
   AdminActivityStats,
   AdminAvisFilters,
+  AdminBoostOffer,
   AdminContentListFilters,
   AdminDashboardData,
   AdminDemandesStats,
@@ -8,16 +9,22 @@ import type {
   AdminLog,
   AdminLogFilters,
   AdminLogStats,
+  AdminRevenueStats,
   AdminSignalementsStats,
+  AdminSubscriptionPlan,
   AdminUserActivity,
   AdminUserFilters,
   AdminUsersDetailedStats,
   AdminVoyagesStats,
   Avis,
   BanUserInput,
+  CreateBoostOfferInput,
+  CreateSubscriptionPlanInput,
   DeleteContentInput,
   Demande,
   PaginatedResponse,
+  UpdateBoostOfferInput,
+  UpdateSubscriptionPlanInput,
   UpdateUserRolesInput,
   User,
   Voyage,
@@ -213,6 +220,50 @@ export const adminApi = {
       params: filters,
       responseType: 'blob',
     });
+    return data;
+  },
+
+  // ==================== CATALOGUE (Lot 5) ====================
+  getSubscriptionPlans: async (): Promise<AdminSubscriptionPlan[]> => {
+    const { data } = await apiClient.get(endpoints.admin.subscriptionPlans);
+    return data;
+  },
+
+  createSubscriptionPlan: async (input: CreateSubscriptionPlanInput): Promise<AdminSubscriptionPlan> => {
+    const { data } = await apiClient.post(endpoints.admin.subscriptionPlans, input);
+    return data;
+  },
+
+  updateSubscriptionPlan: async (id: number, input: UpdateSubscriptionPlanInput): Promise<AdminSubscriptionPlan> => {
+    const { data } = await apiClient.put(endpoints.admin.subscriptionPlan(id), input);
+    return data;
+  },
+
+  deleteSubscriptionPlan: async (id: number): Promise<void> => {
+    await apiClient.delete(endpoints.admin.subscriptionPlan(id));
+  },
+
+  getBoostOffers: async (): Promise<AdminBoostOffer[]> => {
+    const { data } = await apiClient.get(endpoints.admin.boostOffers);
+    return data;
+  },
+
+  createBoostOffer: async (input: CreateBoostOfferInput): Promise<AdminBoostOffer> => {
+    const { data } = await apiClient.post(endpoints.admin.boostOffers, input);
+    return data;
+  },
+
+  updateBoostOffer: async (id: number, input: UpdateBoostOfferInput): Promise<AdminBoostOffer> => {
+    const { data } = await apiClient.put(endpoints.admin.boostOffer(id), input);
+    return data;
+  },
+
+  deleteBoostOffer: async (id: number): Promise<void> => {
+    await apiClient.delete(endpoints.admin.boostOffer(id));
+  },
+
+  getRevenueStats: async (days = 30): Promise<AdminRevenueStats> => {
+    const { data } = await apiClient.get(endpoints.admin.stats('revenue'), { params: { days } });
     return data;
   },
 };

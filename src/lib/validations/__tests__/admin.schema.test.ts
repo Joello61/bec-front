@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
-import { banUserSchema, deleteContentSchema, logFiltersSchema, updateRolesSchema, userFiltersSchema } from '../admin.schema';
+import {
+  banUserSchema,
+  boostOfferSchema,
+  deleteContentSchema,
+  logFiltersSchema,
+  subscriptionPlanSchema,
+  updateRolesSchema,
+  userFiltersSchema,
+} from '../admin.schema';
 
 describe('banUserSchema', () => {
   const base = { reason: 'Comportement abusif repete envers plusieurs utilisateurs.', notifyUser: true, deleteContent: false };
@@ -87,5 +95,78 @@ describe('logFiltersSchema / userFiltersSchema', () => {
   it('acceptent un objet vide (tous les champs optionnels)', () => {
     expect(logFiltersSchema.safeParse({}).success).toBe(true);
     expect(userFiltersSchema.safeParse({}).success).toBe(true);
+  });
+});
+
+describe('subscriptionPlanSchema (Lot 5)', () => {
+  const base = {
+    code: 'plus',
+    name: 'Plus',
+    priceAmountEur: '4.99',
+    priceAmountXaf: '3000',
+    billingPeriod: 'monthly' as const,
+    maxActiveVoyages: null,
+    maxActiveDemandes: null,
+    hasBadge: true,
+    isFeatured: false,
+    isActive: true,
+    sortOrder: 1,
+    stripePriceId: null,
+  };
+
+  it('accepte un plan valide', () => {
+    expect(subscriptionPlanSchema.safeParse(base).success).toBe(true);
+  });
+
+  it('rejette un code avec des majuscules', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, code: 'Plus' }).success).toBe(false);
+  });
+
+  it('rejette un code avec des espaces', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, code: 'plus abonnement' }).success).toBe(false);
+  });
+
+  it('rejette une periodicite differente de monthly', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, billingPeriod: 'yearly' }).success).toBe(false);
+  });
+
+  it('accepte des prix null (plan gratuit)', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, priceAmountEur: null, priceAmountXaf: null }).success).toBe(true);
+  });
+
+  it('rejette un nom vide', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, name: '' }).success).toBe(false);
+  });
+});
+
+describe('boostOfferSchema (Lot 5)', () => {
+  const base = {
+    name: '7 jours',
+    durationDays: 7,
+    priceAmountEur: '2.99',
+    priceAmountXaf: '2000',
+    isFeatured: false,
+    isActive: true,
+    sortOrder: 0,
+  };
+
+  it('accepte une offre valide', () => {
+    expect(boostOfferSchema.safeParse(base).success).toBe(true);
+  });
+
+  it('rejette une duree negative', () => {
+    expect(boostOfferSchema.safeParse({ ...base, durationDays: -1 }).success).toBe(false);
+  });
+
+  it('rejette une duree nulle', () => {
+    expect(boostOfferSchema.safeParse({ ...base, durationDays: 0 }).success).toBe(false);
+  });
+
+  it('rejette un prix EUR vide', () => {
+    expect(boostOfferSchema.safeParse({ ...base, priceAmountEur: '' }).success).toBe(false);
+  });
+
+  it('accepte un prix XAF null', () => {
+    expect(boostOfferSchema.safeParse({ ...base, priceAmountXaf: null }).success).toBe(true);
   });
 });

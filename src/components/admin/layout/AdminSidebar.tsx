@@ -8,6 +8,7 @@ import {
   FileText,
   LayoutDashboard,
   Shield,
+  Tag,
   Users,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -45,6 +46,12 @@ export default function AdminSidebar() {
       href: ROUTES.ADMIN_MODERATION,
       icon: Shield,
       description: 'Contenus',
+    },
+    {
+      name: 'Catalogue',
+      href: ROUTES.ADMIN_CATALOGUE,
+      icon: Tag,
+      description: 'Plans et boosts',
     },
     {
       name: 'Logs',

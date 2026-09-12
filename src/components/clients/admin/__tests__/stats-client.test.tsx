@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { AdminUsersDetailedStats, AdminVoyagesStats } from '@/types';
+import type { AdminRevenueStats, AdminUsersDetailedStats, AdminVoyagesStats } from '@/types';
 
 import AdminStatsPageClient from '../stats-client';
 
@@ -10,9 +10,13 @@ const mockFetchUsersStats = vi.fn();
 const mockFetchVoyagesStats = vi.fn();
 const mockFetchDemandesStats = vi.fn();
 const mockFetchSignalementsStats = vi.fn();
+const mockFetchRevenueStats = vi.fn();
 const mockUseAdmin = vi.fn();
 vi.mock('@/lib/hooks', () => ({
   useAdmin: () => mockUseAdmin(),
+  useCurrencyFormat: () => ({
+    formatAmount: (amount: string, currency: string) => `${amount} ${currency}`,
+  }),
 }));
 
 function makeUsersStats(): AdminUsersDetailedStats {
@@ -106,5 +110,59 @@ describe('clients/admin/stats-client - logique metier', () => {
     });
     render(<AdminStatsPageClient />);
     expect(screen.getByText('Erreur reseau')).toBeInTheDocument();
+  });
+});
+
+describe('clients/admin/stats-client - onglet Revenus (Lot 5)', () => {
+  function makeRevenueStats(): AdminRevenueStats {
+    return {
+      totalByCurrency: { EUR: '150.00', XAF: '30000' },
+      thisMonthByCurrency: { EUR: '50.00' },
+      byType: { subscription_initial: { EUR: '100.00' }, boost: { EUR: '50.00' } },
+      byPaymentMethod: { card: { EUR: '150.00' }, mobile_money: { XAF: '30000' } },
+      dailyRevenue: [{ date: '2026-09-12', byCurrency: { EUR: '10.00' } }],
+      transactionsSucceeded: 12,
+      transactionsFailed: 2,
+      tauxReussite: 85.7,
+    };
+  }
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockUseAdmin.mockReturnValue({
+      usersStats: null, voyagesStats: null, demandesStats: null, signalementsStats: null,
+      revenueStats: null,
+      isLoading: false, error: null,
+      fetchUsersStats: mockFetchUsersStats, fetchVoyagesStats: mockFetchVoyagesStats,
+      fetchDemandesStats: mockFetchDemandesStats, fetchSignalementsStats: mockFetchSignalementsStats,
+      fetchRevenueStats: mockFetchRevenueStats,
+    });
+  });
+
+  it('charge les stats de revenus au changement d\'onglet, pas au montage', async () => {
+    const user = userEvent.setup();
+    render(<AdminStatsPageClient />);
+    expect(mockFetchRevenueStats).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('button', { name: /revenus/i }));
+    expect(mockFetchRevenueStats).toHaveBeenCalledTimes(1);
+  });
+
+  it('affiche les totaux par devise une fois les stats chargees', async () => {
+    mockUseAdmin.mockReturnValue({
+      usersStats: null, voyagesStats: null, demandesStats: null, signalementsStats: null,
+      revenueStats: makeRevenueStats(),
+      isLoading: false, error: null,
+      fetchUsersStats: mockFetchUsersStats, fetchVoyagesStats: mockFetchVoyagesStats,
+      fetchDemandesStats: mockFetchDemandesStats, fetchSignalementsStats: mockFetchSignalementsStats,
+      fetchRevenueStats: mockFetchRevenueStats,
+    });
+    const user = userEvent.setup();
+    render(<AdminStatsPageClient />);
+
+    await user.click(screen.getByRole('button', { name: /revenus/i }));
+
+    expect(screen.getByText('150.00 EUR')).toBeInTheDocument();
+    expect(screen.getByText('30000 XAF')).toBeInTheDocument();
   });
 });
