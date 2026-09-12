@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { BoostButton } from '@/components/boost';
-import { ConfirmDialog, EmptyState, ErrorState, LoadingSpinner, useToast } from '@/components/common';
+import { ConfirmDialog, EmptyState, ErrorState, LoadingSpinner, useToast, ViewsStatCard } from '@/components/common';
 import { DemandeDetails } from '@/components/demande';
 import { DemandeForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
@@ -106,8 +106,9 @@ export default function DemandeDetailsPageClient() {
       />
 
       {isOwner && (
-        <div className="mt-4">
+        <div className="mt-4 space-y-4">
           <BoostButton targetType="demande" targetId={demandeId} />
+          <ViewsStatCard nombreVues={demande.nombreVues} nombreVuesLocked={demande.nombreVuesLocked} />
         </div>
       )}
 

@@ -38,6 +38,7 @@ export default function SubscriptionPlanFormModal({ plan, onClose, onSuccess }: 
       maxActiveVoyages: plan?.maxActiveVoyages ?? null,
       maxActiveDemandes: plan?.maxActiveDemandes ?? null,
       hasBadge: plan?.hasBadge ?? false,
+      hasViewStats: plan?.hasViewStats ?? false,
       isFeatured: plan?.isFeatured ?? false,
       isActive: plan?.isActive ?? true,
       sortOrder: plan?.sortOrder ?? 0,
@@ -187,6 +188,10 @@ export default function SubscriptionPlanFormModal({ plan, onClose, onSuccess }: 
             <label className="flex items-center gap-3">
               <input type="checkbox" {...register('hasBadge')} className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary" />
               <span className="text-sm text-gray-700">Badge &quot;Populaire&quot;</span>
+            </label>
+            <label className="flex items-center gap-3">
+              <input type="checkbox" {...register('hasViewStats')} className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary" />
+              <span className="text-sm text-gray-700">Statistiques de vues (nombre de consultations des annonces)</span>
             </label>
             <label className="flex items-center gap-3">
               <input type="checkbox" {...register('isFeatured')} className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary" />

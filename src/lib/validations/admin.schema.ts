@@ -118,6 +118,7 @@ export const subscriptionPlanSchema = z.object({
   maxActiveVoyages: z.number().int().positive().nullable(),
   maxActiveDemandes: z.number().int().positive().nullable(),
   hasBadge: z.boolean(),
+  hasViewStats: z.boolean(),
   isFeatured: z.boolean(),
   isActive: z.boolean(),
   sortOrder: z.number().int(),

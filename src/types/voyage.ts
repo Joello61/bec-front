@@ -25,6 +25,12 @@ export interface Voyage {
   isCurrentlyBoosted: boolean;
   createdAt: string;
   updatedAt: string;
+
+  // ==================== COMPTEUR DE VUES (Lot 6.2) ====================
+  // Presents uniquement pour le proprietaire (jamais pour un tiers) - nombreVues si son
+  // plan a droit aux statistiques de vues, nombreVuesLocked sinon (upsell).
+  nombreVues?: number;
+  nombreVuesLocked?: boolean;
 }
 
 export interface PublicVoyage {
