@@ -53,6 +53,7 @@ export {
 // Signalement hooks
 export { useAddress, useAddressModificationInfo, useCanModifyAddress } from './useAddress';
 export * from './useAdmin';
+export { useBoostActions, useBoostOffers } from './useBoost';
 export * from './useCurrency'; // <- AJOUT
 export * from './useCurrencyFormat'; // <- AJOUT
 export {

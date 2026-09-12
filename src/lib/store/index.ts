@@ -13,6 +13,7 @@ export * from './voyageStore';
 // ==================== NOUVEAUX EXPORTS ====================
 export * from './addressStore';
 export * from './adminStore';
+export * from './boostStore';
 export * from './geoStore';
 export * from './propositionStore';
 export * from './settingsStore';

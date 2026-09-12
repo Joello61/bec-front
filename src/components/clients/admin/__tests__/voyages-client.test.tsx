@@ -32,7 +32,7 @@ function makeVoyage(overrides: Partial<Voyage> = {}): Voyage {
     dateDepart: '2026-01-10T00:00:00.000Z', dateArrivee: '2026-01-11T00:00:00.000Z',
     poidsDisponible: '20', poidsDisponibleRestant: '20', prixParKilo: '1000',
     commissionProposeePourUnBagage: null, currency: 'XAF', description: null,
-    statut: 'actif', createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
+    statut: 'actif', isCurrentlyBoosted: false, createdAt: '2025-01-01T00:00:00.000Z', updatedAt: '2025-01-01T00:00:00.000Z',
     ...overrides,
   };
 }
