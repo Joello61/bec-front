@@ -93,6 +93,8 @@ describe('adminStore - catalogue (Lot 5)', () => {
       name: 'Plus',
       priceAmountEur: '4.99',
       priceAmountXaf: null,
+      priceAmountEurYearly: null,
+      priceAmountXafYearly: null,
       billingPeriod: 'monthly',
       maxActiveVoyages: null,
       maxActiveDemandes: null,
@@ -102,6 +104,7 @@ describe('adminStore - catalogue (Lot 5)', () => {
       isActive: true,
       sortOrder: 0,
       stripePriceId: null,
+      stripePriceIdYearly: null,
     });
 
     expect(useAdminStore.getState().subscriptionPlans).toContainEqual(mockPlan);
@@ -117,6 +120,8 @@ describe('adminStore - catalogue (Lot 5)', () => {
         name: 'Plus',
         priceAmountEur: null,
         priceAmountXaf: null,
+        priceAmountEurYearly: null,
+        priceAmountXafYearly: null,
         billingPeriod: 'monthly',
         maxActiveVoyages: null,
         maxActiveDemandes: null,
@@ -126,6 +131,7 @@ describe('adminStore - catalogue (Lot 5)', () => {
         isActive: true,
         sortOrder: 0,
         stripePriceId: null,
+        stripePriceIdYearly: null,
       })
     ).rejects.toBe(apiError);
   });
@@ -139,6 +145,8 @@ describe('adminStore - catalogue (Lot 5)', () => {
       name: 'Plus (renomme)',
       priceAmountEur: '4.99',
       priceAmountXaf: null,
+      priceAmountEurYearly: null,
+      priceAmountXafYearly: null,
       billingPeriod: 'monthly',
       maxActiveVoyages: null,
       maxActiveDemandes: null,
@@ -148,6 +156,7 @@ describe('adminStore - catalogue (Lot 5)', () => {
       isActive: true,
       sortOrder: 0,
       stripePriceId: null,
+      stripePriceIdYearly: null,
     });
 
     expect(useAdminStore.getState().subscriptionPlans).toEqual([updated]);

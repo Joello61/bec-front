@@ -114,6 +114,8 @@ export const subscriptionPlanSchema = z.object({
   name: z.string().min(1, 'Le nom est obligatoire').max(100),
   priceAmountEur: z.string().nullable(),
   priceAmountXaf: z.string().nullable(),
+  priceAmountEurYearly: z.string().nullable(),
+  priceAmountXafYearly: z.string().nullable(),
   billingPeriod: z.literal('monthly'),
   maxActiveVoyages: z.number().int().positive().nullable(),
   maxActiveDemandes: z.number().int().positive().nullable(),
@@ -123,6 +125,7 @@ export const subscriptionPlanSchema = z.object({
   isActive: z.boolean(),
   sortOrder: z.number().int(),
   stripePriceId: z.string().nullable(),
+  stripePriceIdYearly: z.string().nullable(),
 });
 
 export type SubscriptionPlanFormData = z.infer<typeof subscriptionPlanSchema>;

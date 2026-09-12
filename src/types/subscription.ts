@@ -7,6 +7,10 @@ export interface SubscriptionPlan {
   name: string;
   priceAmountEur: string | null;
   priceAmountXaf: string | null;
+  // Prix annuel optionnel (Lot 6.3) - null tant que la cadence annuelle n'est pas
+  // configuree pour ce plan. La cadence est choisie au checkout, pas figee sur le plan.
+  priceAmountEurYearly: string | null;
+  priceAmountXafYearly: string | null;
   billingPeriod: string;
   maxActiveVoyages: number | null;
   maxActiveDemandes: number | null;
@@ -22,6 +26,7 @@ export interface UserSubscription {
   plan: SubscriptionPlan;
   status: SubscriptionStatus;
   provider: string;
+  billingPeriod: BillingPeriod;
   currentPeriodStart: string | null;
   currentPeriodEnd: string | null;
   cancelAtPeriodEnd: boolean;
@@ -43,10 +48,12 @@ export interface MySubscriptionResponse {
 }
 
 export type PaymentMethod = 'card' | 'mobile_money';
+export type BillingPeriod = 'monthly' | 'yearly';
 
 export interface CheckoutSubscriptionInput {
   planCode: string;
   paymentMethod: PaymentMethod;
+  billingPeriod: BillingPeriod;
   accessImmediateConsent: boolean;
   withdrawalWaiverConsent: boolean;
 }

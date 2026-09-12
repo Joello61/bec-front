@@ -20,8 +20,33 @@ vi.mock('@/components/common', () => ({
   useToast: () => ({ error: mockToastError, success: vi.fn() }),
 }));
 
-const plan = { id: 2, code: 'plus', name: 'Plus', priceAmountEur: '4.99', priceAmountXaf: '3000' } as SubscriptionPlan;
-const planWithoutMobileMoney = { id: 2, code: 'plus', name: 'Plus', priceAmountEur: '4.99', priceAmountXaf: null } as SubscriptionPlan;
+const plan = {
+  id: 2,
+  code: 'plus',
+  name: 'Plus',
+  priceAmountEur: '4.99',
+  priceAmountXaf: '3000',
+  priceAmountEurYearly: null,
+  priceAmountXafYearly: null,
+} as SubscriptionPlan;
+const planWithoutMobileMoney = {
+  id: 2,
+  code: 'plus',
+  name: 'Plus',
+  priceAmountEur: '4.99',
+  priceAmountXaf: null,
+  priceAmountEurYearly: null,
+  priceAmountXafYearly: null,
+} as SubscriptionPlan;
+const planWithYearlyPricing = {
+  id: 2,
+  code: 'plus',
+  name: 'Plus',
+  priceAmountEur: '4.99',
+  priceAmountXaf: '3000',
+  priceAmountEurYearly: '49.99',
+  priceAmountXafYearly: '30000',
+} as SubscriptionPlan;
 
 describe('SubscriptionCheckoutModal - double consentement (art. L.221-28 13° Code conso)', () => {
   beforeEach(() => {
@@ -70,6 +95,7 @@ describe('SubscriptionCheckoutModal - double consentement (art. L.221-28 13° Co
     await waitFor(() => expect(mockCheckout).toHaveBeenCalledWith({
       planCode: 'plus',
       paymentMethod: 'card',
+      billingPeriod: 'monthly',
       accessImmediateConsent: true,
       withdrawalWaiverConsent: true,
     }));
@@ -98,6 +124,7 @@ describe('SubscriptionCheckoutModal - double consentement (art. L.221-28 13° Co
     await waitFor(() => expect(mockCheckout).toHaveBeenCalledWith({
       planCode: 'plus',
       paymentMethod: 'mobile_money',
+      billingPeriod: 'monthly',
       accessImmediateConsent: true,
       withdrawalWaiverConsent: true,
     }));
@@ -108,6 +135,30 @@ describe('SubscriptionCheckoutModal - double consentement (art. L.221-28 13° Co
     render(<SubscriptionCheckoutModal plan={planWithoutMobileMoney} onClose={vi.fn()} />);
 
     expect(screen.getByRole('radio', { name: /mobile money/i })).toBeDisabled();
+  });
+
+  it('desactive le choix Annuel quand le plan n\'a pas de tarif annuel configure', () => {
+    render(<SubscriptionCheckoutModal plan={plan} onClose={vi.fn()} />);
+
+    expect(screen.getByRole('radio', { name: /^annuel$/i })).toBeDisabled();
+  });
+
+  it('permet de choisir la cadence annuelle et la transmet au checkout', async () => {
+    mockCheckout.mockResolvedValue('https://checkout.stripe.com/session/xyz');
+    const user = userEvent.setup();
+    render(<SubscriptionCheckoutModal plan={planWithYearlyPricing} onClose={vi.fn()} />);
+
+    await user.click(screen.getByRole('radio', { name: /^annuel$/i }));
+    expect(await screen.findByText('49.99 €')).toBeInTheDocument();
+
+    const checkboxes = screen.getAllByRole('checkbox');
+    await user.click(checkboxes[0]);
+    await user.click(checkboxes[1]);
+    await user.click(screen.getByRole('button', { name: /continuer vers le paiement/i }));
+
+    await waitFor(() => expect(mockCheckout).toHaveBeenCalledWith(expect.objectContaining({
+      billingPeriod: 'yearly',
+    })));
   });
 
   it('reaffiche une erreur et reactive le formulaire si le checkout echoue', async () => {
