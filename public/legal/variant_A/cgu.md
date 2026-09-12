@@ -2,7 +2,7 @@
 
 ## Co-Bage - Plateforme de mise en relation
 
-**Version 2.2 | Date d'entrée en vigueur : 12 septembre 2026**
+**Version 2.3 | Date d'entrée en vigueur : 12 septembre 2026**
 
 ---
 
@@ -473,7 +473,7 @@ Ces deux consentements sont recueillis séparément avant chaque paiement et ne 
 
 - **Abonnement** : résiliable à tout moment depuis les paramètres du compte. La résiliation prend effet à la **fin de la période déjà payée** (aucun remboursement au prorata de la période en cours).
 - **Boost** : achat ponctuel non remboursable une fois le boost actif.
-- **Exception** : une demande de remboursement peut être examinée **au cas par cas, manuellement, par le support** (`legal@example.com`) en cas d'erreur technique avérée imputable à Co-Bage ou de non-conformité légale. Aucun système de remboursement automatique n'existe à ce jour.
+- **Exception** : une demande de remboursement peut être examinée **au cas par cas, sur décision manuelle du support** (`legal@example.com`) en cas d'erreur technique avérée imputable à Co-Bage ou de non-conformité légale. Cette décision reste humaine dans tous les cas - **il n'existe aucun remboursement en libre-service** ; seule son exécution technique auprès du prestataire de paiement (Stripe, Notch Pay) est automatisée une fois la décision prise par un administrateur habilité. Le remboursement, lorsqu'il est accordé, est **toujours total, jamais partiel**.
 
 ---
 
@@ -1220,7 +1220,7 @@ Il doit être :
 
 ## DATES IMPORTANTES
 
-**Version actuelle** : 2.2  
+**Version actuelle** : 2.3  
 **Date d'entrée en vigueur** : 12 septembre 2026  
 **Dernière mise à jour** : 12 septembre 2026  
 **Prochaine révision prévue** : en cas d'évolution légale majeure ou de nouvelle offre payante
@@ -1231,6 +1231,7 @@ Il doit être :
 - Version 2.0 : Adaptation au statut étudiant
 - Version 2.1 : Intégration modifications conformité pré-commerciale
 - Version 2.2 : Introduction des services payants (abonnement, boost de visibilité) et des moyens de paiement associés (Stripe, Notch Pay)
+- Version 2.3 : Précision du mécanisme de remboursement (art. 10.5) - décision toujours humaine, au cas par cas, exécution technique désormais automatisée une fois la décision prise
 
 ---
 
@@ -1278,6 +1279,6 @@ Pour une conformité complète, consultez également :
 
 **Fin des Conditions Générales d'Utilisation**
 
-**Version 2.2 - Projet Étudiant Pré-Commercial**
+**Version 2.3 - Projet Étudiant Pré-Commercial**
 
 **Document révisé et adapté selon les recommandations juridiques d'Octobre 2025**
