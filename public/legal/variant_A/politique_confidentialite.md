@@ -1,14 +1,14 @@
 # POLITIQUE DE CONFIDENTIALITÉ ET PROTECTION DES DONNÉES PERSONNELLES
 
-## Co-Bage - Plateforme de mise en relation (Version Bêta Gratuite)
+## Co-Bage - Plateforme de mise en relation
 
-**Version 1.0 | Date d'entrée en vigueur : 18 Octobre 2025**
+**Version 1.1 | Date d'entrée en vigueur : 12 septembre 2026**
 
 ---
 
 ## RÉSUMÉ EN LANGAGE CLAIR
 
-Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage. Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **support@cobage.joeltech.fr** pour toute question.
+Nous collectons vos données (nom, email, messages) pour faire fonctionner Co-Bage, et, si vous souscrivez un abonnement ou un boost, des données de transaction (montant, statut du paiement) - **jamais votre numéro de carte ni vos identifiants Mobile Money**, saisis uniquement sur la page de paiement de notre prestataire (Stripe ou Notch Pay). Nous protégeons vos informations avec du chiffrement et **ne les vendons jamais**. Vous avez le droit de consulter, corriger ou supprimer vos données à tout moment. Nous conservons vos données seulement le temps nécessaire (maximum 12 mois après la fermeture du compte, 10 ans pour les données de facturation par obligation comptable). Vos messages sont privés mais peuvent être analysés automatiquement pour détecter les contenus illégaux. En cas de violation de données, nous vous prévenons dans les 72 heures. Vous pouvez nous contacter à **support@cobage.joeltech.fr** pour toute question.
 
 ---
 
@@ -111,6 +111,7 @@ Co-Bage tient un registre des traitements et peut démontrer sa conformité à t
 - **Annonces publiées** : Ville de départ, ville d'arrivée, dates de voyage, capacité bagage, description des objets acceptés/refusés, conditions particulières
 - **Messages** : Contenu des échanges via la messagerie interne, horodatage, statut de lecture
 - **Interactions** : Favoris enregistrés, annonces consultées, recherches effectuées, signalements émis
+- **Données de transaction** (si souscription à un abonnement ou un boost) : plan/offre choisi, montant, devise, statut du paiement, identifiant de transaction fourni par le prestataire de paiement, historique des abonnements/boosts. **Le numéro de carte bancaire et les identifiants Mobile Money ne sont jamais collectés par Co-Bage** : le paiement s'effectue sur une page hébergée par le prestataire (Stripe ou Notch Pay - voir section 5.2 et section 6).
 
 ### 3.2 Données collectées automatiquement
 
@@ -161,6 +162,7 @@ Conformément à l'article 6 du RGPD, tout traitement doit reposer sur une base 
 | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
 | **Création et gestion du compte utilisateur**                                                                                                    | Nom, prénom, e-mail, mot de passe haché, date d'inscription              | **Exécution du contrat** (art. 6.1.b)                                                                       | Durée de vie du compte + 1 an                               |
 | **Fourniture du service de mise en relation**                                                                                                    | Annonces, recherches, favoris, messagerie                                | **Exécution du contrat** (art. 6.1.b)                                                                       | Annonces : 3 mois après expiration / Messages : 12 mois     |
+| **Paiement des services Co-Bage** (abonnement, boost de visibilité)                                                                               | Plan/offre choisi, montant, devise, statut, identifiant de transaction   | **Exécution du contrat** (art. 6.1.b)                                                                       | 10 ans (obligation comptable, art. L123-22 Code de commerce) |
 | **Authentification et sécurité du compte**                                                                                                       | E-mail, mot de passe haché, IP, logs de connexion                        | **Exécution du contrat** + **Intérêt légitime** (art. 6.1.b et 6.1.f)                                       | 12 mois (logs)                                              |
 | **Prévention de la fraude, détection d'abus, modération**                                                                                        | Historique de l'utilisateur, IP, messages signalés, comportement suspect | **Intérêt légitime** (art. 6.1.f) - sécurité de la plateforme et protection des autres utilisateurs         | 3 ans (en cas de signalement ou suspension)                 |
 | **Respect des obligations légales** (réquisitions judiciaires, LCEN)                                                                             | Toutes données nécessaires (IP, messages, annonces, identité)            | **Obligation légale** (art. 6.1.c)                                                                          | 12 mois minimum (LCEN)                                      |
@@ -194,8 +196,10 @@ Co-Bage fait appel à des sous-traitants pour l'hébergement et les services tec
 | **Sous-traitant**     | **Finalité**                                            | **Localisation** | **Garanties**                                                                                   |
 | --------------------- | ------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
 | **DigitalOcean, LLC** | Hébergement des serveurs, bases de données, sauvegardes | USA              | Certification ISO 27001, Contrat art. 28 RGPD, Clauses Contractuelles Types de la Commission UE |
+| **Stripe Payments Europe, Limited** | Paiement par carte bancaire (abonnement, boost) | Irlande (UE) | Data Processing Agreement Stripe, Clauses Contractuelles Types 2021/914, certification PCI-DSS Level 1 |
+| **Notch Pay (Njorku)** | Paiement Mobile Money (Orange Money, MTN MoMo - abonnement, boost) | Yaoundé, Cameroun | Conformité PCI DSS et ISO 27001 déclarée par le prestataire, transfert fondé sur l'art. 49.1.b RGPD (voir section 6.3) |
 
-**Note** : Co-Bage **ne partage AUCUNE donnée avec des régies publicitaires, brokers de données, ou réseaux sociaux** pendant la phase bêta gratuite.
+**Note** : Co-Bage **ne partage aucune donnée avec des régies publicitaires, brokers de données, ou réseaux sociaux à des fins commerciales**. Les prestataires de paiement ci-dessus ne reçoivent que les données strictement nécessaires à l'exécution du paiement demandé par l'Utilisateur.
 
 ### 5.3 Autres utilisateurs
 
@@ -242,8 +246,17 @@ Co-Bage privilégie des **prestataires situés dans l'Union Européenne** pour �
 | **Prestataire**   | **Pays** | **Finalité**               | **Garantie**                                                         |
 | ----------------- | -------- | -------------------------- | -------------------------------------------------------------------- |
 | DigitalOcean, LLC | USA      | Hébergement infrastructure | Clauses Contractuelles Types + Chiffrement + Certification ISO 27001 |
+| Notch Pay (Njorku) | Cameroun | Paiement Mobile Money | Article 49.1.b RGPD (voir section 6.3) |
 
 > **Conformité post-Schrems II** : Suite à l'arrêt Schrems II (CJUE, 16/07/2020), Co-Bage a évalué que les mesures techniques (chiffrement) et contractuelles (CCT) sont suffisantes pour garantir un niveau de protection adéquat.
+
+### 6.3 Transferts liés au paiement Mobile Money (Notch Pay)
+
+Le paiement par Mobile Money (Orange Money, MTN MoMo) est traité par **Notch Pay**, société basée à Yaoundé, Cameroun. Le Cameroun ne fait l'objet d'**aucune décision d'adéquation** de la Commission européenne, et Notch Pay n'a pas adopté de Clauses Contractuelles Types à ce jour.
+
+Ce transfert est fondé sur la dérogation de l'**article 49.1.b du RGPD** : il est nécessaire à l'exécution d'un contrat conclu entre l'Utilisateur et Co-Bage, à la demande expresse de l'Utilisateur - le choix du moyen de paiement Mobile Money est un acte volontaire de l'Utilisateur au moment du paiement (sélection explicite dans l'interface de paiement, distincte du paiement par carte). Seules les données strictement nécessaires à l'exécution du paiement sont transmises (montant, devise, e-mail, référence de transaction) - jamais les identifiants Mobile Money eux-mêmes, saisis directement sur la page hébergée par Notch Pay.
+
+Notch Pay déclare une conformité aux standards PCI DSS et ISO 27001 ainsi qu'une application des principes du RGPD (voir developer.notchpay.co/security/compliance).
 
 ---
 
@@ -262,6 +275,7 @@ Conformément au principe de limitation de la conservation (art. 5.1.e RGPD), le
 | **Annonces publiées**                     | Durée de validité + 3 mois               | -                                                  | 3 mois après expiration/suppression | Archivage modération                                  |
 | **Signalements et modération**            | 3 ans à compter de la clôture            | -                                                  | 3 ans                               | Preuve en cas de contentieux / réquisition judiciaire |
 | **Cookies analytiques**                   | 13 mois maximum                          | -                                                  | 13 mois                             | Recommandation CNIL                                   |
+| **Données de transaction / factures (abonnement, boost)** | Durée de vie du compte      | -                                                  | 10 ans après la transaction         | Obligation comptable (art. L123-22 Code de commerce)  |
 
 ### 7.2 Suppression définitive et anonymisation
 
@@ -636,6 +650,17 @@ Conformément à l'article 30 du RGPD, Co-Bage tient un registre des activités 
 - **Transferts hors UE** : DigitalOcean (USA) - CCT
 - **Durée de conservation** : 3 ans
 - **Mesures de sécurité** : Conservation sécurisée, accès restreint
+
+#### Traitement n°5 : Paiement des services (abonnement, boost)
+
+- **Finalité** : Facturation et exécution des services payants optionnels de Co-Bage (abonnement Plus/Pro, boost de visibilité)
+- **Base légale** : Exécution du contrat (art. 6.1.b RGPD)
+- **Catégories de données** : Plan/offre choisi, montant, devise, statut du paiement, identifiant de transaction fourni par le prestataire - jamais le numéro de carte ni les identifiants Mobile Money
+- **Catégories de personnes** : Utilisateurs souscrivant un abonnement ou un boost
+- **Destinataires** : Responsable de traitement, prestataires de paiement (Stripe, Notch Pay)
+- **Transferts hors UE** : Notch Pay (Cameroun) - art. 49.1.b RGPD ; Stripe Payments Europe, Limited (Irlande, UE, pas de transfert hors UE pour l'entité contractante)
+- **Durée de conservation** : 10 ans (obligation comptable, art. L123-22 Code de commerce)
+- **Mesures de sécurité** : Aucune donnée de carte/Mobile Money reçue par Co-Bage (paiement sur page hébergée par le prestataire), chiffrement TLS
 
 ---
 
@@ -1072,7 +1097,7 @@ Elle doit être :
 
 ---
 
-**Version 1.0 | Date d'entrée en vigueur : 18 Octobre 2025**
+**Version 1.1 | Date d'entrée en vigueur : 12 septembre 2026**
 
 **© Co-Bage 2025 - Tous droits réservés**
 

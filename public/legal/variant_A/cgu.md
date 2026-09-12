@@ -1,21 +1,21 @@
 # CONDITIONS GÉNÉRALES D'UTILISATION
 
-## Co-Bage - Plateforme de mise en relation (Version Bêta Gratuite)
+## Co-Bage - Plateforme de mise en relation
 
-**Version 2.1 | Date d'entrée en vigueur : 18 Octobre 2025**
+**Version 2.2 | Date d'entrée en vigueur : 12 septembre 2026**
 
 ---
 
 ## RÉSUMÉ EN LANGAGE CLAIR
 
-**Co-Bage** est une plateforme gratuite (en phase bêta test) qui met en relation voyageurs et expéditeurs.
+**Co-Bage** est une plateforme qui met en relation voyageurs et expéditeurs. La mise en relation de base reste **gratuite** ; des **services optionnels payants** (abonnement, boost de visibilité) sont proposés par Co-Bage elle-même.
 
-**Ce que nous faisons** : Faciliter les contacts entre utilisateurs  
-**Ce que nous NE faisons PAS** : Gérer l'argent, organiser les transports, garantir les échanges
+**Ce que nous faisons** : Faciliter les contacts entre utilisateurs, facturer nos propres services optionnels (abonnement, boost) via nos prestataires de paiement.
+**Ce que nous NE faisons PAS** : Gérer l'argent du transport lui-même entre voyageur et expéditeur, organiser les transports, garantir les échanges entre Utilisateurs.
 
-**Important** : Vous êtes seuls responsables de vos arrangements. Vérifiez toujours le contenu des objets transportés. Le transport d'objets illégaux (drogues, armes, contrefaçons) entraîne un signalement immédiat aux autorités.
+**Important** : Pour le transport, vous êtes seuls responsables de vos arrangements. Vérifiez toujours le contenu des objets transportés. Le transport d'objets illégaux (drogues, armes, contrefaçons) entraîne un signalement immédiat aux autorités.
 
-**Phase bêta gratuite** : Le service est actuellement gratuit pour tous les utilisateurs pendant la phase de test. Des fonctionnalités payantes pourront être introduites ultérieurement, moyennant information préalable de 30 jours minimum.
+**Services payants Co-Bage** : abonnement Plus/Pro (mensuel, sans engagement, résiliable à tout moment) et boost de visibilité (achat ponctuel), payables par carte (Stripe) ou Mobile Money (Notch Pay) - voir article 5.2 et article 10.
 
 ---
 
@@ -30,7 +30,7 @@
 7. [Obligations des utilisateurs](#7-obligations-des-utilisateurs)
 8. [Contenu autorisé et interdit](#8-contenu-autorisé-et-interdit)
 9. [Mise en relation et messagerie](#9-mise-en-relation-et-messagerie)
-10. [Absence de traitement financier](#10-absence-de-traitement-financier)
+10. [Paiements](#10-paiements)
 11. [Propriété intellectuelle](#11-propriété-intellectuelle)
 12. [Données personnelles (RGPD)](#12-données-personnelles-rgpd)
 13. [Modération et signalement](#13-modération-et-signalement)
@@ -181,23 +181,22 @@ Bouton présent sur chaque annonce et message pour alerter la modération.
 
 ### 5.2 Gratuité / Tarification
 
-**Phase bêta (Variante A - SAFE)** :
+**Socle gratuit :**
 
-L'utilisation de la Plateforme est actuellement **gratuite** dans le cadre d'une **phase de test ("bêta publique")** destinée à évaluer et améliorer le Service.
+L'inscription et les fonctionnalités de base de mise en relation (publication d'annonces, recherche, messagerie interne, profils, signalement) restent **accessibles gratuitement** à tout Utilisateur, dans la limite d'un quota d'usage (voyages et demandes actifs simultanément) précisé sur la page des offres de l'application.
 
-Aucun frais d'inscription, d'abonnement ou de commission n'est prélevé par Co-Bage durant cette période.
+Les éventuelles rémunérations entre Utilisateurs pour le transport lui-même (ex. participation aux frais, compensation) sont négociées et réglées **hors Plateforme**, directement entre eux. Co-Bage n'intervient **en aucune manière** dans la fixation, le versement ou la gestion de ces paiements et **n'est pas un prestataire de services de paiement** au sens de l'article L.314-1 du Code monétaire et financier pour ces transactions entre Utilisateurs.
 
-Les éventuelles rémunérations entre Utilisateurs (ex. participation aux frais, compensation de transport) sont négociées et réglées **hors Plateforme**, directement entre eux.
+**Services payants proposés par Co-Bage :**
 
-Co-Bage n'intervient **en aucune manière** dans la fixation, le versement ou la gestion de ces paiements et **n'est pas un prestataire de services de paiement** au sens de l'article L.314-1 du Code monétaire et financier.
+Co-Bage propose, en complément du socle gratuit, des **services payants optionnels** facturés directement par Co-Bage :
 
-**Évolution future :**
+- **Abonnements Plus/Pro** : formules mensuelles sans engagement (quota de voyages/demandes actifs augmenté ou illimité, badge de profil selon la formule), résiliables à tout moment.
+- **Boost de visibilité** : mise en avant temporaire (7, 15 ou 30 jours) d'une annonce de voyage ou de demande dans les résultats de recherche, achat ponctuel.
 
-Co-Bage se réserve le droit d'introduire ultérieurement des **services payants** ou des **fonctionnalités premium** (abonnements, options, commissions, etc.) une fois la phase de test terminée.
+Les tarifs exacts (en euros pour un paiement par carte, en francs CFA pour un paiement Mobile Money) sont affichés avant toute souscription sur la page dédiée de l'application et peuvent varier selon le moyen de paiement choisi. Les modalités de paiement, le droit de rétractation applicable et la politique de remboursement sont détaillés à l'article 10 ci-dessous.
 
-Les Utilisateurs seront informés **au moins 30 jours à l'avance** de toute évolution tarifaire, conformément à l'article 16 ("Modification des CGU").
-
-Les fonctionnalités de base de mise en relation resteront accessibles gratuitement. Les utilisateurs pourront refuser le passage à un modèle payant et clôturer leur compte sans frais.
+Toute évolution future des tarifs des offres existantes fera l'objet d'une information aux Utilisateurs concernés **au moins 30 jours à l'avance**, conformément à l'article 16 ("Modification des CGU"). Un Utilisateur qui refuse une hausse tarifaire peut résilier son abonnement à tout moment et continuer à utiliser gratuitement le socle de base.
 
 ---
 
@@ -421,13 +420,13 @@ Vos conversations restent privées sauf :
 
 ---
 
-## 10. ABSENCE DE TRAITEMENT FINANCIER
+## 10. PAIEMENTS
 
-### 10.1 Principe fondamental
+### 10.1 Paiement entre Utilisateurs (transport) : principe fondamental
 
-**Co-Bage ne collecte, ne détient, ne transfère, ni ne garantit AUCUN paiement.**
+**Co-Bage ne collecte, ne détient, ne transfère, ni ne garantit AUCUN paiement lié à la prestation de transport elle-même.**
 
-Tous les arrangements financiers sont **hors plateforme**, directement entre Utilisateurs.
+Tous les arrangements financiers relatifs au transport (participation aux frais, compensation) sont **hors plateforme**, directement entre Utilisateurs.
 
 ### 10.2 Moyens de paiement (entre utilisateurs)
 
@@ -443,14 +442,38 @@ Recommandations :
 - Pas de virement vers comptes inconnus à l'étranger
 - Méfiez-vous des demandes en crypto-monnaie non traçable
 
-### 10.3 Aucune responsabilité de Co-Bage
+### 10.3 Aucune responsabilité de Co-Bage sur le paiement du transport
 
-Co-Bage **n'intervient pas** dans les litiges financiers. En cas de problème, les parties doivent :
+Co-Bage **n'intervient pas** dans les litiges financiers relatifs au transport. En cas de problème, les parties doivent :
 
 - Régler le différend entre elles
 - Saisir la justice si nécessaire
 
-> **Note légale** : Cette clause protège la plateforme de toute qualification de Prestataire de Services de Paiement (PSP). Aucun système d'escrow ne sera introduit sans licence ACPR.
+> **Note légale** : Cette clause protège la plateforme de toute qualification de Prestataire de Services de Paiement (PSP) pour les échanges entre Utilisateurs. Aucun système d'escrow ne sera introduit sans licence ACPR.
+
+### 10.4 Paiement des services Co-Bage (abonnement et boost)
+
+Contrairement au paiement du transport (article 10.1), les **services optionnels proposés par Co-Bage lui-même** (abonnement Plus/Pro, boost de visibilité, décrits à l'article 5.2) sont facturés **directement par Co-Bage**, via des prestataires de services de paiement (PSP) partenaires :
+
+- **Carte bancaire** : traitée par **Stripe** (Stripe Payments Europe, Limited pour les paiements en euros).
+- **Mobile Money (Orange Money, MTN MoMo - Cameroun)** : traité par **Notch Pay**.
+
+Dans les deux cas, l'Utilisateur est redirigé vers une page de paiement **hébergée par le prestataire** : Co-Bage ne reçoit, ne traite ni ne stocke **jamais** le numéro de carte bancaire ou les identifiants Mobile Money de l'Utilisateur. Co-Bage ne conserve que le résultat de la transaction (montant, devise, statut, identifiant fournisseur) - voir l'article 12 et la Politique de confidentialité pour le détail des sous-traitants et des transferts de données associés.
+
+### 10.5 Droit de rétractation et politique de remboursement
+
+Les abonnements et boosts sont des **services numériques à exécution immédiate**. Conformément à l'article L.221-28 13° du Code de la consommation, le droit de rétractation de 14 jours applicable aux contrats conclus à distance **ne s'applique pas** dès lors que l'Utilisateur :
+
+1. a expressément demandé l'exécution immédiate du service (case à cocher dédiée au moment du paiement) ; et
+2. a expressément et séparément renoncé à son droit de rétractation (seconde case à cocher, distincte de la première).
+
+Ces deux consentements sont recueillis séparément avant chaque paiement et ne sont jamais présumés.
+
+**Conséquence** : une fois le service actif (abonnement activé, boost démarré), **aucun remboursement de principe n'est dû**.
+
+- **Abonnement** : résiliable à tout moment depuis les paramètres du compte. La résiliation prend effet à la **fin de la période déjà payée** (aucun remboursement au prorata de la période en cours).
+- **Boost** : achat ponctuel non remboursable une fois le boost actif.
+- **Exception** : une demande de remboursement peut être examinée **au cas par cas, manuellement, par le support** (`legal@example.com`) en cas d'erreur technique avérée imputable à Co-Bage ou de non-conformité légale. Aucun système de remboursement automatique n'existe à ce jour.
 
 ---
 
@@ -512,11 +535,17 @@ Toute demande relative à la protection des données peut être adressée à cet
 
 - Pages consultées (via cookies)
 
+**Données de transaction** (abonnement, boost) :
+
+- Montant, devise, statut du paiement, identifiant de transaction fourni par le prestataire de paiement, historique des abonnements/boosts souscrits
+- **Jamais** le numéro de carte bancaire ni les identifiants Mobile Money, qui ne transitent que par les pages hébergées de Stripe/Notch Pay (voir article 10.4)
+
 ### 12.3 Finalités et bases légales
 
 | Finalité                      | Base légale                            |
 | ----------------------------- | -------------------------------------- |
 | Fourniture du service         | Exécution du contrat (art. 6.1.b RGPD) |
+| Paiement des services Co-Bage (abonnement, boost) | Exécution du contrat (art. 6.1.b RGPD) |
 | Sécurité et prévention fraude | Intérêt légitime (art. 6.1.f RGPD)     |
 | Modération                    | Obligation légale (art. 6.1.c RGPD)    |
 | Statistiques anonymisées      | Intérêt légitime (art. 6.1.f RGPD)     |
@@ -532,6 +561,7 @@ Toute demande relative à la protection des données peut être adressée à cet
 | Annonces            | 3 mois après suppression | Archivage       |
 | Signalements        | 3 ans                    | Contentieux     |
 | Cookies analytiques | 13 mois max              | CNIL            |
+| Données de transaction / factures | 10 ans     | Obligation comptable (art. L123-22 Code de commerce) |
 
 ### 12.5 Vos droits (RGPD)
 
@@ -562,6 +592,10 @@ Mesures techniques (conformité RGPD 2025) :
 ### 12.7 Transferts hors UE
 
 **Hébergement** : DigitalOcean (USA). Garanties appropriées mises en place (clauses contractuelles types Commission UE).
+
+**Paiement par carte** : Stripe Payments Europe, Limited (Irlande, UE) - Clauses Contractuelles Types 2021/914 pour tout traitement réalisé hors UE par Stripe.
+
+**Paiement Mobile Money** : Notch Pay (Yaoundé, Cameroun - hors UE, aucune décision d'adéquation). Transfert fondé sur l'exécution d'un contrat conclu à la demande de l'Utilisateur (art. 49.1.b RGPD), ce moyen de paiement étant choisi activement par l'Utilisateur au moment du paiement.
 
 **Pas de vente de données** : Co-Bage ne vend ni ne loue vos données à des tiers.
 
@@ -1186,16 +1220,17 @@ Il doit être :
 
 ## DATES IMPORTANTES
 
-**Version actuelle** : 2.1  
-**Date d'entrée en vigueur** : 18 Octobre 2025  
-**Dernière mise à jour** : 18 Octobre 2025  
-**Prochaine révision prévue** : Janvier 2026 (ou en cas d'évolution légale majeure)
+**Version actuelle** : 2.2  
+**Date d'entrée en vigueur** : 12 septembre 2026  
+**Dernière mise à jour** : 12 septembre 2026  
+**Prochaine révision prévue** : en cas d'évolution légale majeure ou de nouvelle offre payante
 
 **Historique des versions** :
 
 - Version 1.0 : Version initiale (archivée)
 - Version 2.0 : Adaptation au statut étudiant
 - Version 2.1 : Intégration modifications conformité pré-commerciale
+- Version 2.2 : Introduction des services payants (abonnement, boost de visibilité) et des moyens de paiement associés (Stripe, Notch Pay)
 
 ---
 
@@ -1234,15 +1269,15 @@ En cochant la case « J'accepte les Conditions Générales d'Utilisation » lors
 
 Pour une conformité complète, consultez également :
 
-- **Politique de Confidentialité (RGPD)** - À venir
-- **Politique de Cookies** - À venir
-- **Politique de Modération / Trust & Safety** - À venir
+- **[Politique de Confidentialité (RGPD)](/legal/privacy)**
+- **[Politique de Cookies](/legal/cookies)**
+- **[Politique de Modération / Trust & Safety](/legal/trust-safety)**
 - **Mentions Légales** - Intégrées dans les CGU
 
 ---
 
 **Fin des Conditions Générales d'Utilisation**
 
-**Version 2.1 - Édition Bêta Gratuite - Projet Étudiant Pré-Commercial**
+**Version 2.2 - Projet Étudiant Pré-Commercial**
 
 **Document révisé et adapté selon les recommandations juridiques d'Octobre 2025**
