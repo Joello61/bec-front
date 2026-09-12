@@ -134,6 +134,14 @@ export const endpoints = {
     export: '/settings/export',
   },
 
+  // Subscriptions (monétisation Lot 1)
+  subscriptions: {
+    plans: '/subscriptions/plans',
+    me: '/subscriptions/me',
+    checkout: '/subscriptions/checkout',
+    cancel: '/subscriptions/cancel',
+  },
+
   // Propositions
   propositions: {
     byId: (id: number) => `/propositions/${id}`,
