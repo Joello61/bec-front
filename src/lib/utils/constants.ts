@@ -54,6 +54,7 @@ export const ROUTES = {
   ADMIN: '/admin' as Route,
   ADMIN_DASHBOARD: '/admin' as Route,
   ADMIN_STATS: '/admin/stats' as Route,
+  ADMIN_CATALOGUE: '/admin/catalogue' as Route,
   ADMIN_USERS: '/admin/users' as Route,
   ADMIN_USER_DETAILS: (id: number) => `/admin/users/${id}` as Route,
   ADMIN_MODERATION: '/admin/moderation' as Route,

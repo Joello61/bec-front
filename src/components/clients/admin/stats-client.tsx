@@ -1,13 +1,14 @@
 'use client';
 
-import { Flag, Package, Plane, Users } from 'lucide-react';
+import { Euro, Flag, Package, Plane, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { LoadingSpinner } from '@/components/common';
-import { useAdmin } from '@/lib/hooks';
+import { useAdmin, useCurrencyFormat } from '@/lib/hooks';
 import { cn } from '@/lib/utils/cn';
 
-type StatType = 'users' | 'voyages' | 'demandes' | 'signalements';
+type StatType = 'users' | 'voyages' | 'demandes' | 'signalements' | 'revenue';
 
 export default function AdminStatsPageClient() {
   const [activeTab, setActiveTab] = useState<StatType>('users');
@@ -16,13 +17,16 @@ export default function AdminStatsPageClient() {
     voyagesStats,
     demandesStats,
     signalementsStats,
+    revenueStats,
     isLoading,
     error,
     fetchUsersStats,
     fetchVoyagesStats,
     fetchDemandesStats,
     fetchSignalementsStats,
+    fetchRevenueStats,
   } = useAdmin();
+  const { formatAmount } = useCurrencyFormat();
 
   useEffect(() => {
     // Charger les stats en fonction de l'onglet actif
@@ -39,6 +43,9 @@ export default function AdminStatsPageClient() {
       case 'signalements':
         if (!signalementsStats) fetchSignalementsStats();
         break;
+      case 'revenue':
+        if (!revenueStats) fetchRevenueStats();
+        break;
     }
   }, [
     activeTab,
@@ -46,10 +53,12 @@ export default function AdminStatsPageClient() {
     voyagesStats,
     demandesStats,
     signalementsStats,
+    revenueStats,
     fetchUsersStats,
     fetchVoyagesStats,
     fetchDemandesStats,
     fetchSignalementsStats,
+    fetchRevenueStats,
   ]);
 
   const tabs = [
@@ -57,6 +66,7 @@ export default function AdminStatsPageClient() {
     { id: 'voyages' as StatType, label: 'Voyages', icon: Plane },
     { id: 'demandes' as StatType, label: 'Demandes', icon: Package },
     { id: 'signalements' as StatType, label: 'Signalements', icon: Flag },
+    { id: 'revenue' as StatType, label: 'Revenus', icon: Euro },
   ];
 
   if (error) {
@@ -202,6 +212,45 @@ export default function AdminStatsPageClient() {
                     value={`${demandesStats.tauxReussite.toFixed(1)}%`}
                     color="primary"
                   />
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'revenue' && revenueStats && (
+              <div className="space-y-6">
+                <h2 className="text-xl font-semibold text-gray-900">Statistiques de Revenus</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {Object.entries(revenueStats.totalByCurrency).map(([currency, amount]) => (
+                    <StatCard key={currency} label={`Total ${currency}`} value={formatAmount(amount, currency)} color="success" />
+                  ))}
+                  {Object.entries(revenueStats.thisMonthByCurrency).map(([currency, amount]) => (
+                    <StatCard key={currency} label={`Ce mois-ci ${currency}`} value={formatAmount(amount, currency)} color="primary" />
+                  ))}
+                  <StatCard label="Taux de réussite paiement" value={`${revenueStats.tauxReussite.toFixed(1)}%`} />
+                  <StatCard label="Transactions réussies" value={revenueStats.transactionsSucceeded} color="success" />
+                  <StatCard label="Transactions échouées" value={revenueStats.transactionsFailed} color="error" />
+                </div>
+
+                <div className="h-72">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-3">Revenus sur les 30 derniers jours</h3>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={revenueStats.dailyRevenue.map((day) => ({
+                        date: day.date.slice(5),
+                        EUR: Number(day.byCurrency.EUR ?? 0),
+                        XAF: Number(day.byCurrency.XAF ?? 0),
+                      }))}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                      <YAxis tick={{ fontSize: 12 }} />
+                      <Tooltip />
+                      <Legend />
+                      <Line type="monotone" dataKey="EUR" stroke="var(--color-primary, #00695c)" strokeWidth={2} dot={false} />
+                      <Line type="monotone" dataKey="XAF" stroke="#f59e0b" strokeWidth={2} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
             )}
