@@ -97,6 +97,7 @@ describe('subscriptionStore.checkout', () => {
 
     const url = await useSubscriptionStore.getState().checkout({
       planCode: 'plus',
+      paymentMethod: 'card',
       accessImmediateConsent: true,
       withdrawalWaiverConsent: true,
     });
@@ -111,6 +112,7 @@ describe('subscriptionStore.checkout', () => {
     await expect(
       useSubscriptionStore.getState().checkout({
         planCode: 'inexistant',
+        paymentMethod: 'card',
         accessImmediateConsent: true,
         withdrawalWaiverConsent: true,
       })

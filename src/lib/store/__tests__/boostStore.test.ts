@@ -15,7 +15,7 @@ import { useBoostStore } from '../boostStore';
 
 const initialState = useBoostStore.getState();
 const mockOffers: BoostOffer[] = [
-  { id: 1, name: '7 jours', durationDays: 7, priceAmountEur: '2.99', isActive: true, sortOrder: 0 },
+  { id: 1, name: '7 jours', durationDays: 7, priceAmountEur: '2.99', priceAmountXaf: null, isActive: true, sortOrder: 0 },
 ];
 
 beforeEach(() => {
@@ -49,6 +49,7 @@ describe('boostStore.checkout', () => {
       targetType: 'voyage',
       targetId: 10,
       offerId: 1,
+      paymentMethod: 'card',
       accessImmediateConsent: true,
       withdrawalWaiverConsent: true,
     });
@@ -65,6 +66,7 @@ describe('boostStore.checkout', () => {
         targetType: 'voyage',
         targetId: 10,
         offerId: 99,
+        paymentMethod: 'card',
         accessImmediateConsent: true,
         withdrawalWaiverConsent: true,
       })

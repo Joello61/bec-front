@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Sparkles, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { LoadingSpinner, useToast } from '@/components/common';
@@ -28,6 +28,8 @@ export default function BoostModal({ targetType, targetId, onClose }: BoostModal
     register,
     handleSubmit,
     control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<CheckoutBoostConsentFormData>({
     resolver: zodResolver(checkoutBoostConsentSchema),
@@ -35,10 +37,22 @@ export default function BoostModal({ targetType, targetId, onClose }: BoostModal
       targetType,
       targetId,
       offerId: 0,
+      paymentMethod: 'card',
       accessImmediateConsent: false,
       withdrawalWaiverConsent: false,
     },
   });
+
+  const selectedOfferId = watch('offerId');
+  const paymentMethod = watch('paymentMethod');
+  const selectedOffer = (offers ?? []).find((offer) => offer.id === selectedOfferId);
+  const hasMobileMoney = selectedOffer?.priceAmountXaf != null;
+
+  useEffect(() => {
+    if (!hasMobileMoney && paymentMethod === 'mobile_money') {
+      setValue('paymentMethod', 'card');
+    }
+  }, [hasMobileMoney, paymentMethod, setValue]);
 
   const onSubmit = async (data: CheckoutBoostConsentFormData) => {
     setIsSubmitting(true);
@@ -95,7 +109,9 @@ export default function BoostModal({ targetType, targetId, onClose }: BoostModal
                           <span className="text-sm font-medium text-gray-900">{offer.name}</span>
                         </span>
                         <span className="text-sm font-semibold text-gray-900">
-                          {formatAmount(offer.priceAmountEur, 'EUR')}
+                          {paymentMethod === 'mobile_money' && offer.priceAmountXaf
+                            ? formatAmount(offer.priceAmountXaf, 'XAF')
+                            : formatAmount(offer.priceAmountEur, 'EUR')}
                         </span>
                       </label>
                     ))}
@@ -103,6 +119,40 @@ export default function BoostModal({ targetType, targetId, onClose }: BoostModal
                 )}
               />
               {errors.offerId && <p className="text-error text-sm mt-1">{errors.offerId.message}</p>}
+            </div>
+
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">Moyen de paiement</p>
+              <div className="grid grid-cols-2 gap-3">
+                <label
+                  className={`flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg cursor-pointer transition-colors ${
+                    paymentMethod === 'card'
+                      ? 'border-primary bg-primary/5 text-primary'
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <input type="radio" value="card" {...register('paymentMethod')} className="sr-only" />
+                  Carte bancaire
+                </label>
+                <label
+                  className={`flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg transition-colors ${
+                    !hasMobileMoney
+                      ? 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
+                      : paymentMethod === 'mobile_money'
+                        ? 'border-primary bg-primary/5 text-primary cursor-pointer'
+                        : 'border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    value="mobile_money"
+                    disabled={!hasMobileMoney}
+                    {...register('paymentMethod')}
+                    className="sr-only"
+                  />
+                  Mobile Money
+                </label>
+              </div>
             </div>
 
             <div>
@@ -153,7 +203,11 @@ export default function BoostModal({ targetType, targetId, onClose }: BoostModal
                 disabled={isSubmitting}
                 className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? 'Redirection vers Stripe...' : 'Continuer vers le paiement'}
+                {isSubmitting
+                  ? paymentMethod === 'mobile_money'
+                    ? 'Redirection vers Notch Pay...'
+                    : 'Redirection vers Stripe...'
+                  : 'Continuer vers le paiement'}
               </button>
             </ModalFooter>
           </form>
