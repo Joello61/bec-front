@@ -26,6 +26,7 @@ function makePlan(overrides: Partial<AdminSubscriptionPlan> = {}): AdminSubscrip
     maxActiveVoyages: null,
     maxActiveDemandes: null,
     hasBadge: true,
+    hasViewStats: false,
     isFeatured: false,
     isActive: true,
     sortOrder: 1,
@@ -101,5 +102,19 @@ describe('SubscriptionPlanFormModal - logique metier', () => {
       expect.objectContaining({ name: 'Plus Renomme' })
     ));
     expect(onSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('transmet hasViewStats coche a la mise a jour (Lot 6.2)', async () => {
+    mockUpdateSubscriptionPlan.mockResolvedValue(undefined);
+    const user = userEvent.setup();
+    render(<SubscriptionPlanFormModal plan={makePlan({ hasViewStats: false })} onClose={vi.fn()} onSuccess={vi.fn()} />);
+
+    await user.click(screen.getByLabelText(/statistiques de vues/i));
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }));
+
+    await waitFor(() => expect(mockUpdateSubscriptionPlan).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({ hasViewStats: true })
+    ));
   });
 });
