@@ -7,6 +7,7 @@ import {
   ChevronRight,
   FileText,
   LayoutDashboard,
+  Receipt,
   Shield,
   Tag,
   Users,
@@ -52,6 +53,12 @@ export default function AdminSidebar() {
       href: ROUTES.ADMIN_CATALOGUE,
       icon: Tag,
       description: 'Plans et boosts',
+    },
+    {
+      name: 'Transactions',
+      href: ROUTES.ADMIN_TRANSACTIONS,
+      icon: Receipt,
+      description: 'Paiements et remboursements',
     },
     {
       name: 'Logs',
