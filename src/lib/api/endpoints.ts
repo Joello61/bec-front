@@ -194,6 +194,12 @@ export const endpoints = {
     logsByAdmin: (adminId: number) => `/admin/logs/admin/${adminId}`,
     logsStats: '/admin/logs/stats',
     exportLogs: '/admin/logs/export',
+
+    // Catalogue (Lot 5)
+    subscriptionPlans: '/admin/subscription-plans',
+    subscriptionPlan: (id: number) => `/admin/subscription-plans/${id}`,
+    boostOffers: '/admin/boost-offers',
+    boostOffer: (id: number) => `/admin/boost-offers/${id}`,
   },
 
   contacts: {

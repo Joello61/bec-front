@@ -4,6 +4,7 @@ import { adminApi } from '@/lib/api/admin';
 import type {
   AdminActivityStats,
   AdminAvisFilters,
+  AdminBoostOffer,
   AdminContentListFilters,
   AdminDashboardData,
   AdminDemandesStats,
@@ -11,16 +12,22 @@ import type {
   AdminLog,
   AdminLogFilters,
   AdminLogStats,
+  AdminRevenueStats,
   AdminSignalementsStats,
+  AdminSubscriptionPlan,
   AdminUserActivity,
   AdminUserFilters,
   AdminUsersDetailedStats,
   AdminVoyagesStats,
   Avis,
   BanUserInput,
+  CreateBoostOfferInput,
+  CreateSubscriptionPlanInput,
   DeleteContentInput,
   Demande,
   PaginationMeta,
+  UpdateBoostOfferInput,
+  UpdateSubscriptionPlanInput,
   UpdateUserRolesInput,
   User,
   Voyage,
@@ -57,6 +64,11 @@ interface AdminState {
   demandesListPagination: PaginationMeta | null;
   avisList: Avis[];
   avisPagination: PaginationMeta | null;
+
+  // Catalogue (Lot 5)
+  subscriptionPlans: AdminSubscriptionPlan[];
+  boostOffers: AdminBoostOffer[];
+  revenueStats: AdminRevenueStats | null;
 
   // Loading & Error
   isLoading: boolean;
@@ -100,6 +112,17 @@ interface AdminState {
   fetchLogsStats: () => Promise<void>;
   exportLogs: (filters?: AdminLogFilters) => Promise<Blob>;
 
+  // Catalogue (Lot 5)
+  fetchSubscriptionPlans: () => Promise<void>;
+  createSubscriptionPlan: (input: CreateSubscriptionPlanInput) => Promise<void>;
+  updateSubscriptionPlan: (id: number, input: UpdateSubscriptionPlanInput) => Promise<void>;
+  deleteSubscriptionPlan: (id: number) => Promise<void>;
+  fetchBoostOffers: () => Promise<void>;
+  createBoostOffer: (input: CreateBoostOfferInput) => Promise<void>;
+  updateBoostOffer: (id: number, input: UpdateBoostOfferInput) => Promise<void>;
+  deleteBoostOffer: (id: number) => Promise<void>;
+  fetchRevenueStats: (days?: number) => Promise<void>;
+
   // Utils
   clearError: () => void;
   reset: () => void;
@@ -128,6 +151,9 @@ export const useAdminStore = create<AdminState>((set) => ({
   demandesListPagination: null,
   avisList: [],
   avisPagination: null,
+  subscriptionPlans: [],
+  boostOffers: [],
+  revenueStats: null,
   isLoading: false,
   error: null,
 
@@ -305,6 +331,73 @@ export const useAdminStore = create<AdminState>((set) => ({
       return blob;
     }, { fallbackError: "Erreur lors de l'export des logs", rethrow: true }),
 
+  // ==================== CATALOGUE (Lot 5) ====================
+  fetchSubscriptionPlans: () =>
+    createAsyncAction(set, async () => {
+      const subscriptionPlans = await adminApi.getSubscriptionPlans();
+      set({ subscriptionPlans, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des plans' }),
+
+  createSubscriptionPlan: (input) =>
+    createAsyncAction(set, async () => {
+      const plan = await adminApi.createSubscriptionPlan(input);
+      set((state) => ({ subscriptionPlans: [...state.subscriptionPlans, plan], isLoading: false }));
+    }, { fallbackError: "Erreur lors de la création du plan", rethrow: true }),
+
+  updateSubscriptionPlan: (id, input) =>
+    createAsyncAction(set, async () => {
+      const plan = await adminApi.updateSubscriptionPlan(id, input);
+      set((state) => ({
+        subscriptionPlans: state.subscriptionPlans.map((p) => (p.id === id ? plan : p)),
+        isLoading: false,
+      }));
+    }, { fallbackError: 'Erreur lors de la mise à jour du plan', rethrow: true }),
+
+  deleteSubscriptionPlan: (id) =>
+    createAsyncAction(set, async () => {
+      await adminApi.deleteSubscriptionPlan(id);
+      set((state) => ({
+        subscriptionPlans: state.subscriptionPlans.filter((p) => p.id !== id),
+        isLoading: false,
+      }));
+    }, { fallbackError: 'Erreur lors de la suppression du plan', rethrow: true }),
+
+  fetchBoostOffers: () =>
+    createAsyncAction(set, async () => {
+      const boostOffers = await adminApi.getBoostOffers();
+      set({ boostOffers, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des offres de boost' }),
+
+  createBoostOffer: (input) =>
+    createAsyncAction(set, async () => {
+      const offer = await adminApi.createBoostOffer(input);
+      set((state) => ({ boostOffers: [...state.boostOffers, offer], isLoading: false }));
+    }, { fallbackError: "Erreur lors de la création de l'offre", rethrow: true }),
+
+  updateBoostOffer: (id, input) =>
+    createAsyncAction(set, async () => {
+      const offer = await adminApi.updateBoostOffer(id, input);
+      set((state) => ({
+        boostOffers: state.boostOffers.map((o) => (o.id === id ? offer : o)),
+        isLoading: false,
+      }));
+    }, { fallbackError: "Erreur lors de la mise à jour de l'offre", rethrow: true }),
+
+  deleteBoostOffer: (id) =>
+    createAsyncAction(set, async () => {
+      await adminApi.deleteBoostOffer(id);
+      set((state) => ({
+        boostOffers: state.boostOffers.filter((o) => o.id !== id),
+        isLoading: false,
+      }));
+    }, { fallbackError: "Erreur lors de la suppression de l'offre", rethrow: true }),
+
+  fetchRevenueStats: (days = 30) =>
+    createAsyncAction(set, async () => {
+      const revenueStats = await adminApi.getRevenueStats(days);
+      set({ revenueStats, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des stats de revenus' }),
+
   // ==================== UTILS ====================
   clearError: () => set({ error: null }),
 
@@ -331,6 +424,9 @@ export const useAdminStore = create<AdminState>((set) => ({
       demandesListPagination: null,
       avisList: [],
       avisPagination: null,
+      subscriptionPlans: [],
+      boostOffers: [],
+      revenueStats: null,
       error: null,
     }),
 }));

@@ -1,4 +1,6 @@
+import type { BoostOffer } from './boost';
 import type { Demande } from './demande'
+import type { PaymentMethod, SubscriptionPlan } from './subscription';
 import type { Voyage } from './voyage';
 
 // ==================== DASHBOARD & STATS ====================
@@ -225,4 +227,67 @@ export interface AdminUserActivity {
   signalements: number;
   lastLogin: string | null;
   accountAge: number; // en jours
+}
+
+// ==================== CATALOGUE (Lot 5) ====================
+// Superset des types publics : l'admin voit des champs jamais exposes a l'API publique
+// (stripePriceId, deletedAt, timestamps), cf. admin:{subscription_plan,boost_offer}:read
+// cote backend.
+export interface AdminSubscriptionPlan extends SubscriptionPlan {
+  stripePriceId: string | null;
+  deletedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminBoostOffer extends BoostOffer {
+  deletedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateSubscriptionPlanInput {
+  code: string;
+  name: string;
+  priceAmountEur: string | null;
+  priceAmountXaf: string | null;
+  billingPeriod: string;
+  maxActiveVoyages: number | null;
+  maxActiveDemandes: number | null;
+  hasBadge: boolean;
+  isFeatured: boolean;
+  isActive: boolean;
+  sortOrder: number;
+  stripePriceId: string | null;
+}
+
+export type UpdateSubscriptionPlanInput = Omit<CreateSubscriptionPlanInput, 'code'>;
+
+export interface CreateBoostOfferInput {
+  name: string;
+  durationDays: number;
+  priceAmountEur: string;
+  priceAmountXaf: string | null;
+  isFeatured: boolean;
+  isActive: boolean;
+  sortOrder: number;
+}
+
+export type UpdateBoostOfferInput = CreateBoostOfferInput;
+
+// ==================== STATS REVENUS (Lot 5) ====================
+export type RevenueByCurrency = Record<string, string>;
+
+export interface AdminRevenueStats {
+  totalByCurrency: RevenueByCurrency;
+  thisMonthByCurrency: RevenueByCurrency;
+  byType: Record<string, RevenueByCurrency>;
+  byPaymentMethod: Record<PaymentMethod, RevenueByCurrency>;
+  dailyRevenue: Array<{
+    date: string;
+    byCurrency: RevenueByCurrency;
+  }>;
+  transactionsSucceeded: number;
+  transactionsFailed: number;
+  tauxReussite: number;
 }

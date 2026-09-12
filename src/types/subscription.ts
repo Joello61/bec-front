@@ -11,6 +11,7 @@ export interface SubscriptionPlan {
   maxActiveVoyages: number | null;
   maxActiveDemandes: number | null;
   hasBadge: boolean;
+  isFeatured: boolean;
   isActive: boolean;
   sortOrder: number;
 }

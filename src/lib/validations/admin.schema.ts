@@ -103,3 +103,38 @@ export const userFiltersSchema = z.object({
 });
 
 export type UserFiltersFormData = z.infer<typeof userFiltersSchema>;
+
+// ==================== CATALOGUE : PLAN D'ABONNEMENT (Lot 5) ====================
+export const subscriptionPlanSchema = z.object({
+  code: z
+    .string()
+    .min(1, 'Le code est obligatoire')
+    .max(30, 'Le code ne peut pas dépasser 30 caractères')
+    .regex(/^[a-z0-9_-]+$/, 'Minuscules, chiffres, tirets et underscores uniquement'),
+  name: z.string().min(1, 'Le nom est obligatoire').max(100),
+  priceAmountEur: z.string().nullable(),
+  priceAmountXaf: z.string().nullable(),
+  billingPeriod: z.literal('monthly'),
+  maxActiveVoyages: z.number().int().positive().nullable(),
+  maxActiveDemandes: z.number().int().positive().nullable(),
+  hasBadge: z.boolean(),
+  isFeatured: z.boolean(),
+  isActive: z.boolean(),
+  sortOrder: z.number().int(),
+  stripePriceId: z.string().nullable(),
+});
+
+export type SubscriptionPlanFormData = z.infer<typeof subscriptionPlanSchema>;
+
+// ==================== CATALOGUE : OFFRE DE BOOST (Lot 5) ====================
+export const boostOfferSchema = z.object({
+  name: z.string().min(1, 'Le nom est obligatoire').max(100),
+  durationDays: z.number().int().positive('La durée doit être positive'),
+  priceAmountEur: z.string().min(1, 'Le prix EUR est obligatoire'),
+  priceAmountXaf: z.string().nullable(),
+  isFeatured: z.boolean(),
+  isActive: z.boolean(),
+  sortOrder: z.number().int(),
+});
+
+export type BoostOfferFormData = z.infer<typeof boostOfferSchema>;
