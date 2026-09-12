@@ -2,7 +2,7 @@
 
 ## Co-Bage - Plateforme de mise en relation
 
-**Version 2.3 | Date d'entrée en vigueur : 12 septembre 2026**
+**Version 2.4 | Date d'entrée en vigueur : 12 septembre 2026**
 
 ---
 
@@ -15,7 +15,7 @@
 
 **Important** : Pour le transport, vous êtes seuls responsables de vos arrangements. Vérifiez toujours le contenu des objets transportés. Le transport d'objets illégaux (drogues, armes, contrefaçons) entraîne un signalement immédiat aux autorités.
 
-**Services payants Co-Bage** : abonnement Plus/Pro (mensuel, sans engagement, résiliable à tout moment) et boost de visibilité (achat ponctuel), payables par carte (Stripe) ou Mobile Money (Notch Pay) - voir article 5.2 et article 10.
+**Services payants Co-Bage** : abonnement Plus/Pro (cadence mensuelle ou annuelle au choix, sans engagement, résiliable à tout moment) et boost de visibilité (achat ponctuel), payables par carte (Stripe) ou Mobile Money (Notch Pay) - voir article 5.2 et article 10.
 
 ---
 
@@ -191,7 +191,7 @@ Les éventuelles rémunérations entre Utilisateurs pour le transport lui-même 
 
 Co-Bage propose, en complément du socle gratuit, des **services payants optionnels** facturés directement par Co-Bage :
 
-- **Abonnements Plus/Pro** : formules mensuelles sans engagement (quota de voyages/demandes actifs augmenté ou illimité, badge de profil selon la formule), résiliables à tout moment.
+- **Abonnements Plus/Pro** : formules sans engagement (quota de voyages/demandes actifs augmenté ou illimité, badge de profil selon la formule), résiliables à tout moment, souscriptibles selon une cadence **mensuelle ou annuelle** au choix de l'Utilisateur - la cadence annuelle, lorsqu'elle est proposée pour une formule donnée, est généralement facturée à un tarif réduit par rapport à 12 mensualités.
 - **Boost de visibilité** : mise en avant temporaire (7, 15 ou 30 jours) d'une annonce de voyage ou de demande dans les résultats de recherche, achat ponctuel.
 
 Les tarifs exacts (en euros pour un paiement par carte, en francs CFA pour un paiement Mobile Money) sont affichés avant toute souscription sur la page dédiée de l'application et peuvent varier selon le moyen de paiement choisi. Les modalités de paiement, le droit de rétractation applicable et la politique de remboursement sont détaillés à l'article 10 ci-dessous.
@@ -1220,7 +1220,7 @@ Il doit être :
 
 ## DATES IMPORTANTES
 
-**Version actuelle** : 2.3  
+**Version actuelle** : 2.4  
 **Date d'entrée en vigueur** : 12 septembre 2026  
 **Dernière mise à jour** : 12 septembre 2026  
 **Prochaine révision prévue** : en cas d'évolution légale majeure ou de nouvelle offre payante
@@ -1232,6 +1232,7 @@ Il doit être :
 - Version 2.1 : Intégration modifications conformité pré-commerciale
 - Version 2.2 : Introduction des services payants (abonnement, boost de visibilité) et des moyens de paiement associés (Stripe, Notch Pay)
 - Version 2.3 : Précision du mécanisme de remboursement (art. 10.5) - décision toujours humaine, au cas par cas, exécution technique désormais automatisée une fois la décision prise
+- Version 2.4 : Les abonnements Plus/Pro peuvent désormais être souscrits selon une cadence mensuelle ou annuelle au choix (art. 5.2)
 
 ---
 
@@ -1279,6 +1280,6 @@ Pour une conformité complète, consultez également :
 
 **Fin des Conditions Générales d'Utilisation**
 
-**Version 2.3 - Projet Étudiant Pré-Commercial**
+**Version 2.4 - Projet Étudiant Pré-Commercial**
 
 **Document révisé et adapté selon les recommandations juridiques d'Octobre 2025**
