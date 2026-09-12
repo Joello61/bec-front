@@ -22,6 +22,8 @@ function makePlan(overrides: Partial<AdminSubscriptionPlan> = {}): AdminSubscrip
     name: 'Plus',
     priceAmountEur: '4.99',
     priceAmountXaf: '3000',
+    priceAmountEurYearly: null,
+    priceAmountXafYearly: null,
     billingPeriod: 'monthly',
     maxActiveVoyages: null,
     maxActiveDemandes: null,
@@ -31,6 +33,7 @@ function makePlan(overrides: Partial<AdminSubscriptionPlan> = {}): AdminSubscrip
     isActive: true,
     sortOrder: 1,
     stripePriceId: null,
+    stripePriceIdYearly: null,
     deletedAt: null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -115,6 +118,21 @@ describe('SubscriptionPlanFormModal - logique metier', () => {
     await waitFor(() => expect(mockUpdateSubscriptionPlan).toHaveBeenCalledWith(
       1,
       expect.objectContaining({ hasViewStats: true })
+    ));
+  });
+
+  it('transmet les prix annuels saisis (Lot 6.3)', async () => {
+    mockUpdateSubscriptionPlan.mockResolvedValue(undefined);
+    const user = userEvent.setup();
+    render(<SubscriptionPlanFormModal plan={makePlan()} onClose={vi.fn()} onSuccess={vi.fn()} />);
+
+    await user.type(screen.getByLabelText(/prix eur annuel/i), '49.99');
+    await user.type(screen.getByLabelText(/prix xaf annuel/i), '30000');
+    await user.click(screen.getByRole('button', { name: /enregistrer/i }));
+
+    await waitFor(() => expect(mockUpdateSubscriptionPlan).toHaveBeenCalledWith(
+      1,
+      expect.objectContaining({ priceAmountEurYearly: '49.99', priceAmountXafYearly: '30000' })
     ));
   });
 });

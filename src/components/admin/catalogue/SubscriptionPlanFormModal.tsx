@@ -34,6 +34,8 @@ export default function SubscriptionPlanFormModal({ plan, onClose, onSuccess }: 
       name: plan?.name ?? '',
       priceAmountEur: plan?.priceAmountEur ?? null,
       priceAmountXaf: plan?.priceAmountXaf ?? null,
+      priceAmountEurYearly: plan?.priceAmountEurYearly ?? null,
+      priceAmountXafYearly: plan?.priceAmountXafYearly ?? null,
       billingPeriod: 'monthly',
       maxActiveVoyages: plan?.maxActiveVoyages ?? null,
       maxActiveDemandes: plan?.maxActiveDemandes ?? null,
@@ -43,6 +45,7 @@ export default function SubscriptionPlanFormModal({ plan, onClose, onSuccess }: 
       isActive: plan?.isActive ?? true,
       sortOrder: plan?.sortOrder ?? 0,
       stripePriceId: plan?.stripePriceId ?? null,
+      stripePriceIdYearly: plan?.stripePriceIdYearly ?? null,
     },
   });
 
@@ -140,6 +143,31 @@ export default function SubscriptionPlanFormModal({ plan, onClose, onSuccess }: 
 
           <div className="grid grid-cols-2 gap-4">
             <div>
+              <label htmlFor="plan-price-eur-yearly" className="block text-sm font-medium text-gray-700 mb-1">Prix EUR annuel (carte)</label>
+              <input
+                id="plan-price-eur-yearly"
+                type="text"
+                {...register('priceAmountEurYearly')}
+                placeholder="49.99"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+              {errors.priceAmountEurYearly && <p className="text-error text-sm mt-1">{errors.priceAmountEurYearly.message}</p>}
+            </div>
+            <div>
+              <label htmlFor="plan-price-xaf-yearly" className="block text-sm font-medium text-gray-700 mb-1">Prix XAF annuel (Mobile Money)</label>
+              <input
+                id="plan-price-xaf-yearly"
+                type="text"
+                {...register('priceAmountXafYearly')}
+                placeholder="30000"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+              {errors.priceAmountXafYearly && <p className="text-error text-sm mt-1">{errors.priceAmountXafYearly.message}</p>}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
               <label htmlFor="plan-max-voyages" className="block text-sm font-medium text-gray-700 mb-1">Quota voyages actifs</label>
               <input
                 id="plan-max-voyages"
@@ -169,6 +197,17 @@ export default function SubscriptionPlanFormModal({ plan, onClose, onSuccess }: 
               id="plan-stripe-price-id"
               type="text"
               {...register('stripePriceId')}
+              placeholder="price_..."
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="plan-stripe-price-id-yearly" className="block text-sm font-medium text-gray-700 mb-1">Identifiant Price Stripe annuel</label>
+            <input
+              id="plan-stripe-price-id-yearly"
+              type="text"
+              {...register('stripePriceIdYearly')}
               placeholder="price_..."
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
             />
