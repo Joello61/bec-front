@@ -11,6 +11,7 @@ export const checkoutConsentSchema = z
   .object({
     planCode: z.string().min(1, 'Le plan est obligatoire'),
     paymentMethod: z.enum(['card', 'mobile_money']),
+    billingPeriod: z.enum(['monthly', 'yearly']),
     accessImmediateConsent: z.boolean(),
     withdrawalWaiverConsent: z.boolean(),
   })

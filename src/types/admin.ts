@@ -235,6 +235,7 @@ export interface AdminUserActivity {
 // cote backend.
 export interface AdminSubscriptionPlan extends SubscriptionPlan {
   stripePriceId: string | null;
+  stripePriceIdYearly: string | null;
   deletedAt: string | null;
   createdAt: string;
   updatedAt: string;
@@ -251,6 +252,8 @@ export interface CreateSubscriptionPlanInput {
   name: string;
   priceAmountEur: string | null;
   priceAmountXaf: string | null;
+  priceAmountEurYearly: string | null;
+  priceAmountXafYearly: string | null;
   billingPeriod: string;
   maxActiveVoyages: number | null;
   maxActiveDemandes: number | null;
@@ -260,6 +263,7 @@ export interface CreateSubscriptionPlanInput {
   isActive: boolean;
   sortOrder: number;
   stripePriceId: string | null;
+  stripePriceIdYearly: string | null;
 }
 
 export type UpdateSubscriptionPlanInput = Omit<CreateSubscriptionPlanInput, 'code'>;
