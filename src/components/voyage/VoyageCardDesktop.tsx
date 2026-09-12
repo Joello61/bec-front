@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui';
 import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import type { Voyage } from '@/types';
 
+import BoostBadge from '../boost/BoostBadge';
 import { PriceDisplay } from '../common';
 import { FavoriteButton } from '../favori';
 import AvatarWithButton from '../ui/AvatarWithButton';
@@ -145,7 +146,10 @@ export default function VoyageCardDesktop({
           <div className="bg-gray-50 px-4 sm:px-6 py-3 border-t border-gray-100 rounded-2xl">
             <Link href={link}>
               <div className="flex items-center justify-between">
-                <VoyageStatusBadge statut={voyage.statut} size="sm" />
+                <div className="flex items-center gap-2">
+                  <VoyageStatusBadge statut={voyage.statut} size="sm" />
+                  {voyage.isCurrentlyBoosted && <BoostBadge size="sm" />}
+                </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600 font-medium">
                   <span>Voir les détails</span>
                   <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform duration-200" />
