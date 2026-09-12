@@ -71,3 +71,8 @@ export {
   usePendingSignalements, 
   useSignalementActions, 
   useSignalements} from './useSignalement';
+export {
+  useSubscription,
+  useSubscriptionActions,
+  useSubscriptionPlans
+} from './useSubscription'
