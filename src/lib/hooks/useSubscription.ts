@@ -34,7 +34,7 @@ export function useSubscription() {
  */
 export function useSubscriptionPlans() {
   const plans = useSubscriptionStore((state) => state.plans);
-  const isLoading = useSubscriptionStore((state) => state.isLoading);
+  const isLoading = useSubscriptionStore((state) => state.isLoadingPlans);
   const error = useSubscriptionStore((state) => state.error);
   const fetchPlans = useSubscriptionStore((state) => state.fetchPlans);
 

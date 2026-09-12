@@ -11,6 +11,7 @@ export const checkoutBoostConsentSchema = z
     targetType: z.enum(['voyage', 'demande']),
     targetId: z.number().int().positive(),
     offerId: z.number().int().positive({ message: "Veuillez choisir une durée de boost" }),
+    paymentMethod: z.enum(['card', 'mobile_money']),
     accessImmediateConsent: z.boolean(),
     withdrawalWaiverConsent: z.boolean(),
   })

@@ -22,18 +22,24 @@ export default function SubscriptionCheckoutModal({ plan, onClose }: Subscriptio
   const { formatAmount } = useCurrencyFormat();
   const toast = useToast();
 
+  const hasMobileMoney = plan.priceAmountXaf !== null;
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<CheckoutConsentFormData>({
     resolver: zodResolver(checkoutConsentSchema),
     defaultValues: {
       planCode: plan.code,
+      paymentMethod: 'card',
       accessImmediateConsent: false,
       withdrawalWaiverConsent: false,
     },
   });
+
+  const paymentMethod = watch('paymentMethod');
 
   const onSubmit = async (data: CheckoutConsentFormData) => {
     setIsSubmitting(true);
@@ -65,12 +71,52 @@ export default function SubscriptionCheckoutModal({ plan, onClose }: Subscriptio
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
           <p className="text-sm text-gray-600 mb-1">Montant facturé chaque mois</p>
           <p className="text-2xl font-bold text-gray-900">
-            {plan.priceAmountEur ? formatAmount(plan.priceAmountEur, 'EUR') : '-'}
+            {paymentMethod === 'mobile_money'
+              ? plan.priceAmountXaf
+                ? formatAmount(plan.priceAmountXaf, 'XAF')
+                : '-'
+              : plan.priceAmountEur
+                ? formatAmount(plan.priceAmountEur, 'EUR')
+                : '-'}
           </p>
           <p className="text-xs text-gray-500 mt-1">Sans engagement, résiliable à tout moment.</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <p className="text-sm font-medium text-gray-700 mb-2">Moyen de paiement</p>
+            <div className="grid grid-cols-2 gap-3">
+              <label
+                className={`flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg cursor-pointer transition-colors ${
+                  paymentMethod === 'card'
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                <input type="radio" value="card" {...register('paymentMethod')} className="sr-only" />
+                Carte bancaire
+              </label>
+              <label
+                className={`flex items-center justify-center gap-2 px-4 py-2.5 border rounded-lg transition-colors ${
+                  !hasMobileMoney
+                    ? 'border-gray-200 text-gray-400 cursor-not-allowed bg-gray-50'
+                    : paymentMethod === 'mobile_money'
+                      ? 'border-primary bg-primary/5 text-primary cursor-pointer'
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer'
+                }`}
+              >
+                <input
+                  type="radio"
+                  value="mobile_money"
+                  disabled={!hasMobileMoney}
+                  {...register('paymentMethod')}
+                  className="sr-only"
+                />
+                Mobile Money
+              </label>
+            </div>
+          </div>
+
           <div>
             <label className="flex items-start gap-3">
               <input
@@ -119,7 +165,11 @@ export default function SubscriptionCheckoutModal({ plan, onClose }: Subscriptio
               disabled={isSubmitting}
               className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
             >
-              {isSubmitting ? 'Redirection vers Stripe...' : 'Continuer vers le paiement'}
+              {isSubmitting
+                ? paymentMethod === 'mobile_money'
+                  ? 'Redirection vers Notch Pay...'
+                  : 'Redirection vers Stripe...'
+                : 'Continuer vers le paiement'}
             </button>
           </ModalFooter>
         </form>

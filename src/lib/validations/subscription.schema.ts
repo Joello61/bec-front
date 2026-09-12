@@ -10,6 +10,7 @@ import { z } from 'zod';
 export const checkoutConsentSchema = z
   .object({
     planCode: z.string().min(1, 'Le plan est obligatoire'),
+    paymentMethod: z.enum(['card', 'mobile_money']),
     accessImmediateConsent: z.boolean(),
     withdrawalWaiverConsent: z.boolean(),
   })
