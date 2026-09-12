@@ -5,6 +5,7 @@ import {
   boostOfferSchema,
   deleteContentSchema,
   logFiltersSchema,
+  refundTransactionSchema,
   subscriptionPlanSchema,
   updateRolesSchema,
   userFiltersSchema,
@@ -168,5 +169,19 @@ describe('boostOfferSchema (Lot 5)', () => {
 
   it('accepte un prix XAF null', () => {
     expect(boostOfferSchema.safeParse({ ...base, priceAmountXaf: null }).success).toBe(true);
+  });
+});
+
+describe('refundTransactionSchema (Lot 6.1)', () => {
+  it('accepte une raison absente', () => {
+    expect(refundTransactionSchema.safeParse({}).success).toBe(true);
+  });
+
+  it('accepte une raison renseignee', () => {
+    expect(refundTransactionSchema.safeParse({ reason: 'Erreur de facturation' }).success).toBe(true);
+  });
+
+  it('rejette une raison de plus de 500 caracteres', () => {
+    expect(refundTransactionSchema.safeParse({ reason: 'a'.repeat(501) }).success).toBe(false);
   });
 });

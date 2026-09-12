@@ -15,6 +15,8 @@ import type {
   AdminRevenueStats,
   AdminSignalementsStats,
   AdminSubscriptionPlan,
+  AdminTransaction,
+  AdminTransactionFilters,
   AdminUserActivity,
   AdminUserFilters,
   AdminUsersDetailedStats,
@@ -26,6 +28,7 @@ import type {
   DeleteContentInput,
   Demande,
   PaginationMeta,
+  RefundTransactionInput,
   UpdateBoostOfferInput,
   UpdateSubscriptionPlanInput,
   UpdateUserRolesInput,
@@ -69,6 +72,10 @@ interface AdminState {
   subscriptionPlans: AdminSubscriptionPlan[];
   boostOffers: AdminBoostOffer[];
   revenueStats: AdminRevenueStats | null;
+
+  // Transactions (Lot 6.1)
+  transactions: AdminTransaction[];
+  transactionsPagination: PaginationMeta | null;
 
   // Loading & Error
   isLoading: boolean;
@@ -122,6 +129,8 @@ interface AdminState {
   updateBoostOffer: (id: number, input: UpdateBoostOfferInput) => Promise<void>;
   deleteBoostOffer: (id: number) => Promise<void>;
   fetchRevenueStats: (days?: number) => Promise<void>;
+  fetchTransactions: (page?: number, limit?: number, filters?: AdminTransactionFilters) => Promise<void>;
+  refundTransaction: (id: number, input: RefundTransactionInput) => Promise<void>;
 
   // Utils
   clearError: () => void;
@@ -154,6 +163,8 @@ export const useAdminStore = create<AdminState>((set) => ({
   subscriptionPlans: [],
   boostOffers: [],
   revenueStats: null,
+  transactions: [],
+  transactionsPagination: null,
   isLoading: false,
   error: null,
 
@@ -398,6 +409,21 @@ export const useAdminStore = create<AdminState>((set) => ({
       set({ revenueStats, isLoading: false });
     }, { fallbackError: 'Erreur lors du chargement des stats de revenus' }),
 
+  fetchTransactions: (page = 1, limit = 20, filters) =>
+    createAsyncAction(set, async () => {
+      const response = await adminApi.getTransactions(page, limit, filters);
+      set({ transactions: response.data, transactionsPagination: response.pagination, isLoading: false });
+    }, { fallbackError: 'Erreur lors du chargement des transactions' }),
+
+  refundTransaction: (id, input) =>
+    createAsyncAction(set, async () => {
+      const transaction = await adminApi.refundTransaction(id, input);
+      set((state) => ({
+        transactions: state.transactions.map((t) => (t.id === id ? transaction : t)),
+        isLoading: false,
+      }));
+    }, { fallbackError: 'Erreur lors du remboursement de la transaction', rethrow: true }),
+
   // ==================== UTILS ====================
   clearError: () => set({ error: null }),
 
@@ -427,6 +453,8 @@ export const useAdminStore = create<AdminState>((set) => ({
       subscriptionPlans: [],
       boostOffers: [],
       revenueStats: null,
+      transactions: [],
+      transactionsPagination: null,
       error: null,
     }),
 }));

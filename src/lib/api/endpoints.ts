@@ -200,6 +200,10 @@ export const endpoints = {
     subscriptionPlan: (id: number) => `/admin/subscription-plans/${id}`,
     boostOffers: '/admin/boost-offers',
     boostOffer: (id: number) => `/admin/boost-offers/${id}`,
+
+    // Transactions (Lot 6.1)
+    transactions: '/admin/transactions',
+    refundTransaction: (id: number) => `/admin/transactions/${id}/refund`,
   },
 
   contacts: {
