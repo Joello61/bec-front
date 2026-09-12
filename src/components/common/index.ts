@@ -10,3 +10,4 @@ export { default as PriceDisplay } from './PriceDisplay';
 export { ScrollToTop } from './ScrollToTop';
 export { default as SearchBar } from './SearchBar';
 export { Toast, ToastContainer, useToast } from './Toast';
+export { default as ViewsStatCard } from './ViewsStatCard';

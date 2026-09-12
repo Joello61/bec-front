@@ -6,7 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { BoostButton } from '@/components/boost';
-import { ConfirmDialog, ErrorState, LoadingSpinner, useToast } from '@/components/common';
+import { ConfirmDialog, ErrorState, LoadingSpinner, useToast, ViewsStatCard } from '@/components/common';
 import { VoyageForm } from '@/components/forms';
 import { PropositionList } from '@/components/propositions';
 import { Modal } from '@/components/ui';
@@ -142,8 +142,9 @@ export default function VoyageDetailsPageClient() {
         />
 
         {isOwner && (
-          <div className="mt-4">
+          <div className="mt-4 space-y-4">
             <BoostButton targetType="voyage" targetId={voyageId} />
+            <ViewsStatCard nombreVues={voyage.nombreVues} nombreVuesLocked={voyage.nombreVuesLocked} />
           </div>
         )}
 
