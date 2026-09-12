@@ -138,3 +138,10 @@ export const boostOfferSchema = z.object({
 });
 
 export type BoostOfferFormData = z.infer<typeof boostOfferSchema>;
+
+// ==================== REMBOURSEMENT TRANSACTION (Lot 6.1) ====================
+export const refundTransactionSchema = z.object({
+  reason: z.string().max(500, 'La raison ne peut pas dépasser 500 caractères').optional(),
+});
+
+export type RefundTransactionFormData = z.infer<typeof refundTransactionSchema>;

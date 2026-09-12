@@ -291,3 +291,36 @@ export interface AdminRevenueStats {
   transactionsFailed: number;
   tauxReussite: number;
 }
+
+// ==================== TRANSACTIONS (Lot 6.1) ====================
+export type TransactionType = 'subscription_initial' | 'subscription_renewal' | 'boost';
+export type TransactionStatus = 'pending' | 'succeeded' | 'failed' | 'canceled' | 'refunded';
+export type TransactionProvider = 'stripe' | 'notchpay';
+
+export interface AdminTransaction {
+  id: number;
+  user: {
+    id: number;
+    email: string;
+    nom: string;
+    prenom: string;
+  };
+  type: TransactionType;
+  provider: TransactionProvider;
+  paymentMethodFamily: PaymentMethod;
+  amount: string;
+  currency: string;
+  status: TransactionStatus;
+  refundedAt: string | null;
+  createdAt: string;
+}
+
+export interface AdminTransactionFilters {
+  status?: TransactionStatus;
+  type?: TransactionType;
+  provider?: TransactionProvider;
+}
+
+export interface RefundTransactionInput {
+  reason?: string;
+}

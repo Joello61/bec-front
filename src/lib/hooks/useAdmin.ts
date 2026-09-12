@@ -54,6 +54,8 @@ export function useAdmin() {
     subscriptionPlans: store.subscriptionPlans,
     boostOffers: store.boostOffers,
     revenueStats: store.revenueStats,
+    transactions: store.transactions,
+    transactionsPagination: store.transactionsPagination,
     isLoading: store.isLoading,
     error: store.error,
 
@@ -95,6 +97,8 @@ export function useAdmin() {
     updateBoostOffer: store.updateBoostOffer,
     deleteBoostOffer: store.deleteBoostOffer,
     fetchRevenueStats: store.fetchRevenueStats,
+    fetchTransactions: store.fetchTransactions,
+    refundTransaction: store.refundTransaction,
     clearError: store.clearError,
     reset: store.reset,
     refetchAdminStats,
