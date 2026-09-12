@@ -109,6 +109,7 @@ describe('subscriptionPlanSchema (Lot 5)', () => {
     maxActiveVoyages: null,
     maxActiveDemandes: null,
     hasBadge: true,
+    hasViewStats: false,
     isFeatured: false,
     isActive: true,
     sortOrder: 1,
@@ -137,6 +138,14 @@ describe('subscriptionPlanSchema (Lot 5)', () => {
 
   it('rejette un nom vide', () => {
     expect(subscriptionPlanSchema.safeParse({ ...base, name: '' }).success).toBe(false);
+  });
+
+  it('accepte hasViewStats a true (Lot 6.2)', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, hasViewStats: true }).success).toBe(true);
+  });
+
+  it('rejette un hasViewStats non booleen', () => {
+    expect(subscriptionPlanSchema.safeParse({ ...base, hasViewStats: 'oui' }).success).toBe(false);
   });
 });
 

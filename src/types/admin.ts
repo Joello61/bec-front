@@ -255,6 +255,7 @@ export interface CreateSubscriptionPlanInput {
   maxActiveVoyages: number | null;
   maxActiveDemandes: number | null;
   hasBadge: boolean;
+  hasViewStats: boolean;
   isFeatured: boolean;
   isActive: boolean;
   sortOrder: number;
