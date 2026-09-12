@@ -6,6 +6,7 @@ export interface SubscriptionPlan {
   code: SubscriptionPlanCode;
   name: string;
   priceAmountEur: string | null;
+  priceAmountXaf: string | null;
   billingPeriod: string;
   maxActiveVoyages: number | null;
   maxActiveDemandes: number | null;
@@ -39,8 +40,11 @@ export interface MySubscriptionResponse {
   usage: SubscriptionUsage;
 }
 
+export type PaymentMethod = 'card' | 'mobile_money';
+
 export interface CheckoutSubscriptionInput {
   planCode: string;
+  paymentMethod: PaymentMethod;
   accessImmediateConsent: boolean;
   withdrawalWaiverConsent: boolean;
 }

@@ -9,6 +9,16 @@ interface SubscriptionState {
   plans: SubscriptionPlan[] | null;
   mySubscription: MySubscriptionResponse | null;
   isLoading: boolean;
+  /**
+   * Champ de chargement dédié au catalogue de plans, distinct de `isLoading` (abonnement
+   * de l'utilisateur courant). Les deux ressources sont chargées en parallèle au montage
+   * de la page d'abonnement (useSubscription + useSubscriptionPlans) : partager un seul
+   * flag ferait que le set({isLoading:true}) synchrone de fetchMySubscription (toujours
+   * appelé en premier) bloque la propre garde anti-doublon de fetchPlans, qui ne lance
+   * alors jamais l'appel API - bug constaté (catalogue jamais affiché) en vérification
+   * manuelle du Lot 3 Mobile Money, sans lien avec ce lot.
+   */
+  isLoadingPlans: boolean;
   error: string | null;
 
   // Actions
@@ -25,17 +35,18 @@ export const useSubscriptionStore = create<SubscriptionState>((set, get) => ({
   plans: null,
   mySubscription: null,
   isLoading: false,
+  isLoadingPlans: false,
   error: null,
 
   fetchPlans: () => {
-    if (get().isLoading || get().plans) {
+    if (get().isLoadingPlans || get().plans) {
       return Promise.resolve();
     }
 
     return createAsyncAction(set, async () => {
       const plans = await subscriptionsApi.getPlans();
-      set({ plans, isLoading: false });
-    }, { fallbackError: 'Erreur lors du chargement des plans d\'abonnement' });
+      set({ plans, isLoadingPlans: false });
+    }, { fallbackError: 'Erreur lors du chargement des plans d\'abonnement', loadingKey: 'isLoadingPlans' });
   },
 
   fetchMySubscription: () => {
