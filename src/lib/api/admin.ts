@@ -12,6 +12,8 @@ import type {
   AdminRevenueStats,
   AdminSignalementsStats,
   AdminSubscriptionPlan,
+  AdminTransaction,
+  AdminTransactionFilters,
   AdminUserActivity,
   AdminUserFilters,
   AdminUsersDetailedStats,
@@ -23,6 +25,7 @@ import type {
   DeleteContentInput,
   Demande,
   PaginatedResponse,
+  RefundTransactionInput,
   UpdateBoostOfferInput,
   UpdateSubscriptionPlanInput,
   UpdateUserRolesInput,
@@ -264,6 +267,23 @@ export const adminApi = {
 
   getRevenueStats: async (days = 30): Promise<AdminRevenueStats> => {
     const { data } = await apiClient.get(endpoints.admin.stats('revenue'), { params: { days } });
+    return data;
+  },
+
+  // ==================== TRANSACTIONS (Lot 6.1) ====================
+  getTransactions: async (
+    page = 1,
+    limit = 20,
+    filters?: AdminTransactionFilters
+  ): Promise<PaginatedResponse<AdminTransaction>> => {
+    const { data } = await apiClient.get(endpoints.admin.transactions, {
+      params: { page, limit, ...filters },
+    });
+    return data;
+  },
+
+  refundTransaction: async (id: number, input: RefundTransactionInput): Promise<AdminTransaction> => {
+    const { data } = await apiClient.post(endpoints.admin.refundTransaction(id), input);
     return data;
   },
 };

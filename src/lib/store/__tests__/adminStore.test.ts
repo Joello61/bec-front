@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { AdminBoostOffer, AdminSubscriptionPlan, ApiError, User } from '@/types';
+import type { AdminBoostOffer, AdminSubscriptionPlan, AdminTransaction, ApiError, User } from '@/types';
 
 vi.mock('@/lib/api/admin', () => ({
   adminApi: {
@@ -16,6 +16,8 @@ vi.mock('@/lib/api/admin', () => ({
     updateBoostOffer: vi.fn(),
     deleteBoostOffer: vi.fn(),
     getRevenueStats: vi.fn(),
+    getTransactions: vi.fn(),
+    refundTransaction: vi.fn(),
   },
 }));
 
@@ -26,6 +28,7 @@ import { useAdminStore } from '../adminStore';
 const initialState = useAdminStore.getState();
 
 const mockUser = { id: 1 } as User;
+const mockPagination = { page: 1, limit: 20, total: 1, pages: 1 };
 
 beforeEach(() => {
   useAdminStore.setState(initialState, true);
@@ -188,5 +191,38 @@ describe('adminStore - catalogue (Lot 5)', () => {
 
     expect(adminApi.getRevenueStats).toHaveBeenCalledWith(7);
     expect(useAdminStore.getState().revenueStats).toEqual(stats);
+  });
+});
+
+describe('adminStore - transactions (Lot 6.1)', () => {
+  const mockTransaction = { id: 1, status: 'succeeded' } as AdminTransaction;
+
+  it('fetchTransactions : charge la page et la pagination en cas de succes', async () => {
+    vi.mocked(adminApi.getTransactions).mockResolvedValue({ data: [mockTransaction], pagination: mockPagination });
+
+    await useAdminStore.getState().fetchTransactions(1, 20, { status: 'succeeded' });
+
+    expect(adminApi.getTransactions).toHaveBeenCalledWith(1, 20, { status: 'succeeded' });
+    expect(useAdminStore.getState().transactions).toEqual([mockTransaction]);
+    expect(useAdminStore.getState().transactionsPagination).toEqual(mockPagination);
+  });
+
+  it('refundTransaction : remplace la transaction remboursee dans la liste', async () => {
+    const refunded = { id: 1, status: 'refunded' } as AdminTransaction;
+    useAdminStore.setState({ transactions: [mockTransaction, { id: 2, status: 'succeeded' } as AdminTransaction] });
+    vi.mocked(adminApi.refundTransaction).mockResolvedValue(refunded);
+
+    await useAdminStore.getState().refundTransaction(1, { reason: 'Erreur de facturation' });
+
+    expect(useAdminStore.getState().transactions).toEqual([refunded, { id: 2, status: 'succeeded' }]);
+  });
+
+  it('refundTransaction : relance l\'erreur en cas d\'echec (forme mutation)', async () => {
+    const apiError: ApiError = { success: false, message: 'Transaction introuvable' };
+    vi.mocked(adminApi.refundTransaction).mockRejectedValue(apiError);
+
+    await expect(useAdminStore.getState().refundTransaction(1, {})).rejects.toBe(apiError);
+
+    expect(useAdminStore.getState()).toMatchObject({ isLoading: false, error: 'Transaction introuvable' });
   });
 });
