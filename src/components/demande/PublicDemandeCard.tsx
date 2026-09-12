@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui';
 import { formatWeight, getDaysRemaining } from '@/lib/utils/format';
 import type { PublicDemande } from '@/types';
 
+import BoostBadge from '../boost/BoostBadge';
 import AuthRequiredModal from '../common/AuthRequiredModal';
 
 interface PublicDemandeCardProps {
@@ -35,6 +36,12 @@ export default function PublicDemandeCard({ demande }: PublicDemandeCardProps) {
       transition={{ duration: 0.3 }}
       className="group relative hover:border-primary/30 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1"
     >
+      {demande.isCurrentlyBoosted && (
+        <div className="absolute top-3 left-3 z-10">
+          <BoostBadge size="sm" />
+        </div>
+      )}
+
       {/* VERSION MOBILE (< 768px) - Optimisée */}
       <div className="md:hidden">
         {/* Bouton Favoris - Overlay discret */}

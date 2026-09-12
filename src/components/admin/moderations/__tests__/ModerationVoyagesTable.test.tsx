@@ -46,6 +46,7 @@ function makeVoyage(overrides: Partial<Voyage> = {}): Voyage {
     currency: 'XAF',
     description: null,
     statut: 'actif',
+    isCurrentlyBoosted: false,
     createdAt: '2025-01-01T00:00:00.000Z',
     updatedAt: '2025-01-01T00:00:00.000Z',
     ...overrides,

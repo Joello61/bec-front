@@ -44,6 +44,7 @@ function makeDemande(overrides: Partial<Demande> = {}): Demande {
     currency: 'XAF',
     description: 'Colis fragile',
     statut: 'en_recherche',
+    isCurrentlyBoosted: false,
     createdAt: '2025-01-01T00:00:00.000Z',
     updatedAt: '2025-01-01T00:00:00.000Z',
     ...overrides,

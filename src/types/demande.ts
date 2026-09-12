@@ -20,6 +20,7 @@ export interface Demande {
   
   description: string;
   statut: DemandeStatut;
+  isCurrentlyBoosted: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,6 +38,7 @@ export interface PublicDemande {
   currency: string; // <- AJOUT - Code devise (EUR, XAF, USD)
 
   description: string;
+  isCurrentlyBoosted: boolean;
 }
 
 export interface CreateDemandeInput {

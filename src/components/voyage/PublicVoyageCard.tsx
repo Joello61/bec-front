@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui';
 import { formatDateShort, formatWeight } from '@/lib/utils/format';
 import type { PublicVoyage } from '@/types';
 
+import BoostBadge from '../boost/BoostBadge';
 import AuthRequiredModal from '../common/AuthRequiredModal';
 
 interface PublicVoyageCardProps {
@@ -30,6 +31,12 @@ export default function PublicVoyageCard({ voyage }: PublicVoyageCardProps) {
       transition={{ duration: 0.3 }}
       className="group relative hover:border-primary/30 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1"
     >
+      {voyage.isCurrentlyBoosted && (
+        <div className="absolute top-3 left-3 z-10">
+          <BoostBadge size="sm" />
+        </div>
+      )}
+
       {/* VERSION MOBILE (< 768px) - Optimisée */}
       <div className="md:hidden">
         <Card className="h-full overflow-hidden border border-gray-200">
