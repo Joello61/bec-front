@@ -3,13 +3,14 @@
 import { useEffect, useState } from 'react';
 
 import { ToastContainer } from '@/components/common';
-import type { ToastType } from '@/components/common/Toast';
+import type { ToastAction, ToastType } from '@/components/common/Toast';
 
 interface Toast {
   id: string;
   type: ToastType;
   message: string;
   duration?: number;
+  action?: ToastAction;
 }
 
 export default function ToastProvider() {

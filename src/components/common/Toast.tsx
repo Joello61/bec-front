@@ -2,16 +2,24 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, CheckCircle, Info, X, XCircle } from 'lucide-react';
+import type { Route } from 'next';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
+
+export interface ToastAction {
+  label: string;
+  href: Route;
+}
 
 interface ToastProps {
   id: string;
   type: ToastType;
   message: string;
   duration?: number;
+  action?: ToastAction;
   onClose: (id: string) => void;
 }
 
@@ -29,16 +37,20 @@ const toastStyles = {
   info: 'bg-info text-white',
 };
 
-export function Toast({ id, type, message, duration = 3000, onClose }: ToastProps) {
+export function Toast({ id, type, message, duration, action, onClose }: ToastProps) {
+  // Un toast porteur d'une action (lien) reste affiche plus longtemps par defaut - le
+  // temps de lire le message et de cliquer, pas seulement de le voir disparaitre.
+  const effectiveDuration = duration ?? (action ? 8000 : 3000);
+
   useEffect(() => {
-    if (duration > 0) {
+    if (effectiveDuration > 0) {
       const timer = setTimeout(() => {
         onClose(id);
-      }, duration);
+      }, effectiveDuration);
 
       return () => clearTimeout(timer);
     }
-  }, [id, duration, onClose]);
+  }, [id, effectiveDuration, onClose]);
 
   return createPortal(
     <motion.div
@@ -50,12 +62,23 @@ export function Toast({ id, type, message, duration = 3000, onClose }: ToastProp
         fixed z-[100]
         top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0
         w-[calc(100%-8rem)] max-w-md
-        rounded-lg shadow-lg ${toastStyles[type]} 
+        rounded-lg shadow-lg ${toastStyles[type]}
         p-4 flex items-start gap-3
       `}
     >
       <div className="flex-shrink-0 mt-0.5">{toastIcons[type]}</div>
-      <p className="flex-1 text-sm font-medium break-words">{message}</p>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium break-words">{message}</p>
+        {action && (
+          <Link
+            href={action.href}
+            onClick={() => onClose(id)}
+            className="mt-1 inline-block text-sm font-semibold underline hover:no-underline"
+          >
+            {action.label}
+          </Link>
+        )}
+      </div>
       <button
         onClick={() => onClose(id)}
         className="flex-shrink-0 hover:bg-white/20 rounded p-1 transition-colors"
@@ -69,7 +92,7 @@ export function Toast({ id, type, message, duration = 3000, onClose }: ToastProp
 }
 
 interface ToastContainerProps {
-  toasts: Array<{ id: string; type: ToastType; message: string; duration?: number }>;
+  toasts: Array<{ id: string; type: ToastType; message: string; duration?: number; action?: ToastAction }>;
   onClose: (id: string) => void;
 }
 
@@ -94,20 +117,25 @@ export function ToastContainer({ toasts, onClose }: ToastContainerProps) {
 
 let toastId = 0;
 
+export interface ToastOptions {
+  duration?: number;
+  action?: ToastAction;
+}
+
 export function useToast() {
-  const showToast = (type: ToastType, message: string, duration?: number) => {
+  const showToast = (type: ToastType, message: string, options?: ToastOptions) => {
     const id = `toast-${toastId++}`;
     window.dispatchEvent(
       new CustomEvent('show-toast', {
-        detail: { id, type, message, duration },
+        detail: { id, type, message, duration: options?.duration, action: options?.action },
       })
     );
   };
 
   return {
-    success: (message: string, duration?: number) => showToast('success', message, duration),
-    error: (message: string, duration?: number) => showToast('error', message, duration),
-    warning: (message: string, duration?: number) => showToast('warning', message, duration),
-    info: (message: string, duration?: number) => showToast('info', message, duration),
+    success: (message: string, options?: ToastOptions) => showToast('success', message, options),
+    error: (message: string, options?: ToastOptions) => showToast('error', message, options),
+    warning: (message: string, options?: ToastOptions) => showToast('warning', message, options),
+    info: (message: string, options?: ToastOptions) => showToast('info', message, options),
   };
 }
