@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Transaction } from '@/types';
@@ -7,10 +8,15 @@ import PaymentsPageClient from '../payments-client';
 
 const mockFetchMine = vi.fn();
 const mockUseTransactions = vi.fn();
+const mockDownloadInvoice = vi.fn();
 
 vi.mock('@/lib/hooks', () => ({
   useTransactions: () => mockUseTransactions(),
   useCurrencyFormat: () => ({ formatAmount: (amount: string, currency: string) => `${amount} ${currency}` }),
+}));
+
+vi.mock('@/lib/api/transactions', () => ({
+  transactionsApi: { downloadInvoice: (id: number) => mockDownloadInvoice(id) },
 }));
 
 function makeTransaction(overrides: Partial<Transaction> = {}): Transaction {
@@ -71,5 +77,64 @@ describe('payments-client - historique des paiements', () => {
     render(<PaymentsPageClient />);
 
     expect(mockFetchMine).toHaveBeenCalledWith(1, 20);
+  });
+
+  describe('telechargement de facture', () => {
+    beforeEach(() => {
+      window.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+      window.URL.revokeObjectURL = vi.fn();
+    });
+
+    it.each(['succeeded', 'refunded'] as const)(
+      'affiche le bouton Facture pour une transaction %s',
+      (status) => {
+        mockUseTransactions.mockReturnValue({
+          transactions: [makeTransaction({ status })],
+          pagination: { page: 1, limit: 20, total: 1, pages: 1 },
+          isLoading: false,
+          error: null,
+          fetchMine: mockFetchMine,
+        });
+
+        render(<PaymentsPageClient />);
+
+        expect(screen.getByRole('button', { name: /facture/i })).toBeInTheDocument();
+      }
+    );
+
+    it.each(['pending', 'failed', 'canceled'] as const)(
+      "n'affiche pas le bouton Facture pour une transaction %s",
+      (status) => {
+        mockUseTransactions.mockReturnValue({
+          transactions: [makeTransaction({ status })],
+          pagination: { page: 1, limit: 20, total: 1, pages: 1 },
+          isLoading: false,
+          error: null,
+          fetchMine: mockFetchMine,
+        });
+
+        render(<PaymentsPageClient />);
+
+        expect(screen.queryByRole('button', { name: /facture/i })).not.toBeInTheDocument();
+      }
+    );
+
+    it('declenche le telechargement du blob retourne par l\'API au clic', async () => {
+      const user = userEvent.setup();
+      mockDownloadInvoice.mockResolvedValueOnce(new Blob(['%PDF-1.4'], { type: 'application/pdf' }));
+      mockUseTransactions.mockReturnValue({
+        transactions: [makeTransaction({ id: 7, status: 'succeeded' })],
+        pagination: { page: 1, limit: 20, total: 1, pages: 1 },
+        isLoading: false,
+        error: null,
+        fetchMine: mockFetchMine,
+      });
+
+      render(<PaymentsPageClient />);
+      await user.click(screen.getByRole('button', { name: /facture/i }));
+
+      await waitFor(() => expect(mockDownloadInvoice).toHaveBeenCalledWith(7));
+      expect(window.URL.createObjectURL).toHaveBeenCalled();
+    });
   });
 });

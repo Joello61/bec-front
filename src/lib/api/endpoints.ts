@@ -150,6 +150,7 @@ export const endpoints = {
 
   transactions: {
     me: '/transactions/me',
+    invoice: (id: number) => `/transactions/${id}/invoice`,
   },
 
   // Propositions
