@@ -55,4 +55,10 @@ describe('sidebar (dashboard) - logique metier', () => {
     render(<Sidebar />);
     expect(screen.getByText('Mes Demandes').closest('div')).not.toHaveClass('text-white');
   });
+
+  it('affiche un lien Abonnement vers la page abonnement', () => {
+    mockUseAuth.mockReturnValue({ user: makeUser() });
+    render(<Sidebar />);
+    expect(screen.getByText('Abonnement').closest('a')).toHaveAttribute('href', ROUTES.SUBSCRIPTION);
+  });
 });

@@ -1,6 +1,8 @@
 import { Eye, Lock } from 'lucide-react';
 import Link from 'next/link';
 
+import { ROUTES } from '@/lib/utils/constants';
+
 interface ViewsStatCardProps {
   nombreVues?: number;
   nombreVuesLocked?: boolean;
@@ -26,7 +28,7 @@ export default function ViewsStatCard({ nombreVues, nombreVuesLocked }: ViewsSta
           </div>
         </div>
         <Link
-          href="/dashboard/settings/subscription"
+          href={ROUTES.SUBSCRIPTION}
           className="text-sm font-medium text-primary hover:text-primary-dark whitespace-nowrap"
         >
           Voir les plans

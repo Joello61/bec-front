@@ -11,9 +11,11 @@ export interface ApiError {
     line: number;
     trace: string;
   };
-  error?: 'PROFILE_INCOMPLETE' | 'ACCESS_DENIED';
+  error?: 'PROFILE_INCOMPLETE' | 'ACCESS_DENIED' | 'QUOTA_EXCEEDED';
   profileComplete?: boolean;
   details?: string[];
+  currentPlan?: string;
+  limit?: number;
 }
 
 export interface PaginationMeta {

@@ -49,6 +49,7 @@ export const ROUTES = {
   USER_PROFILE: (id: number) => `/dashboard/users/${id}` as Route,
   PROFILE_ADDRESS: '/dashboard/profile/address' as Route,
   SETTINGS: '/dashboard/settings' as Route,
+  SUBSCRIPTION: '/dashboard/settings/subscription' as Route,
   HELP: '/dashboard/help' as Route,
   SIGNALEMENTS: '/dashboard/signalements' as Route,
   ADMIN: '/admin' as Route,
