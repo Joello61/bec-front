@@ -77,3 +77,4 @@ export {
   useSubscriptionActions,
   useSubscriptionPlans
 } from './useSubscription'
+export { useTransactions } from './useTransactions';

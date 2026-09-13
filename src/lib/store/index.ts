@@ -18,3 +18,4 @@ export * from './geoStore';
 export * from './propositionStore';
 export * from './settingsStore';
 export * from './subscriptionStore';
+export * from './transactionStore';

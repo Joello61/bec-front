@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { ErrorState, LoadingSpinner } from '@/components/common';
@@ -7,6 +8,7 @@ import { CancelSubscriptionModal, PlanCard, SubscriptionCheckoutModal } from '@/
 import { Button, Card } from '@/components/ui';
 import { useCurrencyFormat, useSubscription, useSubscriptionPlans } from '@/lib/hooks';
 import { cn } from '@/lib/utils/cn';
+import { ROUTES } from '@/lib/utils/constants';
 import type { BillingPeriod, SubscriptionPlan } from '@/types';
 
 function QuotaBar({ label, used, max }: { label: string; used: number; max: number | null }) {
@@ -73,6 +75,9 @@ export default function SubscriptionPageClient() {
             <span className="ml-2 text-sm text-warning">(résiliation programmée)</span>
           )}
         </p>
+        <Link href={ROUTES.PAYMENTS} className="text-sm text-primary hover:underline">
+          Voir l&apos;historique de mes paiements
+        </Link>
       </div>
 
       <Card variant="bordered" className="space-y-4">
