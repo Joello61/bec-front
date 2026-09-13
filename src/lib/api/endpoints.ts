@@ -148,6 +148,10 @@ export const endpoints = {
     checkout: '/boosts/checkout',
   },
 
+  transactions: {
+    me: '/transactions/me',
+  },
+
   // Propositions
   propositions: {
     byId: (id: number) => `/propositions/${id}`,

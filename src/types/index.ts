@@ -15,5 +15,6 @@ export * from './proposition'; // <- AJOUT
 export * from './settings'; // <- AJOUT
 export * from './signalement';
 export * from './subscription';
+export * from './transaction';
 export * from './user';
 export * from './voyage';

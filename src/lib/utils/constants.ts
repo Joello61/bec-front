@@ -51,6 +51,7 @@ export const ROUTES = {
   PROFILE_ADDRESS: '/dashboard/profile/address' as Route,
   SETTINGS: '/dashboard/settings' as Route,
   SUBSCRIPTION: '/dashboard/settings/subscription' as Route,
+  PAYMENTS: '/dashboard/settings/payments' as Route,
   HELP: '/dashboard/help' as Route,
   SIGNALEMENTS: '/dashboard/signalements' as Route,
   ADMIN: '/admin' as Route,
