@@ -1,3 +1,5 @@
+import type { AxiosRequestConfig } from 'axios';
+
 import type {
   CheckoutSessionResponse,
   CheckoutSubscriptionInput,
@@ -10,10 +12,11 @@ import { endpoints } from './endpoints';
 
 export const subscriptionsApi = {
   /**
-   * Liste des plans proposés à la souscription (endpoint public)
+   * Liste des plans proposés à la souscription (endpoint public). `config` optionnel
+   * pour surcharger `baseURL` depuis un Server Component (voir lib/api/server.ts).
    */
-  async getPlans(): Promise<SubscriptionPlan[]> {
-    const response = await apiClient.get<SubscriptionPlan[]>(endpoints.subscriptions.plans);
+  async getPlans(config?: AxiosRequestConfig): Promise<SubscriptionPlan[]> {
+    const response = await apiClient.get<SubscriptionPlan[]>(endpoints.subscriptions.plans, config);
     return response.data;
   },
 

@@ -3,3 +3,4 @@
 export { default as BoostBadge } from './BoostBadge';
 export { default as BoostButton } from './BoostButton';
 export { default as BoostModal } from './BoostModal';
+export { default as BoostOfferCard } from './BoostOfferCard';

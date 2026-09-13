@@ -23,6 +23,7 @@ export default function Footer() {
       { name: 'À propos', href: ROUTES.ABOUT },
       { name: 'Explorer', href: ROUTES.PUBLIC_EXPLORE },
       { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS },
+      { name: 'Tarifs', href: ROUTES.PRICING },
     ],
     legal: [
       { name: "Conditions d'utilisation", href: ROUTES.TERMS },

@@ -1,11 +1,10 @@
 'use client';
 
-import { Check } from 'lucide-react';
 import { useState } from 'react';
 
 import { ErrorState, LoadingSpinner } from '@/components/common';
-import { CancelSubscriptionModal, SubscriptionCheckoutModal } from '@/components/subscription';
-import { Badge, Button, Card } from '@/components/ui';
+import { CancelSubscriptionModal, PlanCard, SubscriptionCheckoutModal } from '@/components/subscription';
+import { Button, Card } from '@/components/ui';
 import { useCurrencyFormat, useSubscription, useSubscriptionPlans } from '@/lib/hooks';
 import { cn } from '@/lib/utils/cn';
 import type { BillingPeriod, SubscriptionPlan } from '@/types';
@@ -119,61 +118,21 @@ export default function SubscriptionPageClient() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {(plans ?? []).map((candidatePlan) => {
             const isCurrent = candidatePlan.code === plan.code;
-            const yearlyPrice = candidatePlan.priceAmountEurYearly;
-            const displayedPrice = billingPeriod === 'yearly' ? yearlyPrice : candidatePlan.priceAmountEur;
-            const isYearlyUnavailable = billingPeriod === 'yearly' && candidatePlan.priceAmountEur !== null && yearlyPrice === null;
 
             return (
-              <Card key={candidatePlan.id} variant="bordered" className="flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-bold text-gray-900">{candidatePlan.name}</h3>
-                  {candidatePlan.hasBadge && <Badge variant="default">Populaire</Badge>}
-                </div>
-
-                <p className="text-3xl font-bold text-gray-900">
-                  {isYearlyUnavailable
-                    ? formatAmount(candidatePlan.priceAmountEur as string, 'EUR')
-                    : displayedPrice
-                      ? formatAmount(displayedPrice, 'EUR')
-                      : 'Gratuit'}
-                  {displayedPrice && !isYearlyUnavailable && (
-                    <span className="text-sm font-normal text-gray-500">
-                      {billingPeriod === 'yearly' ? '/an' : '/mois'}
-                    </span>
-                  )}
-                  {isYearlyUnavailable && <span className="text-sm font-normal text-gray-500">/mois</span>}
-                </p>
-                {isYearlyUnavailable && (
-                  <p className="text-xs text-gray-500 -mt-3">Cadence annuelle non disponible pour ce plan</p>
-                )}
-
-                <ul className="space-y-2 text-sm text-gray-700 flex-1">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-success" />
-                    {candidatePlan.maxActiveVoyages === null
-                      ? 'Voyages actifs illimités'
-                      : `${candidatePlan.maxActiveVoyages} voyages actifs max`}
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-success" />
-                    {candidatePlan.maxActiveDemandes === null
-                      ? 'Demandes actives illimitées'
-                      : `${candidatePlan.maxActiveDemandes} demandes actives max`}
-                  </li>
-                </ul>
-
-                <Button
-                  variant={isCurrent ? 'outline' : 'primary'}
-                  disabled={isCurrent || candidatePlan.code === 'free'}
-                  onClick={() => {
-                    setCheckoutPlan(candidatePlan);
-                    setCheckoutBillingPeriod(isYearlyUnavailable ? 'monthly' : billingPeriod);
-                  }}
-                  className="w-full"
-                >
-                  {isCurrent ? 'Plan actuel' : 'Choisir ce plan'}
-                </Button>
-              </Card>
+              <PlanCard
+                key={candidatePlan.id}
+                plan={candidatePlan}
+                billingPeriod={billingPeriod}
+                formatAmount={formatAmount}
+                isCurrent={isCurrent}
+                ctaLabel={isCurrent ? 'Plan actuel' : 'Choisir ce plan'}
+                ctaDisabled={isCurrent || candidatePlan.code === 'free'}
+                onCtaClick={(effectiveBillingPeriod) => {
+                  setCheckoutPlan(candidatePlan);
+                  setCheckoutBillingPeriod(effectiveBillingPeriod);
+                }}
+              />
             );
           })}
         </div>

@@ -8,6 +8,7 @@ import {
   Mail,
   Menu,
   Search,
+  Tag,
   UserRoundPlus,
   X,
 } from 'lucide-react';
@@ -25,6 +26,7 @@ const navigation = [
   { name: 'À propos', href: ROUTES.ABOUT, icon: Info },
   { name: 'Comment ça marche', href: ROUTES.HOW_IT_WORKS, icon: BookOpen },
   { name: 'Explorer', href: ROUTES.PUBLIC_EXPLORE, icon: Search },
+  { name: 'Tarifs', href: ROUTES.PRICING, icon: Tag },
   { name: 'Contact', href: ROUTES.CONTACT, icon: Mail },
 ];
 
