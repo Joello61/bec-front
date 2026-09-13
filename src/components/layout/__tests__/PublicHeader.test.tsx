@@ -17,6 +17,11 @@ describe('PublicHeader - logique metier', () => {
     mockUsePathname.mockReturnValue(ROUTES.HOME);
   });
 
+  it('affiche un lien Tarifs vers la page pricing', () => {
+    render(<PublicHeader />);
+    expect(screen.getByRole('link', { name: /tarifs/i })).toHaveAttribute('href', ROUTES.PRICING);
+  });
+
   it('ouvre puis ferme le menu mobile au clic sur le bouton hamburger', async () => {
     const user = userEvent.setup();
     render(<PublicHeader />);

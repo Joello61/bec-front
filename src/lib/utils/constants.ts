@@ -19,6 +19,7 @@ export const ROUTES = {
   COOKIES: '/legal/cookies' as Route,
   FAQ: '/faq' as Route,
   HOW_IT_WORKS: '/how-it-works' as Route,
+  PRICING: '/pricing' as Route,
   TRUST_SAFETY: '/legal/trust-safety' as Route,
   LOGIN: '/auth/login' as Route,
   REGISTER: '/auth/register' as Route,
