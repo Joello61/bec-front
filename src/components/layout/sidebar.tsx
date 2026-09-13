@@ -1,16 +1,17 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
-  Bell, 
+import {
+  Bell,
   ChevronRight,
+  CreditCard,
   Handshake,
   Heart,
   HelpCircle,
   LayoutDashboard,
-  MessageSquare, 
-  Package, 
-  Plane, 
+  MessageSquare,
+  Package,
+  Plane,
   Search,
   Settings,
   Shield,
@@ -74,6 +75,11 @@ export default function Sidebar() {
       name: 'Favoris',
       href: ROUTES.FAVORIS,
       icon: Heart,
+    },
+    {
+      name: 'Abonnement',
+      href: ROUTES.SUBSCRIPTION,
+      icon: CreditCard,
     },
     {
       name: 'Profil',
