@@ -152,6 +152,37 @@ describe('apiClient interceptor (client.ts)', () => {
     });
   });
 
+  it('propage le code d\'erreur structure (QUOTA_EXCEEDED) et ses details au lieu de les jeter', async () => {
+    const error = {
+      isAxiosError: true,
+      name: 'AxiosError',
+      message: 'Request failed',
+      toJSON: () => ({}),
+      config: { url: '/voyages' } as InternalAxiosRequestConfig,
+      response: {
+        status: 403,
+        data: {
+          message: 'Vous avez atteint la limite de votre plan actuel.',
+          error: 'QUOTA_EXCEEDED',
+          currentPlan: 'free',
+          limit: 3,
+        },
+        statusText: '',
+        headers: {},
+        config: {} as InternalAxiosRequestConfig,
+      },
+    } as AxiosError;
+
+    const result = await interceptorHandlers.error!(error).catch((e) => e);
+
+    expect(result).toMatchObject({
+      success: false,
+      error: 'QUOTA_EXCEEDED',
+      currentPlan: 'free',
+      limit: 3,
+    });
+  });
+
   it('normalise une erreur reseau (requete envoyee, aucune reponse) sans crash', async () => {
     const error = { isAxiosError: true, request: {}, config: { url: '/voyages' } } as AxiosError;
 

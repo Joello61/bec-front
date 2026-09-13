@@ -89,6 +89,14 @@ apiClient.interceptors.response.use(
         statusCode: error.response.status,
         errors: error.response.data?.errors,
         debug: error.response.data?.debug,
+        // Code d'erreur structure (PROFILE_INCOMPLETE/QUOTA_EXCEEDED/...) et ses details -
+        // jamais forwardes avant ce correctif, malgre leur presence dans le type ApiError :
+        // un composant ne pouvait donc jamais reagir a ces cas precis via error.response.
+        error: error.response.data?.error,
+        profileComplete: error.response.data?.profileComplete,
+        details: error.response.data?.details,
+        currentPlan: error.response.data?.currentPlan,
+        limit: error.response.data?.limit,
       };
       return Promise.reject(apiError);
     } else if (error.request) {
