@@ -13,4 +13,14 @@ export const transactionsApi = {
     });
     return data;
   },
+
+  /**
+   * Facture PDF d'une transaction (Lot N4) - generee a la volee cote backend si besoin
+   */
+  async downloadInvoice(id: number): Promise<Blob> {
+    const { data } = await apiClient.get(endpoints.transactions.invoice(id), {
+      responseType: 'blob',
+    });
+    return data;
+  },
 };

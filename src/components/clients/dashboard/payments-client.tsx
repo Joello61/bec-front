@@ -1,13 +1,16 @@
 'use client';
 
+import { Download, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { LoadingSpinner, Pagination } from '@/components/common';
+import { LoadingSpinner, Pagination, useToast } from '@/components/common';
+import { transactionsApi } from '@/lib/api/transactions';
 import { useCurrencyFormat, useTransactions } from '@/lib/hooks';
 import { cn } from '@/lib/utils/cn';
 import { ROUTES } from '@/lib/utils/constants';
-import type { TransactionStatus, TransactionType } from '@/types';
+import { logger } from '@/lib/utils/logger';
+import type { Transaction, TransactionStatus, TransactionType } from '@/types';
 
 const STATUS_LABELS: Record<TransactionStatus, string> = {
   pending: 'En attente',
@@ -31,14 +34,38 @@ const TYPE_LABELS: Record<TransactionType, string> = {
   boost: 'Boost',
 };
 
+const INVOICE_ELIGIBLE_STATUSES: TransactionStatus[] = ['succeeded', 'refunded'];
+
 export default function PaymentsPageClient() {
   const [page, setPage] = useState(1);
+  const [downloadingId, setDownloadingId] = useState<number | null>(null);
   const { transactions, pagination, isLoading, error, fetchMine } = useTransactions();
   const { formatAmount } = useCurrencyFormat();
+  const toast = useToast();
 
   useEffect(() => {
     fetchMine(page, 20);
   }, [page, fetchMine]);
+
+  const handleDownloadInvoice = async (transaction: Transaction) => {
+    setDownloadingId(transaction.id);
+    try {
+      const blob = await transactionsApi.downloadInvoice(transaction.id);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `facture-${transaction.id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      toast.error('Impossible de télécharger la facture pour le moment.');
+      logger.error(err);
+    } finally {
+      setDownloadingId(null);
+    }
+  };
 
   return (
     <div className="container-custom py-8 space-y-6">
@@ -74,7 +101,8 @@ export default function PaymentsPageClient() {
                   <th className="pb-3 pr-4">Type</th>
                   <th className="pb-3 pr-4">Montant</th>
                   <th className="pb-3 pr-4">Moyen</th>
-                  <th className="pb-3">Statut</th>
+                  <th className="pb-3 pr-4">Statut</th>
+                  <th className="pb-3"></th>
                 </tr>
               </thead>
               <tbody>
@@ -90,10 +118,26 @@ export default function PaymentsPageClient() {
                     <td className="py-3 pr-4">
                       {transaction.paymentMethodFamily === 'card' ? 'Carte' : 'Mobile Money'}
                     </td>
-                    <td className="py-3">
+                    <td className="py-3 pr-4">
                       <span className={cn('px-2 py-0.5 rounded-full text-xs font-medium', STATUS_STYLES[transaction.status])}>
                         {STATUS_LABELS[transaction.status]}
                       </span>
+                    </td>
+                    <td className="py-3">
+                      {INVOICE_ELIGIBLE_STATUSES.includes(transaction.status) && (
+                        <button
+                          onClick={() => handleDownloadInvoice(transaction)}
+                          disabled={downloadingId === transaction.id}
+                          className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-xs font-medium disabled:opacity-50"
+                        >
+                          {downloadingId === transaction.id ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <Download className="w-3.5 h-3.5" />
+                          )}
+                          Facture
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
