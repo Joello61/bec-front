@@ -10,9 +10,10 @@ import { VoyageForm } from '@/components/forms';
 import { Button, Modal } from '@/components/ui';
 import { VoyageFilters, VoyageList } from '@/components/voyage';
 import { useAuth, useUserVoyages, useVoyageActions } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
 import { logger } from '@/lib/utils/logger';
 import { CreateVoyageFormData } from '@/lib/validations/voyage.schema';
-import type { Voyage, VoyageFilters as VoyageFiltersType } from '@/types';
+import type { ApiError, Voyage, VoyageFilters as VoyageFiltersType } from '@/types';
 
 export default function VoyagesPageClient() {
   const [filters, setFilters] = useState<VoyageFiltersType>({});
@@ -76,7 +77,14 @@ export default function VoyagesPageClient() {
       setIsCreateModalOpen(false);
       toast.success("Voyage créé avec succès !");
     } catch (error) {
-      toast.error("Erreur lors de la création du voyage");
+      const apiError = error as ApiError;
+      if (apiError.error === 'QUOTA_EXCEEDED') {
+        toast.error(apiError.message, {
+          action: { label: 'Voir les plans', href: ROUTES.SUBSCRIPTION },
+        });
+      } else {
+        toast.error("Erreur lors de la création du voyage");
+      }
       logger.error(error);
     }
   };

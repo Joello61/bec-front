@@ -10,9 +10,10 @@ import ExploreFiltersDrawer from '@/components/explore/ExploreFiltersDrawer';
 import { DemandeForm } from '@/components/forms';
 import { Button, Modal } from '@/components/ui';
 import { useAuth, useDemandeActions, useUserDemandes } from '@/lib/hooks';
+import { ROUTES } from '@/lib/utils/constants';
 import { logger } from '@/lib/utils/logger';
 import { CreateDemandeFormData } from '@/lib/validations';
-import type { Demande, DemandeFilters as DemandeFiltersType } from '@/types';
+import type { ApiError, Demande, DemandeFilters as DemandeFiltersType } from '@/types';
 
 export default function DemandesPageClient() {
   const [filters, setFilters] = useState<DemandeFiltersType>({});
@@ -67,7 +68,14 @@ export default function DemandesPageClient() {
       setIsCreateModalOpen(false);
       toast.success('Demande créée avec succès !');
     } catch (error) {
-      toast.error('Erreur lors de la création de la demande');
+      const apiError = error as ApiError;
+      if (apiError.error === 'QUOTA_EXCEEDED') {
+        toast.error(apiError.message, {
+          action: { label: 'Voir les plans', href: ROUTES.SUBSCRIPTION },
+        });
+      } else {
+        toast.error('Erreur lors de la création de la demande');
+      }
       logger.error(error);
     }
   };
