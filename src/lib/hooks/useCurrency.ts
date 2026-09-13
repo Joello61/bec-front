@@ -60,18 +60,26 @@ export function useCurrency() {
  * Hook pour obtenir uniquement la devise de l'utilisateur
  */
 export function useUserCurrency() {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const userSettings = useSettingsStore((state) => state.settings);
   const fetchSettings = useSettingsStore((state) => state.fetchSettings);
   const defaultCurrency = useCurrencyStore((state) => state.defaultCurrency);
 
   const isLoading = useSettingsStore((state) => state.isLoading);
+  const error = useSettingsStore((state) => state.error);
 
-  // Charger les settings si absents
+  /**
+   * GET /api/settings exige une authentification (403 sinon) - un visiteur non
+   * connecte (page pricing publique, Lot N2) doit rester sur defaultCurrency sans
+   * jamais appeler cet endpoint. Le garde sur `error` evite par ailleurs une boucle
+   * de re-fetch infinie : sans lui, un echec remet isLoading a false, ce qui
+   * re-declenchait aussitot un nouvel appel (settings toujours null) a chaque rendu.
+   */
   useEffect(() => {
-    if (!userSettings && !isLoading) {
-      fetchSettings(); // appel API une seule fois
+    if (isAuthenticated && !userSettings && !isLoading && !error) {
+      fetchSettings();
     }
-  }, [userSettings, isLoading, fetchSettings]);
+  }, [isAuthenticated, userSettings, isLoading, error, fetchSettings]);
 
   // Déterminer la devise finale
   const userCurrency = userSettings?.devise ?? defaultCurrency;
