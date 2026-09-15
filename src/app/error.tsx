@@ -1,5 +1,6 @@
 'use client'
 
+import { faro } from '@grafana/faro-web-sdk'
 import { motion } from 'framer-motion'
 import { AlertTriangle, ArrowLeft, Home, RefreshCw } from 'lucide-react'
 import { useEffect } from 'react'
@@ -16,6 +17,9 @@ export default function Error({
   useEffect(() => {
     // Log l'erreur pour le monitoring
     logger.error('Error caught by error boundary:', error)
+    // faro.api est absent si NEXT_PUBLIC_FARO_URL n'est pas configure
+    // (instrumentation-client.ts) - jamais une erreur bloquante dans ce cas.
+    faro.api?.pushError(error)
   }, [error])
 
   return (

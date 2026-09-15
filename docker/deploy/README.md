@@ -46,6 +46,8 @@ secrets :
 | `NEXT_PUBLIC_APP_SHORT_NAME` | nom court (PWA) | les deux builds |
 | `PROD_GA_ID` | ID Google Analytics | build-production uniquement |
 | `PROD_ADSENSE_ID` | ID AdSense (`pub-...`) | build-production uniquement |
+| `FARO_URL` | URL du récepteur Grafana Faro partagé (`https://faro.joeltech.fr/collect`) | les deux builds |
+| `FARO_API_KEY` | Clé d'application Faro - non confidentielle (inlinée dans le bundle client comme GA_ID/ADSENSE_ID), sert uniquement de frein à l'abus côté récepteur | les deux builds |
 
 **`STAGING_R2_PUBLIC_URL`/`PROD_R2_PUBLIC_URL` en deux variables distinctes (pas une
 seule `R2_PUBLIC_URL` partagée), piège réel corrigé (2026-09-09)** : si staging et
@@ -100,7 +102,7 @@ ou `staging-<sha>`, onglet "Packages" du dépôt), en relançant manuellement
 
 ## Vérification avant le tout premier déploiement réel
 
-- [ ] Les 8 Repository Variables ci-dessus créées.
+- [ ] Les 10 Repository Variables ci-dessus créées.
 - [ ] Environnements `staging`/`cobage-production` créés avec leurs 4 secrets chacun, "Required reviewers" actif sur `cobage-production` uniquement (jamais sur `Production`, l'environnement Vercel préexistant).
 - [ ] DNS de `STAGING_PUBLIC_DOMAIN` et `PROD_PUBLIC_DOMAIN` propagés avant le premier déploiement de chaque environnement (sans quoi les URLs SEO/canoniques générées au build pointeraient vers un domaine non résolvable).
 - [ ] `docker login ghcr.io` déjà fait sur le serveur (partagé avec le pipeline backend si même utilisateur).
