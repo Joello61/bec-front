@@ -10,6 +10,11 @@ const mercureOrigin = new URL(
 // définie (aucune image R2 réelle en local, où le disque local sert déjà les avatars).
 const r2PublicUrl = process.env.R2_PUBLIC_URL || 'https://example.r2.dev';
 const r2Hostname = new URL(r2PublicUrl).hostname;
+// Recepteur Grafana Faro (monitoring d'erreurs frontend, socle observabilite partage du
+// VPS) - meme patron dev-safe fallback que apiOrigin/mercureOrigin ci-dessus.
+const faroOrigin = new URL(
+  process.env.NEXT_PUBLIC_FARO_URL || 'http://localhost:12347/collect'
+).origin;
 
 // next dev --turbopack (bec-infra/docker-compose.yml, service "frontend", target: dev)
 // injecte ses propres scripts inline (runtime Fast Refresh/HMR, overlay d'erreurs) en plus
@@ -51,7 +56,7 @@ const cspHeader = `
   style-src 'self' 'unsafe-inline';
   img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.googlesyndication.com https://*.g.doubleclick.net https://*.adtrafficquality.google;
   font-src 'self';
-  connect-src 'self' https://www.google-analytics.com https://*.googlesyndication.com https://*.adtrafficquality.google ${apiOrigin} ${mercureOrigin};
+  connect-src 'self' https://www.google-analytics.com https://*.googlesyndication.com https://*.adtrafficquality.google ${apiOrigin} ${mercureOrigin} ${faroOrigin};
   frame-src https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.adtrafficquality.google;
   object-src 'none';
   base-uri 'self';

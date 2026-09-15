@@ -1,20 +1,29 @@
 'use client';
 
+import { faro } from '@grafana/faro-web-sdk';
+import { useEffect } from 'react';
+
 /**
  * Global error boundary racine (segment /_global-error). Doit definir son propre document
  * complet (html/body) et ne peut dependre d'aucun provider du layout racine (contexte non
  * disponible ici) ni des styles globaux (non charges pour ce segment) - cf. doc officielle
- * Next.js. Volontairement minimal et sans dependance (pas de Tailwind, pas de framer-motion) :
- * Next.js 16.x genere sinon son propre gabarit de secours en son absence, qui plante de facon
- * connue au build (vercel/next.js#86178, #95741 - regression confirmee, sans correctif upstream
- * a ce jour) en tentant d'acceder a un contexte React absent a ce niveau.
+ * Next.js. Volontairement minimal et sans dependance visuelle (pas de Tailwind, pas de
+ * framer-motion) : Next.js 16.x genere sinon son propre gabarit de secours en son absence,
+ * qui plante de facon connue au build (vercel/next.js#86178, #95741 - regression confirmee,
+ * sans correctif upstream a ce jour) en tentant d'acceder a un contexte React absent a ce
+ * niveau. @grafana/faro-web-sdk n'est pas concerne (aucun rendu, juste un appel API).
  */
 export default function GlobalError({
+  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    faro.api?.pushError(error);
+  }, [error]);
+
   return (
     <html lang="fr">
       <body
