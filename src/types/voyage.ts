@@ -1,11 +1,11 @@
 import type { ConvertedAmount } from './currency'; // <- AJOUT
-import type { User } from './user';
+import type { PublicUser } from './user';
 
 export type VoyageStatut = 'actif' | 'complete' | 'en_cours' | 'annule' | 'expire';
 
 export interface Voyage {
   id: number;
-  voyageur: User;
+  voyageur: PublicUser;
   villeDepart: string;
   villeArrivee: string;
   dateDepart: string;

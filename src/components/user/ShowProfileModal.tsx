@@ -2,14 +2,14 @@
 
 import { Check } from 'lucide-react';
 
-import { User } from '@/types';
+import { PublicUser } from '@/types';
 
 import { Avatar, Modal } from '../ui';
 
 export interface ShowProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user: User | null;
+  user: PublicUser | null;
 }
 
 function InfoRow({ label, value }: { label: string; value?: string | null }) {
@@ -50,7 +50,7 @@ export default function ShowProfileModal({
             <h3 className="text-xl font-semibold text-gray-900">
               {user.prenom} {user.nom}
             </h3>
-            <p className="text-sm text-gray-500">{user.email}</p>
+            {user.email && <p className="text-sm text-gray-500">{user.email}</p>}
           </div>
         </div>
 

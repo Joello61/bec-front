@@ -1,11 +1,11 @@
 import type { ConvertedAmount } from './currency'; // <- AJOUT
-import type { User } from './user';
+import type { PublicUser } from './user';
 
 export type DemandeStatut = 'en_recherche' | 'voyageur_trouve' | 'annulee' | 'expiree';
 
 export interface Demande {
   id: number;
-  client: User;
+  client: PublicUser;
   villeDepart: string;
   villeArrivee: string;
   dateLimite: string;
