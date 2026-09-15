@@ -20,13 +20,22 @@ export interface User {
   banReason?: string | null;
   bannedBy?: User | null;
   noteAvisMoyen: number | null;
-  
+
   // ==================== RELATION ADRESSE ====================
   address: Address | null;
-  
+
   // Helper pour savoir si le profil est complet
   isProfileComplete?: boolean;
 }
+
+/**
+ * Vue de User telle qu'imbriquee dans Voyage.voyageur/Demande.client (Partie E point 15,
+ * plan-complements-monetisation-cobage.md) - email n'y est jamais garanti : le backend ne
+ * l'injecte qu'apres verification de visibilite (VisibilityService::injectContactIfVisible(),
+ * groupes de serialisation voyage:read/demande:read n'incluant pas email par defaut,
+ * contrairement a user:read pour son propre profil).
+ */
+export type PublicUser = Omit<User, 'email'> & { email?: string };
 
 // ==================== REGISTER INPUT (inchangé) ====================
 export interface RegisterInput {
